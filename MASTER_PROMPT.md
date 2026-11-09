@@ -85,12 +85,12 @@ Cada módulo de simulación es independiente y sigue el mismo contrato. Añadir 
 ### 3.2 Contrato de un módulo
 
 ```ts
-interface SimulationModule<TCase, TAnswer, TResult> {
-  id: string;                       // "backlog", "metric-drop"…
-  name: string;
-  skills: Skill[];                  // "execution" | "analytics" | "product_sense" | "communication" | "strategy"
-  caseSchema: z.ZodType<TCase>;
+interface SimulationModule<TCase, TPublicCase, TAnswer, TResult> {
+  meta: ModuleMeta;                 // id, name, tagline, description, skills, status, icon (seguro para el cliente)
+  caseSchema: z.ZodType<TCase>;             // caso completo, con `hidden`
+  publicCaseSchema: z.ZodType<TPublicCase>; // lo que ve el cliente antes de enviar
   answerSchema: z.ZodType<TAnswer>;
+  toPublicCase(caseData: TCase): TPublicCase;         // quita `hidden` a cualquier profundidad
   score(caseData: TCase, answer: TAnswer): TResult;   // determinista y puro
   feedbackRubric: string;           // rúbrica fija que usa el LLM
 }
@@ -110,7 +110,8 @@ interface BaseCase {
 ### 3.3 Principios de evaluación
 
 - **Ground truth oculto:** cada caso guarda la solución (causa real, tickets trampa, priorización óptima). El cliente solo recibe la versión sin `hidden` hasta que el usuario envía su respuesta.
-- **Nota = parte determinista + feedback IA.** La parte determinista (0-100) es la nota oficial. La IA aporta comentarios cualitativos con una rúbrica fija, salida en JSON validada con Zod y temperatura baja.
+- **Nota = parte determinista + feedback IA.** La parte determinista (0-100) es la nota oficial. La IA aporta comentarios cualitativos con una rúbrica fija, salida en JSON restringida por esquema y validada con Zod (un reintento si falla). No se usa `temperature`: los modelos actuales lo rechazan; la profundidad se controla con `effort`.
+- **Casos y scoring en servidor desde la Fase 1** (decisión del Hito 1.1): los casos solo se leen desde módulos `server-only`, la nota se calcula en la Server Action `submitAttempt` y el caso completo se devuelve solo tras enviar. El navegador guarda respuesta y nota en `localStorage`; la solución se recupera volviendo a puntuar la respuesta guardada.
 - **Desglose siempre visible:** el usuario ve por qué ha sacado esa nota, criterio a criterio.
 
 ---
