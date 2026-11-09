@@ -32,9 +32,11 @@ describe("module catalog", () => {
   });
 
   it("only marks a module as available once it is registered on the server", () => {
+    // A registered module may still be in development while its UI is built.
     const registered = new Set(moduleRegistry.list().map((m) => m.meta.id));
     for (const meta of moduleCatalog) {
-      expect(meta.status === "available").toBe(registered.has(meta.id));
+      if (meta.status === "available") expect(registered).toContain(meta.id);
+      if (registered.has(meta.id)) expect(meta.status).not.toBe("coming_soon");
     }
   });
 

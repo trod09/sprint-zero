@@ -1,0 +1,1142 @@
+{
+  "id": "backlog-consumer-02",
+  "moduleId": "backlog",
+  "seed": 1402,
+  "difficulty": "senior",
+  "company": {
+    "name": "Parla",
+    "industry": "Consumer",
+    "stage": "Series B",
+    "description": "Language learning app built around ten-minute speaking sessions, with a free tier and a paid subscription."
+  },
+  "title": "Parla: growth at any cost?",
+  "brief": "Parla has two million installs and a retention problem. The board wants growth, the CEO has seen what competitors launched, and partnerships has three companies asking for custom versions. Buried in the backlog are a few tickets that look like housekeeping and are not. Plan the sprint, and be ready to replan it.",
+  "hidden": {
+    "keyInsight": "Of the 39 tickets, 12 are traps and 3 critical problems are filed as minor. The best sprint delivers 1303 points of value with 20 tickets, using 57 of 57 story points.",
+    "principle": "Tech debt is paid in capacity, and risk is paid all at once. Know which dull tickets buy time and which prevent a disaster."
+  },
+  "sprintCapacity": 57,
+  "sprintLengthWeeks": 2,
+  "teamSize": 7,
+  "activeUsers": 740000,
+  "stakeholders": [
+    {
+      "id": "ceo",
+      "name": "Kofi",
+      "role": "CEO and co-founder",
+      "priorities": [
+        "Hit the growth number promised to the board",
+        "Have something impressive to show investors",
+        "No public incidents"
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Leila",
+      "role": "Head of Partnerships",
+      "priorities": [
+        "Sign the corporate partners in the pipeline",
+        "Give partners what they ask for",
+        "Revenue beyond individual subscriptions"
+      ]
+    },
+    {
+      "id": "support",
+      "name": "Jonas",
+      "role": "Support Lead",
+      "priorities": [
+        "Fewer repeat tickets",
+        "Fix what customers complain about every day",
+        "Shorter resolution times"
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Ingrid",
+      "role": "Engineering Manager",
+      "priorities": [
+        "A stable platform",
+        "Time to pay down tech debt",
+        "No last-minute scope changes"
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Priya",
+      "role": "Lead Product Designer",
+      "priorities": [
+        "Fix the first-run experience",
+        "A coherent, usable product",
+        "Ship fewer, better things"
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Andrés",
+      "role": "Head of Marketing",
+      "priorities": [
+        "More signups from the same traffic",
+        "A launch to talk about every month",
+        "A polished brand"
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "Omar",
+      "role": "Growth Lead",
+      "priorities": [
+        "Activation and day-7 retention",
+        "Trial-to-paid conversion",
+        "Experiments backed by data"
+      ]
+    }
+  ],
+  "baselineMetrics": {
+    "activation": 44,
+    "retention": 13,
+    "nps": 36,
+    "revenue": 930000,
+    "techDebt": 63
+  },
+  "tickets": [
+    {
+      "id": "PRL-271",
+      "title": "Social feed so users can follow each other",
+      "description": "Community is our moat. Users should be able to follow friends, like their activity and comment.",
+      "type": "feature",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Community is our moat."
+      },
+      "hidden": {
+        "trueValue": 16,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.2,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A slogan instead of evidence. Nobody has checked whether users know anyone else on the app, and a feed brings moderation costs forever."
+      }
+    },
+    {
+      "id": "PRL-275",
+      "title": "Smartwatch app",
+      "description": "Lots of our users must own a smartwatch. A companion app would keep us on their wrist.",
+      "type": "feature",
+      "requester": "Design – Priya",
+      "stakeholderId": "design",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Lots of our users must own one."
+      },
+      "hidden": {
+        "trueValue": 18,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.3,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "'Must own' is a guess. Device data from analytics would settle it in an hour, before an 8-point build."
+      }
+    },
+    {
+      "id": "PRL-276",
+      "title": "Replace 'Something went wrong' with actionable errors",
+      "description": "Every failure shows the same generic message. Users cannot tell whether to retry, fix their input or contact us.",
+      "type": "bug",
+      "requester": "Design – Priya",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 83
+      },
+      "hidden": {
+        "trueValue": 41,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.3,
+          "revenue": 0
+        },
+        "explanation": "Reduces confusion and some tickets, but it spreads thin across many small cases."
+      }
+    },
+    {
+      "id": "PRL-280",
+      "title": "Main menu covers the content on small phones",
+      "description": "On screens narrower than 360px the menu stays open over the page. Users have to rotate the phone to reach the primary button.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 2,
+      "visible": {
+        "reach": 47000,
+        "supportTickets": 45
+      },
+      "hidden": {
+        "trueValue": 51,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.6,
+          "retention": 0,
+          "nps": 0.7,
+          "revenue": 0
+        },
+        "explanation": "Blocks a core action for a meaningful share of mobile users, and it is quick to fix."
+      }
+    },
+    {
+      "id": "PRL-282",
+      "title": "Native tablet app",
+      "description": "I am sure a lot of our users would love us on a tablet. A founder friend with a similar product says tablets are huge for them.",
+      "type": "feature",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "A founder friend says tablets are huge for them."
+      },
+      "hidden": {
+        "trueValue": 15,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.2,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A hunch and one anecdote. Nobody has checked how much traffic comes from tablets; that check takes an afternoon and comes before a 13-point build."
+      }
+    },
+    {
+      "id": "PRL-285",
+      "title": "Fix the flaky test suite",
+      "description": "One in three CI runs fails for no reason and is simply re-run. Engineers estimate half a day lost per person every week.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Roughly 10% of engineering time is lost to re-runs."
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -5,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "It moves no product metric, yet it hands back capacity in every future sprint. It pays for itself within two."
+      }
+    },
+    {
+      "id": "PRL-289",
+      "title": "Replace blank screens with helpful empty states",
+      "description": "Seven screens show nothing at all until the user creates data. Each should explain what goes there and offer the next step.",
+      "type": "feature",
+      "requester": "Design – Priya",
+      "stakeholderId": "design",
+      "effort": 3,
+      "visible": {},
+      "hidden": {
+        "trueValue": 41,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Useful polish for first-time users, with a modest effect on its own."
+      }
+    },
+    {
+      "id": "PRL-292",
+      "title": "Card update form fails silently on expired cards",
+      "description": "When a customer replaces an expired card, the form closes without saving and shows no error. The next renewal fails and the account is suspended.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Failed renewals are up 40% this quarter.",
+        "supportTickets": 67,
+        "revenueAtRisk": 320000
+      },
+      "hidden": {
+        "trueValue": 80,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 0,
+          "revenue": 6110
+        },
+        "explanation": "Customers who want to keep paying are being churned by a bug. Very high return for a small fix."
+      }
+    },
+    {
+      "id": "PRL-295",
+      "title": "Help links in the app point to deleted articles",
+      "description": "After the help centre migration, eleven in-app links lead to a 404 page.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 1,
+      "visible": {
+        "supportTickets": 5
+      },
+      "hidden": {
+        "trueValue": 31,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Small value, but almost free. A good filler when one point is left."
+      }
+    },
+    {
+      "id": "PRL-296",
+      "title": "Rewrite the pricing page before the price change",
+      "description": "New prices go live on the 1st. The current page still describes the old plans and would show wrong numbers at checkout.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 2,
+      "visible": {
+        "impactHint": "The new prices go live either way."
+      },
+      "hidden": {
+        "trueValue": 62,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 8920
+        },
+        "explanation": "Not every CEO request is a trap. This one has a fixed date and a concrete cost if it slips: customers shown the wrong price."
+      }
+    },
+    {
+      "id": "PRL-297",
+      "title": "Exclusive content pack for Solstice Hotels",
+      "description": "Solstice Hotels asks for a set of content made to its guidelines and visible only to people who join through its link.",
+      "type": "sales_request",
+      "requester": "Partnerships – Leila",
+      "stakeholderId": "sales",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Solstice Hotels would promote us to its members.",
+        "revenueAtRisk": 310000
+      },
+      "hidden": {
+        "trueValue": 15,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 3,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 2410
+        },
+        "explanation": "Custom content gated for one partner, paid for with a promise of promotion. No commitment, no reuse."
+      }
+    },
+    {
+      "id": "PRL-301",
+      "title": "App crashes on launch on older Android versions",
+      "description": "Since the last update the app closes immediately on Android 11 and below. Users cannot get past the splash screen.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 47000,
+        "impactHint": "9% of Android users are on those versions.",
+        "supportTickets": 195
+      },
+      "hidden": {
+        "trueValue": 72,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 1.1,
+          "revenue": 0
+        },
+        "explanation": "A whole segment of paying users is locked out. Close to critical, and not expensive."
+      }
+    },
+    {
+      "id": "PRL-302",
+      "title": "AI assistant on the home screen",
+      "description": "Every competitor announced an AI feature this quarter. We need a chat assistant on the home screen before the conference so there is something to demo.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 8,
+      "visible": {
+        "reach": 410000,
+        "impactHint": "The board asked what our AI story is."
+      },
+      "hidden": {
+        "trueValue": 14,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Built for a demo, not for a user problem. No use case, no success metric, and a lot of cost and debt."
+      }
+    },
+    {
+      "id": "PRL-306",
+      "title": "Password reset emails arrive more than 10 minutes late",
+      "description": "Reset emails sit in a low-priority queue behind marketing sends. Users request the email several times, then write to support or give up.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 110000,
+        "supportTickets": 296
+      },
+      "hidden": {
+        "trueValue": 62,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 1,
+          "revenue": 0
+        },
+        "explanation": "A cheap fix for one of the top support drivers. Users who cannot log in do not complain for long: they leave."
+      }
+    },
+    {
+      "id": "PRL-310",
+      "title": "Let users choose which emails they receive",
+      "description": "Today it is all or nothing. Users who find one notification noisy unsubscribe from everything, including the emails that bring them back.",
+      "type": "feature",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 73
+      },
+      "hidden": {
+        "trueValue": 42,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.3,
+          "nps": 0.6,
+          "revenue": 0
+        },
+        "explanation": "Protects the re-engagement channel, but the effect is indirect and gradual. Worth doing when there is room."
+      }
+    },
+    {
+      "id": "PRL-311",
+      "title": "Cut cold start from 4.8 seconds to under 2",
+      "description": "The app loads all content before showing the first screen. On mid-range phones users look at a logo for five seconds.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 300000,
+        "impactHint": "Each extra second of startup costs about 3% of sessions."
+      },
+      "hidden": {
+        "trueValue": 59,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0.8,
+          "retention": 0.5,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Every session of every user starts here, and the cost of slowness is measured."
+      }
+    },
+    {
+      "id": "PRL-314",
+      "title": "Shorten onboarding from eleven screens to five",
+      "description": "New users answer eleven questions before seeing the product. The drop is steepest on screens six to eight, which ask for things we never use.",
+      "type": "feature",
+      "requester": "Growth – Omar",
+      "stakeholderId": "growth",
+      "effort": 3,
+      "visible": {
+        "reach": 260000,
+        "impactHint": "Only 46% of installs finish onboarding."
+      },
+      "hidden": {
+        "trueValue": 73,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.6,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "More than half of installs never reach the product. Removing unused questions is cheap and hits the top of the funnel."
+      }
+    },
+    {
+      "id": "PRL-315",
+      "title": "Upgrade the web framework two major versions",
+      "description": "The current version leaves security support in nine months. The upgrade touches every page and needs a full regression pass.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Security support ends in 9 months."
+      },
+      "hidden": {
+        "trueValue": 32,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -11,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Necessary, not urgent: there are nine months of runway and it would eat most of a sprint. Plan it, do not squeeze it in."
+      }
+    },
+    {
+      "id": "PRL-317",
+      "title": "Private group space for Greyfield Energy's staff benefits programme",
+      "description": "Greyfield Energy wants a closed area where only its staff can see each other's activity, with admin reports for its HR team.",
+      "type": "sales_request",
+      "requester": "Partnerships – Leila",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Greyfield Energy wants to launch in a month.",
+        "revenueAtRisk": 200000
+      },
+      "hidden": {
+        "trueValue": 21,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 3630
+        },
+        "explanation": "A B2B feature set bolted onto a consumer app for one deal. It serves none of the subscribers who pay today."
+      }
+    },
+    {
+      "id": "PRL-319",
+      "title": "A few users charged before the free trial ended",
+      "description": "Six tickets this month say 'I was charged on day 5 of a 7-day trial'. Support refunded them. Maybe a time zone issue.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 8
+      },
+      "hidden": {
+        "trueValue": 96,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.3,
+          "revenue": 7160
+        },
+        "explanation": "Charging before the promised date is a billing violation. Six people wrote in; many more were charged and went to their bank or the store instead."
+      }
+    },
+    {
+      "id": "PRL-320",
+      "title": "Move content to a CMS",
+      "description": "Changing a sentence in the app requires a release and a store review. The content team waits a week for typo fixes.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Copy changes take a week to reach users."
+      },
+      "hidden": {
+        "trueValue": 51,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Unblocks the content team and reduces releases. Worth doing, without urgency."
+      }
+    },
+    {
+      "id": "PRL-321",
+      "title": "Search: typo tolerance and recent items",
+      "description": "Search only matches exact words. One in five queries returns nothing, and most of those are misspellings of things that exist.",
+      "type": "feature",
+      "requester": "Design – Priya",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "reach": 100000,
+        "impactHint": "21% of searches return zero results."
+      },
+      "hidden": {
+        "trueValue": 46,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A real, measured friction for regular users. Solid mid-value work, though not cheap."
+      }
+    },
+    {
+      "id": "PRL-323",
+      "title": "Weekly summary email",
+      "description": "A short email every Monday with what happened in the account and one suggested action.",
+      "type": "feature",
+      "requester": "Marketing – Andrés",
+      "stakeholderId": "marketing",
+      "effort": 5,
+      "visible": {
+        "reach": 470000,
+        "impactHint": "Our re-engagement emails get a 31% open rate."
+      },
+      "hidden": {
+        "trueValue": 47,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A reasonable retention lever built on a channel that already works."
+      }
+    },
+    {
+      "id": "PRL-325",
+      "title": "Apply the new brand colours across the whole app",
+      "description": "The rebrand launched on the website last month. The app still uses the old palette on about 60 screens.",
+      "type": "feature",
+      "requester": "Marketing – Andrés",
+      "stakeholderId": "marketing",
+      "effort": 8,
+      "visible": {
+        "reach": 400000,
+        "impactHint": "Users see two different brands."
+      },
+      "hidden": {
+        "trueValue": 16,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Everyone sees it and nobody behaves differently because of it. It can ride along with other UI work over time."
+      }
+    },
+    {
+      "id": "PRL-327",
+      "title": "Nightly backup job finishes with warnings",
+      "description": "The backup job has logged warnings for three weeks. Nobody has tested a restore since the storage migration.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 2,
+      "visible": {},
+      "hidden": {
+        "trueValue": 92,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": -2,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Three weeks of unverified backups means one bad deploy away from permanent data loss. It looks like housekeeping and is not."
+      }
+    },
+    {
+      "id": "PRL-330",
+      "title": "Alerting on error rates and queue depth",
+      "description": "Today the team learns about incidents from customer emails. Basic alerts would cut detection time from hours to minutes.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Last incident went unnoticed for 3 hours."
+      },
+      "hidden": {
+        "trueValue": 62,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.8,
+          "revenue": 0
+        },
+        "explanation": "Every future incident gets shorter. High leverage for a few points."
+      }
+    },
+    {
+      "id": "PRL-334",
+      "title": "Cut deploy time from 50 minutes to 10",
+      "description": "A deploy blocks the pipeline for almost an hour, so fixes are batched and hotfixes are slow.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 8,
+      "visible": {
+        "impactHint": "The team deploys twice a week instead of daily."
+      },
+      "hidden": {
+        "trueValue": 41,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Speeds up every release and every hotfix. Good value, but not a small job."
+      }
+    },
+    {
+      "id": "PRL-338",
+      "title": "Scheduled items fire at the wrong hour outside UTC",
+      "description": "Anything scheduled is stored without a time zone. Users in other zones get reminders and reports hours early or late.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 110000,
+        "supportTickets": 68
+      },
+      "hidden": {
+        "trueValue": 61,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "A correctness bug in a feature people rely on, affecting everyone outside one time zone. Cheap to fix."
+      }
+    },
+    {
+      "id": "PRL-341",
+      "title": "Ask for notification permission after the first goal is set",
+      "description": "The system permission prompt appears on the first screen, with no explanation. Most people tap 'Don't allow' and can never be reminded.",
+      "type": "feature",
+      "requester": "Design – Priya",
+      "stakeholderId": "design",
+      "effort": 2,
+      "visible": {
+        "impactHint": "Opt-in rate is 31%; comparable apps reach 50%."
+      },
+      "hidden": {
+        "trueValue": 51,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Notifications are the main way back into the app. Moving one prompt recovers a channel lost for most users."
+      }
+    },
+    {
+      "id": "PRL-343",
+      "title": "Co-branded version of the app for Castellan Foods",
+      "description": "Castellan Foods wants to offer the app to its employees with its own logo, colours and a custom welcome flow.",
+      "type": "sales_request",
+      "requester": "Partnerships – Leila",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Castellan Foods has 8,000 employees.",
+        "revenueAtRisk": 650000
+      },
+      "hidden": {
+        "trueValue": 17,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 10,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 2650
+        },
+        "explanation": "A second app to maintain for one partner. Headcount is not usage: a discount code gives them the same benefit with no build."
+      }
+    },
+    {
+      "id": "PRL-346",
+      "title": "Navigation is unusable on narrow screens",
+      "description": "On the smallest phones the open menu sits on top of the page and hides the main button. Found during the last design review.",
+      "type": "bug",
+      "requester": "Design – Priya",
+      "stakeholderId": "design",
+      "effort": 3,
+      "visible": {
+        "reach": 72000
+      },
+      "hidden": {
+        "trueValue": 51,
+        "trap": "duplicate",
+        "duplicateOf": "PRL-280",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.6,
+          "retention": 0,
+          "nps": 0.7,
+          "revenue": 0
+        },
+        "explanation": "Same work as PRL-280 (\"Main menu covers the content on small phones\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "PRL-350",
+      "title": "Signup accepts birth years that make users under 13",
+      "description": "Analytics shows about 2% of new accounts enter a birth year after 2013. We do not do anything with the field.",
+      "type": "bug",
+      "requester": "Growth – Omar",
+      "stakeholderId": "growth",
+      "effort": 3,
+      "visible": {
+        "reach": 19000
+      },
+      "hidden": {
+        "trueValue": 87,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Knowingly collecting data from children without parental consent breaks child privacy law. The penalty is fines and removal from the stores."
+      }
+    },
+    {
+      "id": "PRL-351",
+      "title": "Offer an annual plan at checkout",
+      "description": "Only the monthly plan is sold. An annual option at a discount would lock in the users most likely to stay.",
+      "type": "feature",
+      "requester": "Growth – Omar",
+      "stakeholderId": "growth",
+      "effort": 2,
+      "visible": {
+        "impactHint": "Monthly subscribers churn at 9% a month."
+      },
+      "hidden": {
+        "trueValue": 57,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0,
+          "revenue": 4850
+        },
+        "explanation": "With 9% monthly churn, an annual plan changes the economics of every subscriber who takes it. Small build."
+      }
+    },
+    {
+      "id": "PRL-353",
+      "title": "Android sessions ending within two seconds of launch",
+      "description": "Dashboards show a block of Android sessions that end almost as soon as they start, all from older devices. Something fails at startup for them.",
+      "type": "bug",
+      "requester": "Growth – Omar",
+      "stakeholderId": "growth",
+      "effort": 5,
+      "visible": {
+        "reach": 110000
+      },
+      "hidden": {
+        "trueValue": 72,
+        "trap": "duplicate",
+        "duplicateOf": "PRL-301",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 1.1,
+          "revenue": 0
+        },
+        "explanation": "Same work as PRL-301 (\"App crashes on launch on older Android versions\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "PRL-355",
+      "title": "3D avatars users can dress up",
+      "description": "Let every user create an avatar and unlock outfits. Younger users love this kind of thing.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Younger users love this kind of thing."
+      },
+      "hidden": {
+        "trueValue": 7,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A generalisation about an age group, not a need of our users. Enormous build with no link to why people subscribe."
+      }
+    },
+    {
+      "id": "PRL-357",
+      "title": "App store requirement: update the SDK by the 28th or be removed from sale",
+      "description": "The store sent a final notice. Apps built with the old SDK are removed from search and cannot be updated after the 28th.",
+      "type": "tech_debt",
+      "requester": "Eng – Ingrid",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 420000,
+        "impactHint": "Final notice: the 28th."
+      },
+      "hidden": {
+        "trueValue": 90,
+        "trap": "none",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 2.1,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "After the date there are no new installs and no way to ship fixes. An external deadline that ends the business if missed."
+      }
+    },
+    {
+      "id": "PRL-361",
+      "title": "We find out about outages from customers",
+      "description": "Support learns that something is down when tickets pile up, then tells engineering. The system should warn engineering first.",
+      "type": "tech_debt",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Three incidents this quarter were reported by customers."
+      },
+      "hidden": {
+        "trueValue": 62,
+        "trap": "duplicate",
+        "duplicateOf": "PRL-330",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.8,
+          "revenue": 0
+        },
+        "explanation": "Same work as PRL-330 (\"Alerting on error rates and queue depth\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "PRL-362",
+      "title": "Let users choose their reminder time",
+      "description": "Reminders go out at 9:00 for everyone. People who are busy at that hour mute them within days.",
+      "type": "feature",
+      "requester": "Growth – Omar",
+      "stakeholderId": "growth",
+      "effort": 2,
+      "visible": {
+        "impactHint": "40% of users mute reminders within a week."
+      },
+      "hidden": {
+        "trueValue": 57,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A reminder at the wrong time is noise. A small setting keeps the main retention channel alive."
+      }
+    },
+    {
+      "id": "PRL-366",
+      "title": "'Restore purchases' fails after reinstalling",
+      "description": "Subscribers who change phone or reinstall are asked to pay again. Restore does nothing for accounts created with email.",
+      "type": "bug",
+      "requester": "Support – Jonas",
+      "stakeholderId": "support",
+      "effort": 2,
+      "visible": {
+        "supportTickets": 318
+      },
+      "hidden": {
+        "trueValue": 65,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1,
+          "revenue": 5560
+        },
+        "explanation": "Paying customers are denied what they bought. Each case is a refund, a bad review or both."
+      }
+    }
+  ],
+  "midSprintEvents": [
+    {
+      "id": "event-1",
+      "type": "dev_unavailable",
+      "title": "Tomás is out for the rest of the sprint",
+      "description": "Tomás, one of the senior engineers, is on unexpected leave from today. Their work in progress has to be picked up by the rest of the team.",
+      "capacityDelta": -13,
+      "hidden": {
+        "guidance": "Capacity dropped, so scope has to drop with it. Cut the lowest-value work and protect the critical tickets. Asking the team to absorb the difference is how sprints fail quietly."
+      }
+    },
+    {
+      "id": "event-2",
+      "type": "sales_promise",
+      "title": "Leila promised Pinnacle Freight a custom data feed by the end of the sprint",
+      "description": "On a call yesterday Leila told Pinnacle Freight they would have a nightly data feed in their own format before the sprint ends. The contract is not signed yet. Leila says the deal depends on it.",
+      "capacityDelta": 0,
+      "addedTicket": {
+        "id": "PRL-367",
+        "title": "Nightly data feed in Pinnacle Freight's format",
+        "description": "Build a nightly export to Pinnacle Freight's file server, in the column layout and naming they specified.",
+        "type": "sales_request",
+        "requester": "Partnerships – Leila",
+        "stakeholderId": "sales",
+        "effort": 8,
+        "visible": {
+          "impactHint": "Promised to Pinnacle Freight for the end of this sprint.",
+          "revenueAtRisk": 940000
+        },
+        "hidden": {
+          "trueValue": 24,
+          "trap": "single_customer",
+          "critical": false,
+          "debtImpact": 4,
+          "metricEffects": {
+            "activation": 0,
+            "retention": 0,
+            "nps": 0,
+            "revenue": 4420
+          },
+          "explanation": "A bespoke feed for an account that has not signed. The promise was made without the team, and a standard export covers what they need."
+        }
+      },
+      "hidden": {
+        "guidance": "A promise made without the team is the start of a negotiation, not a commitment. Find out what the customer actually needs and offer the standard option or a later date. Do not trade work that helps everyone for one unsigned deal."
+      }
+    }
+  ]
+}

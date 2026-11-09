@@ -1,0 +1,620 @@
+{
+  "id": "backlog-marketplace-01",
+  "moduleId": "backlog",
+  "seed": 1201,
+  "difficulty": "apm",
+  "company": {
+    "name": "Loopcart",
+    "industry": "Marketplace",
+    "stage": "Series A",
+    "description": "Marketplace for refurbished phones, laptops and consoles, sold by vetted refurbishers with a one-year warranty."
+  },
+  "title": "Loopcart: more buyers than listings",
+  "brief": "Loopcart's traffic is up after a TV mention, but conversion is flat: buyers search, do not find what they want and leave. Sellers complain that listing an item takes too long and that they never know when they will be paid. Plan a two-week sprint that turns the extra traffic into orders.",
+  "hidden": {
+    "keyInsight": "Of the 20 tickets, 4 are traps and 1 critical problem is filed as minor. The best sprint delivers 652 points of value with 10 tickets, using 31 of 32 story points.",
+    "principle": "Value per point, not value alone. A small sure win usually beats a large uncertain one."
+  },
+  "sprintCapacity": 32,
+  "sprintLengthWeeks": 2,
+  "teamSize": 4,
+  "activeUsers": 80000,
+  "stakeholders": [
+    {
+      "id": "ceo",
+      "name": "Rafael",
+      "role": "CEO and co-founder",
+      "priorities": [
+        "Hit the growth number promised to the board",
+        "Have something impressive to show investors",
+        "No public incidents"
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Sofia",
+      "role": "Head of Seller Partnerships",
+      "priorities": [
+        "Keep the top sellers on the platform",
+        "Bring in large sellers this quarter",
+        "Never tell a seller 'we cannot do that'"
+      ]
+    },
+    {
+      "id": "support",
+      "name": "Erik",
+      "role": "Support Lead",
+      "priorities": [
+        "Fewer repeat tickets",
+        "Fix what customers complain about every day",
+        "Shorter resolution times"
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Tomás",
+      "role": "Engineering Manager",
+      "priorities": [
+        "A stable platform",
+        "Time to pay down tech debt",
+        "No last-minute scope changes"
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Nadia",
+      "role": "Lead Product Designer",
+      "priorities": [
+        "Fix the first-run experience",
+        "A coherent, usable product",
+        "Ship fewer, better things"
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Amara",
+      "role": "Head of Marketing",
+      "priorities": [
+        "More signups from the same traffic",
+        "A launch to talk about every month",
+        "A polished brand"
+      ]
+    },
+    {
+      "id": "operations",
+      "name": "Marta",
+      "role": "Head of Operations",
+      "priorities": [
+        "Fewer manual processes",
+        "Disputes and payouts resolved on time",
+        "Trust between buyers and sellers"
+      ]
+    }
+  ],
+  "baselineMetrics": {
+    "activation": 18,
+    "retention": 39,
+    "nps": 30,
+    "revenue": 180000,
+    "techDebt": 49
+  },
+  "tickets": [
+    {
+      "id": "LOOP-332",
+      "title": "TLS certificate for the API expires in 9 days",
+      "description": "Automatic renewal broke after the DNS move. When the certificate expires, every integration and the mobile clients stop connecting.",
+      "type": "tech_debt",
+      "requester": "Eng – Tomás",
+      "stakeholderId": "engineering",
+      "effort": 2,
+      "visible": {
+        "reach": 50000,
+        "impactHint": "Hard date: expires in 9 days."
+      },
+      "hidden": {
+        "trueValue": 90,
+        "trap": "none",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 1.4,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A total outage with a known date and a tiny fix. It is in the sprint before anything else is discussed."
+      }
+    },
+    {
+      "id": "LOOP-334",
+      "title": "Referral programme with rewards",
+      "description": "Give users credit for every friend they bring. Referrals could double our signups.",
+      "type": "feature",
+      "requester": "Marketing – Amara",
+      "stakeholderId": "marketing",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Referrals could double our signups."
+      },
+      "hidden": {
+        "trueValue": 24,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.6,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "It might work, but the claim has no baseline: nobody knows how many users refer today. A share link and a week of data would tell."
+      }
+    },
+    {
+      "id": "LOOP-338",
+      "title": "Badges and streaks for power users",
+      "description": "Reward the most active users with badges, levels and streak counters. Engagement will go through the roof.",
+      "type": "ceo_request",
+      "requester": "CEO – Rafael",
+      "stakeholderId": "ceo",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Engagement will go through the roof."
+      },
+      "hidden": {
+        "trueValue": 16,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Decorates users who are already engaged. It does nothing for the ones who are leaving, which is where the metric problem is."
+      }
+    },
+    {
+      "id": "LOOP-342",
+      "title": "Saved searches with alerts",
+      "description": "Buyers looking for something specific come back and repeat the same search. An alert would bring them back when it is listed.",
+      "type": "feature",
+      "requester": "Marketing – Amara",
+      "stakeholderId": "marketing",
+      "effort": 5,
+      "visible": {
+        "reach": 5500
+      },
+      "hidden": {
+        "trueValue": 48,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A dependable retention feature for buyers with intent. Mid value, mid cost."
+      }
+    },
+    {
+      "id": "LOOP-345",
+      "title": "Cut deploy time from 50 minutes to 10",
+      "description": "A deploy blocks the pipeline for almost an hour, so fixes are batched and hotfixes are slow.",
+      "type": "tech_debt",
+      "requester": "Eng – Tomás",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "impactHint": "The team deploys twice a week instead of daily."
+      },
+      "hidden": {
+        "trueValue": 52,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Speeds up every release and every hotfix. Good value, but not a small job."
+      }
+    },
+    {
+      "id": "LOOP-346",
+      "title": "Remove the legacy v1 API code",
+      "description": "No client has called v1 since March, but its code paths still have to be kept compiling and tested.",
+      "type": "tech_debt",
+      "requester": "Eng – Tomás",
+      "stakeholderId": "engineering",
+      "effort": 8,
+      "visible": {},
+      "hidden": {
+        "trueValue": 22,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Tidy and safe to do, but nothing gets worse if it waits another sprint."
+      }
+    },
+    {
+      "id": "LOOP-348",
+      "title": "Let users choose which emails they receive",
+      "description": "Today it is all or nothing. Users who find one notification noisy unsubscribe from everything, including the emails that bring them back.",
+      "type": "feature",
+      "requester": "Support – Erik",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 22
+      },
+      "hidden": {
+        "trueValue": 36,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.3,
+          "nps": 0.6,
+          "revenue": 0
+        },
+        "explanation": "Protects the re-engagement channel, but the effect is indirect and gradual. Worth doing when there is room."
+      }
+    },
+    {
+      "id": "LOOP-352",
+      "title": "Search: typo tolerance and recent items",
+      "description": "Search only matches exact words. One in five queries returns nothing, and most of those are misspellings of things that exist.",
+      "type": "feature",
+      "requester": "Design – Nadia",
+      "stakeholderId": "design",
+      "effort": 8,
+      "visible": {
+        "reach": 6800,
+        "impactHint": "21% of searches return zero results."
+      },
+      "hidden": {
+        "trueValue": 47,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A real, measured friction for regular users. Solid mid-value work, though not cheap."
+      }
+    },
+    {
+      "id": "LOOP-354",
+      "title": "Weekly summary email",
+      "description": "A short email every Monday with what happened in the account and one suggested action.",
+      "type": "feature",
+      "requester": "Marketing – Amara",
+      "stakeholderId": "marketing",
+      "effort": 5,
+      "visible": {
+        "reach": 39000,
+        "impactHint": "Our re-engagement emails get a 31% open rate."
+      },
+      "hidden": {
+        "trueValue": 39,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A reasonable retention lever built on a channel that already works."
+      }
+    },
+    {
+      "id": "LOOP-355",
+      "title": "Special commission rules for Arbor & Finch",
+      "description": "Arbor & Finch negotiated tiered commissions by category and month. Billing would need custom logic just for their account.",
+      "type": "sales_request",
+      "requester": "Sales – Sofia",
+      "stakeholderId": "sales",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Already agreed verbally with Arbor & Finch.",
+        "revenueAtRisk": 35000
+      },
+      "hidden": {
+        "trueValue": 18,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 510
+        },
+        "explanation": "A private deal hard-coded into billing. A credit note each month delivers the same discount with no code."
+      }
+    },
+    {
+      "id": "LOOP-357",
+      "title": "Stop the flood of payment-date emails to operations",
+      "description": "The operations inbox gets dozens of emails a day from sellers asking when they will be paid. Sellers need a place to check their payout status themselves.",
+      "type": "feature",
+      "requester": "Ops – Marta",
+      "stakeholderId": "operations",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 51
+      },
+      "hidden": {
+        "trueValue": 68,
+        "trap": "duplicate",
+        "duplicateOf": "LOOP-377",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "Same work as LOOP-377 (\"Payout tracker for sellers\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "LOOP-358",
+      "title": "Board dashboard with weekly KPIs",
+      "description": "The CEO assembles the board numbers by hand from three tools every month. A dashboard would give them live.",
+      "type": "ceo_request",
+      "requester": "CEO – Rafael",
+      "stakeholderId": "ceo",
+      "effort": 5,
+      "visible": {},
+      "hidden": {
+        "trueValue": 18,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Saves one person a couple of hours a month. Real but small, and no customer ever sees it."
+      }
+    },
+    {
+      "id": "LOOP-362",
+      "title": "Unsubscribe link shows a blank page in some email clients",
+      "description": "A handful of recipients say the unsubscribe link does nothing in Outlook. They are still receiving our emails.",
+      "type": "bug",
+      "requester": "Marketing – Amara",
+      "stakeholderId": "marketing",
+      "effort": 2,
+      "visible": {
+        "supportTickets": 7
+      },
+      "hidden": {
+        "trueValue": 84,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 2.6,
+          "revenue": 0
+        },
+        "explanation": "Ignoring unsubscribe requests breaks anti-spam law and gets sending domains blocklisted, which would also stop receipts and password resets."
+      }
+    },
+    {
+      "id": "LOOP-365",
+      "title": "Login loop on Safari since last Tuesday's release",
+      "description": "Safari users are sent back to the login page after entering correct credentials. There is no workaround except switching browser.",
+      "type": "bug",
+      "requester": "Support – Erik",
+      "stakeholderId": "support",
+      "effort": 2,
+      "visible": {
+        "reach": 43000,
+        "supportTickets": 112
+      },
+      "hidden": {
+        "trueValue": 89,
+        "trap": "none",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 1.2,
+          "revenue": 0
+        },
+        "explanation": "A large group of users is locked out of the product by a regression. That is an incident, not a backlog item."
+      }
+    },
+    {
+      "id": "LOOP-367",
+      "title": "Filter search results by price, condition and delivery time",
+      "description": "Buyers can only sort by date. They page through results looking for something in their budget, then leave.",
+      "type": "feature",
+      "requester": "Design – Nadia",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "reach": 33000,
+        "impactHint": "27% of searches end without a click."
+      },
+      "hidden": {
+        "trueValue": 69,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.8,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 1040
+        },
+        "explanation": "Search is how buyers find anything. A quarter of searches lead nowhere, and the fix is well understood."
+      }
+    },
+    {
+      "id": "LOOP-369",
+      "title": "Password reset emails arrive more than 10 minutes late",
+      "description": "Reset emails sit in a low-priority queue behind marketing sends. Users request the email several times, then write to support or give up.",
+      "type": "bug",
+      "requester": "Support – Erik",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 5400,
+        "supportTickets": 152
+      },
+      "hidden": {
+        "trueValue": 63,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "A cheap fix for one of the top support drivers. Users who cannot log in do not complain for long: they leave."
+      }
+    },
+    {
+      "id": "LOOP-370",
+      "title": "Favourites list",
+      "description": "Buyers want to keep items they are considering. Today they leave tabs open or send links to themselves.",
+      "type": "feature",
+      "requester": "Marketing – Amara",
+      "stakeholderId": "marketing",
+      "effort": 3,
+      "visible": {
+        "reach": 12000
+      },
+      "hidden": {
+        "trueValue": 33,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Expected by buyers and simple, though it does not change much on its own."
+      }
+    },
+    {
+      "id": "LOOP-372",
+      "title": "Bulk edit and bulk delete in list views",
+      "description": "Power users clean up their data one row at a time. Some send support a spreadsheet and ask us to do it for them.",
+      "type": "feature",
+      "requester": "Support – Erik",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 43
+      },
+      "hidden": {
+        "trueValue": 44,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.3,
+          "nps": 0.6,
+          "revenue": 0
+        },
+        "explanation": "Saves real time for the heaviest users and removes a recurring support task."
+      }
+    },
+    {
+      "id": "LOOP-375",
+      "title": "Alerting on error rates and queue depth",
+      "description": "Today the team learns about incidents from customer emails. Basic alerts would cut detection time from hours to minutes.",
+      "type": "tech_debt",
+      "requester": "Eng – Tomás",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Last incident went unnoticed for 3 hours."
+      },
+      "hidden": {
+        "trueValue": 68,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.8,
+          "revenue": 0
+        },
+        "explanation": "Every future incident gets shorter. High leverage for a few points."
+      }
+    },
+    {
+      "id": "LOOP-377",
+      "title": "Payout tracker for sellers",
+      "description": "Sellers cannot see when their money will arrive, so they ask. The answer is always in the same internal table.",
+      "type": "feature",
+      "requester": "Support – Erik",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "impactHint": "'Where is my money?' is 22% of seller tickets.",
+        "supportTickets": 106
+      },
+      "hidden": {
+        "trueValue": 68,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "Removes a fifth of seller tickets by showing data that already exists. High return for three points."
+      }
+    }
+  ],
+  "midSprintEvents": [
+    {
+      "id": "event-1",
+      "type": "dev_unavailable",
+      "title": "Samir is out for the rest of the sprint",
+      "description": "Samir, one of the senior engineers, is on unexpected leave from today. Their work in progress has to be picked up by the rest of the team.",
+      "capacityDelta": -8,
+      "hidden": {
+        "guidance": "Capacity dropped, so scope has to drop with it. Cut the lowest-value work and protect the critical tickets. Asking the team to absorb the difference is how sprints fail quietly."
+      }
+    }
+  ]
+}

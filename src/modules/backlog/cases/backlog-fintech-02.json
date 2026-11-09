@@ -1,0 +1,931 @@
+{
+  "id": "backlog-fintech-02",
+  "moduleId": "backlog",
+  "seed": 1102,
+  "difficulty": "pm",
+  "company": {
+    "name": "Tallybridge",
+    "industry": "Fintech",
+    "stage": "Series A",
+    "description": "Expense management for mid-size companies: employees pay, finance teams approve, and every payment lands in the ledger."
+  },
+  "title": "Tallybridge: month-end is coming",
+  "brief": "Tallybridge closed its Series A on a promise of moving upmarket. Sales is bringing larger prospects with long lists of demands, support is drowning ahead of month-end, and the engineering manager warns the platform is getting fragile. You have one sprint before the busiest week of the month. Decide what the team commits to.",
+  "hidden": {
+    "keyInsight": "Of the 32 tickets, 8 are traps and 2 critical problems are filed as minor. The best sprint delivers 1035 points of value with 17 tickets, using 61 of 61 story points.",
+    "principle": "One customer is an anecdote, five are a pattern. Build for the pattern and negotiate with the anecdote."
+  },
+  "sprintCapacity": 61,
+  "sprintLengthWeeks": 2,
+  "teamSize": 8,
+  "activeUsers": 60000,
+  "stakeholders": [
+    {
+      "id": "ceo",
+      "name": "Carmen",
+      "role": "CEO and co-founder",
+      "priorities": [
+        "Hit the growth number promised to the board",
+        "Have something impressive to show investors",
+        "No public incidents"
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Yuki",
+      "role": "Head of Sales",
+      "priorities": [
+        "Close the deals in this quarter's pipeline",
+        "Never tell a prospect 'it is not on the roadmap'",
+        "Keep the biggest accounts happy"
+      ]
+    },
+    {
+      "id": "support",
+      "name": "Andrés",
+      "role": "Support Lead",
+      "priorities": [
+        "Fewer repeat tickets",
+        "Fix what customers complain about every day",
+        "Shorter resolution times"
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Rafael",
+      "role": "Engineering Manager",
+      "priorities": [
+        "A stable platform",
+        "Time to pay down tech debt",
+        "No last-minute scope changes"
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Mateo",
+      "role": "Lead Product Designer",
+      "priorities": [
+        "Fix the first-run experience",
+        "A coherent, usable product",
+        "Ship fewer, better things"
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Irene",
+      "role": "Head of Marketing",
+      "priorities": [
+        "More signups from the same traffic",
+        "A launch to talk about every month",
+        "A polished brand"
+      ]
+    },
+    {
+      "id": "compliance",
+      "name": "Jonas",
+      "role": "Compliance Officer",
+      "priorities": [
+        "Zero regulatory findings",
+        "Regulator deadlines are not negotiable",
+        "Customer money and data handled by the book"
+      ]
+    }
+  ],
+  "baselineMetrics": {
+    "activation": 44,
+    "retention": 61,
+    "nps": 21,
+    "revenue": 400000,
+    "techDebt": 61
+  },
+  "tickets": [
+    {
+      "id": "TAL-257",
+      "title": "TLS certificate for the API expires in 9 days",
+      "description": "Automatic renewal broke after the DNS move. When the certificate expires, every integration and the mobile clients stop connecting.",
+      "type": "tech_debt",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 2,
+      "visible": {
+        "reach": 19000,
+        "impactHint": "Hard date: expires in 9 days."
+      },
+      "hidden": {
+        "trueValue": 90,
+        "trap": "none",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 1.6,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A total outage with a known date and a tiny fix. It is in the sprint before anything else is discussed."
+      }
+    },
+    {
+      "id": "TAL-260",
+      "title": "Hold and send balances in EUR and GBP",
+      "description": "Customers with European suppliers convert through their bank and lose on the rate. They ask whether we will support other currencies.",
+      "type": "sales_request",
+      "requester": "Sales – Yuki",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Asked for by 14 accounts this quarter.",
+        "revenueAtRisk": 110000
+      },
+      "hidden": {
+        "trueValue": 45,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 2770
+        },
+        "explanation": "Real demand from several accounts, but it needs new banking partners and licences. Too big to justify against cheaper wins this sprint."
+      }
+    },
+    {
+      "id": "TAL-264",
+      "title": "Fix the flaky test suite",
+      "description": "One in three CI runs fails for no reason and is simply re-run. Engineers estimate half a day lost per person every week.",
+      "type": "tech_debt",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Roughly 10% of engineering time is lost to re-runs."
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "It moves no product metric, yet it hands back capacity in every future sprint. It pays for itself within two."
+      }
+    },
+    {
+      "id": "TAL-267",
+      "title": "Guided setup checklist for new accounts",
+      "description": "New accounts land on an empty home screen. Session recordings show most of them leave before completing the first key action. A four-step checklist would walk them to it.",
+      "type": "feature",
+      "requester": "Design – Mateo",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "reach": 27000,
+        "impactHint": "Funnel data: 58% of signups never finish setup."
+      },
+      "hidden": {
+        "trueValue": 77,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 2,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "The biggest leak in the funnel is at setup and it hits every new account. Few tickets move activation this directly, and the claim comes with funnel data."
+      }
+    },
+    {
+      "id": "TAL-271",
+      "title": "Replace 'Something went wrong' with actionable errors",
+      "description": "Every failure shows the same generic message. Users cannot tell whether to retry, fix their input or contact us.",
+      "type": "bug",
+      "requester": "Design – Mateo",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 25
+      },
+      "hidden": {
+        "trueValue": 40,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1,
+          "revenue": 0
+        },
+        "explanation": "Reduces confusion and some tickets, but it spreads thin across many small cases."
+      }
+    },
+    {
+      "id": "TAL-273",
+      "title": "Let customers invest their idle balance",
+      "description": "Everyone I talk to wants their balance to earn something. We should offer an investment product.",
+      "type": "feature",
+      "requester": "CEO – Carmen",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Everyone I talk to wants this."
+      },
+      "hidden": {
+        "trueValue": 16,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 1070
+        },
+        "explanation": "'Everyone I talk to' is a sample of the CEO's network. A new regulated product needs demand data first, and none exists."
+      }
+    },
+    {
+      "id": "TAL-276",
+      "title": "Bulk edit and bulk delete in list views",
+      "description": "Power users clean up their data one row at a time. Some send support a spreadsheet and ask us to do it for them.",
+      "type": "feature",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 44
+      },
+      "hidden": {
+        "trueValue": 48,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Saves real time for the heaviest users and removes a recurring support task."
+      }
+    },
+    {
+      "id": "TAL-277",
+      "title": "Native tablet app",
+      "description": "I am sure a lot of our users would love us on a tablet. A founder friend with a similar product says tablets are huge for them.",
+      "type": "feature",
+      "requester": "CEO – Carmen",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "A founder friend says tablets are huge for them."
+      },
+      "hidden": {
+        "trueValue": 27,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A hunch and one anecdote. Nobody has checked how much traffic comes from tablets; that check takes an afternoon and comes before a 13-point build."
+      }
+    },
+    {
+      "id": "TAL-281",
+      "title": "Activity log for account admins",
+      "description": "Admins want to see who changed what and when. Security questionnaires from larger prospects ask for it explicitly.",
+      "type": "feature",
+      "requester": "Sales – Yuki",
+      "stakeholderId": "sales",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Currently blocking two security reviews.",
+        "revenueAtRisk": 65000
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 3990
+        },
+        "explanation": "A genuine requirement for larger accounts, but it only matters to a slice of the pipeline and it is not small."
+      }
+    },
+    {
+      "id": "TAL-285",
+      "title": "We find out about outages from customers",
+      "description": "Support learns that something is down when tickets pile up, then tells engineering. The system should warn engineering first.",
+      "type": "tech_debt",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Three incidents this quarter were reported by customers."
+      },
+      "hidden": {
+        "trueValue": 68,
+        "trap": "duplicate",
+        "duplicateOf": "TAL-289",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 2,
+          "revenue": 0
+        },
+        "explanation": "Same work as TAL-289 (\"Alerting on error rates and queue depth\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "TAL-286",
+      "title": "Header briefly shows a stale account name after deploys",
+      "description": "After the last two deploys, two users reported that the header showed another company's name for a moment. A refresh fixed it. Probably a caching quirk.",
+      "type": "bug",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {
+        "reach": 1200,
+        "supportTickets": 9
+      },
+      "hidden": {
+        "trueValue": 92,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 1.3,
+          "revenue": 0
+        },
+        "explanation": "One customer seeing another customer's data is a cross-account leak, not a cosmetic glitch. If the cache mixes names it can mix anything."
+      }
+    },
+    {
+      "id": "TAL-287",
+      "title": "Show the estimated arrival time of payouts",
+      "description": "After sending money, users see 'Processing' with no date. Many write to ask when it will arrive.",
+      "type": "feature",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 2,
+      "visible": {
+        "supportTickets": 32
+      },
+      "hidden": {
+        "trueValue": 38,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.2,
+          "revenue": 0
+        },
+        "explanation": "Cuts a common question with very little work. Modest but efficient."
+      }
+    },
+    {
+      "id": "TAL-288",
+      "title": "Sign in with Google",
+      "description": "Signup requires creating a password and confirming an email. A one-click option would remove two steps from the top of the funnel.",
+      "type": "feature",
+      "requester": "Marketing – Irene",
+      "stakeholderId": "marketing",
+      "effort": 5,
+      "visible": {
+        "reach": 23000
+      },
+      "hidden": {
+        "trueValue": 41,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.1,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Removes real friction at signup, though the size of the lift is an estimate."
+      }
+    },
+    {
+      "id": "TAL-289",
+      "title": "Alerting on error rates and queue depth",
+      "description": "Today the team learns about incidents from customer emails. Basic alerts would cut detection time from hours to minutes.",
+      "type": "tech_debt",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Last incident went unnoticed for 3 hours."
+      },
+      "hidden": {
+        "trueValue": 68,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 2,
+          "revenue": 0
+        },
+        "explanation": "Every future incident gets shorter. High leverage for a few points."
+      }
+    },
+    {
+      "id": "TAL-290",
+      "title": "Retry after a timeout sometimes sends the transfer twice",
+      "description": "Seen three times last month when the bank API was slow. Operations reversed the extra transfers manually.",
+      "type": "bug",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 720,
+        "impactHint": "Seen 3 times last month."
+      },
+      "hidden": {
+        "trueValue": 91,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 1.3,
+          "revenue": 0
+        },
+        "explanation": "Sending a customer's money twice is the worst thing a payments product can do. Three cases at today's volume become dozens when the bank has a bad day."
+      }
+    },
+    {
+      "id": "TAL-294",
+      "title": "Board dashboard with weekly KPIs",
+      "description": "The CEO assembles the board numbers by hand from three tools every month. A dashboard would give them live.",
+      "type": "ceo_request",
+      "requester": "CEO – Carmen",
+      "stakeholderId": "ceo",
+      "effort": 3,
+      "visible": {},
+      "hidden": {
+        "trueValue": 16,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Saves one person a couple of hours a month. Real but small, and no customer ever sees it."
+      }
+    },
+    {
+      "id": "TAL-296",
+      "title": "Monthly statements as PDF",
+      "description": "Accountants need an official statement at every month end. Today support generates each one by hand on request.",
+      "type": "feature",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Statement requests spike to 300+ tickets at month end.",
+        "supportTickets": 90
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Removes the single largest batch of manual support work and gives customers something they need every month."
+      }
+    },
+    {
+      "id": "TAL-298",
+      "title": "SAML single sign-on for larger accounts",
+      "description": "Security teams at larger prospects will not approve a tool without SSO. Sales has been answering 'soon' for two quarters.",
+      "type": "sales_request",
+      "requester": "Sales – Yuki",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Required in 6 open deals; 3 were lost over it last quarter.",
+        "revenueAtRisk": 300000
+      },
+      "hidden": {
+        "trueValue": 75,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 3,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 5070
+        },
+        "explanation": "The same requirement across many deals is the market talking, not one customer. Expensive, but it unlocks a whole segment."
+      }
+    },
+    {
+      "id": "TAL-301",
+      "title": "Search: typo tolerance and recent items",
+      "description": "Search only matches exact words. One in five queries returns nothing, and most of those are misspellings of things that exist.",
+      "type": "feature",
+      "requester": "Design – Mateo",
+      "stakeholderId": "design",
+      "effort": 8,
+      "visible": {
+        "reach": 4500,
+        "impactHint": "21% of searches return zero results."
+      },
+      "hidden": {
+        "trueValue": 51,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A real, measured friction for regular users. Solid mid-value work, though not cheap."
+      }
+    },
+    {
+      "id": "TAL-303",
+      "title": "Fix contrast and keyboard focus on the core flows",
+      "description": "Fourteen screens fail WCAG AA contrast and the main form cannot be completed with a keyboard.",
+      "type": "bug",
+      "requester": "Design – Mateo",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Fails WCAG AA on 14 screens."
+      },
+      "hidden": {
+        "trueValue": 41,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.4,
+          "revenue": 0
+        },
+        "explanation": "The right thing to do and a growing requirement in procurement, but no deadline is attached yet."
+      }
+    },
+    {
+      "id": "TAL-305",
+      "title": "Cut deploy time from 50 minutes to 10",
+      "description": "A deploy blocks the pipeline for almost an hour, so fixes are batched and hotfixes are slow.",
+      "type": "tech_debt",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 8,
+      "visible": {
+        "impactHint": "The team deploys twice a week instead of daily."
+      },
+      "hidden": {
+        "trueValue": 48,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Speeds up every release and every hotfix. Good value, but not a small job."
+      }
+    },
+    {
+      "id": "TAL-307",
+      "title": "Custom PDF report layout for Halvorsen Group",
+      "description": "Halvorsen Group wants our reports in their corporate template, with their logo, fonts and a signature block. Their procurement team calls it a condition for renewal.",
+      "type": "sales_request",
+      "requester": "Sales – Yuki",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Halvorsen Group is our third largest account.",
+        "revenueAtRisk": 290000
+      },
+      "hidden": {
+        "trueValue": 22,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 1570
+        },
+        "explanation": "One customer's template, hard-coded into the product. Nobody else has asked. The 'condition' is a negotiating position: a paid services engagement or a plain export covers it."
+      }
+    },
+    {
+      "id": "TAL-309",
+      "title": "Search and filters in transaction history",
+      "description": "History is one long list by date. Finding a payment from last quarter means scrolling, so users ask support to look it up.",
+      "type": "feature",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 26
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.7,
+          "revenue": 0
+        },
+        "explanation": "A daily annoyance for active accounts and a steady source of tickets. Solid mid-value work."
+      }
+    },
+    {
+      "id": "TAL-312",
+      "title": "Help links in the app point to deleted articles",
+      "description": "After the help centre migration, eleven in-app links lead to a 404 page.",
+      "type": "bug",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 1,
+      "visible": {
+        "supportTickets": 6
+      },
+      "hidden": {
+        "trueValue": 30,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "Small value, but almost free. A good filler when one point is left."
+      }
+    },
+    {
+      "id": "TAL-313",
+      "title": "Home screen takes 6 to 9 seconds to load for large accounts",
+      "description": "The home query loads every record before paginating. The accounts with the most data, which are also the ones that pay the most, get the slowest product.",
+      "type": "bug",
+      "requester": "Eng – Rafael",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 8200,
+        "impactHint": "p95 load time is 8.4s for the top 10% of accounts.",
+        "supportTickets": 48
+      },
+      "hidden": {
+        "trueValue": 62,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "Performance pain concentrated in the highest-value accounts, backed by measurements. It protects retention where it matters most."
+      }
+    },
+    {
+      "id": "TAL-316",
+      "title": "White-label the product for Pinnacle Freight",
+      "description": "Pinnacle Freight wants to resell us under their own name and domain, with our branding removed everywhere including emails.",
+      "type": "sales_request",
+      "requester": "Sales – Yuki",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Pinnacle Freight says they could bring 40 clients.",
+        "revenueAtRisk": 320000
+      },
+      "hidden": {
+        "trueValue": 13,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 980
+        },
+        "explanation": "A new business model decided by one partner's promise. 'Could bring' is not a signed commitment, and the branding work touches every surface."
+      }
+    },
+    {
+      "id": "TAL-320",
+      "title": "Show remaining daily and monthly limits",
+      "description": "Users discover their limit when a payment is refused. The remaining amount is not shown anywhere.",
+      "type": "feature",
+      "requester": "Support – Andrés",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 31
+      },
+      "hidden": {
+        "trueValue": 49,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.7,
+          "revenue": 0
+        },
+        "explanation": "Prevents a predictable failure and the ticket that follows. Small, tidy win."
+      }
+    },
+    {
+      "id": "TAL-324",
+      "title": "Apply the new brand colours across the whole app",
+      "description": "The rebrand launched on the website last month. The app still uses the old palette on about 60 screens.",
+      "type": "feature",
+      "requester": "Marketing – Irene",
+      "stakeholderId": "marketing",
+      "effort": 8,
+      "visible": {
+        "reach": 36000,
+        "impactHint": "Users see two different brands."
+      },
+      "hidden": {
+        "trueValue": 13,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Everyone sees it and nobody behaves differently because of it. It can ride along with other UI work over time."
+      }
+    },
+    {
+      "id": "TAL-325",
+      "title": "Cut the signup form from nine fields to three",
+      "description": "Six of the fields are never used after signup. The variant with three fields has already been tested.",
+      "type": "feature",
+      "requester": "Marketing – Irene",
+      "stakeholderId": "marketing",
+      "effort": 1,
+      "visible": {
+        "reach": 19000,
+        "impactHint": "A/B test last quarter: +11% completed signups."
+      },
+      "hidden": {
+        "trueValue": 67,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.5,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Already validated by an experiment and nearly free to ship. The best value-per-point ticket in most backlogs."
+      }
+    },
+    {
+      "id": "TAL-326",
+      "title": "Downloadable account statements for bookkeeping",
+      "description": "Prospects with an external accountant ask whether they can download official statements themselves. Right now the answer is 'email us'.",
+      "type": "sales_request",
+      "requester": "Sales – Yuki",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "revenueAtRisk": 28000
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "duplicate",
+        "duplicateOf": "TAL-296",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Same work as TAL-296 (\"Monthly statements as PDF\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "TAL-330",
+      "title": "Rewrite the pricing page before the price change",
+      "description": "New prices go live on the 1st. The current page still describes the old plans and would show wrong numbers at checkout.",
+      "type": "ceo_request",
+      "requester": "CEO – Carmen",
+      "stakeholderId": "ceo",
+      "effort": 3,
+      "visible": {
+        "impactHint": "The new prices go live either way."
+      },
+      "hidden": {
+        "trueValue": 60,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 4240
+        },
+        "explanation": "Not every CEO request is a trap. This one has a fixed date and a concrete cost if it slips: customers shown the wrong price."
+      }
+    },
+    {
+      "id": "TAL-331",
+      "title": "Shareable 'Your year in money' cards",
+      "description": "An animated year-end summary users can post on social media, like the music apps do. Great for brand awareness.",
+      "type": "feature",
+      "requester": "Marketing – Irene",
+      "stakeholderId": "marketing",
+      "effort": 8,
+      "visible": {
+        "reach": 27000,
+        "impactHint": "Great for brand awareness."
+      },
+      "hidden": {
+        "trueValue": 17,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "People share music taste, not business payment totals. Reach on paper, no path to any metric that matters."
+      }
+    }
+  ],
+  "midSprintEvents": [
+    {
+      "id": "event-1",
+      "type": "dev_unavailable",
+      "title": "Marta is out for the rest of the sprint",
+      "description": "Marta, one of the senior engineers, is on unexpected leave from today. Their work in progress has to be picked up by the rest of the team.",
+      "capacityDelta": -11,
+      "hidden": {
+        "guidance": "Capacity dropped, so scope has to drop with it. Cut the lowest-value work and protect the critical tickets. Asking the team to absorb the difference is how sprints fail quietly."
+      }
+    }
+  ]
+}

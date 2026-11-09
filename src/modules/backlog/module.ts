@@ -1,6 +1,6 @@
 import type { ModuleMeta } from "@/core/case-engine";
 
-/** Client-safe description of the module. Schemas, cases and scoring arrive in Hito 1.2+. */
+/** Client-safe description of the module. The full definition lives in `module.server.ts`. */
 export const backlogMeta: ModuleMeta = {
   id: "backlog",
   name: "Backlog Simulator",

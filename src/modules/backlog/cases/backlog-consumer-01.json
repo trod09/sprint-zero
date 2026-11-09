@@ -1,0 +1,903 @@
+{
+  "id": "backlog-consumer-01",
+  "moduleId": "backlog",
+  "seed": 1401,
+  "difficulty": "pm",
+  "company": {
+    "name": "Pacewell",
+    "industry": "Consumer",
+    "stage": "Series A",
+    "description": "Running coach in your pocket: adaptive training plans, audio-guided runs and progress tracking, sold as a monthly subscription."
+  },
+  "title": "Pacewell: January installs, February churn",
+  "brief": "Pacewell gets a wave of installs every January and loses most of them by February. Growth has experiments ready, the CEO wants features that make headlines, and the partnerships team is chasing corporate deals. The team is small and the sprint is two weeks. Pick the work that keeps new runners running.",
+  "hidden": {
+    "keyInsight": "Of the 30 tickets, 8 are traps and 2 critical problems are filed as minor. The best sprint delivers 961 points of value with 16 tickets, using 49 of 49 story points.",
+    "principle": "Capacity is a fact, not a negotiation. Every ticket you add is a ticket you take out, so say which one."
+  },
+  "sprintCapacity": 49,
+  "sprintLengthWeeks": 2,
+  "teamSize": 6,
+  "activeUsers": 220000,
+  "stakeholders": [
+    {
+      "id": "ceo",
+      "name": "Ingrid",
+      "role": "CEO and co-founder",
+      "priorities": [
+        "Hit the growth number promised to the board",
+        "Have something impressive to show investors",
+        "No public incidents"
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Pablo",
+      "role": "Head of Partnerships",
+      "priorities": [
+        "Sign the corporate partners in the pipeline",
+        "Give partners what they ask for",
+        "Revenue beyond individual subscriptions"
+      ]
+    },
+    {
+      "id": "support",
+      "name": "Leila",
+      "role": "Support Lead",
+      "priorities": [
+        "Fewer repeat tickets",
+        "Fix what customers complain about every day",
+        "Shorter resolution times"
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Samir",
+      "role": "Engineering Manager",
+      "priorities": [
+        "A stable platform",
+        "Time to pay down tech debt",
+        "No last-minute scope changes"
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Omar",
+      "role": "Lead Product Designer",
+      "priorities": [
+        "Fix the first-run experience",
+        "A coherent, usable product",
+        "Ship fewer, better things"
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Aisha",
+      "role": "Head of Marketing",
+      "priorities": [
+        "More signups from the same traffic",
+        "A launch to talk about every month",
+        "A polished brand"
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "Priya",
+      "role": "Growth Lead",
+      "priorities": [
+        "Activation and day-7 retention",
+        "Trial-to-paid conversion",
+        "Experiments backed by data"
+      ]
+    }
+  ],
+  "baselineMetrics": {
+    "activation": 48,
+    "retention": 24,
+    "nps": 30,
+    "revenue": 320000,
+    "techDebt": 42
+  },
+  "tickets": [
+    {
+      "id": "PACE-254",
+      "title": "Offer an annual plan at checkout",
+      "description": "Only the monthly plan is sold. An annual option at a discount would lock in the users most likely to stay.",
+      "type": "feature",
+      "requester": "Growth – Priya",
+      "stakeholderId": "growth",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Monthly subscribers churn at 9% a month."
+      },
+      "hidden": {
+        "trueValue": 67,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0,
+          "revenue": 1720
+        },
+        "explanation": "With 9% monthly churn, an annual plan changes the economics of every subscriber who takes it. Small build."
+      }
+    },
+    {
+      "id": "PACE-257",
+      "title": "Fix contrast and keyboard focus on the core flows",
+      "description": "Fourteen screens fail WCAG AA contrast and the main form cannot be completed with a keyboard.",
+      "type": "bug",
+      "requester": "Design – Omar",
+      "stakeholderId": "design",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Fails WCAG AA on 14 screens."
+      },
+      "hidden": {
+        "trueValue": 31,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "The right thing to do and a growing requirement in procurement, but no deadline is attached yet."
+      }
+    },
+    {
+      "id": "PACE-260",
+      "title": "3D avatars users can dress up",
+      "description": "Let every user create an avatar and unlock outfits. Younger users love this kind of thing.",
+      "type": "ceo_request",
+      "requester": "CEO – Ingrid",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Younger users love this kind of thing."
+      },
+      "hidden": {
+        "trueValue": 12,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A generalisation about an age group, not a need of our users. Enormous build with no link to why people subscribe."
+      }
+    },
+    {
+      "id": "PACE-263",
+      "title": "Fix the flaky test suite",
+      "description": "One in three CI runs fails for no reason and is simply re-run. Engineers estimate half a day lost per person every week.",
+      "type": "tech_debt",
+      "requester": "Eng – Samir",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Roughly 10% of engineering time is lost to re-runs."
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "It moves no product metric, yet it hands back capacity in every future sprint. It pays for itself within two."
+      }
+    },
+    {
+      "id": "PACE-266",
+      "title": "Share progress as an image",
+      "description": "Users screenshot their stats to post them. A share button would produce a clean image with our name on it.",
+      "type": "feature",
+      "requester": "Marketing – Aisha",
+      "stakeholderId": "marketing",
+      "effort": 3,
+      "visible": {
+        "reach": 4100
+      },
+      "hidden": {
+        "trueValue": 28,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.6,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Some organic reach from behaviour that already exists. Low value, low cost."
+      }
+    },
+    {
+      "id": "PACE-267",
+      "title": "Occasional duplicate records after saving",
+      "description": "A few users on slow connections see the same record twice after clicking Save. Deleting one of the copies sometimes removes both.",
+      "type": "bug",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 4400,
+        "supportTickets": 11
+      },
+      "hidden": {
+        "trueValue": 85,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 1.2,
+          "revenue": 0
+        },
+        "explanation": "'Sometimes removes both' is silent data loss. The low ticket count hides a bug that destroys customer data, and it will grow with usage."
+      }
+    },
+    {
+      "id": "PACE-270",
+      "title": "Smartwatch app",
+      "description": "Lots of our users must own a smartwatch. A companion app would keep us on their wrist.",
+      "type": "feature",
+      "requester": "Design – Omar",
+      "stakeholderId": "design",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Lots of our users must own one."
+      },
+      "hidden": {
+        "trueValue": 26,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "'Must own' is a guess. Device data from analytics would settle it in an hour, before an 8-point build."
+      }
+    },
+    {
+      "id": "PACE-273",
+      "title": "Board dashboard with weekly KPIs",
+      "description": "The CEO assembles the board numbers by hand from three tools every month. A dashboard would give them live.",
+      "type": "ceo_request",
+      "requester": "CEO – Ingrid",
+      "stakeholderId": "ceo",
+      "effort": 5,
+      "visible": {},
+      "hidden": {
+        "trueValue": 16,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Saves one person a couple of hours a month. Real but small, and no customer ever sees it."
+      }
+    },
+    {
+      "id": "PACE-276",
+      "title": "Keep working offline and sync later",
+      "description": "Without a connection the app shows a spinner. People use it on the underground, on planes and in places with poor signal.",
+      "type": "feature",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 8,
+      "visible": {
+        "impactHint": "'No signal' appears in a third of 2-star reviews.",
+        "supportTickets": 257
+      },
+      "hidden": {
+        "trueValue": 54,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.7,
+          "revenue": 0
+        },
+        "explanation": "A real and frequently cited problem, but it requires reworking how data is stored and synced."
+      }
+    },
+    {
+      "id": "PACE-277",
+      "title": "New app icon and animated splash screen",
+      "description": "The rebrand needs a new icon and a five-second animated intro. The team agreed the new one feels more premium.",
+      "type": "feature",
+      "requester": "Marketing – Aisha",
+      "stakeholderId": "marketing",
+      "effort": 3,
+      "visible": {
+        "reach": 140000,
+        "impactHint": "The team agreed it feels more premium."
+      },
+      "hidden": {
+        "trueValue": 11,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "The team's taste is not user research, and a five-second intro makes the app slower to open for everyone."
+      }
+    },
+    {
+      "id": "PACE-280",
+      "title": "'Restore purchases' fails after reinstalling",
+      "description": "Subscribers who change phone or reinstall are asked to pay again. Restore does nothing for accounts created with email.",
+      "type": "bug",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 303
+      },
+      "hidden": {
+        "trueValue": 64,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1.1,
+          "revenue": 2120
+        },
+        "explanation": "Paying customers are denied what they bought. Each case is a refund, a bad review or both."
+      }
+    },
+    {
+      "id": "PACE-281",
+      "title": "Shorten onboarding from eleven screens to five",
+      "description": "New users answer eleven questions before seeing the product. The drop is steepest on screens six to eight, which ask for things we never use.",
+      "type": "feature",
+      "requester": "Growth – Priya",
+      "stakeholderId": "growth",
+      "effort": 3,
+      "visible": {
+        "reach": 110000,
+        "impactHint": "Only 46% of installs finish onboarding."
+      },
+      "hidden": {
+        "trueValue": 73,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.7,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "More than half of installs never reach the product. Removing unused questions is cheap and hits the top of the funnel."
+      }
+    },
+    {
+      "id": "PACE-284",
+      "title": "App store requirement: update the SDK by the 28th or be removed from sale",
+      "description": "The store sent a final notice. Apps built with the old SDK are removed from search and cannot be updated after the 28th.",
+      "type": "tech_debt",
+      "requester": "Eng – Samir",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 130000,
+        "impactHint": "Final notice: the 28th."
+      },
+      "hidden": {
+        "trueValue": 88,
+        "trap": "none",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 2.2,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "After the date there are no new installs and no way to ship fixes. An external deadline that ends the business if missed."
+      }
+    },
+    {
+      "id": "PACE-286",
+      "title": "Android sessions ending within two seconds of launch",
+      "description": "Dashboards show a block of Android sessions that end almost as soon as they start, all from older devices. Something fails at startup for them.",
+      "type": "bug",
+      "requester": "Growth – Priya",
+      "stakeholderId": "growth",
+      "effort": 3,
+      "visible": {
+        "reach": 14000
+      },
+      "hidden": {
+        "trueValue": 70,
+        "trap": "duplicate",
+        "duplicateOf": "PACE-297",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 1,
+          "revenue": 0
+        },
+        "explanation": "Same work as PACE-297 (\"App crashes on launch on older Android versions\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "PACE-287",
+      "title": "Private group space for Pinnacle Freight's staff benefits programme",
+      "description": "Pinnacle Freight wants a closed area where only its staff can see each other's activity, with admin reports for its HR team.",
+      "type": "sales_request",
+      "requester": "Partnerships – Pablo",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Pinnacle Freight wants to launch in a month.",
+        "revenueAtRisk": 110000
+      },
+      "hidden": {
+        "trueValue": 22,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 3,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 1390
+        },
+        "explanation": "A B2B feature set bolted onto a consumer app for one deal. It serves none of the subscribers who pay today."
+      }
+    },
+    {
+      "id": "PACE-291",
+      "title": "Card update form fails silently on expired cards",
+      "description": "When a customer replaces an expired card, the form closes without saving and shows no error. The next renewal fails and the account is suspended.",
+      "type": "bug",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Failed renewals are up 40% this quarter.",
+        "supportTickets": 82,
+        "revenueAtRisk": 84000
+      },
+      "hidden": {
+        "trueValue": 68,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 0,
+          "revenue": 2160
+        },
+        "explanation": "Customers who want to keep paying are being churned by a bug. Very high return for a small fix."
+      }
+    },
+    {
+      "id": "PACE-292",
+      "title": "Guided setup checklist for new accounts",
+      "description": "New accounts land on an empty home screen. Session recordings show most of them leave before completing the first key action. A four-step checklist would walk them to it.",
+      "type": "feature",
+      "requester": "Design – Omar",
+      "stakeholderId": "design",
+      "effort": 8,
+      "visible": {
+        "reach": 140000,
+        "impactHint": "Funnel data: 58% of signups never finish setup."
+      },
+      "hidden": {
+        "trueValue": 75,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.6,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "The biggest leak in the funnel is at setup and it hits every new account. Few tickets move activation this directly, and the claim comes with funnel data."
+      }
+    },
+    {
+      "id": "PACE-295",
+      "title": "Navigation is unusable on narrow screens",
+      "description": "On the smallest phones the open menu sits on top of the page and hides the main button. Found during the last design review.",
+      "type": "bug",
+      "requester": "Design – Omar",
+      "stakeholderId": "design",
+      "effort": 3,
+      "visible": {
+        "reach": 24000
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "duplicate",
+        "duplicateOf": "PACE-307",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.6,
+          "retention": 0,
+          "nps": 0.7,
+          "revenue": 0
+        },
+        "explanation": "Same work as PACE-307 (\"Main menu covers the content on small phones\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "PACE-297",
+      "title": "App crashes on launch on older Android versions",
+      "description": "Since the last update the app closes immediately on Android 11 and below. Users cannot get past the splash screen.",
+      "type": "bug",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 16000,
+        "impactHint": "9% of Android users are on those versions.",
+        "supportTickets": 144
+      },
+      "hidden": {
+        "trueValue": 70,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 1,
+          "revenue": 0
+        },
+        "explanation": "A whole segment of paying users is locked out. Close to critical, and not expensive."
+      }
+    },
+    {
+      "id": "PACE-298",
+      "title": "Cancel the subscription inside the app",
+      "description": "Web subscribers must email support to cancel. Many dispute the charge with their bank instead.",
+      "type": "feature",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Chargebacks are at 0.8%; the card networks' warning line is 1%.",
+        "supportTickets": 263
+      },
+      "hidden": {
+        "trueValue": 66,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1,
+          "revenue": 2010
+        },
+        "explanation": "Hard cancellation creates chargebacks, and the rate is close to the level where the payment provider intervenes. Cheap insurance and better reviews."
+      }
+    },
+    {
+      "id": "PACE-301",
+      "title": "Nightly backup job finishes with warnings",
+      "description": "The backup job has logged warnings for three weeks. Nobody has tested a restore since the storage migration.",
+      "type": "tech_debt",
+      "requester": "Eng – Samir",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {},
+      "hidden": {
+        "trueValue": 88,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": -3,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Three weeks of unverified backups means one bad deploy away from permanent data loss. It looks like housekeeping and is not."
+      }
+    },
+    {
+      "id": "PACE-305",
+      "title": "Structured logging across services",
+      "description": "Logs are free text in four different formats. Debugging an issue means searching each service by hand.",
+      "type": "tech_debt",
+      "requester": "Eng – Samir",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {},
+      "hidden": {
+        "trueValue": 27,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Makes debugging faster, with a diffuse payoff. A sensible later item."
+      }
+    },
+    {
+      "id": "PACE-307",
+      "title": "Main menu covers the content on small phones",
+      "description": "On screens narrower than 360px the menu stays open over the page. Users have to rotate the phone to reach the primary button.",
+      "type": "bug",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 23000,
+        "supportTickets": 58
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.6,
+          "retention": 0,
+          "nps": 0.7,
+          "revenue": 0
+        },
+        "explanation": "Blocks a core action for a meaningful share of mobile users, and it is quick to fix."
+      }
+    },
+    {
+      "id": "PACE-310",
+      "title": "Add indexes for the five slowest queries",
+      "description": "Five queries account for most of the database load. All of them scan full tables.",
+      "type": "tech_debt",
+      "requester": "Eng – Samir",
+      "stakeholderId": "engineering",
+      "effort": 2,
+      "visible": {
+        "impactHint": "p95 latency doubles at peak hours."
+      },
+      "hidden": {
+        "trueValue": 52,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.9,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A small, well-understood change that every user feels at peak time."
+      }
+    },
+    {
+      "id": "PACE-311",
+      "title": "Help links in the app point to deleted articles",
+      "description": "After the help centre migration, eleven in-app links lead to a 404 page.",
+      "type": "bug",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 1,
+      "visible": {
+        "supportTickets": 7
+      },
+      "hidden": {
+        "trueValue": 29,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 1,
+          "revenue": 0
+        },
+        "explanation": "Small value, but almost free. A good filler when one point is left."
+      }
+    },
+    {
+      "id": "PACE-313",
+      "title": "Weekly summary email",
+      "description": "A short email every Monday with what happened in the account and one suggested action.",
+      "type": "feature",
+      "requester": "Marketing – Aisha",
+      "stakeholderId": "marketing",
+      "effort": 3,
+      "visible": {
+        "reach": 81000,
+        "impactHint": "Our re-engagement emails get a 31% open rate."
+      },
+      "hidden": {
+        "trueValue": 41,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A reasonable retention lever built on a channel that already works."
+      }
+    },
+    {
+      "id": "PACE-315",
+      "title": "Let users choose which emails they receive",
+      "description": "Today it is all or nothing. Users who find one notification noisy unsubscribe from everything, including the emails that bring them back.",
+      "type": "feature",
+      "requester": "Support – Leila",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 71
+      },
+      "hidden": {
+        "trueValue": 37,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.3,
+          "nps": 0.6,
+          "revenue": 0
+        },
+        "explanation": "Protects the re-engagement channel, but the effect is indirect and gradual. Worth doing when there is room."
+      }
+    },
+    {
+      "id": "PACE-316",
+      "title": "Co-branded version of the app for Greyfield Energy",
+      "description": "Greyfield Energy wants to offer the app to its employees with its own logo, colours and a custom welcome flow.",
+      "type": "sales_request",
+      "requester": "Partnerships – Pablo",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Greyfield Energy has 8,000 employees.",
+        "revenueAtRisk": 270000
+      },
+      "hidden": {
+        "trueValue": 19,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 10,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 1040
+        },
+        "explanation": "A second app to maintain for one partner. Headcount is not usage: a discount code gives them the same benefit with no build."
+      }
+    },
+    {
+      "id": "PACE-317",
+      "title": "Social feed so users can follow each other",
+      "description": "Community is our moat. Users should be able to follow friends, like their activity and comment.",
+      "type": "feature",
+      "requester": "CEO – Ingrid",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Community is our moat."
+      },
+      "hidden": {
+        "trueValue": 19,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.3,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A slogan instead of evidence. Nobody has checked whether users know anyone else on the app, and a feed brings moderation costs forever."
+      }
+    },
+    {
+      "id": "PACE-319",
+      "title": "Search: typo tolerance and recent items",
+      "description": "Search only matches exact words. One in five queries returns nothing, and most of those are misspellings of things that exist.",
+      "type": "feature",
+      "requester": "Design – Omar",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "reach": 31000,
+        "impactHint": "21% of searches return zero results."
+      },
+      "hidden": {
+        "trueValue": 47,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.7,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A real, measured friction for regular users. Solid mid-value work, though not cheap."
+      }
+    }
+  ],
+  "midSprintEvents": [
+    {
+      "id": "event-1",
+      "type": "production_outage",
+      "title": "Production incident: subscriptions cannot be purchased on iOS",
+      "description": "Since yesterday's release the purchase sheet closes with an error on iOS. Laura found that the product identifiers changed in the build. No new subscriber has been able to pay for 20 hours.",
+      "capacityDelta": 0,
+      "addedTicket": {
+        "id": "PACE-320",
+        "title": "Hotfix: restore in-app purchases on iOS",
+        "description": "Fix the product identifiers, ship an expedited release and verify purchases end to end before closing the incident.",
+        "type": "bug",
+        "requester": "Eng – Samir",
+        "stakeholderId": "engineering",
+        "effort": 3,
+        "visible": {
+          "reach": 140000,
+          "supportTickets": 317
+        },
+        "hidden": {
+          "trueValue": 90,
+          "trap": "none",
+          "critical": true,
+          "debtImpact": 0,
+          "metricEffects": {
+            "activation": 0,
+            "retention": 0.7,
+            "nps": 1.4,
+            "revenue": 0
+          },
+          "explanation": "Production is broken for customers right now. Nothing planned before the incident is worth more than ending it."
+        }
+      },
+      "hidden": {
+        "guidance": "An outage outranks planned work. Pull the hotfix in and take the lowest-value items out to make room: adding it on top of a full sprint only moves the failure to the end of the sprint."
+      }
+    }
+  ]
+}

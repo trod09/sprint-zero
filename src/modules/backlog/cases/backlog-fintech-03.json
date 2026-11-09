@@ -1,0 +1,1116 @@
+{
+  "id": "backlog-fintech-03",
+  "moduleId": "backlog",
+  "seed": 1103,
+  "difficulty": "senior",
+  "company": {
+    "name": "Cobalt Pay",
+    "industry": "Fintech",
+    "stage": "Series B",
+    "description": "Payouts platform for online businesses: pay suppliers and contractors in bulk, with the paperwork handled."
+  },
+  "title": "Cobalt Pay: everything is a priority",
+  "brief": "Cobalt Pay is growing fast and every team has a top priority that cannot wait. The CEO wants a headline for the next board meeting, sales has two large accounts making demands, and the regulator's annual review is on the calendar. Several tickets in this backlog are not what their titles suggest. Plan the sprint, and expect it to be interrupted.",
+  "hidden": {
+    "keyInsight": "Of the 37 tickets, 12 are traps and 3 critical problems are filed as minor. The best sprint delivers 1081 points of value with 17 tickets, using 56 of 57 story points.",
+    "principle": "Protect the foundations first: money, data, access and legal deadlines come before any feature."
+  },
+  "sprintCapacity": 57,
+  "sprintLengthWeeks": 2,
+  "teamSize": 7,
+  "activeUsers": 140000,
+  "stakeholders": [
+    {
+      "id": "ceo",
+      "name": "Kofi",
+      "role": "CEO and co-founder",
+      "priorities": [
+        "Hit the growth number promised to the board",
+        "Have something impressive to show investors",
+        "No public incidents"
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Viktor",
+      "role": "Head of Sales",
+      "priorities": [
+        "Close the deals in this quarter's pipeline",
+        "Never tell a prospect 'it is not on the roadmap'",
+        "Keep the biggest accounts happy"
+      ]
+    },
+    {
+      "id": "support",
+      "name": "Yuki",
+      "role": "Support Lead",
+      "priorities": [
+        "Fewer repeat tickets",
+        "Fix what customers complain about every day",
+        "Shorter resolution times"
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Pablo",
+      "role": "Engineering Manager",
+      "priorities": [
+        "A stable platform",
+        "Time to pay down tech debt",
+        "No last-minute scope changes"
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Tomás",
+      "role": "Lead Product Designer",
+      "priorities": [
+        "Fix the first-run experience",
+        "A coherent, usable product",
+        "Ship fewer, better things"
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Carmen",
+      "role": "Head of Marketing",
+      "priorities": [
+        "More signups from the same traffic",
+        "A launch to talk about every month",
+        "A polished brand"
+      ]
+    },
+    {
+      "id": "compliance",
+      "name": "Aisha",
+      "role": "Compliance Officer",
+      "priorities": [
+        "Zero regulatory findings",
+        "Regulator deadlines are not negotiable",
+        "Customer money and data handled by the book"
+      ]
+    }
+  ],
+  "baselineMetrics": {
+    "activation": 49,
+    "retention": 70,
+    "nps": 25,
+    "revenue": 1200000,
+    "techDebt": 56
+  },
+  "tickets": [
+    {
+      "id": "CBP-364",
+      "title": "We find out about outages from customers",
+      "description": "Support learns that something is down when tickets pile up, then tells engineering. The system should warn engineering first.",
+      "type": "tech_debt",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Three incidents this quarter were reported by customers."
+      },
+      "hidden": {
+        "trueValue": 63,
+        "trap": "duplicate",
+        "duplicateOf": "CBP-404",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 2.1,
+          "revenue": 0
+        },
+        "explanation": "Same work as CBP-404 (\"Alerting on error rates and queue depth\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "CBP-365",
+      "title": "Password reset emails arrive more than 10 minutes late",
+      "description": "Reset emails sit in a low-priority queue behind marketing sends. Users request the email several times, then write to support or give up.",
+      "type": "bug",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 2,
+      "visible": {
+        "reach": 17000,
+        "supportTickets": 283
+      },
+      "hidden": {
+        "trueValue": 66,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 1.1,
+          "revenue": 0
+        },
+        "explanation": "A cheap fix for one of the top support drivers. Users who cannot log in do not complain for long: they leave."
+      }
+    },
+    {
+      "id": "CBP-368",
+      "title": "Header briefly shows a stale account name after deploys",
+      "description": "After the last two deploys, two users reported that the header showed another company's name for a moment. A refresh fixed it. Probably a caching quirk.",
+      "type": "bug",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 3500,
+        "supportTickets": 9
+      },
+      "hidden": {
+        "trueValue": 95,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 1.4,
+          "revenue": 0
+        },
+        "explanation": "One customer seeing another customer's data is a cross-account leak, not a cosmetic glitch. If the cache mixes names it can mix anything."
+      }
+    },
+    {
+      "id": "CBP-372",
+      "title": "Scheduled and recurring transfers",
+      "description": "Customers still pay rent, payroll and regular suppliers from their old bank because we cannot schedule payments.",
+      "type": "feature",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "reach": 20000,
+        "impactHint": "Top-3 reason in the churn survey: 'I still pay my regulars from my bank'."
+      },
+      "hidden": {
+        "trueValue": 66,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 0,
+          "revenue": 7610
+        },
+        "explanation": "Named by churned customers themselves as a reason for leaving. Valuable, but it is a large build."
+      }
+    },
+    {
+      "id": "CBP-373",
+      "title": "Replace blank screens with helpful empty states",
+      "description": "Seven screens show nothing at all until the user creates data. Each should explain what goes there and offer the next step.",
+      "type": "feature",
+      "requester": "Design – Tomás",
+      "stakeholderId": "design",
+      "effort": 3,
+      "visible": {},
+      "hidden": {
+        "trueValue": 42,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.1,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Useful polish for first-time users, with a modest effect on its own."
+      }
+    },
+    {
+      "id": "CBP-375",
+      "title": "Structured logging across services",
+      "description": "Logs are free text in four different formats. Debugging an issue means searching each service by hand.",
+      "type": "tech_debt",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {},
+      "hidden": {
+        "trueValue": 29,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Makes debugging faster, with a diffuse payoff. A sensible later item."
+      }
+    },
+    {
+      "id": "CBP-377",
+      "title": "Shareable 'Your year in money' cards",
+      "description": "An animated year-end summary users can post on social media, like the music apps do. Great for brand awareness.",
+      "type": "feature",
+      "requester": "Marketing – Carmen",
+      "stakeholderId": "marketing",
+      "effort": 5,
+      "visible": {
+        "reach": 60000,
+        "impactHint": "Great for brand awareness."
+      },
+      "hidden": {
+        "trueValue": 19,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "People share music taste, not business payment totals. Reach on paper, no path to any metric that matters."
+      }
+    },
+    {
+      "id": "CBP-379",
+      "title": "Fix contrast and keyboard focus on the core flows",
+      "description": "Fourteen screens fail WCAG AA contrast and the main form cannot be completed with a keyboard.",
+      "type": "bug",
+      "requester": "Design – Tomás",
+      "stakeholderId": "design",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Fails WCAG AA on 14 screens."
+      },
+      "hidden": {
+        "trueValue": 30,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "The right thing to do and a growing requirement in procurement, but no deadline is attached yet."
+      }
+    },
+    {
+      "id": "CBP-381",
+      "title": "Scheduled items fire at the wrong hour outside UTC",
+      "description": "Anything scheduled is stored without a time zone. Users in other zones get reminders and reports hours early or late.",
+      "type": "bug",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 21000,
+        "supportTickets": 61
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.5,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "A correctness bug in a feature people rely on, affecting everyone outside one time zone. Cheap to fix."
+      }
+    },
+    {
+      "id": "CBP-382",
+      "title": "Activity log for account admins",
+      "description": "Admins want to see who changed what and when. Security questionnaires from larger prospects ask for it explicitly.",
+      "type": "feature",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Currently blocking two security reviews.",
+        "revenueAtRisk": 190000
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 11060
+        },
+        "explanation": "A genuine requirement for larger accounts, but it only matters to a slice of the pipeline and it is not small."
+      }
+    },
+    {
+      "id": "CBP-386",
+      "title": "Export any table to CSV",
+      "description": "Customers want to take their data into spreadsheets for their own reporting. It comes up in demos and in renewal calls.",
+      "type": "feature",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Asked for in 9 of the last 30 sales calls.",
+        "revenueAtRisk": 310000
+      },
+      "hidden": {
+        "trueValue": 60,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0,
+          "revenue": 5690
+        },
+        "explanation": "A request repeated across many accounts is a market need, not a favour. Moderate effort, clear demand."
+      }
+    },
+    {
+      "id": "CBP-387",
+      "title": "Download my data as a spreadsheet",
+      "description": "Customers keep asking how to get their records into Excel. Support runs manual exports for them twice a week.",
+      "type": "feature",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "supportTickets": 55
+      },
+      "hidden": {
+        "trueValue": 60,
+        "trap": "duplicate",
+        "duplicateOf": "CBP-386",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0,
+          "revenue": 5690
+        },
+        "explanation": "Same work as CBP-386 (\"Export any table to CSV\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "CBP-389",
+      "title": "Hold and send balances in EUR and GBP",
+      "description": "Customers with European suppliers convert through their bank and lose on the rate. They ask whether we will support other currencies.",
+      "type": "sales_request",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Asked for by 14 accounts this quarter.",
+        "revenueAtRisk": 420000
+      },
+      "hidden": {
+        "trueValue": 50,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 9900
+        },
+        "explanation": "Real demand from several accounts, but it needs new banking partners and licences. Too big to justify against cheaper wins this sprint."
+      }
+    },
+    {
+      "id": "CBP-392",
+      "title": "Cashback rewards to lift payment volume",
+      "description": "Give 0.5% back on every payment. Rewards should lift volume by 30%.",
+      "type": "feature",
+      "requester": "Marketing – Carmen",
+      "stakeholderId": "marketing",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Rewards should lift volume by 30%."
+      },
+      "hidden": {
+        "trueValue": 32,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 7200
+        },
+        "explanation": "The 30% has no source, and the cost comes straight out of margin. A small paid test would say whether volume responds at all."
+      }
+    },
+    {
+      "id": "CBP-395",
+      "title": "White-label the product for Vantage Motors",
+      "description": "Vantage Motors wants to resell us under their own name and domain, with our branding removed everywhere including emails.",
+      "type": "sales_request",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Vantage Motors says they could bring 40 clients.",
+        "revenueAtRisk": 590000
+      },
+      "hidden": {
+        "trueValue": 14,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 2870
+        },
+        "explanation": "A new business model decided by one partner's promise. 'Could bring' is not a signed commitment, and the branding work touches every surface."
+      }
+    },
+    {
+      "id": "CBP-399",
+      "title": "Sign in with Google",
+      "description": "Signup requires creating a password and confirming an email. A one-click option would remove two steps from the top of the funnel.",
+      "type": "feature",
+      "requester": "Marketing – Carmen",
+      "stakeholderId": "marketing",
+      "effort": 3,
+      "visible": {
+        "reach": 70000
+      },
+      "hidden": {
+        "trueValue": 52,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 1.3,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Removes real friction at signup, though the size of the lift is an estimate."
+      }
+    },
+    {
+      "id": "CBP-401",
+      "title": "Add indexes for the five slowest queries",
+      "description": "Five queries account for most of the database load. All of them scan full tables.",
+      "type": "tech_debt",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {
+        "impactHint": "p95 latency doubles at peak hours."
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -4,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A small, well-understood change that every user feels at peak time."
+      }
+    },
+    {
+      "id": "CBP-404",
+      "title": "Alerting on error rates and queue depth",
+      "description": "Today the team learns about incidents from customer emails. Basic alerts would cut detection time from hours to minutes.",
+      "type": "tech_debt",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 3,
+      "visible": {
+        "impactHint": "Last incident went unnoticed for 3 hours."
+      },
+      "hidden": {
+        "trueValue": 63,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -6,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 2.1,
+          "revenue": 0
+        },
+        "explanation": "Every future incident gets shorter. High leverage for a few points."
+      }
+    },
+    {
+      "id": "CBP-408",
+      "title": "Upgrade the web framework two major versions",
+      "description": "The current version leaves security support in nine months. The upgrade touches every page and needs a full regression pass.",
+      "type": "tech_debt",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Security support ends in 9 months."
+      },
+      "hidden": {
+        "trueValue": 34,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -11,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Necessary, not urgent: there are nine months of runway and it would eat most of a sprint. Plan it, do not squeeze it in."
+      }
+    },
+    {
+      "id": "CBP-409",
+      "title": "Rewrite the pricing page before the price change",
+      "description": "New prices go live on the 1st. The current page still describes the old plans and would show wrong numbers at checkout.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 2,
+      "visible": {
+        "impactHint": "The new prices go live either way."
+      },
+      "hidden": {
+        "trueValue": 53,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 10930
+        },
+        "explanation": "Not every CEO request is a trap. This one has a fixed date and a concrete cost if it slips: customers shown the wrong price."
+      }
+    },
+    {
+      "id": "CBP-412",
+      "title": "On-premise installation for Pinnacle Freight",
+      "description": "Pinnacle Freight's IT policy does not allow cloud tools. They would sign this quarter if we give them a version to run in their own data centre.",
+      "type": "sales_request",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Would be our biggest contract ever.",
+        "revenueAtRisk": 820000
+      },
+      "hidden": {
+        "trueValue": 14,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 10,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 2570
+        },
+        "explanation": "A second product to build, ship and support forever, for one logo. The contract size hides the permanent cost."
+      }
+    },
+    {
+      "id": "CBP-413",
+      "title": "Badges and streaks for power users",
+      "description": "Reward the most active users with badges, levels and streak counters. Engagement will go through the roof.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Engagement will go through the roof."
+      },
+      "hidden": {
+        "trueValue": 16,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Decorates users who are already engaged. It does nothing for the ones who are leaving, which is where the metric problem is."
+      }
+    },
+    {
+      "id": "CBP-415",
+      "title": "Show fees before the user confirms a transfer",
+      "description": "The fee only appears on the receipt. Customers feel tricked even when the amount is small.",
+      "type": "feature",
+      "requester": "Design – Tomás",
+      "stakeholderId": "design",
+      "effort": 2,
+      "visible": {
+        "reach": 64000,
+        "impactHint": "Fee surprises are the top theme in 1-star reviews."
+      },
+      "hidden": {
+        "trueValue": 55,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Trust is the product in fintech. A small change removes the most cited reason for bad reviews."
+      }
+    },
+    {
+      "id": "CBP-418",
+      "title": "Retry after a timeout sometimes sends the transfer twice",
+      "description": "Seen three times last month when the bank API was slow. Operations reversed the extra transfers manually.",
+      "type": "bug",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 5,
+      "visible": {
+        "reach": 2900,
+        "impactHint": "Seen 3 times last month."
+      },
+      "hidden": {
+        "trueValue": 94,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 1.5,
+          "revenue": 0
+        },
+        "explanation": "Sending a customer's money twice is the worst thing a payments product can do. Three cases at today's volume become dozens when the bank has a bad day."
+      }
+    },
+    {
+      "id": "CBP-421",
+      "title": "Board dashboard with weekly KPIs",
+      "description": "The CEO assembles the board numbers by hand from three tools every month. A dashboard would give them live.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 5,
+      "visible": {},
+      "hidden": {
+        "trueValue": 22,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Saves one person a couple of hours a month. Real but small, and no customer ever sees it."
+      }
+    },
+    {
+      "id": "CBP-422",
+      "title": "Weekly summary email",
+      "description": "A short email every Monday with what happened in the account and one suggested action.",
+      "type": "feature",
+      "requester": "Marketing – Carmen",
+      "stakeholderId": "marketing",
+      "effort": 3,
+      "visible": {
+        "reach": 72000,
+        "impactHint": "Our re-engagement emails get a 31% open rate."
+      },
+      "hidden": {
+        "trueValue": 44,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "A reasonable retention lever built on a channel that already works."
+      }
+    },
+    {
+      "id": "CBP-425",
+      "title": "Cut deploy time from 50 minutes to 10",
+      "description": "A deploy blocks the pipeline for almost an hour, so fixes are batched and hotfixes are slow.",
+      "type": "tech_debt",
+      "requester": "Eng – Pablo",
+      "stakeholderId": "engineering",
+      "effort": 8,
+      "visible": {
+        "impactHint": "The team deploys twice a week instead of daily."
+      },
+      "hidden": {
+        "trueValue": 51,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": -7,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Speeds up every release and every hotfix. Good value, but not a small job."
+      }
+    },
+    {
+      "id": "CBP-429",
+      "title": "Add a crypto wallet tab",
+      "description": "Crypto is back in the news. A wallet tab would get us press and show we are an innovative company.",
+      "type": "ceo_request",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "It will get us press."
+      },
+      "hidden": {
+        "trueValue": 10,
+        "trap": "vanity",
+        "critical": false,
+        "debtImpact": 8,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "Press is not a customer need. It adds regulatory exposure and a large build for a use case no customer has asked for."
+      }
+    },
+    {
+      "id": "CBP-433",
+      "title": "Monthly statements as PDF",
+      "description": "Accountants need an official statement at every month end. Today support generates each one by hand on request.",
+      "type": "feature",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Statement requests spike to 300+ tickets at month end.",
+        "supportTickets": 299
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Removes the single largest batch of manual support work and gives customers something they need every month."
+      }
+    },
+    {
+      "id": "CBP-437",
+      "title": "Main menu covers the content on small phones",
+      "description": "On screens narrower than 360px the menu stays open over the page. Users have to rotate the phone to reach the primary button.",
+      "type": "bug",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 21000,
+        "supportTickets": 44
+      },
+      "hidden": {
+        "trueValue": 60,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.7,
+          "retention": 0,
+          "nps": 0.9,
+          "revenue": 0
+        },
+        "explanation": "Blocks a core action for a meaningful share of mobile users, and it is quick to fix."
+      }
+    },
+    {
+      "id": "CBP-438",
+      "title": "Mandatory 'cost centre code' field for Halvorsen Group",
+      "description": "Halvorsen Group's finance team needs every record tagged with their internal cost centre code, validated against their list.",
+      "type": "sales_request",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 5,
+      "visible": {
+        "impactHint": "Halvorsen Group renews in two months.",
+        "revenueAtRisk": 200000
+      },
+      "hidden": {
+        "trueValue": 22,
+        "trap": "single_customer",
+        "critical": false,
+        "debtImpact": 3,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 4570
+        },
+        "explanation": "A field only one account understands, added to forms everyone uses. Custom fields as a general feature would be a different, bigger ticket."
+      }
+    },
+    {
+      "id": "CBP-439",
+      "title": "Let customers invest their idle balance",
+      "description": "Everyone I talk to wants their balance to earn something. We should offer an investment product.",
+      "type": "feature",
+      "requester": "CEO – Kofi",
+      "stakeholderId": "ceo",
+      "effort": 13,
+      "visible": {
+        "impactHint": "Everyone I talk to wants this."
+      },
+      "hidden": {
+        "trueValue": 17,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 9,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 3950
+        },
+        "explanation": "'Everyone I talk to' is a sample of the CEO's network. A new regulated product needs demand data first, and none exists."
+      }
+    },
+    {
+      "id": "CBP-440",
+      "title": "Login loop on Safari since last Tuesday's release",
+      "description": "Safari users are sent back to the login page after entering correct credentials. There is no workaround except switching browser.",
+      "type": "bug",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 69000,
+        "supportTickets": 274
+      },
+      "hidden": {
+        "trueValue": 87,
+        "trap": "none",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.8,
+          "nps": 1.4,
+          "revenue": 0
+        },
+        "explanation": "A large group of users is locked out of the product by a regression. That is an incident, not a backlog item."
+      }
+    },
+    {
+      "id": "CBP-442",
+      "title": "Search and filters in transaction history",
+      "description": "History is one long list by date. Finding a payment from last quarter means scrolling, so users ask support to look it up.",
+      "type": "feature",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "supportTickets": 45
+      },
+      "hidden": {
+        "trueValue": 54,
+        "trap": "none",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "A daily annoyance for active accounts and a steady source of tickets. Solid mid-value work."
+      }
+    },
+    {
+      "id": "CBP-444",
+      "title": "Referral programme with rewards",
+      "description": "Give users credit for every friend they bring. Referrals could double our signups.",
+      "type": "feature",
+      "requester": "Marketing – Carmen",
+      "stakeholderId": "marketing",
+      "effort": 8,
+      "visible": {
+        "impactHint": "Referrals could double our signups."
+      },
+      "hidden": {
+        "trueValue": 29,
+        "trap": "low_evidence",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0.7,
+          "retention": 0,
+          "nps": 0,
+          "revenue": 0
+        },
+        "explanation": "It might work, but the claim has no baseline: nobody knows how many users refer today. A share link and a week of data would tell."
+      }
+    },
+    {
+      "id": "CBP-448",
+      "title": "Downloadable account statements for bookkeeping",
+      "description": "Prospects with an external accountant ask whether they can download official statements themselves. Right now the answer is 'email us'.",
+      "type": "sales_request",
+      "requester": "Sales – Viktor",
+      "stakeholderId": "sales",
+      "effort": 8,
+      "visible": {
+        "revenueAtRisk": 60000
+      },
+      "hidden": {
+        "trueValue": 58,
+        "trap": "duplicate",
+        "duplicateOf": "CBP-433",
+        "critical": false,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.4,
+          "nps": 0.8,
+          "revenue": 0
+        },
+        "explanation": "Same work as CBP-433 (\"Monthly statements as PDF\"), described by a different team. Shipping both delivers the value once and pays for the effort twice."
+      }
+    },
+    {
+      "id": "CBP-452",
+      "title": "Totals off by one cent on some multi-line payments",
+      "description": "A bookkeeper noticed that the total differs from the sum of its lines by $0.01 on a few payments. Cosmetic, low priority.",
+      "type": "bug",
+      "requester": "Support – Yuki",
+      "stakeholderId": "support",
+      "effort": 3,
+      "visible": {
+        "reach": 2800,
+        "supportTickets": 5
+      },
+      "hidden": {
+        "trueValue": 87,
+        "trap": "hidden_critical_bug",
+        "critical": true,
+        "debtImpact": 0,
+        "metricEffects": {
+          "activation": 0,
+          "retention": 0.6,
+          "nps": 1.1,
+          "revenue": 0
+        },
+        "explanation": "In a ledger a rounding mismatch is never cosmetic: balances stop matching the bank and the error grows with volume. Money bugs are critical by definition."
+      }
+    }
+  ],
+  "midSprintEvents": [
+    {
+      "id": "event-1",
+      "type": "compliance_deadline",
+      "title": "The regulator moved a reporting deadline forward",
+      "description": "Aisha received a notice this morning: the new transaction report format becomes mandatory at the end of this sprint, a month earlier than announced.",
+      "capacityDelta": 0,
+      "addedTicket": {
+        "id": "CBP-454",
+        "title": "Transaction report in the regulator's new format",
+        "description": "Produce the monthly transaction report in the new mandatory format before the deadline at the end of this sprint.",
+        "type": "feature",
+        "requester": "Compliance – Aisha",
+        "stakeholderId": "compliance",
+        "effort": 3,
+        "visible": {
+          "impactHint": "Mandatory from the end of this sprint."
+        },
+        "hidden": {
+          "trueValue": 91,
+          "trap": "none",
+          "critical": true,
+          "debtImpact": 0,
+          "metricEffects": {
+            "activation": 0,
+            "retention": 0,
+            "nps": 0,
+            "revenue": 0
+          },
+          "explanation": "A legal deadline that moved is still a legal deadline. Missing a mandatory report puts the licence at risk."
+        }
+      },
+      "hidden": {
+        "guidance": "Legal deadlines are constraints, not priorities to weigh. Take it in, then decide what leaves the sprint to pay for it."
+      }
+    },
+    {
+      "id": "event-2",
+      "type": "sales_promise",
+      "title": "Three of the largest accounts escalate the same blocker",
+      "description": "Viktor brings the same complaint from three top accounts in one week: bulk import stops at 500 rows, and each of them needs to load thousands. Two have paused their rollout until it works.",
+      "capacityDelta": 0,
+      "addedTicket": {
+        "id": "CBP-457",
+        "title": "Bulk import fails above 500 rows",
+        "description": "The import job times out on files with more than 500 rows. Process large files in batches and report progress.",
+        "type": "bug",
+        "requester": "Sales – Viktor",
+        "stakeholderId": "sales",
+        "effort": 3,
+        "visible": {
+          "impactHint": "Three top accounts, two rollouts on hold.",
+          "revenueAtRisk": 1100000
+        },
+        "hidden": {
+          "trueValue": 73,
+          "trap": "none",
+          "critical": false,
+          "debtImpact": 0,
+          "metricEffects": {
+            "activation": 0,
+            "retention": 0.6,
+            "nps": 0,
+            "revenue": 8390
+          },
+          "explanation": "Three large accounts with the same concrete, reproducible blocker is evidence, not noise. A small fix protects a lot of revenue."
+        }
+      },
+      "hidden": {
+        "guidance": "Not every escalation from sales is a trap. Several accounts with one specific, reproducible problem and a small fix is worth pulling in. Pay for it by removing the weakest item, not by overbooking."
+      }
+    }
+  ]
+}
