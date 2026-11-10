@@ -1244,6 +1244,19 @@ export const en = {
       empty: "Pick a world below to start your first case.",
       noDraft: "You opened this case recently.",
     },
+    daily: {
+      title: "Daily case",
+      number: (n: number) => `#${n}`,
+      intro: "One new case a day, the same for everyone.",
+      play: "Play today's case",
+      replay: "Play it again",
+      done: (score: number) => `Done today: ${score}/100`,
+      streak: (days: number) => `${days}-day daily streak`,
+      next: (hours: number) =>
+        hours <= 1
+          ? "Next case in under an hour"
+          : `Next case in ${hours} hours`,
+    },
     worlds: {
       title: "Worlds",
       subtitle: "Each module is a world. Clear its cases to collect stars.",

@@ -3,11 +3,13 @@ import Link from "next/link";
 import { ModuleSprite, PixelIcon } from "@/components/arcade/icons";
 import { ModuleBanner } from "@/components/arcade/module-banner";
 import { PlayerPanel } from "@/components/arcade/player-panel";
+import { DailyCaseCard } from "@/components/home/daily-case";
 import { HomeHero } from "@/components/home/home-hero";
 import { WorldProgress } from "@/components/home/world-progress";
 import { getMessages } from "@/i18n";
 import { moduleCatalog } from "@/modules/catalog";
 import { listCaseSummaries } from "@/modules/case-summaries.server";
+import { moduleRegistry } from "@/modules/registry.server";
 
 export default async function HomePage() {
   const messages = getMessages();
@@ -18,6 +20,10 @@ export default async function HomePage() {
     moduleId,
     difficulty,
   }));
+  const generating = moduleRegistry
+    .list()
+    .filter((registered) => registered.canGenerate)
+    .map((registered) => registered.meta.id);
   const worlds = moduleCatalog.filter((meta) => meta.status !== "coming_soon");
   const locked = moduleCatalog.filter((meta) => meta.status === "coming_soon");
 
@@ -33,7 +39,10 @@ export default async function HomePage() {
       </section>
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <HomeHero catalog={summaries} />
+        <div className="space-y-6">
+          <HomeHero catalog={summaries} />
+          <DailyCaseCard moduleIds={generating} />
+        </div>
         <PlayerPanel catalog={catalog} className="lg:sticky lg:top-20" />
       </div>
 
