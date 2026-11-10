@@ -24,7 +24,7 @@ export function MetricDropCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-          <div className="bg-card rounded-xl border p-4">
+          <div className="pixel-card p-4">
             <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
               {copy.brief.label}
             </h2>
@@ -32,7 +32,7 @@ export function MetricDropCaseView({
               {publicCase.brief}
             </p>
           </div>
-          <div className="bg-card rounded-xl border p-4">
+          <div className="pixel-card p-4">
             <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
               {copy.brief.timeline}
             </h2>

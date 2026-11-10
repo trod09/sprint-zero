@@ -15,15 +15,15 @@ import {
 import { formatDay, formatMetric, valueLabel } from "../labels";
 import type { Annotation, MetricKey } from "../schema";
 
-/** Distinguishable in light and dark themes. */
+/** Theme tokens, so series stay distinguishable in light and dark. */
 export const SERIES_COLORS = [
-  "#6366f1",
-  "#0ea5e9",
-  "#f59e0b",
-  "#10b981",
-  "#ef4444",
-  "#a855f7",
-  "#64748b",
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+  "var(--module-metric-drop)",
+  "var(--muted-foreground)",
 ];
 
 export interface ChartSeries {
@@ -89,8 +89,9 @@ export function TrendChart({
             ]}
             contentStyle={{
               background: "var(--popover)",
-              border: "1px solid var(--border)",
-              borderRadius: 8,
+              border: "2px solid var(--frame)",
+              borderRadius: 4,
+              boxShadow: "3px 3px 0 0 var(--shadow-color)",
               color: "var(--popover-foreground)",
               fontSize: 12,
             }}
@@ -117,7 +118,7 @@ export function TrendChart({
           {series.map((entry, index) => (
             <Line
               key={entry.key}
-              type="monotone"
+              type="linear"
               dataKey={entry.key}
               name={entry.label}
               stroke={SERIES_COLORS[index % SERIES_COLORS.length]}

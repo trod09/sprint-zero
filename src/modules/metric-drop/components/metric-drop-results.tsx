@@ -19,7 +19,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section aria-labelledby={id} className="bg-card rounded-xl border p-5">
+    <section aria-labelledby={id} className="pixel-card p-5">
       <h2 id={id} className="font-heading font-semibold">
         {title}
       </h2>
@@ -70,8 +70,8 @@ export function MetricDropResults({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-5">
-        <h2 className="text-xs font-medium tracking-wide text-amber-800 uppercase dark:text-amber-300">
+      <section className="border-warning bg-warning/10 rounded-md border-2 p-5">
+        <h2 className="font-pixel text-warning text-sm tracking-wide uppercase">
           {copy.results.rootCause}
         </h2>
         <p className="mt-2 font-medium">{report.truth.summary}</p>

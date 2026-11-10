@@ -352,7 +352,7 @@ function Dashboard({
 
   if (inlineResult) {
     return (
-      <section className="bg-card rounded-xl border p-6">
+      <section className="pixel-card p-6">
         <p className="font-heading text-5xl font-semibold tabular-nums">
           {inlineResult.total}
           <span className="text-muted-foreground text-lg"> / 100</span>
@@ -389,7 +389,7 @@ function Dashboard({
           </Tabs>
         </div>
 
-        <div className="bg-card space-y-3 rounded-xl border p-4">
+        <div className="border-frame bg-card space-y-3 rounded-md border-2 p-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="space-y-1">
               <Label htmlFor="metric">{copy.dashboard.metric}</Label>
@@ -478,7 +478,7 @@ function Dashboard({
           </fieldset>
         </div>
 
-        <div className="bg-card rounded-xl border p-4">
+        <div className="border-frame bg-card rounded-md border-2 p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="font-medium">{metricLabel(query.metric)}</h3>
             <p aria-live="polite" className="text-muted-foreground text-xs">
@@ -535,7 +535,7 @@ function Dashboard({
       <aside className="space-y-4 lg:sticky lg:top-20">
         <section
           aria-labelledby="log-title"
-          className="bg-card rounded-xl border p-4"
+          className="border-frame bg-card rounded-md border-2 p-4"
         >
           <div className="flex items-baseline justify-between">
             <h2
@@ -587,7 +587,7 @@ function Dashboard({
 
         <section
           aria-labelledby="diagnosis-title"
-          className="bg-card space-y-3 rounded-xl border p-4"
+          className="pixel-card space-y-3 p-4"
         >
           <div>
             <h2 id="diagnosis-title" className="font-heading font-semibold">
