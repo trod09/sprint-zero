@@ -12,7 +12,7 @@
   "title": "Loopcart: more buyers than listings",
   "brief": "Loopcart's traffic is up after a TV mention, but conversion is flat: buyers search, do not find what they want and leave. Sellers complain that listing an item takes too long and that they never know when they will be paid. Plan a two-week sprint that turns the extra traffic into orders.",
   "hidden": {
-    "keyInsight": "Of the 20 tickets, 4 are traps and 1 critical problem is filed as minor. The best sprint delivers 652 points of value with 10 tickets, using 31 of 32 story points.",
+    "keyInsight": "Of the 20 tickets, 4 are traps and 1 critical problem is filed as minor. Mid-sprint, losing an engineer forces a replan: the plan that wins keeps room to react.",
     "principle": "Value per point, not value alone. A small sure win usually beats a large uncertain one."
   },
   "sprintCapacity": 32,

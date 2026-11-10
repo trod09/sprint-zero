@@ -12,7 +12,7 @@
   "title": "Stackwise: trials that go nowhere",
   "brief": "Stackwise gets plenty of trial signups from agencies, but few become paying teams. The founder has a list of features competitors have, and support has a list of things that break every week. You have one sprint and a small team. Choose the work that turns trials into customers.",
   "hidden": {
-    "keyInsight": "Of the 20 tickets, 4 are traps and 1 critical problem is filed as minor. The best sprint delivers 625 points of value with 9 tickets, using 32 of 34 story points.",
+    "keyInsight": "Of the 20 tickets, 4 are traps and 1 critical problem is filed as minor. Mid-sprint, a production incident forces a replan: the plan that wins keeps room to react.",
     "principle": "A sprint is a bet on outcomes. If a ticket cannot name the metric it moves, it is decoration."
   },
   "sprintCapacity": 34,

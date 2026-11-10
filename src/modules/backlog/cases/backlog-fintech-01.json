@@ -12,7 +12,7 @@
   "title": "Ledgerly: your first sprint as PM",
   "brief": "You joined Ledgerly on Monday. The previous PM left a backlog that mixes customer bugs, promises from sales and ideas from the founder, and nobody has ranked it. Growth has slowed because new signups do not finish setting up. Plan the next two-week sprint: the team can only deliver part of this list.",
   "hidden": {
-    "keyInsight": "Of the 22 tickets, 4 are traps and 1 critical problem is filed as minor. The best sprint delivers 747 points of value with 11 tickets, using 40 of 41 story points.",
+    "keyInsight": "Of the 22 tickets, 4 are traps and 1 critical problem is filed as minor. Mid-sprint, a production incident forces a replan: the plan that wins keeps room to react.",
     "principle": "Loud is not the same as important. Weigh a request by how many customers it helps and what happens if you wait, not by who asked or how often."
   },
   "sprintCapacity": 41,

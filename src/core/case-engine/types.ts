@@ -102,4 +102,20 @@ export interface SimulationModule<
   score(caseData: TCase, answer: TAnswer): TResult;
   /** Fixed rubric the LLM follows when writing qualitative feedback. */
   feedbackRubric: string;
+  /**
+   * Optional: the facts the LLM needs to write feedback, already digested
+   * (ticket titles, what went right and wrong). `learnerAnswer` holds text the
+   * learner typed and is passed to the model as untrusted data. Without it the
+   * full case and the raw answer are sent.
+   */
+  feedbackContext?(
+    caseData: TCase,
+    answer: TAnswer,
+    result: TResult,
+  ): FeedbackContext;
+}
+
+export interface FeedbackContext {
+  analysis: unknown;
+  learnerAnswer: unknown;
 }

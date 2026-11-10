@@ -12,7 +12,7 @@
   "title": "Fieldnote: forty tickets, one sprint",
   "brief": "Fieldnote has outgrown its processes. The backlog has grown to dozens of tickets filed by seven different teams, some describing the same problem in different words. Two enterprise customers are negotiating expansions with conditions attached, and the platform has had three incidents this quarter. Build a sprint you can defend, then defend it when the plan changes.",
   "hidden": {
-    "keyInsight": "Of the 38 tickets, 12 are traps and 3 critical problems are filed as minor. The best sprint delivers 1102 points of value with 17 tickets, using 53 of 54 story points.",
+    "keyInsight": "Of the 38 tickets, 12 are traps and 3 critical problems are filed as minor. Mid-sprint, a legal deadline and a CEO request force a replan: the plan that wins keeps room to react.",
     "principle": "Read the description, not the label. The most dangerous tickets are filed as low priority by people who did not see what they were looking at."
   },
   "sprintCapacity": 54,

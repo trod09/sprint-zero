@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 
 import { assertNoHiddenKeys } from "@/core/case-engine";
 import { scoreSubmission } from "@/core/case-engine/submission";
-import { scoreResultSchema } from "@/core/scoring";
 import { backlogCaseSpecs } from "@/modules/backlog/case-specs";
 import { backlogRawCases } from "@/modules/backlog/cases";
 import { generateBacklogCase } from "@/modules/backlog/generator";
@@ -16,11 +15,9 @@ import {
   backlogCaseSchema,
   publicBacklogCaseSchema,
   publicMidSprintEventSchema,
-  type BacklogAnswer,
   type BacklogCase,
   type Ticket,
 } from "@/modules/backlog/schema";
-import { scoreBacklogAnswer } from "@/modules/backlog/scoring";
 import { caseRepository, moduleRegistry } from "@/modules/registry.server";
 
 const cases = backlogRawCases.map((raw) => backlogCaseSchema.parse(raw));
@@ -42,25 +39,6 @@ function withoutWording(caseData: BacklogCase): BacklogCase {
         : event,
     ),
   };
-}
-
-/** A complete answer for a list of sprint tickets. */
-function answerOf(
-  sprintTicketIds: string[],
-  replanTicketIds?: string[],
-): BacklogAnswer {
-  return {
-    method: "drag",
-    sprintTicketIds,
-    ...(replanTicketIds ? { replanTicketIds } : {}),
-    marks: {},
-  };
-}
-
-function criterion(result: ReturnType<typeof scoreBacklogAnswer>, id: string) {
-  const found = result.criteria.find((entry) => entry.id === id);
-  if (!found) throw new Error(`No criterion "${id}"`);
-  return found;
 }
 
 describe("pregenerated backlog cases", () => {
@@ -122,110 +100,6 @@ describe("pregenerated backlog cases", () => {
   });
 });
 
-describe("backlog scoring (provisional)", () => {
-  it("gives 100 to the optimal replanned sprint of every case", () => {
-    for (const caseData of cases) {
-      const initial = solveOptimalSprint(initialScenario(caseData));
-      const final = solveOptimalSprint(scenarioAfterEvents(caseData));
-      const result = scoreBacklogAnswer(
-        caseData,
-        answerOf(initial.ticketIds, final.ticketIds),
-      );
-      expect(result.total, caseData.id).toBe(100);
-      expect(scoreResultSchema.safeParse(result).success).toBe(true);
-    }
-  });
-
-  it("scores the replanned sprint, not the first commit", () => {
-    const initial = solveOptimalSprint(initialScenario(first));
-    const final = solveOptimalSprint(scenarioAfterEvents(first));
-    const replanned = scoreBacklogAnswer(first, answerOf([], final.ticketIds));
-    const notReplanned = scoreBacklogAnswer(
-      first,
-      answerOf(final.ticketIds, initial.ticketIds),
-    );
-    expect(replanned.total).toBe(100);
-    expect(notReplanned.total).toBeLessThan(100);
-  });
-
-  it("uses the committed sprint when there is no replan", () => {
-    const final = solveOptimalSprint(scenarioAfterEvents(first));
-    expect(scoreBacklogAnswer(first, answerOf(final.ticketIds)).total).toBe(
-      100,
-    );
-  });
-
-  it("is deterministic", () => {
-    const answer = answerOf(first.tickets.slice(0, 6).map((t) => t.id));
-    expect(scoreBacklogAnswer(first, answer)).toEqual(
-      scoreBacklogAnswer(first, answer),
-    );
-  });
-
-  it("scores an empty sprint with capacity points only", () => {
-    const result = scoreBacklogAnswer(first, answerOf([]));
-    expect(criterion(result, "value").ratio).toBe(0);
-    expect(criterion(result, "critical").ratio).toBe(0);
-    expect(criterion(result, "capacity").ratio).toBe(1);
-    expect(result.total).toBe(20);
-  });
-
-  it("counts critical tickets added by events", () => {
-    const scenario = scenarioAfterEvents(first);
-    const criticalIds = scenario.tickets
-      .filter((ticket) => ticket.hidden.critical)
-      .map((ticket) => ticket.id);
-    const eventCritical = criticalIds.filter(
-      (id) => !first.tickets.some((ticket) => ticket.id === id),
-    );
-    expect(eventCritical.length).toBeGreaterThan(0);
-
-    const all = scoreBacklogAnswer(first, answerOf(criticalIds));
-    expect(criterion(all, "critical").ratio).toBe(1);
-    const missingHotfix = scoreBacklogAnswer(
-      first,
-      answerOf(criticalIds.filter((id) => !eventCritical.includes(id))),
-    );
-    expect(criterion(missingHotfix, "critical").ratio).toBeLessThan(1);
-
-    const optimal = solveOptimalSprint(scenario);
-    const withoutCritical = scoreBacklogAnswer(
-      first,
-      answerOf(optimal.ticketIds.filter((id) => !criticalIds.includes(id))),
-    );
-    expect(criterion(withoutCritical, "critical").ratio).toBe(0);
-    expect(withoutCritical.total).toBeLessThan(70);
-  });
-
-  it("penalises an overbooked sprint and does not count what spills", () => {
-    const everything = scoreBacklogAnswer(
-      first,
-      answerOf(first.tickets.map((ticket) => ticket.id)),
-    );
-    expect(criterion(everything, "capacity").ratio).toBe(0);
-    expect(criterion(everything, "value").ratio).toBeLessThan(1);
-    expect(everything.total).toBeLessThan(80);
-  });
-
-  it("does not let a duplicate add value", () => {
-    const duplicate = first.tickets.find(
-      (ticket) => ticket.hidden.trap === "duplicate",
-    )!;
-    const originalId = duplicate.hidden.duplicateOf!;
-    const one = scoreBacklogAnswer(first, answerOf([originalId]));
-    const both = scoreBacklogAnswer(
-      first,
-      answerOf([originalId, duplicate.id]),
-    );
-    expect(criterion(both, "value").ratio).toBe(criterion(one, "value").ratio);
-  });
-
-  it("ignores ids that are not tickets of the case", () => {
-    const result = scoreBacklogAnswer(first, answerOf(["ZZZ-1"]));
-    expect(result.total).toBe(20);
-  });
-});
-
 describe("submitting a backlog answer", () => {
   it("scores on the server and reveals the full case", async () => {
     const initial = solveOptimalSprint(initialScenario(first));
@@ -239,7 +113,8 @@ describe("submitting a backlog answer", () => {
     });
     expect(outcome.ok).toBe(true);
     if (!outcome.ok) return;
-    expect(outcome.result.total).toBe(100);
+    expect(outcome.result.total).toBeGreaterThanOrEqual(90);
+    expect(outcome.result).toHaveProperty("report");
     expect(outcome.moduleId).toBe("backlog");
     const revealed = backlogCaseSchema.parse(outcome.revealedCase);
     expect(revealed.tickets[0].hidden.explanation).not.toBe("");

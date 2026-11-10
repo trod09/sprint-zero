@@ -14,6 +14,7 @@ import type { ScoreResult } from "@/core/scoring";
 import { assertNoHiddenKeys } from "./public-case";
 import type {
   BaseCase,
+  FeedbackContext,
   ModuleMeta,
   PublicBaseCase,
   SimulationModule,
@@ -21,6 +22,10 @@ import type {
 
 export type ScoreOutcome =
   { ok: true; result: ScoreResult } | { ok: false; issues: string[] };
+
+export type FeedbackInputOutcome =
+  | { ok: true; result: ScoreResult; context: FeedbackContext; rubric: string }
+  | { ok: false; issues: string[] };
 
 /** One validated case, with its ground truth kept inside closures. */
 export interface CaseRecord {
@@ -32,6 +37,8 @@ export interface CaseRecord {
   score(rawAnswer: unknown): ScoreOutcome;
   /** Full case including ground truth. Only call after the user has submitted. */
   reveal(): BaseCase;
+  /** Scores the answer and gathers what the LLM needs to comment on it. */
+  feedbackInput(rawAnswer: unknown): FeedbackInputOutcome;
 }
 
 export interface RegisteredModule {
@@ -117,6 +124,17 @@ function toCaseRecord<
       return { ok: true, result: module.score(caseData, answer.data) };
     },
     reveal: () => caseData,
+    feedbackInput(rawAnswer) {
+      const answer = module.answerSchema.safeParse(rawAnswer);
+      if (!answer.success) {
+        return { ok: false, issues: formatIssues(answer.error) };
+      }
+      const result = module.score(caseData, answer.data);
+      const context = module.feedbackContext
+        ? module.feedbackContext(caseData, answer.data, result)
+        : { analysis: caseData, learnerAnswer: answer.data };
+      return { ok: true, result, context, rubric: module.feedbackRubric };
+    },
   };
 }
 

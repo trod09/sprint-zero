@@ -197,6 +197,7 @@ describe("case repository", () => {
           ),
           score: () => ({ ok: false, issues: [] }),
           reveal: () => makeDemoCase({ id: "shared-id" }),
+          feedbackInput: () => ({ ok: false, issues: [] }),
         },
       ],
     });

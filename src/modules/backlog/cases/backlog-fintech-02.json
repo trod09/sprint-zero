@@ -12,7 +12,7 @@
   "title": "Tallybridge: month-end is coming",
   "brief": "Tallybridge closed its Series A on a promise of moving upmarket. Sales is bringing larger prospects with long lists of demands, support is drowning ahead of month-end, and the engineering manager warns the platform is getting fragile. You have one sprint before the busiest week of the month. Decide what the team commits to.",
   "hidden": {
-    "keyInsight": "Of the 32 tickets, 8 are traps and 2 critical problems are filed as minor. The best sprint delivers 1035 points of value with 17 tickets, using 61 of 61 story points.",
+    "keyInsight": "Of the 32 tickets, 8 are traps and 2 critical problems are filed as minor. Mid-sprint, losing an engineer forces a replan: the plan that wins keeps room to react.",
     "principle": "One customer is an anecdote, five are a pattern. Build for the pattern and negotiate with the anecdote."
   },
   "sprintCapacity": 61,

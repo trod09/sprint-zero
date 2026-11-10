@@ -8,7 +8,7 @@ export const backlogMeta: ModuleMeta = {
   description:
     "A fictional company hands you 20 to 40 tickets: features, bugs, tech debt, and requests from sales and the CEO. Information is incomplete, some tickets are traps, and capacity is limited. Commit a sprint, survive a mid-sprint event, and compare your plan with the optimal one.",
   skills: ["execution", "strategy"],
-  status: "in_development",
+  status: "available",
   icon: "backlog",
   estimatedMinutes: 25,
 };

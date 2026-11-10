@@ -12,7 +12,7 @@
   "title": "Cobalt Pay: everything is a priority",
   "brief": "Cobalt Pay is growing fast and every team has a top priority that cannot wait. The CEO wants a headline for the next board meeting, sales has two large accounts making demands, and the regulator's annual review is on the calendar. Several tickets in this backlog are not what their titles suggest. Plan the sprint, and expect it to be interrupted.",
   "hidden": {
-    "keyInsight": "Of the 37 tickets, 12 are traps and 3 critical problems are filed as minor. The best sprint delivers 1081 points of value with 17 tickets, using 56 of 57 story points.",
+    "keyInsight": "Of the 37 tickets, 12 are traps and 3 critical problems are filed as minor. Mid-sprint, a legal deadline and a promise made to a customer force a replan: the plan that wins keeps room to react.",
     "principle": "Protect the foundations first: money, data, access and legal deadlines come before any feature."
   },
   "sprintCapacity": 57,

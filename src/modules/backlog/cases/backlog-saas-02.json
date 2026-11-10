@@ -12,7 +12,7 @@
   "title": "Relaydesk: renewal season",
   "brief": "A third of Relaydesk's annual contracts renew this quarter. Customer success is collecting complaints from admins, sales wants enterprise features for two open deals, and a security audit starts in three weeks. Not every urgent request is important, and not every dull ticket is harmless. Plan the sprint.",
   "hidden": {
-    "keyInsight": "Of the 32 tickets, 8 are traps and 2 critical problems are filed as minor. The best sprint delivers 958 points of value with 17 tickets, using 49 of 49 story points.",
+    "keyInsight": "Of the 32 tickets, 8 are traps and 2 critical problems are filed as minor. Mid-sprint, a legal deadline forces a replan: the plan that wins keeps room to react.",
     "principle": "Evidence beats confidence. Ask 'how do we know?' before 'how long will it take?'"
   },
   "sprintCapacity": 49,

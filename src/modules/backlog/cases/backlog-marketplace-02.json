@@ -12,7 +12,7 @@
   "title": "Crateful: the top sellers want more",
   "brief": "A handful of large brands generate a big share of Crateful's volume, and they know it. Their requests arrive through sales marked as urgent. Meanwhile operations handles disputes by email and the payment provider has sent a deprecation notice. Decide what goes into the sprint and what you will say no to.",
   "hidden": {
-    "keyInsight": "Of the 28 tickets, 8 are traps and 2 critical problems are filed as minor. The best sprint delivers 861 points of value with 14 tickets, using 44 of 45 story points.",
+    "keyInsight": "Of the 28 tickets, 8 are traps and 2 critical problems are filed as minor. Mid-sprint, a promise made to a customer forces a replan: the plan that wins keeps room to react.",
     "principle": "Saying no is part of the job. Explain the trade-off with data and offer a smaller alternative."
   },
   "sprintCapacity": 45,

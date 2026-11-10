@@ -9,3 +9,4 @@
  */
 export * from "./types";
 export * from "./public-case";
+export * from "./feedback-schema";

@@ -18,6 +18,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Search, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   useEffect,
   useMemo,
@@ -220,6 +221,7 @@ function Planner({
   const [phase, setPhase] = useState<Phase>({ name: "planning" });
   const [isSubmitting, startSubmitting] = useTransition();
   const startedAt = useRef<string | null>(null);
+  const router = useRouter();
 
   const { activeUsers } = publicCase;
   const events = committed?.events;
@@ -398,10 +400,11 @@ function Planner({
         return;
       }
       const submittedAt = new Date().toISOString();
+      const attemptId = crypto.randomUUID();
       try {
         await getAttemptStore().saveAttempt({
           schemaVersion: 1,
-          id: crypto.randomUUID(),
+          id: attemptId,
           caseId: publicCase.id,
           moduleId: publicCase.moduleId,
           startedAt: startedAt.current ?? submittedAt,
@@ -410,10 +413,13 @@ function Planner({
           result: outcome.result,
         });
       } catch {
-        // The score is still shown; only the history entry is missing.
+        // Without storage there is no results page to open: show the score here.
+        clearDraft(publicCase.id);
+        setPhase({ name: "done", result: outcome.result });
+        return;
       }
       clearDraft(publicCase.id);
-      setPhase({ name: "done", result: outcome.result });
+      router.push(`/results/${attemptId}`);
     });
   };
 

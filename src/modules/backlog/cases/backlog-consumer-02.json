@@ -12,7 +12,7 @@
   "title": "Parla: growth at any cost?",
   "brief": "Parla has two million installs and a retention problem. The board wants growth, the CEO has seen what competitors launched, and partnerships has three companies asking for custom versions. Buried in the backlog are a few tickets that look like housekeeping and are not. Plan the sprint, and be ready to replan it.",
   "hidden": {
-    "keyInsight": "Of the 39 tickets, 12 are traps and 3 critical problems are filed as minor. The best sprint delivers 1303 points of value with 20 tickets, using 57 of 57 story points.",
+    "keyInsight": "Of the 39 tickets, 12 are traps and 3 critical problems are filed as minor. Mid-sprint, losing an engineer and a promise made to a customer force a replan: the plan that wins keeps room to react.",
     "principle": "Tech debt is paid in capacity, and risk is paid all at once. Know which dull tickets buy time and which prevent a disaster."
   },
   "sprintCapacity": 57,

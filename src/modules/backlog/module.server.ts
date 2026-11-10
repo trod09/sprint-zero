@@ -5,8 +5,8 @@
 import "server-only";
 
 import type { SimulationModule } from "@/core/case-engine";
-import type { ScoreResult } from "@/core/scoring";
 
+import { buildBacklogFeedbackContext } from "./feedback";
 import { backlogMeta } from "./module";
 import { toPublicBacklogCase } from "./public";
 import {
@@ -17,7 +17,7 @@ import {
   type BacklogCase,
   type PublicBacklogCase,
 } from "./schema";
-import { scoreBacklogAnswer } from "./scoring";
+import { scoreBacklogAnswer, type BacklogResult } from "./scoring";
 
 export const BACKLOG_FEEDBACK_RUBRIC = `Assess the learner's sprint plan on these points, in this order:
 1. Value: did they pick the tickets with the highest real value for their effort, or were they drawn to the loudest requests?
@@ -32,7 +32,7 @@ export const backlogModule: SimulationModule<
   BacklogCase,
   PublicBacklogCase,
   BacklogAnswer,
-  ScoreResult
+  BacklogResult
 > = {
   meta: backlogMeta,
   caseSchema: backlogCaseSchema,
@@ -41,4 +41,5 @@ export const backlogModule: SimulationModule<
   toPublicCase: toPublicBacklogCase,
   score: scoreBacklogAnswer,
   feedbackRubric: BACKLOG_FEEDBACK_RUBRIC,
+  feedbackContext: buildBacklogFeedbackContext,
 };

@@ -12,7 +12,7 @@
   "title": "Pacewell: January installs, February churn",
   "brief": "Pacewell gets a wave of installs every January and loses most of them by February. Growth has experiments ready, the CEO wants features that make headlines, and the partnerships team is chasing corporate deals. The team is small and the sprint is two weeks. Pick the work that keeps new runners running.",
   "hidden": {
-    "keyInsight": "Of the 30 tickets, 8 are traps and 2 critical problems are filed as minor. The best sprint delivers 961 points of value with 16 tickets, using 49 of 49 story points.",
+    "keyInsight": "Of the 30 tickets, 8 are traps and 2 critical problems are filed as minor. Mid-sprint, a production incident forces a replan: the plan that wins keeps room to react.",
     "principle": "Capacity is a fact, not a negotiation. Every ticket you add is a ticket you take out, so say which one."
   },
   "sprintCapacity": 49,

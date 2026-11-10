@@ -114,6 +114,15 @@ const FORCING_EVENTS: readonly EventType[] = [
 ];
 
 const EFFORT_SCALE: readonly Effort[] = [1, 2, 3, 5, 8, 13];
+
+/** How each event is named in the case's key insight. */
+const EVENT_PHRASES: Record<EventType, string> = {
+  production_outage: "a production incident",
+  dev_unavailable: "losing an engineer",
+  compliance_deadline: "a legal deadline",
+  sales_promise: "a promise made to a customer",
+  ceo_escalation: "a CEO request",
+};
 const MAX_ATTEMPTS = 300;
 const SPRINT_LENGTH_WEEKS = 2;
 /** Critical work may take at most this share of the sprint. */
@@ -629,18 +638,20 @@ function buildCandidate(
     hidden: { keyInsight: "pending", principle: company.principle },
   } satisfies BacklogCase;
 
-  const optimal = solveOptimalSprint(initialScenario(draftCase));
   const trapCount = tickets.filter((ticket) =>
     AVOIDABLE_TRAPS.includes(ticket.hidden.trap),
   ).length;
   const disguised = tickets.filter(
     (ticket) => ticket.hidden.trap === "hidden_critical_bug",
   ).length;
+  const eventPhrases = midSprintEvents.map(
+    (event) => EVENT_PHRASES[event.type],
+  );
   return {
     ...draftCase,
     hidden: {
       principle: company.principle,
-      keyInsight: `Of the ${tickets.length} tickets, ${trapCount} are traps and ${disguised} critical ${disguised === 1 ? "problem is" : "problems are"} filed as minor. The best sprint delivers ${optimal.value} points of value with ${optimal.ticketIds.length} tickets, using ${optimal.effort} of ${sprintCapacity} story points.`,
+      keyInsight: `Of the ${tickets.length} tickets, ${trapCount} are traps and ${disguised} critical ${disguised === 1 ? "problem is" : "problems are"} filed as minor. Mid-sprint, ${eventPhrases.join(" and ")} ${eventPhrases.length === 1 ? "forces" : "force"} a replan: the plan that wins keeps room to react.`,
     },
   };
 }
