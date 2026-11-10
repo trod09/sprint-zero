@@ -23,6 +23,7 @@ export function SiteHeader({ messages }: { messages: Messages }) {
           {[
             { href: "/#modules", label: messages.nav.modules },
             { href: "/library", label: messages.nav.library },
+            { href: "/skills", label: messages.nav.skills },
             { href: "/history", label: messages.nav.history },
           ].map((link) => (
             <Link

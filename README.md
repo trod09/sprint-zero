@@ -89,11 +89,12 @@ out of date, and both scripts accept `-- --check` to verify without writing.
 ```
 src/
   app/                 routes: home, /modules/[module], /case/[caseId],
-                       /results/[attemptId], /library, /history
+                       /results/[attemptId], /library, /history, /skills
   core/
     case-engine/       module contract, registry, case repository, scoring
                        on submit, AI feedback
     scoring/           buildScoreResult and helpers (weights add up to 100)
+    skills/            Elo-style rating per skill and case recommendations
     rng/               seeded generator (mulberry32); no Math.random
     ai/                Claude client: schema-constrained output, Zod
                        validation, one corrective retry

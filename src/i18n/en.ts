@@ -21,6 +21,7 @@ export const en = {
     modules: "Modules",
     library: "Case library",
     history: "History",
+    skills: "Skills",
     toggleTheme: "Toggle light and dark theme",
     skipToContent: "Skip to content",
   },
@@ -779,6 +780,40 @@ export const en = {
     clearConfirm: "Clear history",
     cancel: "Cancel",
     loading: "Loading your history…",
+  },
+  skillsPage: {
+    title: "Your skills",
+    subtitle:
+      "An Elo-style rating per skill, built from your first attempt at each case. Harder cases move it more; replays do not count, because you already know the answer.",
+    loading: "Loading your skills…",
+    empty: "Finish a case to see your skill radar.",
+    emptyCta: "Browse cases",
+    radarTitle: "Skill radar",
+    radarLabel: "Level per skill, from 0 to 100",
+    level: "Level",
+    rating: "Rating",
+    attempts: (count: number) =>
+      count === 0
+        ? "Not practiced yet"
+        : `${count} case${count === 1 ? "" : "s"}`,
+    noModule: "No playable module trains this skill yet.",
+    trendTitle: "Over time",
+    trendLabel: "Rating per skill after each case",
+    trendEmpty: "Your ratings over time appear after your first case.",
+    caseNumber: (index: number) => (index === 0 ? "Start" : `Case ${index}`),
+    nextTitle: "Practice next",
+    nextIntro:
+      "Unplayed cases for your weakest skills, at a difficulty that stretches you.",
+    nextEmpty:
+      "You have played every case that trains these skills. New cases are on the way.",
+    reasons: {
+      not_practiced: (skill: string) =>
+        `You have not practiced ${skill.toLowerCase()} yet.`,
+      weakest: (skill: string) => `${skill} is one of your weakest skills.`,
+    },
+    play: "Play",
+    howTitle: "How the rating works",
+    how: "Every skill starts at 1000. An APM case is rated 1000, PM 1200 and Senior 1400. Scoring above what your rating predicts against the case raises it, scoring below lowers it. A module counts fully for its first skill and half for the others. The level on the radar maps 800 to 0 and 1600 to 100.",
   },
   errors: {
     title: "Something went wrong",
