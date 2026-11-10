@@ -19,7 +19,7 @@ export function SiteHeader({ messages }: { messages: Messages }) {
         </Link>
         <nav className="flex min-w-0 items-center gap-0.5 overflow-x-auto text-sm">
           {[
-            { href: "/#worlds", label: messages.nav.modules },
+            { href: "/#modules", label: messages.nav.modules },
             { href: "/library", label: messages.nav.library },
             { href: "/skills", label: messages.nav.skills },
             { href: "/history", label: messages.nav.history },

@@ -153,6 +153,11 @@ export function ModuleBanner({
         moduleId={moduleId}
         className="absolute inset-0 -z-10 h-full w-full"
       />
+      {/* Keeps the text readable over bright terrain. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0a0e1f]/90 via-[#0a0e1f]/60 to-transparent"
+      />
       <div
         aria-hidden="true"
         className="absolute top-1/2 right-4 -translate-y-1/2 sm:right-8"

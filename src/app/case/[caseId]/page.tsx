@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { submitAttempt } from "@/app/actions/attempts";
+import { RecordLastCase } from "@/components/arcade/record-last-case";
 import { getMessages } from "@/i18n";
 import { getModuleMeta } from "@/modules/catalog";
 import { CaseView } from "@/modules/case-view";
@@ -55,6 +56,7 @@ async function CaseContent({
 
   return (
     <>
+      <RecordLastCase caseId={publicCase.id} />
       <Link
         href={`/modules/${meta.id}`}
         className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 inline-flex items-center gap-1.5 rounded-md text-sm transition-colors focus-visible:ring-3 focus-visible:outline-none"
