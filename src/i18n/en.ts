@@ -997,6 +997,138 @@ export const en = {
       },
     },
   },
+  prd: {
+    documentKinds: {
+      memo: "Memo",
+      data: "Data",
+      email: "Email",
+      notes: "Notes",
+    },
+    horizons: {
+      six_weeks: "6 weeks",
+      quarter: "1 quarter",
+      half_year: "2 quarters",
+      year: "1 year",
+    },
+    buckets: {
+      v1: "Version 1",
+      later: "Later",
+      out: "Non-goal",
+    },
+    brief: {
+      label: "The ask",
+      feature: "Feature",
+      documents: "Documents",
+      documentsIntro: "Everything you need is here. Read it before you write.",
+      from: (who: string) => `From ${who}`,
+    },
+    steps: {
+      label: "Sections",
+      problem: "Problem",
+      goals: "Goals",
+      scope: "Scope",
+      risks: "Risks",
+      questions: "Open questions",
+      review: "Review",
+      back: "Back",
+      next: "Next",
+      done: "done",
+    },
+    problem: {
+      title: "Problem",
+      statement: "Problem statement",
+      statementPlaceholder:
+        "Who has the problem, what happens to them, and what it costs. Two or three sentences.",
+      evidence: "Evidence",
+      evidenceIntro: (max: number) =>
+        `Cite up to ${max} pieces of evidence that prove the problem is real.`,
+      max: (max: number) => `You can cite up to ${max}.`,
+    },
+    goals: {
+      title: "Goals and success metric",
+      goals: "Goals",
+      goalsPlaceholder:
+        "What changes for users and for the business if this works?",
+      metric: "Primary success metric",
+      baseline: "Baseline",
+      target: "Target",
+      horizon: "Within",
+      pickHorizon: "Pick a time frame",
+      unit: (unit: string) => `In ${unit}`,
+      invalid: "Enter a number.",
+    },
+    scope: {
+      title: "Scope and non-goals",
+      intro:
+        "Put each requirement in version 1, later, or out of scope as a non-goal. The documents set the limits.",
+      requirement: "Requirement",
+      bucketFor: (bucket: string, requirement: string) =>
+        `${bucket}: ${requirement}`,
+      assigned: (done: number, total: number) => `${done} of ${total} placed`,
+    },
+    risks: {
+      title: "Risks",
+      intro: (max: number) =>
+        `Name up to ${max} risks and how you would reduce each one.`,
+      mitigation: "Mitigation",
+      mitigationPlaceholder:
+        "What will you do so it does not happen, or hurts less?",
+      max: (max: number) => `You can name up to ${max}.`,
+    },
+    questions: {
+      title: "Open questions",
+      label: "Open questions",
+      placeholder:
+        "What do you still need to find out, and from whom? One per line.",
+    },
+    review: {
+      title: "Your one-pager",
+      intro:
+        "This is what you will submit. Your choices are scored; your writing goes to the AI coach.",
+      onePager: (feature: string) => `${feature}: one-pager`,
+      empty: "Not written yet",
+      edit: "Edit",
+      evidence: "Evidence",
+      metric: "Success metric",
+      metricLine: (
+        metric: string,
+        baseline: string,
+        target: string,
+        horizon: string,
+      ) => `${metric}: from ${baseline} to ${target} within ${horizon}`,
+      unset: "?",
+    },
+    submit: {
+      button: "Submit one-pager",
+      confirmTitle: "Submit this one-pager?",
+      confirmBody:
+        "Your evidence, metric, scope and risks will be checked against the documents, and you will see the ideal one-pager.",
+      confirm: "Submit",
+      cancel: "Keep writing",
+      submitting: "Scoring…",
+      failed:
+        "Your one-pager could not be scored. Check your connection and try again.",
+    },
+    results: {
+      ideal: "Ideal one-pager",
+      yours: "Yours",
+      expected: "Belongs in",
+      cited: "You cited it",
+      named: "You named it",
+      strength: "Strength",
+      relevance: "Relevance",
+      metricRows: {
+        metric: "Metric",
+        baseline: "Baseline",
+        target: "Target",
+        horizon: "Time frame",
+      },
+      answer: "Answer",
+      targetRange: (min: string, max: string) => `${min} to ${max}`,
+      none: "—",
+      principle: "Principle",
+    },
+  },
   generate: {
     title: "Generate a new case",
     intro:

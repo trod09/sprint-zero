@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 
+import { RatingDots } from "@/components/rating-dots";
 import { Badge } from "@/components/ui/badge";
 import { getMessages } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -51,27 +52,6 @@ export function ProductCaseResults({
         {caseData.hidden.principle}
       </p>
     </div>
-  );
-}
-
-/** A 0-max rating as filled dots, with the number for screen readers. */
-function Dots({ value, max }: { value: number; max: number }) {
-  return (
-    <span className="inline-flex items-center gap-0.5">
-      <span className="sr-only">
-        {value} / {max}
-      </span>
-      {Array.from({ length: max }, (_, index) => (
-        <span
-          key={index}
-          aria-hidden="true"
-          className={cn(
-            "size-2 rounded-full",
-            index < value ? "bg-primary" : "bg-muted-foreground/25",
-          )}
-        />
-      ))}
-    </span>
   );
 }
 
@@ -178,7 +158,8 @@ function StructuredResults({
                 }
                 rating={
                   <>
-                    {copy.results.fit} <Dots value={segment.fit} max={3} />
+                    {copy.results.fit}{" "}
+                    <RatingDots value={segment.fit} max={3} />
                   </>
                 }
               />
@@ -213,7 +194,7 @@ function StructuredResults({
                 rating={
                   <>
                     {copy.results.severity}{" "}
-                    <Dots value={problem.severity} max={3} />
+                    <RatingDots value={problem.severity} max={3} />
                   </>
                 }
               />
@@ -326,11 +307,11 @@ function StructuredResults({
                   <>
                     <span className="flex items-center gap-1">
                       {copy.results.successFit}
-                      <Dots value={metric.success} max={2} />
+                      <RatingDots value={metric.success} max={2} />
                     </span>
                     <span className="flex items-center gap-1">
                       {copy.results.guardrailFit}
-                      <Dots value={metric.guardrail} max={2} />
+                      <RatingDots value={metric.guardrail} max={2} />
                     </span>
                   </>
                 }

@@ -11,6 +11,7 @@ import { backlogMeta } from "./backlog/module";
 import { comingSoonModules } from "./coming-soon";
 import { feedbackTriageMeta } from "./feedback-triage/module";
 import { metricDropMeta } from "./metric-drop/module";
+import { prdWriterMeta } from "./prd-writer/module";
 import { productCaseMeta } from "./product-case/module";
 import { uxCritiqueMeta } from "./ux-critique/module";
 
@@ -21,6 +22,7 @@ export const moduleCatalog: readonly ModuleMeta[] = [
   feedbackTriageMeta,
   uxCritiqueMeta,
   productCaseMeta,
+  prdWriterMeta,
   ...comingSoonModules,
 ];
 

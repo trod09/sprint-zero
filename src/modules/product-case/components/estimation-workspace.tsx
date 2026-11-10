@@ -4,16 +4,18 @@ import { Plus, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
+import { clearDraft, loadDraft, saveDraft } from "@/lib/draft";
 import { useIsClient } from "@/lib/use-is-client";
 import { useSubmitAttempt, type SubmitAttempt } from "@/lib/use-submit-attempt";
 import { cn } from "@/lib/utils";
 
-import { clearDraft, loadDraft, saveDraft, timingFrom } from "../draft";
+import { productCaseDraftKey, timingFrom } from "../draft";
 import { factFactor, formatAmount, formatFact, parseAmount } from "../format";
 import {
   MAX_REASONING,
@@ -21,7 +23,6 @@ import {
   type PublicEstimationCase,
 } from "../schema";
 import { CaseTimer } from "./case-timer";
-import { InlineResult, SubmitDialog } from "./submit-dialog";
 
 const MAX_MULTIPLIERS = 4;
 
@@ -55,7 +56,11 @@ export function EstimationWorkspace(props: {
   const isClient = useIsClient();
   const initial = useMemo(() => {
     if (!isClient) return emptyDraft();
-    const draft = loadDraft(props.publicCase.id, draftSchema, emptyDraft);
+    const draft = loadDraft(
+      productCaseDraftKey(props.publicCase.id),
+      draftSchema,
+      emptyDraft,
+    );
     const ids = new Set(props.publicCase.facts.map((fact) => fact.id));
     return { ...draft, factIds: draft.factIds.filter((id) => ids.has(id)) };
   }, [isClient, props.publicCase]);
@@ -89,11 +94,11 @@ function Workspace({
       moduleId: publicCase.moduleId,
       submit,
       failedMessage: copy.submit.failed,
-      onSubmitted: () => clearDraft(publicCase.id),
+      onSubmitted: () => clearDraft(productCaseDraftKey(publicCase.id)),
     });
 
   useEffect(() => {
-    if (persist) saveDraft(publicCase.id, draft);
+    if (persist) saveDraft(productCaseDraftKey(publicCase.id), draft);
   }, [persist, publicCase.id, draft]);
 
   const update = (patch: Partial<Draft>) =>
@@ -393,6 +398,7 @@ function Workspace({
       <SubmitDialog
         open={confirming}
         onOpenChange={setConfirming}
+        copy={copy.submit}
         error={error}
         isSubmitting={isSubmitting}
         onConfirm={() => submitAnswer(answer())}

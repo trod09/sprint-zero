@@ -16,6 +16,7 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - `npm run generate:feedback-triage` — rebuild `src/modules/feedback-triage/cases/*.json` from `content/` (`-- --check` to verify)
 - `npm run generate:ux-critique` — rebuild `src/modules/ux-critique/cases/*.json` from the screen templates (`-- --check` to verify)
 - `npm run generate:product-case` — rebuild `src/modules/product-case/cases/*.json` from `content/cases.ts` (`-- --check` to verify)
+- `npm run generate:prd-writer` — rebuild `src/modules/prd-writer/cases/*.json` from `content/cases.ts` (`-- --check` to verify)
 
 ## Rules that are easy to break
 
@@ -34,3 +35,5 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - A/B test cases store public counts and hidden traps. `findPatternProblem` (`src/modules/ab-test/build-case.ts`) must pass: each case shows exactly the traps it claims. Statistics live in `stats.ts` and are shared by the builder and the UI.
 - Generated cases (`gen-<module>-<industry>-<level>-<seed>`) are rebuilt from their id by `registerModule({ generate })`; never store them. Generators must be pure and must only use `createRng`.
 - Product Case scores only structured choices (segment, problems, build order, metrics; or facts used and the estimate). Free text is for the AI coach. Option ratings live in `content/cases.ts`; numbers in research and fact sheets come from the seed, and `findStructuredProblem` must pass.
+- PRD Writer scores evidence cited, the success metric (metric, baseline, target, horizon), scope buckets and risks; every sentence the learner writes goes to the AI coach only. Numbers in documents are `{slots}` drawn from the seed; `findPrdProblem` must pass.
+- Shared case UI lives in `src/components` (`OptionCard`, `SubmitDialog`, `RatingDots`) and drafts in `src/lib/draft.ts`; reuse them instead of copying.

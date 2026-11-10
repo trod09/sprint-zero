@@ -21,6 +21,8 @@ import { generateTriageOnDemand } from "./feedback-triage/generate";
 import { feedbackTriageModule } from "./feedback-triage/module.server";
 import { metricDropRawCases } from "./metric-drop/cases";
 import { metricDropModule } from "./metric-drop/module.server";
+import { prdRawCases } from "./prd-writer/cases";
+import { prdWriterModule } from "./prd-writer/module.server";
 import { productCaseRawCases } from "./product-case/cases";
 import { productCaseModule } from "./product-case/module.server";
 import { uxCritiqueRawCases } from "./ux-critique/cases";
@@ -54,6 +56,10 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: productCaseModule,
     loadRawCases: () => productCaseRawCases,
+  }),
+  registerModule({
+    module: prdWriterModule,
+    loadRawCases: () => prdRawCases,
   }),
 ];
 

@@ -7,6 +7,9 @@
 import type { BaseCase } from "@/core/case-engine";
 import type { ScoreResult } from "@/core/scoring";
 
+import { PrdResults } from "./prd-writer/components/prd-results";
+import { prdAnswerSchema, prdCaseSchema } from "./prd-writer/schema";
+import { prdResultSchema } from "./prd-writer/scoring";
 import { ProductCaseResults } from "./product-case/components/product-case-results";
 import {
   productCaseAnswerSchema,
@@ -98,6 +101,19 @@ export function ModuleResults({
       const stored = productCaseAnswerSchema.safeParse(answer);
       return (
         <ProductCaseResults
+          caseData={caseData.data}
+          report={parsed.data.report}
+          answer={stored.success ? stored.data : null}
+        />
+      );
+    }
+    case "prd-writer": {
+      const caseData = prdCaseSchema.safeParse(revealedCase);
+      const parsed = prdResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      const stored = prdAnswerSchema.safeParse(answer);
+      return (
+        <PrdResults
           caseData={caseData.data}
           report={parsed.data.report}
           answer={stored.success ? stored.data : null}

@@ -1,0 +1,306 @@
+{
+  "id": "prd-writer-coinpath-round-ups",
+  "moduleId": "prd-writer",
+  "seed": 61202,
+  "difficulty": "pm",
+  "company": {
+    "name": "Coinpath",
+    "industry": "Personal finance app",
+    "stage": "Series B, 900k monthly users",
+    "description": "Coinpath is a budgeting app with a debit card, a main account and savings pots, through a partner bank."
+  },
+  "title": "Write the PRD for automatic savings",
+  "brief": "Leadership wants more users to save. You own the savings team and need a PRD the team, compliance and the partner bank can agree on. The documents disagree in places; decide what goes in the first version.",
+  "hidden": {
+    "evidence": [
+      {
+        "id": "few_savers",
+        "strength": 2,
+        "why": "Sizes the problem with the metric you will move."
+      },
+      {
+        "id": "churn_link",
+        "strength": 2,
+        "why": "Ties the user problem to the business outcome."
+      },
+      {
+        "id": "forget",
+        "strength": 2,
+        "why": "Explains why they do not save, and points straight at automation."
+      },
+      {
+        "id": "press",
+        "strength": 1,
+        "why": "Context, not evidence about our users."
+      },
+      {
+        "id": "crypto",
+        "strength": 0,
+        "why": "Says nothing about our users' problem."
+      },
+      {
+        "id": "theme",
+        "strength": 0,
+        "why": "Unrelated."
+      }
+    ],
+    "metric": {
+      "primaryId": "active_savers",
+      "baseline": 22,
+      "targetMin": 41,
+      "targetMax": 47,
+      "horizon": "half_year",
+      "notes": {
+        "active_savers": "The board's goal, with a baseline of 22% to double.",
+        "total_saved": "A few large savers can move it without more people saving.",
+        "round_ups_on": "Adoption of the feature, not the habit: people can switch it on and off.",
+        "app_opens": "Automatic saving should need fewer visits, not more."
+      }
+    },
+    "requirements": [
+      {
+        "id": "round_ups",
+        "bucket": "v1",
+        "why": "Automatic, small amounts, and a transfer between the user's own accounts, so no bank approval."
+      },
+      {
+        "id": "pause",
+        "bucket": "v1",
+        "why": "People must stay in control of their money, or they will not trust it."
+      },
+      {
+        "id": "balance_guard",
+        "bucket": "v1",
+        "why": "Overdrafts after transfers to savings are already a support theme."
+      },
+      {
+        "id": "external_transfers",
+        "bucket": "later",
+        "why": "A new transfer type: bank approval takes longer than the 12 weeks you have."
+      },
+      {
+        "id": "multiplier",
+        "bucket": "later",
+        "why": "A good second step once the habit exists."
+      },
+      {
+        "id": "named_goals",
+        "bucket": "later",
+        "why": "Nice motivation, not needed to start saving."
+      },
+      {
+        "id": "interest",
+        "bucket": "out",
+        "why": "Needs a banking licence Coinpath does not have."
+      },
+      {
+        "id": "crypto",
+        "bucket": "out",
+        "why": "Off the problem, and a different regulatory world."
+      }
+    ],
+    "risks": [
+      {
+        "id": "overdraft",
+        "relevance": 2,
+        "why": "Already a support theme with scheduled transfers."
+      },
+      {
+        "id": "trust",
+        "relevance": 2,
+        "why": "Automatic transfers break trust if they are not visible and reversible."
+      },
+      {
+        "id": "approval_delay",
+        "relevance": 2,
+        "why": "Approval takes 18 weeks; scope must stay within the user's own accounts."
+      },
+      {
+        "id": "switch_off",
+        "relevance": 1,
+        "why": "Worth watching, and the reason to measure savers rather than switches."
+      },
+      {
+        "id": "competitor",
+        "relevance": 0,
+        "why": "Does not change this plan."
+      },
+      {
+        "id": "fees",
+        "relevance": 0,
+        "why": "Nothing in the documents points to it."
+      }
+    ],
+    "ideal": {
+      "problem": "Only 22% of users save in a month, and most say they mean to save but forget. Savers churn 2x less, so helping people save without thinking is good for them and for Coinpath.",
+      "metrics": "Primary metric: monthly active savers, from 22% to about 44% within two quarters of launch, as the board asked. Track users with round-ups on and the amount saved as secondary metrics.",
+      "scope": "Version 1: round-ups between the user's own accounts, pause and resume, and a low-balance guard. Later: saving to another bank (bank approval takes 18 weeks), multipliers and named goals. Non-goals: interest (no banking licence) and crypto.",
+      "risks": "Overdrafts, users feeling money disappears, and anything that needs partner bank approval sneaking into scope."
+    },
+    "principle": "Constraints belong in the PRD: what legal, compliance or partners rule out is as important as what the team will build."
+  },
+  "feature": "Automatic savings with round-ups",
+  "documents": [
+    {
+      "id": "memo",
+      "kind": "memo",
+      "title": "Savings: the opportunity",
+      "from": "VP Product",
+      "body": "Users who save every month churn 2x less than users who don't. We want an automatic way to save live in 12 weeks, before the board meeting. Team: three engineers and one designer, with a compliance reviewer shared with other teams."
+    },
+    {
+      "id": "data",
+      "kind": "data",
+      "title": "Savings activity, last month",
+      "from": "Data team",
+      "body": "Monthly active savers (users who moved money into a savings pot in the month): 22% of monthly active users."
+    },
+    {
+      "id": "cfo",
+      "kind": "email",
+      "title": "Board goal",
+      "from": "CFO",
+      "body": "The board's goal is simple: double the share of monthly active savers within two quarters of launch."
+    },
+    {
+      "id": "compliance",
+      "kind": "notes",
+      "title": "What we can and cannot do",
+      "from": "Compliance",
+      "body": "Transfers between a user's own Coinpath accounts and pots need no new approval. Any other new transfer type needs the partner bank's approval, which takes about 18 weeks. Paying interest on pots requires a banking licence we do not have."
+    },
+    {
+      "id": "support",
+      "kind": "notes",
+      "title": "Support themes",
+      "from": "Support lead",
+      "body": "45 tickets last quarter came from users whose main account went overdrawn after a scheduled transfer to savings."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "press",
+      "text": "Savings features are a hot topic in the fintech press."
+    },
+    {
+      "id": "churn_link",
+      "text": "Users who save every month churn 2x less."
+    },
+    {
+      "id": "theme",
+      "text": "Users love the new dark theme."
+    },
+    {
+      "id": "few_savers",
+      "text": "Only 22% of monthly users moved money to savings last month."
+    },
+    {
+      "id": "crypto",
+      "text": "A competitor launched crypto savings."
+    },
+    {
+      "id": "forget",
+      "text": "10 of 12 users we interviewed said they mean to save but forget."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "app_opens",
+      "name": "App opens",
+      "definition": "Sessions per user per week.",
+      "unit": "sessions"
+    },
+    {
+      "id": "total_saved",
+      "name": "Total amount saved",
+      "definition": "Money held in savings pots across all users.",
+      "unit": "USD"
+    },
+    {
+      "id": "round_ups_on",
+      "name": "Users with round-ups on",
+      "definition": "Number of users who switched round-ups on.",
+      "unit": "users"
+    },
+    {
+      "id": "active_savers",
+      "name": "Monthly active savers",
+      "definition": "Share of monthly active users who moved money into a savings pot in the month.",
+      "unit": "%"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "crypto",
+      "title": "Invest in crypto",
+      "description": "Invest round-ups in crypto."
+    },
+    {
+      "id": "round_ups",
+      "title": "Round-ups",
+      "description": "Round card purchases up and move the change to a savings pot."
+    },
+    {
+      "id": "pause",
+      "title": "Pause and resume",
+      "description": "Switch round-ups off and on at any time."
+    },
+    {
+      "id": "external_transfers",
+      "title": "Save to another bank",
+      "description": "Send savings to an account at another bank."
+    },
+    {
+      "id": "interest",
+      "title": "Interest on pots",
+      "description": "Pay interest on money in savings pots."
+    },
+    {
+      "id": "multiplier",
+      "title": "Round-up multiplier",
+      "description": "Save two or three times the change."
+    },
+    {
+      "id": "named_goals",
+      "title": "Named goals",
+      "description": "Goals with a name and a progress bar."
+    },
+    {
+      "id": "balance_guard",
+      "title": "Low-balance guard",
+      "description": "Skip round-ups when the main account is below a threshold."
+    }
+  ],
+  "risks": [
+    {
+      "id": "approval_delay",
+      "title": "Partner bank approval",
+      "description": "Something in scope needs bank approval that will not arrive in time."
+    },
+    {
+      "id": "overdraft",
+      "title": "Overdrafts",
+      "description": "Round-ups push the main account below zero."
+    },
+    {
+      "id": "fees",
+      "title": "Card fees change",
+      "description": "Card network fees go up."
+    },
+    {
+      "id": "trust",
+      "title": "Money feels like it disappears",
+      "description": "Users do not understand where small amounts went."
+    },
+    {
+      "id": "competitor",
+      "title": "Competitor launches crypto savings",
+      "description": "A rival's crypto product gets attention."
+    },
+    {
+      "id": "switch_off",
+      "title": "Users switch it off",
+      "description": "People try round-ups and then turn them off."
+    }
+  ]
+}

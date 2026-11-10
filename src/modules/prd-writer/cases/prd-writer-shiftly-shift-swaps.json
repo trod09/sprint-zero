@@ -1,0 +1,299 @@
+{
+  "id": "prd-writer-shiftly-shift-swaps",
+  "moduleId": "prd-writer",
+  "seed": 61303,
+  "difficulty": "senior",
+  "company": {
+    "name": "Shiftly",
+    "industry": "Workforce scheduling for restaurants and retail",
+    "stage": "Series B, 4,000 business customers",
+    "description": "Shiftly lets managers build staff schedules and lets hourly workers see their shifts on their phone."
+  },
+  "title": "Write the PRD for shift swaps",
+  "brief": "Sales has a large chain ready to sign if shift swaps ship, legal has concerns, and another team owns payroll. You are the senior PM writing the PRD that leadership will approve. Make the scope and the trade-offs explicit.",
+  "hidden": {
+    "evidence": [
+      {
+        "id": "uncovered",
+        "strength": 2,
+        "why": "The outcome the business and the chain care about, with a number."
+      },
+      {
+        "id": "manager_hours",
+        "strength": 2,
+        "why": "Shows the cost of today's workaround for the buyer."
+      },
+      {
+        "id": "approval_gap",
+        "strength": 2,
+        "why": "Explains why shifts go uncovered: the bottleneck is approval, not finding a colleague."
+      },
+      {
+        "id": "chain_deal",
+        "strength": 1,
+        "why": "A strong commercial reason, but not evidence of the user problem."
+      },
+      {
+        "id": "marketplace_competitor",
+        "strength": 0,
+        "why": "Says nothing about our users' problem."
+      },
+      {
+        "id": "smartwatch",
+        "strength": 0,
+        "why": "Unrelated to covering shifts."
+      }
+    ],
+    "metric": {
+      "primaryId": "uncovered_shifts",
+      "baseline": 7.5,
+      "targetMin": 3.25,
+      "targetMax": 4.25,
+      "horizon": "quarter",
+      "notes": {
+        "uncovered_shifts": "The problem itself, the chain's goal, and a baseline of 7.5%.",
+        "swaps_completed": "An output: more swaps is good only if fewer shifts go uncovered.",
+        "manager_hours": "A good secondary metric, but self-reported and noisy.",
+        "deal_signed": "A business milestone, not a product metric."
+      }
+    },
+    "requirements": [
+      {
+        "id": "request_swap",
+        "bucket": "v1",
+        "why": "The core flow, and it records that the employee asked, which keeps swaps exempt from premium pay."
+      },
+      {
+        "id": "quick_approval",
+        "bucket": "v1",
+        "why": "Approval is the bottleneck the interviews found."
+      },
+      {
+        "id": "audit_log",
+        "bucket": "v1",
+        "why": "The law requires it for swaps to stay exempt from premium pay."
+      },
+      {
+        "id": "certificates",
+        "bucket": "v1",
+        "why": "A swap to an uncertified worker is a compliance problem for the customer."
+      },
+      {
+        "id": "marketplace",
+        "bucket": "later",
+        "why": "The chain asked for it, but it is a bigger product, and not what makes shifts go uncovered. Agree it as a later phase."
+      },
+      {
+        "id": "auto_approve",
+        "bucket": "later",
+        "why": "A good next step once managers trust the checks."
+      },
+      {
+        "id": "premium_pay",
+        "bucket": "out",
+        "why": "Employee-requested swaps are exempt, and payroll belongs to a team booked until next quarter. Write it down as a non-goal."
+      },
+      {
+        "id": "smartwatch_app",
+        "bucket": "out",
+        "why": "Unrelated to covering shifts."
+      }
+    ],
+    "risks": [
+      {
+        "id": "legal",
+        "relevance": 2,
+        "why": "The legal exposure in 4 states; the record of who asked is the mitigation."
+      },
+      {
+        "id": "uncertified",
+        "relevance": 2,
+        "why": "A compliance problem for the customer, prevented by the certificate check."
+      },
+      {
+        "id": "slow_approval",
+        "relevance": 2,
+        "why": "The root cause of uncovered shifts today; if it stays, the feature fails."
+      },
+      {
+        "id": "payroll",
+        "relevance": 1,
+        "why": "Avoided by keeping pay calculations out of scope."
+      },
+      {
+        "id": "scope_creep",
+        "relevance": 1,
+        "why": "A commercial risk to manage with sales, not a product risk of the swap flow."
+      },
+      {
+        "id": "competitor",
+        "relevance": 0,
+        "why": "Does not change what solves this problem."
+      }
+    ],
+    "ideal": {
+      "problem": "7.5% of shifts go uncovered, mostly after late changes, and managers spend 7 hours a week fixing schedules by phone. Workers usually find someone to cover; what fails is getting approval in time.",
+      "metrics": "Primary metric: uncovered shifts, from 7.5% to about 3.75% within a quarter of rollout, which is what the chain will review. Manager hours and swaps completed are secondary.",
+      "scope": "Version 1: request a swap with a named coworker, one-tap approval with reminders, a 3-year record of who asked, and a certificate check. Later: the regional marketplace and auto-approval. Non-goals: premium pay in payroll (swaps requested by employees are exempt, and payroll is booked) and a smartwatch app.",
+      "risks": "Premium pay liability if a swap is not clearly employee-requested, uncertified cover, and managers who still approve too late."
+    },
+    "principle": "A senior PRD makes trade-offs explicit: it names who asked for what, what was deferred and why, so leadership approves a decision instead of a wish list."
+  },
+  "feature": "Shift swaps",
+  "documents": [
+    {
+      "id": "memo",
+      "kind": "memo",
+      "title": "Why shift swaps",
+      "from": "Head of Product",
+      "body": "7.5% of shifts went uncovered last month, mostly after a late change of plans. Managers spend 7 hours a week on average fixing schedules by phone and chat. A chain with 420 locations will sign if swaps ship in 8 weeks; they will review the pilot three months after rollout."
+    },
+    {
+      "id": "chain",
+      "kind": "email",
+      "title": "What the chain expects",
+      "from": "Head of Sales",
+      "body": "Their operations director wants uncovered shifts cut in half. They also asked for a marketplace where any employee in the region can pick up open shifts at any location. Can we include that?"
+    },
+    {
+      "id": "legal",
+      "kind": "notes",
+      "title": "Predictive scheduling laws",
+      "from": "Legal",
+      "body": "In 4 states where our customers operate, changing a shift less than 7 days ahead means premium pay, unless the employee asked for the change. Employee-requested swaps are exempt if we keep a record of who asked, for 3 years. Workers in some roles (food handling, alcohol sales) need a certificate."
+    },
+    {
+      "id": "engineering",
+      "kind": "notes",
+      "title": "Dependencies",
+      "from": "Engineering lead",
+      "body": "Payroll export belongs to the payroll team, which is booked until next quarter. Anything that changes pay calculations has to wait for them."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "approval_gap",
+      "text": "12 of 15 workers we interviewed found someone to cover but could not get approval in time."
+    },
+    {
+      "id": "manager_hours",
+      "text": "Managers spend 7 hours a week fixing schedules by phone and chat."
+    },
+    {
+      "id": "smartwatch",
+      "text": "Workers want to see their schedule on a smartwatch."
+    },
+    {
+      "id": "marketplace_competitor",
+      "text": "A competitor offers a regional shift marketplace."
+    },
+    {
+      "id": "uncovered",
+      "text": "7.5% of shifts went uncovered last month, mostly after a late change."
+    },
+    {
+      "id": "chain_deal",
+      "text": "A 420-location chain will sign if swaps ship."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "deal_signed",
+      "name": "Chain contract signed",
+      "definition": "Whether the 420-location chain signs.",
+      "unit": "deal"
+    },
+    {
+      "id": "uncovered_shifts",
+      "name": "Uncovered shifts",
+      "definition": "Share of scheduled shifts nobody worked.",
+      "unit": "%"
+    },
+    {
+      "id": "swaps_completed",
+      "name": "Swaps completed",
+      "definition": "Number of approved swaps.",
+      "unit": "swaps"
+    },
+    {
+      "id": "manager_hours",
+      "name": "Manager hours on schedules",
+      "definition": "Hours a week managers spend changing schedules.",
+      "unit": "hours"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "quick_approval",
+      "title": "One-tap approval",
+      "description": "The manager approves or rejects in one tap, with a reminder before the shift."
+    },
+    {
+      "id": "smartwatch_app",
+      "title": "Smartwatch app",
+      "description": "See shifts on a smartwatch."
+    },
+    {
+      "id": "certificates",
+      "title": "Certificate check",
+      "description": "Only offer a shift to coworkers certified for the role."
+    },
+    {
+      "id": "audit_log",
+      "title": "Request record",
+      "description": "Keep who asked for each change, for 3 years."
+    },
+    {
+      "id": "premium_pay",
+      "title": "Premium pay in payroll",
+      "description": "Calculate predictive-scheduling premium pay in the payroll export."
+    },
+    {
+      "id": "request_swap",
+      "title": "Request a swap",
+      "description": "A worker asks a named coworker to take a shift."
+    },
+    {
+      "id": "auto_approve",
+      "title": "Auto-approval",
+      "description": "Approve swaps between qualified coworkers without the manager."
+    },
+    {
+      "id": "marketplace",
+      "title": "Regional marketplace",
+      "description": "Any employee in the region can pick up open shifts at any location."
+    }
+  ],
+  "risks": [
+    {
+      "id": "competitor",
+      "title": "Competitor marketplace",
+      "description": "A rival's marketplace wins deals."
+    },
+    {
+      "id": "scope_creep",
+      "title": "The chain wants the marketplace first",
+      "description": "The deal is held up until the marketplace ships."
+    },
+    {
+      "id": "uncertified",
+      "title": "Uncertified cover",
+      "description": "Someone without the required certificate covers a shift."
+    },
+    {
+      "id": "slow_approval",
+      "title": "Managers approve too late",
+      "description": "Swaps fail because managers do not respond in time."
+    },
+    {
+      "id": "legal",
+      "title": "Premium pay liability",
+      "description": "A swap is not clearly requested by the employee and triggers premium pay."
+    },
+    {
+      "id": "payroll",
+      "title": "Payroll dependency",
+      "description": "Something in scope needs the payroll team this quarter."
+    }
+  ]
+}

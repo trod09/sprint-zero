@@ -29,6 +29,10 @@ Playable today:
   and the metrics from the research, or build an estimate from a fact sheet
   with traps; an optional interview timer and an annotated ideal answer.
   4 cases.
+- **PRD Writer**: read a memo, data, leadership's email and notes from legal
+  or engineering, then write the one-pager: problem and evidence, a success
+  metric with baseline, target and time frame, scope and non-goals, risks
+  with mitigations and open questions. 3 cases.
 
 ## Getting started
 
@@ -66,6 +70,7 @@ notice instead. Keys are only read on the server.
 | `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                 |
 | `npm run generate:ux-critique`     | Rebuild the 5 UX Critique cases                     |
 | `npm run generate:product-case`    | Rebuild the 4 Product Case cases                    |
+| `npm run generate:prd-writer`      | Rebuild the 3 PRD Writer cases                      |
 
 ### Generating cases
 
@@ -103,6 +108,11 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   them. The generator rejects a case without a single best answer at each
   step. Only structured choices are scored; the written reasoning goes to the
   AI coach.
+- **PRD Writer**: `src/modules/prd-writer/content/cases.ts` holds the
+  documents with `{slots}` for every number, the strength of each piece of
+  evidence, the right bucket for each requirement and the relevance of each
+  risk. The baseline and target range are computed from the drawn numbers,
+  and the generator checks the documents state the baseline.
 
 ### Cases on demand
 
@@ -135,6 +145,7 @@ src/
     feedback-triage/   schema, theme library, generator, board, scoring, UI
     ux-critique/       schema, screen templates, generator, scoring, UI
     product-case/      schema, case specs, generator, scoring, UI
+    prd-writer/        schema, case specs, generator, scoring, UI
 ```
 
 - **Ground truth stays on the server.** Cases are read only through
@@ -177,5 +188,5 @@ Or from the terminal with the Vercel CLI: `npx vercel` for a preview and
 `MASTER_PROMPT.md` describes the product, the architecture and the phased
 plan. Phase 1 covered the core, the Backlog Simulator and Metric Drop,
 without accounts. Phase 2 (in progress) adds more modules (A/B Test
-Interpreter, Feedback Triage, UX Critique and Product Case so far, plus the
-skills radar), accounts and automatic case generation.
+Interpreter, Feedback Triage, UX Critique, Product Case and PRD Writer, plus
+the skills radar), accounts and automatic case generation.

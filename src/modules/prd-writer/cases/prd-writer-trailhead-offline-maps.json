@@ -1,0 +1,306 @@
+{
+  "id": "prd-writer-trailhead-offline-maps",
+  "moduleId": "prd-writer",
+  "seed": 61101,
+  "difficulty": "apm",
+  "company": {
+    "name": "Trailhead",
+    "industry": "Outdoor and hiking app",
+    "stage": "Series A, 2M monthly hikers",
+    "description": "Trailhead helps hikers find trails, follow them on a map and record their hikes."
+  },
+  "title": "Write the one-pager for offline maps",
+  "brief": "Your manager asked you for a one-pager on offline maps before the team starts building next week. Read the documents, then write the problem, the goal and how you will measure it, what is in and out of the first version, and the main risks.",
+  "hidden": {
+    "evidence": [
+      {
+        "id": "reviews",
+        "strength": 2,
+        "why": "Direct, recent and frequent: it names the problem in the users' words."
+      },
+      {
+        "id": "completion_gap",
+        "strength": 2,
+        "why": "Shows the problem costs the outcome you care about, and by how much."
+      },
+      {
+        "id": "no_signal_share",
+        "strength": 2,
+        "why": "Shows how many hikes the problem can touch."
+      },
+      {
+        "id": "competitors",
+        "strength": 1,
+        "why": "Context, not proof that our users have the problem."
+      },
+      {
+        "id": "dark_mode",
+        "strength": 0,
+        "why": "Unrelated to offline maps."
+      },
+      {
+        "id": "ceo_hikes",
+        "strength": 0,
+        "why": "An anecdote from one person, and not a user problem."
+      }
+    ],
+    "metric": {
+      "primaryId": "completion",
+      "baseline": 63,
+      "targetMin": 68,
+      "targetMax": 72,
+      "horizon": "quarter",
+      "notes": {
+        "completion": "The outcome the problem hurts, with a baseline (63%) and a target from the CEO (around 70%).",
+        "downloads": "Shows adoption, not whether hikers finish their trails. A good secondary metric.",
+        "rating": "Slow and noisy; many things move it.",
+        "dau": "Depends on the season and the weather more than on this feature."
+      }
+    },
+    "requirements": [
+      {
+        "id": "download_trail",
+        "bucket": "v1",
+        "why": "The core of the feature."
+      },
+      {
+        "id": "offline_position",
+        "bucket": "v1",
+        "why": "Without it, a downloaded map does not keep anyone on the trail."
+      },
+      {
+        "id": "manage_storage",
+        "bucket": "v1",
+        "why": "Storage is already a top support theme; downloads would make it worse."
+      },
+      {
+        "id": "expiry",
+        "bucket": "v1",
+        "why": "Required by the map licence, so it cannot wait."
+      },
+      {
+        "id": "auto_download",
+        "bucket": "later",
+        "why": "Useful, but not needed to solve the problem, and risky for storage."
+      },
+      {
+        "id": "offline_search",
+        "bucket": "later",
+        "why": "Hikers choose trails at home, with signal; this can wait."
+      },
+      {
+        "id": "country_download",
+        "bucket": "out",
+        "why": "The licence does not allow it. Say so explicitly as a non-goal."
+      },
+      {
+        "id": "live_sharing",
+        "bucket": "out",
+        "why": "Needs signal, which is the whole problem, and is a different feature."
+      }
+    ],
+    "risks": [
+      {
+        "id": "storage",
+        "relevance": 2,
+        "why": "Already a top support theme, and downloads make it worse."
+      },
+      {
+        "id": "licence",
+        "relevance": 2,
+        "why": "A legal risk with a clear rule to design for."
+      },
+      {
+        "id": "battery",
+        "relevance": 2,
+        "why": "A dead phone on a trail is a safety problem, not just a bad review."
+      },
+      {
+        "id": "stale_maps",
+        "relevance": 1,
+        "why": "Real but rare, and the 30-day refresh limits it."
+      },
+      {
+        "id": "competitor",
+        "relevance": 0,
+        "why": "Others already have offline maps; it does not change what we build."
+      },
+      {
+        "id": "premium",
+        "relevance": 0,
+        "why": "The documents say nothing about pricing this feature."
+      }
+    ],
+    "ideal": {
+      "problem": "Hikers lose signal on 39% of our trails, and when they do the map stops working: it is the top reason for one-star reviews, and completion drops to 37% on those trails against 63% overall.",
+      "metrics": "Primary metric: trail completion, from 63% to around 70% within the first quarter after launch. Offline downloads are a useful adoption metric, but they do not show hikers finish their trails.",
+      "scope": "Version 1: download a trail's map, see your position on it offline, manage storage and handle the 30-day expiry the licence requires. Later: automatic downloads and offline search. Non-goals: whole-country downloads (not allowed by the licence) and live location sharing.",
+      "risks": "Storage (already a support theme), the licence's 30-day rule, and battery drain, which on a trail is a safety issue."
+    },
+    "principle": "A good one-pager ties the problem to evidence, measures the outcome rather than the output, and writes down what it will not do and why."
+  },
+  "feature": "Offline maps",
+  "documents": [
+    {
+      "id": "memo",
+      "kind": "memo",
+      "title": "Offline maps for the summer release",
+      "from": "Head of Product",
+      "body": "Hikers lose signal on 39% of the trails we track, and \"the map stopped working on the trail\" is the top reason for one-star reviews this quarter. Offline maps go in the summer release, which ships in 10 weeks. The team is two mobile engineers and one designer. We will judge the launch over the first quarter after it ships."
+    },
+    {
+      "id": "data",
+      "kind": "data",
+      "title": "Trail completion, last month",
+      "from": "Data team",
+      "body": "Trail completion (share of started trail recordings that reach the end of the trail): 63% across all trails. On trails without signal: 37%."
+    },
+    {
+      "id": "ceo",
+      "kind": "email",
+      "title": "Re: offline maps",
+      "from": "CEO",
+      "body": "If offline maps work, completion should get to around 70%, which is what we see in regions with good coverage. Let's aim for that."
+    },
+    {
+      "id": "licensing",
+      "kind": "notes",
+      "title": "Map tile licence",
+      "from": "Legal",
+      "body": "Our map provider lets us store tiles on the device for up to 30 days, after which they must be deleted or refreshed. Downloading whole countries or regions needs a new contract, which we do not have."
+    },
+    {
+      "id": "support",
+      "kind": "notes",
+      "title": "Support themes",
+      "from": "Support lead",
+      "body": "150 tickets last quarter were about the app taking too much storage on the phone."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "competitors",
+      "text": "Other hiking apps already offer offline maps."
+    },
+    {
+      "id": "no_signal_share",
+      "text": "Hikers lose signal on 39% of the trails we track."
+    },
+    {
+      "id": "ceo_hikes",
+      "text": "The CEO uses the app on weekend hikes."
+    },
+    {
+      "id": "dark_mode",
+      "text": "Hikers on the forum asked for a dark mode."
+    },
+    {
+      "id": "reviews",
+      "text": "Maps that stop working on the trail are the top reason for one-star reviews."
+    },
+    {
+      "id": "completion_gap",
+      "text": "Completion is 37% on trails without signal, against 63% overall."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "completion",
+      "name": "Trail completion",
+      "definition": "Share of started trail recordings that reach the end of the trail.",
+      "unit": "%"
+    },
+    {
+      "id": "rating",
+      "name": "App store rating",
+      "definition": "Average rating in the app stores.",
+      "unit": "stars"
+    },
+    {
+      "id": "downloads",
+      "name": "Offline downloads",
+      "definition": "Number of maps downloaded for offline use.",
+      "unit": "downloads"
+    },
+    {
+      "id": "dau",
+      "name": "Daily active users",
+      "definition": "Hikers who open the app each day.",
+      "unit": "users"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "offline_position",
+      "title": "Position on the offline map",
+      "description": "Show the hiker's position and the route without signal."
+    },
+    {
+      "id": "country_download",
+      "title": "Download a whole country",
+      "description": "Save every map of a country or region at once."
+    },
+    {
+      "id": "auto_download",
+      "title": "Automatic downloads",
+      "description": "Download maps of saved trails on wifi without asking."
+    },
+    {
+      "id": "expiry",
+      "title": "Map expiry",
+      "description": "Refresh or delete maps older than 30 days, and tell the hiker."
+    },
+    {
+      "id": "offline_search",
+      "title": "Offline search",
+      "description": "Search for new trails while offline."
+    },
+    {
+      "id": "download_trail",
+      "title": "Download a trail's map",
+      "description": "Save the map area around a trail before the hike."
+    },
+    {
+      "id": "manage_storage",
+      "title": "Manage downloaded maps",
+      "description": "See how much space each map takes and delete it."
+    },
+    {
+      "id": "live_sharing",
+      "title": "Live location sharing",
+      "description": "Share your position with friends during the hike."
+    }
+  ],
+  "risks": [
+    {
+      "id": "licence",
+      "title": "Breaking the map licence",
+      "description": "Tiles kept longer than 30 days."
+    },
+    {
+      "id": "premium",
+      "title": "Fewer premium upgrades",
+      "description": "Hikers stop upgrading if offline maps are free."
+    },
+    {
+      "id": "stale_maps",
+      "title": "Out-of-date trails",
+      "description": "A trail is rerouted after the map was downloaded."
+    },
+    {
+      "id": "competitor",
+      "title": "A competitor launches first",
+      "description": "Another app ships a similar feature before us."
+    },
+    {
+      "id": "battery",
+      "title": "Battery drain",
+      "description": "GPS without signal uses more battery."
+    },
+    {
+      "id": "storage",
+      "title": "Phones run out of storage",
+      "description": "Downloaded maps fill the phone."
+    }
+  ]
+}

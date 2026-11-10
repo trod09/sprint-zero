@@ -11,22 +11,31 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { ScoreResult } from "@/core/scoring";
-import { getMessages } from "@/i18n";
 
+export interface SubmitDialogCopy {
+  confirmTitle: string;
+  confirmBody: string;
+  confirm: string;
+  cancel: string;
+  submitting: string;
+}
+
+/** Confirms a submission and shows why it failed, if it did. */
 export function SubmitDialog({
+  copy,
   open,
   onOpenChange,
   error,
   isSubmitting,
   onConfirm,
 }: {
+  copy: SubmitDialogCopy;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   error: string | null;
   isSubmitting: boolean;
   onConfirm: () => void;
 }) {
-  const copy = getMessages().productCase.submit;
   return (
     <Dialog
       open={open}

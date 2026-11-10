@@ -4,16 +4,19 @@ import { ArrowDown, ArrowUp, Check, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { OptionCard } from "@/components/option-card";
 import { Badge } from "@/components/ui/badge";
+import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
+import { clearDraft, loadDraft, saveDraft } from "@/lib/draft";
 import { useIsClient } from "@/lib/use-is-client";
 import { useSubmitAttempt, type SubmitAttempt } from "@/lib/use-submit-attempt";
 import { cn } from "@/lib/utils";
 
-import { clearDraft, loadDraft, saveDraft, timingFrom } from "../draft";
+import { productCaseDraftKey, timingFrom } from "../draft";
 import {
   MAX_PROBLEMS,
   MAX_RANKED_SOLUTIONS,
@@ -22,9 +25,7 @@ import {
   type StructuredAnswer,
 } from "../schema";
 import { CaseTimer } from "./case-timer";
-import { OptionCard } from "./option-card";
 import { ResearchPanel } from "./research-panel";
-import { InlineResult, SubmitDialog } from "./submit-dialog";
 
 const STEPS = ["users", "problems", "solutions", "metrics", "review"] as const;
 type Step = (typeof STEPS)[number];
@@ -92,7 +93,11 @@ export function StructuredWorkspace(props: {
     () =>
       isClient
         ? sanitize(
-            loadDraft(props.publicCase.id, draftSchema, emptyDraft),
+            loadDraft(
+              productCaseDraftKey(props.publicCase.id),
+              draftSchema,
+              emptyDraft,
+            ),
             props.publicCase,
           )
         : emptyDraft(),
@@ -157,11 +162,11 @@ function Workspace({
       moduleId: publicCase.moduleId,
       submit,
       failedMessage: copy.submit.failed,
-      onSubmitted: () => clearDraft(publicCase.id),
+      onSubmitted: () => clearDraft(productCaseDraftKey(publicCase.id)),
     });
 
   useEffect(() => {
-    if (persist) saveDraft(publicCase.id, draft);
+    if (persist) saveDraft(productCaseDraftKey(publicCase.id), draft);
   }, [persist, publicCase.id, draft]);
 
   const update = (patch: Partial<Draft>) =>
@@ -646,6 +651,7 @@ function Workspace({
       <SubmitDialog
         open={confirming}
         onOpenChange={setConfirming}
+        copy={copy.submit}
         error={error}
         isSubmitting={isSubmitting}
         onConfirm={() => submitAnswer(answer())}
