@@ -93,7 +93,7 @@ describe("on-demand generation", () => {
 
   it("returns null for modules without a generator", async () => {
     expect(
-      await caseRepository.getPublicCase("gen-prd-writer-fintech-pm-12"),
+      await caseRepository.getPublicCase("gen-user-interview-fintech-pm-12"),
     ).toBeNull();
   });
 });

@@ -1209,6 +1209,12 @@ export const en = {
         "Name the problem by its effect on the user's goal, not by how it looks.",
         "False alarms cost points. If a part works, leave it alone.",
       ],
+      "user-interview": [
+        "Ask about the last time it happened. Stories beat opinions.",
+        "'Would you use...?' gets a polite yes that means nothing.",
+        "When an answer is vague, stay on it: 'What happened next?'",
+        "If your question contains the answer you hope for, rewrite it.",
+      ],
       "quick-cases": [
         "Do the arithmetic before you choose. The exhibits hold every number you need.",
         "The numbers change from case to case, and the right call changes with them.",
@@ -1453,6 +1459,86 @@ export const en = {
       timed: (used: string, limit: number) =>
         `Timed: you used ${used} of ${limit}:00.`,
       untimed: "Played without the timer.",
+    },
+  },
+  interview: {
+    brief: {
+      label: "The ask",
+      goal: "Research goal",
+      persona: "Who you are talking to",
+      rules: (max: number) =>
+        `You can ask ${max} questions. Ask them one at a time, as you would on a call.`,
+    },
+    chat: {
+      title: "The interview",
+      empty: (name: string) =>
+        `${name} has joined the call. Ask your first question.`,
+      you: "You",
+      inputLabel: "Your question",
+      placeholder: "Type a question and press Enter",
+      send: "Ask",
+      thinking: "is answering…",
+      left: (count: number) =>
+        `${count} question${count === 1 ? "" : "s"} left`,
+      none: "No questions left. Wrap up the interview.",
+      failed:
+        "The question did not get through. Check your connection and ask again.",
+      restart: "Start over",
+      wrapUp: "Wrap up",
+      back: "Back to the interview",
+      minimum: (min: number) =>
+        `Ask at least ${min} questions before you wrap up.`,
+    },
+    wrap: {
+      title: "What did the interview show?",
+      intro:
+        "Tick only what the customer actually told you. A claim without evidence from this call counts against you.",
+      summary: "Your summary for the team",
+      summaryPlaceholder:
+        "Three or four sentences: what you learned, in the customer's terms, and what the team should do next.",
+      coachNote: "Your coach reads the summary. It does not change the score.",
+    },
+    submit: {
+      button: "Submit interview",
+      confirmTitle: "Submit this interview?",
+      confirmBody:
+        "Your questions and your findings will be scored. You will see how each question was read and what it uncovered.",
+      confirm: "Submit",
+      cancel: "Not yet",
+      submitting: "Scoring…",
+      failed:
+        "Your interview could not be scored. Check your connection and try again.",
+    },
+    results: {
+      transcript: "Your questions, one by one",
+      tags: {
+        open: "Open",
+        closed: "Closed",
+        smalltalk: "Small talk",
+        leading: "Leading",
+        hypothetical: "Hypothetical",
+        pastBehavior: "About what happened",
+        double: "Two questions in one",
+      },
+      depth: {
+        greeting: "A greeting",
+        off_topic: "Nothing to say on that",
+        agree: "Polite agreement, no information",
+        hypothetical: "A polite 'sure', no evidence",
+        surface: "A short answer",
+        open: "The general picture",
+        deep: "The real story",
+      } as Record<string, string>,
+      uncovered: "Uncovered",
+      findings: "What there was to learn",
+      status: {
+        found: "You uncovered it",
+        missed: "You missed it",
+        unsupported: "Not supported",
+      },
+      claimed: "You claimed it",
+      tryAsking: "A question that reaches it",
+      principle: "Principle to remember",
     },
   },
   generate: {

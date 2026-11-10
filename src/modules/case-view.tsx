@@ -13,6 +13,8 @@ import { RoadmapCaseView } from "./roadmap-okrs/components/roadmap-case-view";
 import { publicRoadmapCaseSchema } from "./roadmap-okrs/schema";
 import { ProductCaseView } from "./product-case/components/product-case-view";
 import { publicProductCaseSchema } from "./product-case/schema";
+import { InterviewCaseView } from "./user-interview/components/interview-case-view";
+import { publicInterviewCaseSchema } from "./user-interview/schema";
 import { UxCaseView } from "./ux-critique/components/ux-case-view";
 import { publicUxCritiqueCaseSchema } from "./ux-critique/schema";
 import { TriageCaseView } from "./feedback-triage/components/triage-case-view";
@@ -93,6 +95,13 @@ export function CaseView({
       return (
         <QuickCaseView
           publicCase={publicQuickCaseSchema.parse(publicCase)}
+          submit={submit}
+        />
+      );
+    case "user-interview":
+      return (
+        <InterviewCaseView
+          publicCase={publicInterviewCaseSchema.parse(publicCase)}
           submit={submit}
         />
       );

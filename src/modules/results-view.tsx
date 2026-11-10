@@ -22,6 +22,9 @@ import {
   productCaseSchema,
 } from "./product-case/schema";
 import { productCaseResultSchema } from "./product-case/scoring";
+import { InterviewResults } from "./user-interview/components/interview-results";
+import { interviewCaseSchema } from "./user-interview/schema";
+import { interviewResultSchema } from "./user-interview/scoring";
 import { UxResults } from "./ux-critique/components/ux-results";
 import { uxCritiqueCaseSchema } from "./ux-critique/schema";
 import { uxResultSchema } from "./ux-critique/scoring";
@@ -140,6 +143,17 @@ export function ModuleResults({
       if (!caseData.success || !parsed.success) return null;
       return (
         <QuickResults caseData={caseData.data} report={parsed.data.report} />
+      );
+    }
+    case "user-interview": {
+      const caseData = interviewCaseSchema.safeParse(revealedCase);
+      const parsed = interviewResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      return (
+        <InterviewResults
+          caseData={caseData.data}
+          report={parsed.data.report}
+        />
       );
     }
     default:

@@ -34,6 +34,8 @@ import { quickCasesModule } from "./quick-cases/module.server";
 import { buildFeaturedRoadmapCases } from "./roadmap-okrs/cases";
 import { generateRoadmapOnDemand } from "./roadmap-okrs/generate";
 import { roadmapModule } from "./roadmap-okrs/module.server";
+import { interviewCases } from "./user-interview/content/cases";
+import { userInterviewModule } from "./user-interview/module.server";
 import { uxCritiqueRawCases } from "./ux-critique/cases";
 import { generateUxOnDemand } from "./ux-critique/generate";
 import { uxCritiqueModule } from "./ux-critique/module.server";
@@ -72,6 +74,10 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: prdWriterModule,
     loadRawCases: () => prdRawCases,
+  }),
+  registerModule({
+    module: userInterviewModule,
+    loadRawCases: () => interviewCases,
   }),
   registerModule({
     module: quickCasesModule,

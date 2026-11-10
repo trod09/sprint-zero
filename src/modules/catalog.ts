@@ -15,6 +15,7 @@ import { prdWriterMeta } from "./prd-writer/module";
 import { productCaseMeta } from "./product-case/module";
 import { quickCasesMeta } from "./quick-cases/module";
 import { roadmapMeta } from "./roadmap-okrs/module";
+import { userInterviewMeta } from "./user-interview/module";
 import { uxCritiqueMeta } from "./ux-critique/module";
 
 export const moduleCatalog: readonly ModuleMeta[] = [
@@ -27,6 +28,7 @@ export const moduleCatalog: readonly ModuleMeta[] = [
   prdWriterMeta,
   roadmapMeta,
   quickCasesMeta,
+  userInterviewMeta,
   ...comingSoonModules,
 ];
 

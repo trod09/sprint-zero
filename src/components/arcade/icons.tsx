@@ -20,6 +20,7 @@ const MODULE_COLORS = new Set([
   "prd-writer",
   "roadmap-okrs",
   "quick-cases",
+  "user-interview",
 ]);
 
 /** The module's accent color, or the "locked" grey for modules not built yet. */
