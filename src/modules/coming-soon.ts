@@ -26,16 +26,6 @@ export const comingSoonModules: readonly ModuleMeta[] = [
     icon: "prd-writer",
   },
   {
-    id: "ux-critique",
-    name: "UX Critique",
-    tagline: "Spot the usability problems planted in a screen.",
-    description:
-      "Review a generated interface with deliberate usability issues. Mark each problem and describe it, without raising false alarms.",
-    skills: ["product_sense"],
-    status: "coming_soon",
-    icon: "ux-critique",
-  },
-  {
     id: "user-interview",
     name: "User Interview Simulator",
     tagline: "Uncover hidden pain points with good questions.",

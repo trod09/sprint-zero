@@ -19,6 +19,8 @@ import { feedbackTriageRawCases } from "./feedback-triage/cases";
 import { feedbackTriageModule } from "./feedback-triage/module.server";
 import { metricDropRawCases } from "./metric-drop/cases";
 import { metricDropModule } from "./metric-drop/module.server";
+import { uxCritiqueRawCases } from "./ux-critique/cases";
+import { uxCritiqueModule } from "./ux-critique/module.server";
 
 const registeredModules: readonly RegisteredModule[] = [
   registerModule({
@@ -36,6 +38,10 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: feedbackTriageModule,
     loadRawCases: () => feedbackTriageRawCases,
+  }),
+  registerModule({
+    module: uxCritiqueModule,
+    loadRawCases: () => uxCritiqueRawCases,
   }),
 ];
 

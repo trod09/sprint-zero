@@ -1,0 +1,127 @@
+{
+  "id": "ux-critique-taskhive-settings",
+  "moduleId": "ux-critique",
+  "seed": 5103,
+  "difficulty": "pm",
+  "company": {
+    "name": "Taskhive",
+    "industry": "SaaS B2B",
+    "stage": "Series B",
+    "description": "Project management for agencies. Support gets weekly tickets from admins confused by the settings page."
+  },
+  "title": "Taskhive: the settings page",
+  "brief": "This is the settings page of Taskhive, as it ships today. Use it like a customer would, then mark every usability problem you find: click the part of the screen, name the problem and say what you saw. Some parts are fine, and flagging them counts against you.",
+  "hidden": {
+    "issues": [
+      {
+        "regionId": "page_title",
+        "type": "hierarchy",
+        "explanation": "The page title is smaller than the section headings below it, so the structure reads upside down and nothing anchors where you are.",
+        "fix": "Keep a clear scale: page title largest, then section headings, then labels."
+      },
+      {
+        "regionId": "profile",
+        "type": "labels",
+        "explanation": "The profile fields are filled in but have no labels, so you cannot tell which value is which field, especially when one is empty.",
+        "fix": "Give every field a visible label."
+      },
+      {
+        "regionId": "save_row",
+        "type": "cta",
+        "explanation": "The only button on a long settings page says 'OK'. It does not say that it saves, so people leave without saving, or press it expecting to close something.",
+        "fix": "Label the button with its action: 'Save changes'."
+      },
+      {
+        "regionId": "danger",
+        "type": "destructive",
+        "explanation": "Deleting the whole workspace is a big, brand-colored button that looks like the main action and works on a single click, with no confirmation and no undo.",
+        "fix": "Put irreversible actions in a separate danger zone, style them as destructive, and ask for confirmation (e.g. typing the workspace name)."
+      }
+    ],
+    "principle": "Judge a screen by the user's goal: every element should help them reach it, say clearly what will happen, and tell them what did happen."
+  },
+  "screen": {
+    "template": "settings",
+    "product": {
+      "name": "Taskhive",
+      "accent": "#d97706"
+    },
+    "regions": [
+      {
+        "id": "page_title",
+        "label": "Page title and tabs",
+        "props": {
+          "title": "Settings",
+          "tabs": [
+            "Profile",
+            "Notifications",
+            "Billing"
+          ],
+          "titleSize": "small",
+          "sectionSize": "large"
+        }
+      },
+      {
+        "id": "profile",
+        "label": "Profile fields",
+        "props": {
+          "fields": [
+            "Name",
+            "Email",
+            "Job title"
+          ],
+          "labelStyle": "none"
+        }
+      },
+      {
+        "id": "notifications",
+        "label": "Notification toggles",
+        "props": {
+          "toggles": [
+            "Email me when I am assigned a task",
+            "Daily summary of my tasks",
+            "Mentions in comments"
+          ],
+          "showLabels": true
+        }
+      },
+      {
+        "id": "plan",
+        "label": "Plan section",
+        "props": {
+          "lines": [
+            "Business plan · 12 seats",
+            "Renews on March 3 · $240/month"
+          ],
+          "action": "Manage plan"
+        }
+      },
+      {
+        "id": "save_row",
+        "label": "Save button",
+        "props": {
+          "label": "OK",
+          "onSave": "Changes saved."
+        }
+      },
+      {
+        "id": "danger",
+        "label": "Delete workspace",
+        "props": {
+          "label": "Delete workspace",
+          "style": "primary",
+          "confirm": false
+        }
+      },
+      {
+        "id": "help_text",
+        "label": "Note under the toggles",
+        "props": {
+          "text": "Notification changes apply to every workspace you belong to.",
+          "tone": "normal"
+        }
+      }
+    ]
+  },
+  "userGoal": "A Taskhive admin wants to update their profile, choose which notifications they get and check their plan."
+}

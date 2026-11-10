@@ -14,6 +14,7 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - `npm run generate:metric-drop` — rebuild `src/modules/metric-drop/cases/*.json` from the specs in `content/cases.ts` (`-- --check` to verify)
 - `npm run generate:ab-test` — rebuild `src/modules/ab-test/cases/*.json` from the specs in `content/cases.ts` (`-- --check` to verify)
 - `npm run generate:feedback-triage` — rebuild `src/modules/feedback-triage/cases/*.json` from `content/` (`-- --check` to verify)
+- `npm run generate:ux-critique` — rebuild `src/modules/ux-critique/cases/*.json` from the screen templates (`-- --check` to verify)
 
 ## Rules that are easy to break
 

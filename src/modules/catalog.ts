@@ -11,12 +11,14 @@ import { backlogMeta } from "./backlog/module";
 import { comingSoonModules } from "./coming-soon";
 import { feedbackTriageMeta } from "./feedback-triage/module";
 import { metricDropMeta } from "./metric-drop/module";
+import { uxCritiqueMeta } from "./ux-critique/module";
 
 export const moduleCatalog: readonly ModuleMeta[] = [
   backlogMeta,
   metricDropMeta,
   abTestMeta,
   feedbackTriageMeta,
+  uxCritiqueMeta,
   ...comingSoonModules,
 ];
 

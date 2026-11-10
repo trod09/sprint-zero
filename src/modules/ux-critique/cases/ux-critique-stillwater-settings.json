@@ -1,0 +1,132 @@
+{
+  "id": "ux-critique-stillwater-settings",
+  "moduleId": "ux-critique",
+  "seed": 5105,
+  "difficulty": "senior",
+  "company": {
+    "name": "Stillwater",
+    "industry": "Consumer",
+    "stage": "Series A",
+    "description": "A meditation and sleep app with a web dashboard for family plans. The family admin manages everything from settings."
+  },
+  "title": "Stillwater: the family settings page",
+  "brief": "This is the settings page of Stillwater, as it ships today. Use it like a customer would, then mark every usability problem you find: click the part of the screen, name the problem and say what you saw. Some parts are fine, and flagging them counts against you.",
+  "hidden": {
+    "issues": [
+      {
+        "regionId": "notifications",
+        "type": "labels",
+        "explanation": "The toggles are identified only by small icons (an envelope, a calendar, a speech bubble), so people switch notifications on and off by guessing.",
+        "fix": "Write what each toggle does next to it."
+      },
+      {
+        "regionId": "plan",
+        "type": "copy",
+        "explanation": "The plan is described with internal billing codes ('SKU-B2-12', 'T+90', 'auto-renew flag: 1'). The admin cannot tell what they pay, for how many people, or when it renews.",
+        "fix": "Name the plan, the number of seats, the price and the renewal date in plain words."
+      },
+      {
+        "regionId": "save_row",
+        "type": "cta",
+        "explanation": "The only button on a long settings page says 'OK'. It does not say that it saves, so people leave without saving, or press it expecting to close something.",
+        "fix": "Label the button with its action: 'Save changes'."
+      },
+      {
+        "regionId": "danger",
+        "type": "destructive",
+        "explanation": "Deleting the whole workspace is a big, brand-colored button that looks like the main action and works on a single click, with no confirmation and no undo.",
+        "fix": "Put irreversible actions in a separate danger zone, style them as destructive, and ask for confirmation (e.g. typing the workspace name)."
+      },
+      {
+        "regionId": "help_text",
+        "type": "contrast",
+        "explanation": "An important note about the scope of the change is pale grey on white, below the minimum contrast for body text.",
+        "fix": "Show the note in readable secondary text with at least 4.5:1 contrast."
+      }
+    ],
+    "principle": "Judge a screen by the user's goal: every element should help them reach it, say clearly what will happen, and tell them what did happen."
+  },
+  "screen": {
+    "template": "settings",
+    "product": {
+      "name": "Stillwater",
+      "accent": "#7c3aed"
+    },
+    "regions": [
+      {
+        "id": "page_title",
+        "label": "Page title and tabs",
+        "props": {
+          "title": "Settings",
+          "tabs": [
+            "Profile",
+            "Notifications",
+            "Billing"
+          ],
+          "titleSize": "large"
+        }
+      },
+      {
+        "id": "profile",
+        "label": "Profile fields",
+        "props": {
+          "fields": [
+            "Name",
+            "Email",
+            "Job title"
+          ],
+          "labelStyle": "above"
+        }
+      },
+      {
+        "id": "notifications",
+        "label": "Notification toggles",
+        "props": {
+          "toggles": [
+            "Email me when I am assigned a task",
+            "Daily summary of my tasks",
+            "Mentions in comments"
+          ],
+          "showLabels": false
+        }
+      },
+      {
+        "id": "plan",
+        "label": "Plan section",
+        "props": {
+          "lines": [
+            "Entitlement: SKU-B2-12 (seat-provisioned)",
+            "Term end: T+90 · auto-renew flag: 1"
+          ],
+          "action": "Modify provisioning"
+        }
+      },
+      {
+        "id": "save_row",
+        "label": "Save button",
+        "props": {
+          "label": "OK",
+          "onSave": "Changes saved."
+        }
+      },
+      {
+        "id": "danger",
+        "label": "Delete workspace",
+        "props": {
+          "label": "Delete workspace",
+          "style": "primary",
+          "confirm": false
+        }
+      },
+      {
+        "id": "help_text",
+        "label": "Note under the toggles",
+        "props": {
+          "text": "Notification changes apply to every workspace you belong to.",
+          "tone": "faint"
+        }
+      }
+    ]
+  },
+  "userGoal": "A Stillwater admin wants to update their profile, choose which notifications they get and check their plan."
+}

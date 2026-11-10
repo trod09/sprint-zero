@@ -7,6 +7,9 @@
 import type { BaseCase } from "@/core/case-engine";
 import type { ScoreResult } from "@/core/scoring";
 
+import { UxResults } from "./ux-critique/components/ux-results";
+import { uxCritiqueCaseSchema } from "./ux-critique/schema";
+import { uxResultSchema } from "./ux-critique/scoring";
 import { TriageResults } from "./feedback-triage/components/triage-results";
 import { feedbackTriageCaseSchema } from "./feedback-triage/schema";
 import { triageResultSchema } from "./feedback-triage/scoring";
@@ -75,6 +78,12 @@ export function ModuleResults({
       return (
         <TriageResults caseData={caseData.data} report={parsed.data.report} />
       );
+    }
+    case "ux-critique": {
+      const caseData = uxCritiqueCaseSchema.safeParse(revealedCase);
+      const parsed = uxResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      return <UxResults caseData={caseData.data} report={parsed.data.report} />;
     }
     default:
       return null;

@@ -1,0 +1,140 @@
+{
+  "id": "ux-critique-harvest-checkout",
+  "moduleId": "ux-critique",
+  "seed": 5102,
+  "difficulty": "pm",
+  "company": {
+    "name": "Harvest Lane",
+    "industry": "Marketplace",
+    "stage": "Series B",
+    "description": "An online grocery marketplace. A third of carts are abandoned at checkout, and the team suspects the page."
+  },
+  "title": "Harvest Lane: the checkout page",
+  "brief": "This is the checkout page of Harvest Lane, as it ships today. Use it like a customer would, then mark every usability problem you find: click the part of the screen, name the problem and say what you saw. Some parts are fine, and flagging them counts against you.",
+  "hidden": {
+    "issues": [
+      {
+        "regionId": "delivery",
+        "type": "copy",
+        "explanation": "The delivery options use internal jargon ('SLA-72', 'P1 courier', 'tier 2 surcharge') and never say when the order arrives or what it costs, which is all the customer wants to know.",
+        "fix": "Describe each option by arrival date and price, in the customer's words."
+      },
+      {
+        "regionId": "promo",
+        "type": "feedback",
+        "explanation": "Applying a promo code gives no sign of success or failure, and the total does not visibly change. People retype the code or leave to search for another one.",
+        "fix": "Confirm the code inline, show the discount as a line in the summary, and explain clearly when a code is not valid."
+      },
+      {
+        "regionId": "summary",
+        "type": "hierarchy",
+        "explanation": "The total sits in the middle of the list, in the same style as every other line. The number people must check before paying is the hardest one to find.",
+        "fix": "Put the total last, separated from the lines above, in larger and bolder type."
+      },
+      {
+        "regionId": "footer_note",
+        "type": "contrast",
+        "explanation": "The refund deadline is in pale grey, tiny text that fails contrast guidelines. People only discover it after the 48 hours have passed.",
+        "fix": "Show policies that cost the customer money in readable text with enough contrast."
+      }
+    ],
+    "principle": "Judge a screen by the user's goal: every element should help them reach it, say clearly what will happen, and tell them what did happen."
+  },
+  "screen": {
+    "template": "checkout",
+    "product": {
+      "name": "Harvest Lane",
+      "accent": "#15803d"
+    },
+    "regions": [
+      {
+        "id": "header",
+        "label": "Header",
+        "props": {
+          "steps": [
+            "Cart",
+            "Delivery",
+            "Payment"
+          ],
+          "current": 1
+        }
+      },
+      {
+        "id": "shipping",
+        "label": "Delivery address form",
+        "props": {
+          "fields": [
+            "Full name",
+            "Address",
+            "City",
+            "Postcode",
+            "Phone"
+          ],
+          "labelStyle": "above"
+        }
+      },
+      {
+        "id": "delivery",
+        "label": "Delivery options",
+        "props": {
+          "options": [
+            "Option A (SLA-72, non-tracked)",
+            "Option B (P1 courier, tier 2 surcharge)"
+          ]
+        }
+      },
+      {
+        "id": "promo",
+        "label": "Promo code",
+        "props": {
+          "result": ""
+        }
+      },
+      {
+        "id": "summary",
+        "label": "Order summary",
+        "props": {
+          "lines": [
+            [
+              "Items (12)",
+              "$38.81"
+            ],
+            [
+              "Total",
+              "$39.80"
+            ],
+            [
+              "Delivery",
+              "Free"
+            ],
+            [
+              "Service fee",
+              "$0.99"
+            ]
+          ],
+          "total": "",
+          "totalStyle": "plain"
+        }
+      },
+      {
+        "id": "place_order",
+        "label": "Payment buttons",
+        "props": {
+          "primary": "Pay $39.80",
+          "secondary": "Back to cart",
+          "secondaryStyle": "link",
+          "secondaryEffect": "none"
+        }
+      },
+      {
+        "id": "footer_note",
+        "label": "Returns note",
+        "props": {
+          "text": "Missing or damaged items must be reported within 48 hours or refunds are not possible.",
+          "tone": "faint"
+        }
+      }
+    ]
+  },
+  "userGoal": "A Harvest Lane customer with a full cart wants to choose delivery, pay and get their order."
+}

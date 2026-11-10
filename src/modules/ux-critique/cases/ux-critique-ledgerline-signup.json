@@ -1,0 +1,137 @@
+{
+  "id": "ux-critique-ledgerline-signup",
+  "moduleId": "ux-critique",
+  "seed": 5104,
+  "difficulty": "senior",
+  "company": {
+    "name": "Ledgerline",
+    "industry": "Fintech",
+    "stage": "Series A",
+    "description": "Invoicing and expense tracking for freelancers. Paid ads bring visitors to the sign-up page, and only one in five finishes it."
+  },
+  "title": "Ledgerline: the sign-up page",
+  "brief": "This is the signup page of Ledgerline, as it ships today. Use it like a customer would, then mark every usability problem you find: click the part of the screen, name the problem and say what you saw. Some parts are fine, and flagging them counts against you.",
+  "hidden": {
+    "issues": [
+      {
+        "regionId": "title",
+        "type": "hierarchy",
+        "explanation": "The title is the same size and weight as body text, and the subtitle comes before it, so nothing tells the eye where the page starts or what it is for.",
+        "fix": "Make the title the largest, boldest text on the page and put it first, with the subtitle below in a lighter style."
+      },
+      {
+        "regionId": "form",
+        "type": "long_form",
+        "explanation": "Eleven fields before someone can even try the product. Most of them (date of birth, company size, how did you hear about us) are for the sales team, not for the user, and every extra field costs sign-ups.",
+        "fix": "Ask only for email and password (or name) at sign-up, and collect the rest later, when it is useful to the user."
+      },
+      {
+        "regionId": "consent",
+        "type": "copy",
+        "explanation": "The consent text is legal jargon ('accede', 'PII', 'Art. 6(1)(a)', 'sub-processors'). People tick it without understanding what they agree to, which helps neither them nor the company.",
+        "fix": "Say it in plain words ('I agree to the Terms and the Privacy Policy') and link to the details."
+      },
+      {
+        "regionId": "actions",
+        "type": "cta",
+        "explanation": "Two buttons look exactly the same and say 'Submit' and 'Continue'. Neither says what happens, and nothing shows which one creates the account.",
+        "fix": "One primary button that names the outcome ('Create account'); turn the other action into a secondary link."
+      },
+      {
+        "regionId": "trial_note",
+        "type": "contrast",
+        "explanation": "The one sentence that says people will be charged is pale grey on white, in tiny type. Its contrast is far below what most people can read comfortably, and it hides the most important information on the page.",
+        "fix": "Show billing terms in normal body text with enough contrast (at least 4.5:1), next to the button."
+      }
+    ],
+    "principle": "Judge a screen by the user's goal: every element should help them reach it, say clearly what will happen, and tell them what did happen."
+  },
+  "screen": {
+    "template": "signup",
+    "product": {
+      "name": "Ledgerline",
+      "accent": "#0f766e"
+    },
+    "regions": [
+      {
+        "id": "header",
+        "label": "Header",
+        "props": {
+          "links": [
+            "Product",
+            "Pricing",
+            "Log in"
+          ]
+        }
+      },
+      {
+        "id": "title",
+        "label": "Title and subtitle",
+        "props": {
+          "heading": "Create your Ledgerline account",
+          "subtitle": "Start your 14-day free trial. No credit card needed.",
+          "headingSize": "small",
+          "subtitleFirst": true
+        }
+      },
+      {
+        "id": "social",
+        "label": "Social sign-up buttons",
+        "props": {
+          "buttons": [
+            "Continue with Google",
+            "Continue with Apple"
+          ],
+          "showLabels": true
+        }
+      },
+      {
+        "id": "form",
+        "label": "Sign-up form",
+        "props": {
+          "fields": [
+            "Work email",
+            "Full name",
+            "Company",
+            "Job title",
+            "Company size",
+            "Phone number",
+            "Country",
+            "Date of birth",
+            "How did you hear about us?",
+            "Password",
+            "Confirm password"
+          ],
+          "labelStyle": "above",
+          "hint": "At least 8 characters."
+        }
+      },
+      {
+        "id": "consent",
+        "label": "Terms checkbox",
+        "props": {
+          "text": "By proceeding you accede to the processing of PII pursuant to Art. 6(1)(a) and the DPA, incl. onward transfers to sub-processors."
+        }
+      },
+      {
+        "id": "actions",
+        "label": "Buttons under the form",
+        "props": {
+          "primary": "Submit",
+          "secondary": "Continue",
+          "secondaryStyle": "primary",
+          "onSubmit": "Check your inbox: we sent you a link to confirm your email."
+        }
+      },
+      {
+        "id": "trial_note",
+        "label": "Note under the buttons",
+        "props": {
+          "text": "After 14 days your trial converts to the Pro plan at $24 per month unless cancelled.",
+          "tone": "faint"
+        }
+      }
+    ]
+  },
+  "userGoal": "A visitor who clicked 'Start free trial' on the Ledgerline website wants to create an account and get into the product."
+}

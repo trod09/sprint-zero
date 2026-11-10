@@ -740,6 +740,102 @@ export const en = {
       atRank: (rank: number) => `ranked #${rank}`,
     },
   },
+  ux: {
+    issues: {
+      contrast: {
+        label: "Low contrast",
+        hint: "Text that is hard to read against its background.",
+      },
+      hierarchy: {
+        label: "Weak hierarchy",
+        hint: "Nothing shows what matters most or where to start.",
+      },
+      cta: {
+        label: "Confusing call to action",
+        hint: "Buttons that compete or do not say what they do.",
+      },
+      long_form: {
+        label: "Too many fields",
+        hint: "Asks for more than the task needs.",
+      },
+      feedback: {
+        label: "No feedback",
+        hint: "An action gives no sign of what happened.",
+      },
+      labels: {
+        label: "Missing labels",
+        hint: "Fields, icons or controls with no visible name.",
+      },
+      destructive: {
+        label: "Unsafe destructive action",
+        hint: "Easy to delete or lose something by mistake.",
+      },
+      copy: {
+        label: "Unclear wording",
+        hint: "Jargon or text the user cannot understand.",
+      },
+    },
+    brief: {
+      label: "The ask",
+      goal: "The user's goal",
+    },
+    modes: {
+      label: "Mode",
+      use: "Use the screen",
+      mark: "Mark problems",
+      useHint: "Click, type and try things like a customer would.",
+      markHint: "Click any part of the screen to report a problem there.",
+    },
+    frame: {
+      label: (product: string) => `${product} screen`,
+      mark: (region: string) => `Mark a problem in: ${region}`,
+      findings: (count: number) => `${count} finding${count === 1 ? "" : "s"}`,
+    },
+    finding: {
+      title: "Report a problem",
+      region: "Where",
+      pickRegion: "Click a part of the screen in Mark mode.",
+      type: "Kind of problem",
+      pickType: "Pick a kind of problem",
+      note: "What you saw (optional)",
+      notePlaceholder: "Who does it hurt, and how?",
+      add: "Add finding",
+      cancel: "Cancel",
+    },
+    findings: {
+      title: "Your findings",
+      empty:
+        "No findings yet. Switch to Mark mode and click a part of the screen.",
+      remove: (region: string, type: string) => `Remove ${type} in ${region}`,
+      max: (max: number) => `You can report up to ${max} findings.`,
+    },
+    submit: {
+      button: "Submit critique",
+      confirmTitle: "Submit this critique?",
+      confirmBody:
+        "Your findings will be scored: each real problem found counts for you, and each part of the screen flagged by mistake counts against you.",
+      confirm: "Submit",
+      cancel: "Keep looking",
+      submitting: "Scoring…",
+      failed:
+        "Your critique could not be scored. Check your connection and try again.",
+    },
+    results: {
+      planted: "The problems in this screen",
+      outcomes: {
+        found: "Found",
+        wrong_type: "Found, wrong kind",
+        missed: "Missed",
+      },
+      youSaid: (type: string) => `You called it: ${type}`,
+      fix: "Fix",
+      falseAlarms: "False alarms",
+      falseAlarmsIntro: "These parts of the screen work as intended.",
+      noFalseAlarms: "No false alarms.",
+      screen: "The screen, with the problems marked",
+      principle: "Principle",
+    },
+  },
   library: {
     title: "Case library",
     subtitle: "Every playable case, with your best score so far.",

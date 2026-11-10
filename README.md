@@ -21,6 +21,9 @@ Playable today:
   and NPS comments into themes, set the noise aside, flag the critical
   problem hiding in a few recent items, rank by reach times severity and
   write opportunities. 5 cases.
+- **UX Critique**: use a mock sign-up, checkout or settings screen with planted
+  usability problems, then mark each one and name it without flagging the
+  parts that work. 5 cases.
 
 ## Getting started
 
@@ -56,6 +59,7 @@ notice instead. Keys are only read on the server.
 | `npm run generate:metric-drop`     | Rebuild the 5 Metric Drop cases                     |
 | `npm run generate:ab-test`         | Rebuild the 8 A/B Test Interpreter cases            |
 | `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                 |
+| `npm run generate:ux-critique`     | Rebuild the 5 UX Critique cases                     |
 
 ### Generating cases
 
@@ -83,6 +87,10 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   picks six themes per product and adds its critical problem. The seeded
   generator sizes each theme, sets sources, dates and ratings, and only
   accepts inboxes with a clear top three where volume and impact disagree.
+- **UX Critique**: `src/modules/ux-critique/content/templates.ts` defines three
+  screens region by region, each with a good version and its possible flaws.
+  The seed picks which regions are flawed; the renderers in
+  `components/screens` draw every region from plain visual props.
 
 ## How it works
 
@@ -104,6 +112,7 @@ src/
     metric-drop/       schema, data generator, queries, scoring, UI
     ab-test/           schema, statistics, simulation, scoring, UI
     feedback-triage/   schema, theme library, generator, board, scoring, UI
+    ux-critique/       schema, screen templates, generator, scoring, UI
 ```
 
 - **Ground truth stays on the server.** Cases are read only through
@@ -146,4 +155,4 @@ Or from the terminal with the Vercel CLI: `npx vercel` for a preview and
 `MASTER_PROMPT.md` describes the product, the architecture and the phased
 plan. Phase 1 covered the core, the Backlog Simulator and Metric Drop,
 without accounts. Phase 2 (in progress) adds more modules (A/B Test
-Interpreter and Feedback Triage so far), accounts and automatic case generation.
+Interpreter, Feedback Triage and UX Critique so far, plus the skills radar), accounts and automatic case generation.
