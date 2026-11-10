@@ -119,3 +119,52 @@ export interface FeedbackContext {
   analysis: unknown;
   learnerAnswer: unknown;
 }
+
+// ------------------------------------------------------- generated cases
+
+/** Industries a generated case can be set in. */
+export const INDUSTRY_KEYS = [
+  "fintech",
+  "marketplace",
+  "saas",
+  "consumer",
+] as const;
+export const industryKeySchema = z.enum(INDUSTRY_KEYS);
+export type IndustryKey = z.infer<typeof industryKeySchema>;
+
+export const MAX_SEED = 999_999;
+
+/** Everything a generator needs: the same parameters always give the same case. */
+export const generateParamsSchema = z.object({
+  seed: z.number().int().min(1).max(MAX_SEED),
+  difficulty: difficultySchema,
+  industry: industryKeySchema,
+});
+export type GenerateParams = z.infer<typeof generateParamsSchema>;
+
+/**
+ * Generated cases are not stored: their id carries their parameters, e.g.
+ * "gen-backlog-fintech-pm-48213", and the server rebuilds them on demand.
+ */
+export function generatedCaseId(
+  moduleId: string,
+  params: GenerateParams,
+): string {
+  return `gen-${moduleId}-${params.industry}-${params.difficulty}-${params.seed}`;
+}
+
+const GENERATED_ID =
+  /^gen-([a-z0-9]+(?:-[a-z0-9]+)*)-(fintech|marketplace|saas|consumer)-(apm|pm|senior)-(\d{1,6})$/;
+
+export function parseGeneratedCaseId(
+  caseId: string,
+): (GenerateParams & { moduleId: string }) | null {
+  const match = GENERATED_ID.exec(caseId);
+  if (!match) return null;
+  const parsed = generateParamsSchema.safeParse({
+    seed: Number(match[4]),
+    difficulty: match[3],
+    industry: match[2],
+  });
+  return parsed.success ? { moduleId: match[1], ...parsed.data } : null;
+}

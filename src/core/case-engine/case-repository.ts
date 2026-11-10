@@ -5,7 +5,7 @@
 import "server-only";
 
 import type { CaseRecord, ModuleRegistry } from "./registry";
-import type { PublicBaseCase } from "./types";
+import { parseGeneratedCaseId, type PublicBaseCase } from "./types";
 
 export interface CaseRepository {
   /** Public views of a module's cases. Unknown modules yield an empty list. */
@@ -37,6 +37,14 @@ export function createCaseRepository(registry: ModuleRegistry): CaseRepository {
     return index;
   };
 
+  /** Rebuilds a generated case from the parameters in its id. */
+  const generatedRecord = (caseId: string): CaseRecord | null => {
+    const params = parseGeneratedCaseId(caseId);
+    if (!params) return null;
+    const { moduleId, ...rest } = params;
+    return registry.get(moduleId)?.generateCase(rest) ?? null;
+  };
+
   return {
     async listPublicCases(moduleId) {
       const registered = registry.get(moduleId);
@@ -45,10 +53,14 @@ export function createCaseRepository(registry: ModuleRegistry): CaseRepository {
       return records.map((record) => record.publicCase);
     },
     async getPublicCase(caseId) {
-      return (await loadIndex()).get(caseId)?.publicCase ?? null;
+      return (
+        (await loadIndex()).get(caseId)?.publicCase ??
+        generatedRecord(caseId)?.publicCase ??
+        null
+      );
     },
     async getCaseRecord(caseId) {
-      return (await loadIndex()).get(caseId) ?? null;
+      return (await loadIndex()).get(caseId) ?? generatedRecord(caseId);
     },
   };
 }

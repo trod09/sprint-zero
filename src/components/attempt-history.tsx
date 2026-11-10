@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { getAttemptStore } from "@/core/storage";
 import { getMessages } from "@/i18n";
+import { caseLabel } from "@/lib/case-label";
 import { useAttempts } from "@/lib/use-attempts";
 import { cn } from "@/lib/utils";
 
@@ -80,7 +81,7 @@ export function AttemptHistory({ cases }: { cases: CaseSummary[] }) {
       </div>
       <ul className="divide-y overflow-hidden rounded-xl border">
         {attempts.map((attempt) => {
-          const summary = byId.get(attempt.caseId);
+          const summary = caseLabel(attempt.caseId, byId);
           const title = summary?.title ?? copy.unknownCase;
           return (
             <li key={attempt.id} className="flex items-center gap-4 px-4 py-3">

@@ -32,6 +32,7 @@ import {
   type RatedAttempt,
 } from "@/core/skills";
 import { getMessages } from "@/i18n";
+import { caseLabel } from "@/lib/case-label";
 import { useAttempts } from "@/lib/use-attempts";
 import { moduleCatalog } from "@/modules/catalog";
 
@@ -73,7 +74,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
   const view = useMemo(() => {
     if (!attempts) return null;
     const rated: RatedAttempt[] = attempts.flatMap((attempt) => {
-      const summary = caseById.get(attempt.caseId);
+      const summary = caseLabel(attempt.caseId, caseById);
       const skills = skillsOf.get(attempt.moduleId);
       if (!summary || !skills) return [];
       return [

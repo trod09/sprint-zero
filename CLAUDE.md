@@ -31,3 +31,4 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - Pages that read `params` do it inside a `<Suspense>` child (Cache Components), see `src/app/case/[caseId]/page.tsx`.
 - New case views submit through `useSubmitAttempt` (`src/lib/use-submit-attempt.ts`): it scores on the server, stores the attempt and opens the results.
 - A/B test cases store public counts and hidden traps. `findPatternProblem` (`src/modules/ab-test/build-case.ts`) must pass: each case shows exactly the traps it claims. Statistics live in `stats.ts` and are shared by the builder and the UI.
+- Generated cases (`gen-<module>-<industry>-<level>-<seed>`) are rebuilt from their id by `registerModule({ generate })`; never store them. Generators must be pure and must only use `createRng`.

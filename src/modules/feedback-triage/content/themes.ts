@@ -116,6 +116,8 @@ export const THEME_LIBRARY = {
       "Every update brings a new kind of notification I didn't ask for.",
       "The badge count never clears, even after I read everything.",
       "Please stop the marketing pushes, I only want the important ones.",
+      "Got a notification for something I did five minutes ago. Why?",
+      "Reminders keep coming even after I finish what they remind me about.",
     ],
   },
   feature_request: {
@@ -139,6 +141,8 @@ export const THEME_LIBRARY = {
       "Can you prioritize {feature}? Upvote from me.",
       "I'd use {product} daily if it had {feature}.",
       "Still no {feature}? Come on.",
+      "We picked another tool for one project only because it had {feature}.",
+      "Is {feature} on the roadmap at all? A yes or no would help.",
     ],
   },
   onboarding: {
@@ -162,6 +166,8 @@ export const THEME_LIBRARY = {
       "Gave up during setup. Maybe I'll try again later.",
       "The empty screen after signing up tells me nothing.",
       "Onboarding forced me to invite people before I could continue.",
+      "I still don't understand the difference between the two main screens.",
+      "Setup asked for my card before showing me anything. I closed it.",
     ],
   },
   support: {
@@ -185,6 +191,8 @@ export const THEME_LIBRARY = {
       "Ticket marked 'resolved' but nobody contacted me.",
       "It took two weeks to get an answer about a refund.",
       "Support hours don't work for anyone outside the US.",
+      "I had to send the same screenshots to support three times.",
+      "The support form loses everything I typed if I switch tabs.",
     ],
   },
   crashes: {
@@ -231,6 +239,10 @@ export const THEME_LIBRARY = {
       "Ads covering the content on the free plan.",
       "The trial reminder popup can't be dismissed.",
       "It feels like a sales funnel more than an app now.",
+      "Half the menu items are locked behind {plan}.",
+      "A full-screen {plan} ad right when I was trying to {coreAction}.",
+      "Every email from you is a discount on {plan}.",
+      "The app shows me {plan} features just to tell me I can't use them.",
     ],
   },
 } as const satisfies Record<string, ThemeTemplate>;

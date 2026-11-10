@@ -188,6 +188,8 @@ describe("case repository", () => {
     const withCase = (moduleId: string): RegisteredModule => ({
       meta: { ...demoModule.meta, id: moduleId },
       feedbackRubric: "",
+      canGenerate: false,
+      generateCase: () => null,
       loadCases: async () => [
         {
           id: "shared-id",

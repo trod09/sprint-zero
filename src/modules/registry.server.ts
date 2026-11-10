@@ -14,18 +14,22 @@ import {
 import { abTestRawCases } from "./ab-test/cases";
 import { abTestModule } from "./ab-test/module.server";
 import { backlogRawCases } from "./backlog/cases";
+import { generateBacklogOnDemand } from "./backlog/generate";
 import { backlogModule } from "./backlog/module.server";
 import { feedbackTriageRawCases } from "./feedback-triage/cases";
+import { generateTriageOnDemand } from "./feedback-triage/generate";
 import { feedbackTriageModule } from "./feedback-triage/module.server";
 import { metricDropRawCases } from "./metric-drop/cases";
 import { metricDropModule } from "./metric-drop/module.server";
 import { uxCritiqueRawCases } from "./ux-critique/cases";
+import { generateUxOnDemand } from "./ux-critique/generate";
 import { uxCritiqueModule } from "./ux-critique/module.server";
 
 const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: backlogModule,
     loadRawCases: () => backlogRawCases,
+    generate: generateBacklogOnDemand,
   }),
   registerModule({
     module: metricDropModule,
@@ -38,10 +42,12 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: feedbackTriageModule,
     loadRawCases: () => feedbackTriageRawCases,
+    generate: generateTriageOnDemand,
   }),
   registerModule({
     module: uxCritiqueModule,
     loadRawCases: () => uxCritiqueRawCases,
+    generate: generateUxOnDemand,
   }),
 ];
 

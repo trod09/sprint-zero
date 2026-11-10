@@ -92,6 +92,15 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   The seed picks which regions are flawed; the renderers in
   `components/screens` draw every region from plain visual props.
 
+### Cases on demand
+
+Backlog Simulator, Feedback Triage and UX Critique can also build a new case
+from an industry, a level and a seed ("Generate a new case" on their module
+page). Generated cases are not stored: the id carries the parameters
+(`gen-backlog-fintech-pm-48213`), the server rebuilds the case on demand and
+keeps the last ones in memory, and the same link always gives the same case.
+A module opts in by passing `generate` to `registerModule`.
+
 ## How it works
 
 ```

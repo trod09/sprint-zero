@@ -202,7 +202,7 @@ function buildInbox(
 
   const criticalTexts = textRng.sample(
     spec.critical.texts,
-    profile.criticalItems,
+    Math.min(profile.criticalItems, spec.critical.texts.length),
   );
   const criticalItems = criticalTexts.map((text) => ({
     themeKey: spec.critical.key,

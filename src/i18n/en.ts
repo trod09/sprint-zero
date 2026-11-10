@@ -836,6 +836,24 @@ export const en = {
       principle: "Principle",
     },
   },
+  generate: {
+    title: "Generate a new case",
+    intro:
+      "Pick an industry and a level, and get a case nobody has played before. Same code and rules, so the score is just as reproducible.",
+    industry: "Industry",
+    difficulty: "Level",
+    industries: {
+      fintech: "Fintech",
+      marketplace: "Marketplace",
+      saas: "SaaS B2B",
+      consumer: "Consumer",
+    },
+    button: "Generate",
+    generating: "Generating…",
+    note: "The case link contains its seed: share it and others get exactly the same case.",
+    generatedLabel: (module: string, industry: string, level: string) =>
+      `Generated ${module} case · ${industry} · ${level}`,
+  },
   library: {
     title: "Case library",
     subtitle: "Every playable case, with your best score so far.",

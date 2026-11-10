@@ -12,12 +12,14 @@ import { z } from "zod";
 import type { ScoreResult } from "@/core/scoring";
 
 import { assertNoHiddenKeys } from "./public-case";
-import type {
-  BaseCase,
-  FeedbackContext,
-  ModuleMeta,
-  PublicBaseCase,
-  SimulationModule,
+import {
+  generatedCaseId,
+  type BaseCase,
+  type FeedbackContext,
+  type GenerateParams,
+  type ModuleMeta,
+  type PublicBaseCase,
+  type SimulationModule,
 } from "./types";
 
 export type ScoreOutcome =
@@ -46,6 +48,13 @@ export interface RegisteredModule {
   feedbackRubric: string;
   /** Loads and validates the module's cases. The result is memoized. */
   loadCases(): Promise<readonly CaseRecord[]>;
+  /** Whether the module can build new cases on demand. */
+  canGenerate: boolean;
+  /**
+   * Builds (or returns from cache) the case for these parameters.  when
+   * the module cannot generate or no fair case exists for them.
+   */
+  generateCase(params: GenerateParams): CaseRecord | null;
 }
 
 export interface ModuleRegistration<
@@ -57,7 +66,15 @@ export interface ModuleRegistration<
   module: SimulationModule<TCase, TPublicCase, TAnswer, TResult>;
   /** Raw case documents (pregenerated JSON). Validated on first load. */
   loadRawCases: () => readonly unknown[] | Promise<readonly unknown[]>;
+  /**
+   * Optional: builds a new case from a seed, a difficulty and an industry.
+   * Must be pure; the result is validated like any pregenerated case.
+   */
+  generate?: (params: GenerateParams & { caseId: string }) => TCase;
 }
+
+/** Generated cases kept in memory per module; they can always be rebuilt. */
+const GENERATED_CACHE_SIZE = 100;
 
 export class CaseValidationError extends Error {
   constructor(moduleId: string, detail: string, options?: ErrorOptions) {
@@ -146,8 +163,9 @@ export function registerModule<
 >(
   registration: ModuleRegistration<TCase, TPublicCase, TAnswer, TResult>,
 ): RegisteredModule {
-  const { module, loadRawCases } = registration;
+  const { module, loadRawCases, generate } = registration;
   let cases: Promise<readonly CaseRecord[]> | undefined;
+  const generated = new Map<string, CaseRecord | null>();
 
   return {
     meta: module.meta,
@@ -168,6 +186,31 @@ export function registerModule<
         return records;
       });
       return cases;
+    },
+    canGenerate: generate !== undefined,
+    generateCase(params) {
+      if (!generate) return null;
+      const caseId = generatedCaseId(module.meta.id, params);
+      const cached = generated.get(caseId);
+      if (cached !== undefined) {
+        // Refresh its place so the cache drops the least recently used.
+        generated.delete(caseId);
+        generated.set(caseId, cached);
+        return cached;
+      }
+      let record: CaseRecord | null;
+      try {
+        record = toCaseRecord(module, generate({ ...params, caseId }));
+      } catch {
+        // Some parameter sets admit no fair case; treat them as not found.
+        record = null;
+      }
+      if (record && record.id !== caseId) record = null;
+      generated.set(caseId, record);
+      if (generated.size > GENERATED_CACHE_SIZE) {
+        generated.delete(generated.keys().next().value!);
+      }
+      return record;
     },
   };
 }

@@ -5,11 +5,13 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { CaseLibrary } from "@/components/case-library";
+import { GenerateCaseCard } from "@/components/generate-case-card";
 import { ModuleIcon } from "@/components/module-icon";
 import { Badge } from "@/components/ui/badge";
 import { getMessages } from "@/i18n";
 import { getModuleMeta, moduleCatalog } from "@/modules/catalog";
 import { listCaseSummaries } from "@/modules/case-summaries.server";
+import { moduleRegistry } from "@/modules/registry.server";
 
 export function generateStaticParams() {
   return moduleCatalog.map((meta) => ({ module: meta.id }));
@@ -103,6 +105,10 @@ async function ModuleContent({
           </div>
         )}
       </dl>
+
+      {moduleRegistry.get(meta.id)?.canGenerate && (
+        <GenerateCaseCard moduleId={meta.id} />
+      )}
 
       <section aria-labelledby="cases-title" className="mt-10">
         <h2 id="cases-title" className="font-heading text-lg font-semibold">

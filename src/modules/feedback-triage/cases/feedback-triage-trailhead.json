@@ -18,11 +18,11 @@
         "label": "Recorded hikes disappear",
         "severity": "critical",
         "itemIds": [
-          "FB-047",
-          "FB-045",
-          "FB-054",
-          "FB-050",
-          "FB-044"
+          "FB-046",
+          "FB-044",
+          "FB-053",
+          "FB-049",
+          "FB-043"
         ],
         "summary": "A sync change in the latest release overwrites local history with an empty server copy. People lose years of recorded hikes, and it gets worse every day the release stays live.",
         "opportunity": "How might we guarantee that a recorded hike is never lost, starting with stopping the sync bug and restoring the deleted history?"
@@ -34,9 +34,9 @@
         "itemIds": [
           "FB-027",
           "FB-011",
-          "FB-046",
+          "FB-045",
           "FB-004",
-          "FB-053",
+          "FB-052",
           "FB-002",
           "FB-007",
           "FB-016"
@@ -49,18 +49,18 @@
         "label": "Getting started is confusing",
         "severity": "medium",
         "itemIds": [
-          "FB-052",
           "FB-051",
+          "FB-050",
           "FB-008",
           "FB-017",
           "FB-024",
-          "FB-037",
+          "FB-036",
           "FB-010",
-          "FB-048",
+          "FB-047",
           "FB-021",
-          "FB-040",
           "FB-039",
-          "FB-031"
+          "FB-038",
+          "FB-032"
         ],
         "summary": "New users struggle with the first steps. It costs activation quietly: these people rarely complain twice, they just leave.",
         "opportunity": "How might we get a new user to record a hike in their first two minutes, without a tutorial?"
@@ -70,15 +70,15 @@
         "label": "The app got slow",
         "severity": "medium",
         "itemIds": [
-          "FB-032",
+          "FB-033",
           "FB-022",
           "FB-013",
-          "FB-041",
+          "FB-040",
           "FB-019",
           "FB-035",
           "FB-018",
           "FB-025",
-          "FB-043"
+          "FB-042"
         ],
         "summary": "Load times and responsiveness got worse over recent releases. It annoys everyone a little and pushes some people away, but nobody is blocked.",
         "opportunity": "How might we make opening Trailhead and loading routes feel instant again, with a load-time budget every release has to meet?"
@@ -91,7 +91,7 @@
           "FB-030",
           "FB-029",
           "FB-014",
-          "FB-049",
+          "FB-048",
           "FB-028",
           "FB-005"
         ],
@@ -118,9 +118,9 @@
         "severity": "low",
         "itemIds": [
           "FB-023",
-          "FB-038",
+          "FB-037",
           "FB-003",
-          "FB-033"
+          "FB-034"
         ],
         "summary": "Push and email volume annoys people. Easy to fix and worth fixing, but it does not stop anyone from using the product.",
         "opportunity": "How might we let people choose which notifications they get, and send fewer that matter more?"
@@ -129,10 +129,10 @@
     "noiseItemIds": [
       "FB-055",
       "FB-012",
-      "FB-042",
+      "FB-041",
       "FB-026",
-      "FB-036",
-      "FB-034"
+      "FB-031",
+      "FB-054"
     ],
     "explanation": "The critical problem, \"Recorded hikes disappear\", appears in only 5 items, all from the last 6 days. Few items, but each describes harm that grows every day it stays live, so it goes first whatever the volume. Volume alone would put \"Getting started is confusing\" next, with 12 items, but it is a medium-severity problem. \"The app crashes\" (8 items, high severity) and \"Getting started is confusing\" (12 items, medium severity) hurt more people more. Impact here is reach times severity: low counts 1, medium 2, high 3 per item. 6 items were noise: praise, spam and off-topic messages that belong in no theme.",
     "principle": "Rank feedback by reach times severity, not by volume, and read the rare, recent and severe items first: a critical problem is usually quiet before it gets loud."
@@ -146,29 +146,29 @@
       "id": "FB-001",
       "source": "app_review",
       "date": "2026-10-02",
-      "rating": 4,
-      "text": "My team needs offline maps for Europe before we can roll Trailhead out."
+      "rating": 3,
+      "text": "Still no offline maps for Europe? Come on."
     },
     {
       "id": "FB-002",
       "source": "app_review",
       "date": "2026-10-05",
       "rating": 1,
-      "text": "Crashed three times today. I lost what I was typing."
+      "text": "It crashes when I switch accounts."
     },
     {
       "id": "FB-003",
       "source": "app_review",
       "date": "2026-10-06",
-      "rating": 3,
-      "text": "Can I choose which notifications I get? It's all or nothing right now."
+      "rating": 2,
+      "text": "Every update brings a new kind of notification I didn't ask for."
     },
     {
       "id": "FB-004",
       "source": "support",
       "date": "2026-10-06",
-      "plan": "Trailhead Plus",
-      "text": "Since the update it crashes in the background and drains my battery."
+      "plan": "Free",
+      "text": "It crashes whenever I attach a photo."
     },
     {
       "id": "FB-005",
@@ -182,21 +182,21 @@
       "source": "support",
       "date": "2026-10-07",
       "plan": "Free",
-      "text": "Five stars once offline maps for Europe arrives."
+      "text": "Please add offline maps for Europe. It's the one thing missing."
     },
     {
       "id": "FB-007",
       "source": "app_review",
       "date": "2026-10-07",
       "rating": 1,
-      "text": "Can't use it at all, it crashes right after the splash screen."
+      "text": "Crashes on launch since the latest update on my iPhone."
     },
     {
       "id": "FB-008",
       "source": "support",
       "date": "2026-10-08",
       "plan": "Free",
-      "text": "Not intuitive at all for a beginner."
+      "text": "New user here, the first screens are confusing."
     },
     {
       "id": "FB-009",
@@ -216,21 +216,21 @@
       "id": "FB-011",
       "source": "support",
       "date": "2026-10-12",
-      "plan": "Trailhead Plus",
-      "text": "Crash when I tap the share button, every single time."
+      "plan": "Free",
+      "text": "Crashed three times today. I lost what I was typing."
     },
     {
       "id": "FB-012",
       "source": "app_review",
       "date": "2026-10-12",
-      "rating": 5,
-      "text": "meh"
+      "rating": 4,
+      "text": "ok"
     },
     {
       "id": "FB-013",
       "source": "app_review",
       "date": "2026-10-13",
-      "rating": 3,
+      "rating": 2,
       "text": "Trailhead takes forever to load lately. I open it and stare at a spinner for ten seconds."
     },
     {
@@ -244,22 +244,22 @@
       "id": "FB-015",
       "source": "support",
       "date": "2026-10-14",
-      "plan": "Free",
-      "text": "offline maps for Europe would make this perfect."
+      "plan": "Trailhead Plus",
+      "text": "We picked another tool for one project only because it had offline maps for Europe."
     },
     {
       "id": "FB-016",
       "source": "support",
       "date": "2026-10-15",
       "plan": "Free",
-      "text": "Opening a route makes the app crash."
+      "text": "Unstable. It crashes at least once a day."
     },
     {
       "id": "FB-017",
       "source": "app_review",
       "date": "2026-10-15",
-      "rating": 2,
-      "text": "Onboarding forced me to invite people before I could continue."
+      "rating": 1,
+      "text": "The welcome tour covers everything except what I needed."
     },
     {
       "id": "FB-018",
@@ -272,7 +272,7 @@
       "id": "FB-019",
       "source": "app_review",
       "date": "2026-10-16",
-      "rating": 1,
+      "rating": 2,
       "text": "Pages load in slow motion compared to a month ago."
     },
     {
@@ -280,14 +280,14 @@
       "source": "app_review",
       "date": "2026-10-16",
       "rating": 3,
-      "text": "Please add offline maps for Europe. It's the one thing missing."
+      "text": "Other apps have offline maps for Europe, why doesn't Trailhead?"
     },
     {
       "id": "FB-021",
       "source": "app_review",
       "date": "2026-10-17",
       "rating": 2,
-      "text": "The setup asks too many questions before I can even record a hike."
+      "text": "I signed up but couldn't find how to add my first route."
     },
     {
       "id": "FB-022",
@@ -300,21 +300,21 @@
       "id": "FB-023",
       "source": "app_review",
       "date": "2026-10-18",
-      "rating": 3,
-      "text": "The app nags me constantly to record a hike."
+      "rating": 4,
+      "text": "Too many 'we miss you' messages."
     },
     {
       "id": "FB-024",
       "source": "support",
       "date": "2026-10-18",
-      "plan": "Trailhead Plus",
-      "text": "Gave up during setup. Maybe I'll try again later."
+      "plan": "Free",
+      "text": "The tutorial is way too long and I couldn't skip it."
     },
     {
       "id": "FB-025",
       "source": "app_review",
       "date": "2026-10-19",
-      "rating": 3,
+      "rating": 2,
       "text": "Battery drains fast and the phone gets hot while the app loads."
     },
     {
@@ -322,14 +322,14 @@
       "source": "app_review",
       "date": "2026-10-19",
       "rating": 5,
-      "text": "Thanks to the team, this app changed my routine."
+      "text": "Love Trailhead, I use it every day!"
     },
     {
       "id": "FB-027",
       "source": "app_review",
       "date": "2026-10-19",
       "rating": 1,
-      "text": "Constant crashes on my Samsung, reinstalling didn't help."
+      "text": "Five crashes in an hour. Please test before releasing."
     },
     {
       "id": "FB-028",
@@ -342,43 +342,43 @@
       "id": "FB-029",
       "source": "app_review",
       "date": "2026-10-20",
-      "rating": 2,
+      "rating": 3,
       "text": "Paying this much, I expected more than the basics."
     },
     {
       "id": "FB-030",
       "source": "app_review",
       "date": "2026-10-21",
-      "rating": 4,
+      "rating": 3,
       "text": "Other apps do this for free. Hard to keep paying."
     },
     {
       "id": "FB-031",
-      "source": "support",
+      "source": "nps",
       "date": "2026-10-21",
-      "plan": "Free",
-      "text": "The welcome tour covers everything except what I needed."
+      "npsScore": 10,
+      "text": "Thanks to the team, this app changed my routine."
     },
     {
       "id": "FB-032",
+      "source": "support",
+      "date": "2026-10-21",
+      "plan": "Trailhead Plus",
+      "text": "Gave up during setup. Maybe I'll try again later."
+    },
+    {
+      "id": "FB-033",
       "source": "app_review",
       "date": "2026-10-21",
       "rating": 2,
       "text": "Lag, lag, lag. Unusable on my commute."
     },
     {
-      "id": "FB-033",
-      "source": "app_review",
-      "date": "2026-10-21",
-      "rating": 3,
-      "text": "Way too many push notifications. I turned them all off."
-    },
-    {
       "id": "FB-034",
       "source": "app_review",
       "date": "2026-10-21",
-      "rating": 1,
-      "text": "first"
+      "rating": 4,
+      "text": "My notification settings don't save, I keep getting everything."
     },
     {
       "id": "FB-035",
@@ -389,114 +389,114 @@
     },
     {
       "id": "FB-036",
-      "source": "app_review",
-      "date": "2026-10-22",
-      "rating": 4,
-      "text": "Is this the app my cousin told me about?"
-    },
-    {
-      "id": "FB-037",
       "source": "support",
       "date": "2026-10-23",
       "plan": "Trailhead Plus",
-      "text": "The empty screen after signing up tells me nothing."
+      "text": "Not intuitive at all for a beginner."
     },
     {
-      "id": "FB-038",
+      "id": "FB-037",
       "source": "nps",
       "date": "2026-10-24",
       "npsScore": 5,
-      "text": "Every update brings a new kind of notification I didn't ask for."
+      "text": "The app nags me constantly to record a hike."
+    },
+    {
+      "id": "FB-038",
+      "source": "app_review",
+      "date": "2026-10-24",
+      "rating": 1,
+      "text": "The empty screen after signing up tells me nothing."
     },
     {
       "id": "FB-039",
       "source": "app_review",
-      "date": "2026-10-24",
+      "date": "2026-10-25",
       "rating": 2,
-      "text": "New user here, the first screens are confusing."
+      "text": "Onboarding forced me to invite people before I could continue."
     },
     {
       "id": "FB-040",
-      "source": "app_review",
-      "date": "2026-10-25",
-      "rating": 1,
-      "text": "I signed up but couldn't find how to add my first route."
-    },
-    {
-      "id": "FB-041",
       "source": "support",
       "date": "2026-10-26",
-      "plan": "Trailhead Plus",
+      "plan": "Free",
       "text": "Everything feels sluggish since the last update. Scrolling through my routes stutters."
     },
     {
-      "id": "FB-042",
+      "id": "FB-041",
       "source": "app_review",
       "date": "2026-10-26",
       "rating": 4,
-      "text": "How do I change the language of my phone?"
+      "text": "Can't wait for summer."
     },
     {
-      "id": "FB-043",
+      "id": "FB-042",
       "source": "app_review",
       "date": "2026-10-26",
       "rating": 2,
       "text": "Super laggy on my Samsung. Typing has a delay."
     },
     {
-      "id": "FB-044",
+      "id": "FB-043",
       "source": "support",
       "date": "2026-10-26",
       "plan": "Trailhead Plus",
       "text": "The update wiped my saved routes. Support says they can't recover them."
     },
     {
+      "id": "FB-044",
+      "source": "support",
+      "date": "2026-10-27",
+      "plan": "Free",
+      "text": "I synced my phone and my hike history is empty. Years of data."
+    },
+    {
       "id": "FB-045",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 1,
+      "text": "Crash when I tap the share button, every single time."
+    },
+    {
+      "id": "FB-046",
       "source": "support",
       "date": "2026-10-27",
       "plan": "Trailhead Plus",
       "text": "History shows 0 hikes after I logged in on my new phone."
     },
     {
-      "id": "FB-046",
+      "id": "FB-047",
       "source": "app_review",
       "date": "2026-10-27",
-      "rating": 1,
-      "text": "It crashes whenever I attach a photo."
-    },
-    {
-      "id": "FB-047",
-      "source": "support",
-      "date": "2026-10-27",
-      "plan": "Trailhead Plus",
-      "text": "All my recorded hikes from the last two years are gone after the update."
+      "rating": 2,
+      "text": "The setup asks too many questions before I can even record a hike."
     },
     {
       "id": "FB-048",
-      "source": "app_review",
-      "date": "2026-10-27",
-      "rating": 1,
-      "text": "Too many permissions asked at the start, I almost uninstalled."
-    },
-    {
-      "id": "FB-049",
       "source": "nps",
       "date": "2026-10-28",
-      "npsScore": 5,
+      "npsScore": 6,
       "text": "Too expensive for what it does. Trailhead Plus should be half the price."
     },
     {
-      "id": "FB-050",
+      "id": "FB-049",
       "source": "app_review",
       "date": "2026-10-28",
       "rating": 1,
       "text": "Recorded a 20 km hike, saved it, and it vanished from my history."
     },
     {
-      "id": "FB-051",
+      "id": "FB-050",
       "source": "app_review",
       "date": "2026-10-28",
-      "rating": 2,
+      "rating": 1,
+      "text": "Setup asked for my card before showing me anything. I closed it."
+    },
+    {
+      "id": "FB-051",
+      "source": "support",
+      "date": "2026-10-29",
+      "plan": "Free",
       "text": "Downloaded it and had no idea where to start."
     },
     {
@@ -504,28 +504,28 @@
       "source": "support",
       "date": "2026-10-29",
       "plan": "Trailhead Plus",
-      "text": "The tutorial is way too long and I couldn't skip it."
+      "text": "Can't use it at all, it crashes right after the splash screen."
     },
     {
       "id": "FB-053",
-      "source": "support",
-      "date": "2026-10-29",
-      "plan": "Free",
-      "text": "Unstable. It crashes at least once a day."
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 1,
+      "text": "All my recorded hikes from the last two years are gone after the update."
     },
     {
       "id": "FB-054",
       "source": "app_review",
       "date": "2026-10-30",
-      "rating": 1,
-      "text": "I synced my phone and my hike history is empty. Years of data."
+      "rating": 5,
+      "text": "Five stars, does exactly what I need."
     },
     {
       "id": "FB-055",
       "source": "app_review",
       "date": "2026-10-31",
-      "rating": 1,
-      "text": "Can't wait for summer."
+      "rating": 3,
+      "text": "How do I change the language of my phone?"
     }
   ]
 }

@@ -18,7 +18,7 @@
         "label": "Payroll export loses hours",
         "severity": "critical",
         "itemIds": [
-          "FB-055",
+          "FB-056",
           "FB-064",
           "FB-061"
         ],
@@ -30,15 +30,15 @@
         "label": "The app crashes",
         "severity": "high",
         "itemIds": [
-          "FB-018",
-          "FB-048",
+          "FB-019",
+          "FB-050",
+          "FB-054",
           "FB-053",
-          "FB-052",
-          "FB-036",
+          "FB-038",
           "FB-066",
-          "FB-028",
-          "FB-034",
-          "FB-056",
+          "FB-030",
+          "FB-036",
+          "FB-057",
           "FB-060",
           "FB-010"
         ],
@@ -53,10 +53,10 @@
           "FB-006",
           "FB-011",
           "FB-008",
-          "FB-046",
+          "FB-047",
           "FB-021",
-          "FB-051",
-          "FB-023",
+          "FB-052",
+          "FB-025",
           "FB-007"
         ],
         "summary": "Password resets, verification codes and social sign-in fail, and people are locked out of their own data. Every one of these users is fully blocked.",
@@ -67,19 +67,19 @@
         "label": "The price feels too high",
         "severity": "low",
         "itemIds": [
-          "FB-026",
-          "FB-057",
-          "FB-033",
-          "FB-019",
+          "FB-028",
+          "FB-058",
+          "FB-035",
+          "FB-020",
           "FB-004",
           "FB-062",
           "FB-012",
           "FB-001",
-          "FB-043",
-          "FB-038",
-          "FB-031",
-          "FB-022",
-          "FB-058",
+          "FB-044",
+          "FB-040",
+          "FB-033",
+          "FB-023",
+          "FB-059",
           "FB-009"
         ],
         "summary": "Complaints about the price and the last increase. Loud and frequent, but people still use the product; it is a positioning question, not a broken experience.",
@@ -90,12 +90,12 @@
         "label": "Getting started is confusing",
         "severity": "medium",
         "itemIds": [
-          "FB-025",
-          "FB-045",
+          "FB-027",
+          "FB-046",
           "FB-002",
-          "FB-042",
+          "FB-043",
           "FB-005",
-          "FB-032"
+          "FB-034"
         ],
         "summary": "New users struggle with the first steps. It costs activation quietly: these people rarely complain twice, they just leave.",
         "opportunity": "How might we get a new user to publish the schedule in their first two minutes, without a tutorial?"
@@ -106,14 +106,14 @@
         "severity": "low",
         "itemIds": [
           "FB-065",
-          "FB-039",
-          "FB-017",
-          "FB-027",
+          "FB-041",
+          "FB-018",
+          "FB-029",
           "FB-016",
-          "FB-037",
-          "FB-024",
-          "FB-044",
-          "FB-040"
+          "FB-039",
+          "FB-026",
+          "FB-045",
+          "FB-042"
         ],
         "summary": "Push and email volume annoys people. Easy to fix and worth fixing, but it does not stop anyone from using the product.",
         "opportunity": "How might we let people choose which notifications they get, and send fewer that matter more?"
@@ -124,10 +124,10 @@
         "severity": "low",
         "itemIds": [
           "FB-013",
-          "FB-029",
-          "FB-030",
-          "FB-035",
-          "FB-049"
+          "FB-031",
+          "FB-032",
+          "FB-037",
+          "FB-051"
         ],
         "summary": "A popular request. It signals what people want next, but its absence does not hurt anyone today.",
         "opportunity": "How might we find out which job time-off requests would do for people, and whether a smaller version solves it?"
@@ -135,15 +135,15 @@
     ],
     "noiseItemIds": [
       "FB-003",
-      "FB-050",
       "FB-063",
+      "FB-049",
       "FB-014",
+      "FB-017",
       "FB-015",
-      "FB-020",
-      "FB-054",
-      "FB-041",
-      "FB-047",
-      "FB-059"
+      "FB-022",
+      "FB-055",
+      "FB-048",
+      "FB-024"
     ],
     "explanation": "The critical problem, \"Payroll export loses hours\", appears in only 3 items, all from the last 6 days. Few items, but each describes harm that grows every day it stays live, so it goes first whatever the volume. Volume alone would put \"The price feels too high\" next, with 14 items, but it is a low-severity problem. \"The app crashes\" (11 items, high severity) and \"People cannot log in\" (8 items, high severity) hurt more people more. Impact here is reach times severity: low counts 1, medium 2, high 3 per item. 10 items were noise: praise, spam and off-topic messages that belong in no theme.",
     "principle": "Rank feedback by reach times severity, not by volume, and read the rare, recent and severe items first: a critical problem is usually quiet before it gets loud."
@@ -157,463 +157,463 @@
       "id": "FB-001",
       "source": "nps",
       "date": "2026-10-02",
-      "npsScore": 6,
-      "text": "Pricing is confusing, I don't even know which plan I'm on."
+      "npsScore": 4,
+      "text": "Cancelled Pro because of the price increase."
     },
     {
       "id": "FB-002",
       "source": "support",
       "date": "2026-10-02",
-      "plan": "Pro",
-      "text": "I signed up but couldn't find how to add my first shift."
+      "plan": "Free",
+      "text": "Gave up during setup. Maybe I'll try again later."
     },
     {
       "id": "FB-003",
       "source": "app_review",
       "date": "2026-10-03",
       "rating": 1,
-      "text": "Free gift cards on my channel, link in bio."
+      "text": "Wrong app, I meant to review a game. Sorry!"
     },
     {
       "id": "FB-004",
       "source": "nps",
       "date": "2026-10-03",
-      "npsScore": 5,
-      "text": "I'd pay for Pro if there was a monthly option under $5."
+      "npsScore": 4,
+      "text": "Make the annual plan cheaper and I'll stay."
     },
     {
       "id": "FB-005",
       "source": "nps",
       "date": "2026-10-03",
-      "npsScore": 2,
-      "text": "Gave up during setup. Maybe I'll try again later."
+      "npsScore": 3,
+      "text": "I still don't understand the difference between the two main screens."
     },
     {
       "id": "FB-006",
       "source": "nps",
       "date": "2026-10-04",
-      "npsScore": 1,
-      "text": "Sign in with Apple fails with 'something went wrong'."
+      "npsScore": 0,
+      "text": "I can't reach my shifts because login keeps failing."
     },
     {
       "id": "FB-007",
       "source": "nps",
       "date": "2026-10-05",
-      "npsScore": 0,
-      "text": "I keep getting logged out and the reset email never arrives."
+      "npsScore": 1,
+      "text": "Logged out after the update and none of my passwords work."
     },
     {
       "id": "FB-008",
       "source": "app_review",
       "date": "2026-10-05",
       "rating": 1,
-      "text": "The two-factor code expired before it arrived. Now I'm stuck."
+      "text": "Every time I open the app I have to log in again."
     },
     {
       "id": "FB-009",
       "source": "app_review",
       "date": "2026-10-06",
-      "rating": 3,
-      "text": "Student discount please, Pro is too pricey."
+      "rating": 2,
+      "text": "The free tier keeps shrinking. Feels like a push to pay."
     },
     {
       "id": "FB-010",
       "source": "app_review",
       "date": "2026-10-06",
       "rating": 1,
-      "text": "Since the update it crashes in the background and drains my battery."
+      "text": "Can't use it at all, it crashes right after the splash screen."
     },
     {
       "id": "FB-011",
       "source": "nps",
       "date": "2026-10-08",
-      "npsScore": 3,
-      "text": "My session expires every few minutes, I have to sign in constantly."
+      "npsScore": 0,
+      "text": "The two-factor code expired before it arrived. Now I'm stuck."
     },
     {
       "id": "FB-012",
       "source": "app_review",
       "date": "2026-10-09",
       "rating": 4,
-      "text": "Wish there was a family plan, paying for three accounts adds up."
+      "text": "Too expensive for what it does. Pro should be half the price."
     },
     {
       "id": "FB-013",
       "source": "nps",
       "date": "2026-10-09",
-      "npsScore": 6,
-      "text": "My team needs time-off requests before we can roll Shiftly out."
+      "npsScore": 7,
+      "text": "Still no time-off requests? Come on."
     },
     {
       "id": "FB-014",
-      "source": "nps",
+      "source": "app_review",
       "date": "2026-10-10",
-      "npsScore": 9,
-      "text": "Thanks to the team, this app changed my routine."
+      "rating": 3,
+      "text": "Earn $500 a day from home, visit my profile!!!"
     },
     {
       "id": "FB-015",
       "source": "app_review",
       "date": "2026-10-11",
-      "rating": 5,
-      "text": "Best app in its category, keep it up."
+      "rating": 2,
+      "text": "ok"
     },
     {
       "id": "FB-016",
       "source": "nps",
       "date": "2026-10-11",
       "npsScore": 6,
-      "text": "The app nags me constantly to publish the schedule."
+      "text": "My notification settings don't save, I keep getting everything."
     },
     {
       "id": "FB-017",
-      "source": "nps",
-      "date": "2026-10-13",
-      "npsScore": 7,
-      "text": "Way too many push notifications. I turned them all off."
+      "source": "app_review",
+      "date": "2026-10-12",
+      "rating": 5,
+      "text": "meh"
     },
     {
       "id": "FB-018",
-      "source": "support",
-      "date": "2026-10-13",
-      "plan": "Pro",
-      "text": "Crashed three times today. I lost what I was typing."
-    },
-    {
-      "id": "FB-019",
       "source": "nps",
       "date": "2026-10-13",
       "npsScore": 4,
-      "text": "The free tier keeps shrinking. Feels like a push to pay."
+      "text": "Got a notification for something I did five minutes ago. Why?"
+    },
+    {
+      "id": "FB-019",
+      "source": "support",
+      "date": "2026-10-13",
+      "plan": "Pro",
+      "text": "The app force closes when I rotate the screen."
     },
     {
       "id": "FB-020",
-      "source": "app_review",
-      "date": "2026-10-14",
-      "rating": 4,
-      "text": "Wrong app, I meant to review a game. Sorry!"
+      "source": "nps",
+      "date": "2026-10-13",
+      "npsScore": 6,
+      "text": "Why did my renewal cost 30% more than last year?"
     },
     {
       "id": "FB-021",
       "source": "app_review",
       "date": "2026-10-14",
       "rating": 2,
-      "text": "I can't get into my account to publish the schedule. Please help."
+      "text": "Sign in with Apple fails with 'something went wrong'."
     },
     {
       "id": "FB-022",
       "source": "app_review",
-      "date": "2026-10-15",
-      "rating": 4,
-      "text": "Too expensive for what it does. Pro should be half the price."
+      "date": "2026-10-14",
+      "rating": 5,
+      "text": "Free gift cards on my channel, link in bio."
     },
     {
       "id": "FB-023",
-      "source": "nps",
-      "date": "2026-10-16",
-      "npsScore": 1,
-      "text": "I can't reach my shifts because login keeps failing."
+      "source": "app_review",
+      "date": "2026-10-15",
+      "rating": 3,
+      "text": "A price hike without warning is not cool."
     },
     {
       "id": "FB-024",
       "source": "app_review",
-      "date": "2026-10-16",
-      "rating": 4,
-      "text": "Every update brings a new kind of notification I didn't ask for."
+      "date": "2026-10-15",
+      "rating": 5,
+      "text": "How do I change the language of my phone?"
     },
     {
       "id": "FB-025",
       "source": "nps",
-      "date": "2026-10-17",
-      "npsScore": 4,
-      "text": "It took me twenty minutes to figure out how to publish the schedule."
+      "date": "2026-10-16",
+      "npsScore": 1,
+      "text": "Locked out of my account for three days now. Nobody has helped."
     },
     {
       "id": "FB-026",
-      "source": "support",
-      "date": "2026-10-17",
-      "plan": "Free",
-      "text": "Paying this much, I expected more than the basics."
+      "source": "app_review",
+      "date": "2026-10-16",
+      "rating": 3,
+      "text": "Please stop the marketing pushes, I only want the important ones."
     },
     {
       "id": "FB-027",
-      "source": "support",
+      "source": "nps",
       "date": "2026-10-17",
-      "plan": "Free",
-      "text": "Please stop the marketing pushes, I only want the important ones."
+      "npsScore": 6,
+      "text": "The empty screen after signing up tells me nothing."
     },
     {
       "id": "FB-028",
       "source": "support",
       "date": "2026-10-17",
       "plan": "Pro",
-      "text": "It crashes whenever I attach a photo."
+      "text": "I'd pay for Pro if there was a monthly option under $5."
     },
     {
       "id": "FB-029",
       "source": "support",
-      "date": "2026-10-18",
+      "date": "2026-10-17",
       "plan": "Free",
-      "text": "Can you prioritize time-off requests? Upvote from me."
+      "text": "Reminders keep coming even after I finish what they remind me about."
     },
     {
       "id": "FB-030",
-      "source": "app_review",
-      "date": "2026-10-18",
-      "rating": 2,
-      "text": "Please add time-off requests. It's the one thing missing."
+      "source": "support",
+      "date": "2026-10-17",
+      "plan": "Pro",
+      "text": "Crashed three times today. I lost what I was typing."
     },
     {
       "id": "FB-031",
-      "source": "app_review",
+      "source": "support",
       "date": "2026-10-18",
-      "rating": 3,
-      "text": "Cancelled Pro because of the price increase."
+      "plan": "Pro",
+      "text": "The only thing I miss is time-off requests."
     },
     {
       "id": "FB-032",
       "source": "app_review",
       "date": "2026-10-18",
-      "rating": 2,
-      "text": "Downloaded it and had no idea where to start."
+      "rating": 3,
+      "text": "time-off requests would make this perfect."
     },
     {
       "id": "FB-033",
-      "source": "nps",
-      "date": "2026-10-19",
-      "npsScore": 5,
-      "text": "A price hike without warning is not cool."
+      "source": "app_review",
+      "date": "2026-10-18",
+      "rating": 3,
+      "text": "Other apps do this for free. Hard to keep paying."
     },
     {
       "id": "FB-034",
-      "source": "nps",
-      "date": "2026-10-19",
-      "npsScore": 3,
-      "text": "Unstable. It crashes at least once a day."
+      "source": "app_review",
+      "date": "2026-10-18",
+      "rating": 3,
+      "text": "Too many permissions asked at the start, I almost uninstalled."
     },
     {
       "id": "FB-035",
-      "source": "app_review",
-      "date": "2026-10-20",
-      "rating": 2,
-      "text": "I'd use Shiftly daily if it had time-off requests."
+      "source": "nps",
+      "date": "2026-10-19",
+      "npsScore": 4,
+      "text": "Love the app but I can't justify the subscription anymore."
     },
     {
       "id": "FB-036",
       "source": "nps",
-      "date": "2026-10-20",
+      "date": "2026-10-19",
       "npsScore": 0,
-      "text": "It crashes when I switch accounts."
+      "text": "It crashes whenever I attach a photo."
     },
     {
       "id": "FB-037",
       "source": "app_review",
-      "date": "2026-10-21",
+      "date": "2026-10-20",
       "rating": 2,
-      "text": "My notification settings don't save, I keep getting everything."
+      "text": "Please add time-off requests. It's the one thing missing."
     },
     {
       "id": "FB-038",
-      "source": "app_review",
-      "date": "2026-10-21",
-      "rating": 3,
-      "text": "The price went up again and I didn't get anything new for it."
+      "source": "nps",
+      "date": "2026-10-20",
+      "npsScore": 1,
+      "text": "It closes itself randomly in the middle of what I'm doing."
     },
     {
       "id": "FB-039",
-      "source": "nps",
-      "date": "2026-10-22",
-      "npsScore": 7,
+      "source": "app_review",
+      "date": "2026-10-21",
+      "rating": 4,
       "text": "Too many 'we miss you' messages."
     },
     {
       "id": "FB-040",
-      "source": "support",
-      "date": "2026-10-22",
-      "plan": "Free",
-      "text": "Notifications at 6am on a Sunday? No thanks."
+      "source": "app_review",
+      "date": "2026-10-21",
+      "rating": 4,
+      "text": "Student discount please, Pro is too pricey."
     },
     {
       "id": "FB-041",
-      "source": "app_review",
+      "source": "nps",
       "date": "2026-10-22",
-      "rating": 2,
-      "text": "Earn $500 a day from home, visit my profile!!!"
+      "npsScore": 5,
+      "text": "Way too many push notifications. I turned them all off."
     },
     {
       "id": "FB-042",
       "source": "support",
       "date": "2026-10-22",
       "plan": "Pro",
-      "text": "The setup asks too many questions before I can even publish the schedule."
+      "text": "I get three emails a day from Shiftly. Unsubscribed."
     },
     {
       "id": "FB-043",
-      "source": "nps",
-      "date": "2026-10-23",
-      "npsScore": 7,
-      "text": "Love the app but I can't justify the subscription anymore."
+      "source": "support",
+      "date": "2026-10-22",
+      "plan": "Free",
+      "text": "The welcome tour covers everything except what I needed."
     },
     {
       "id": "FB-044",
-      "source": "support",
+      "source": "nps",
       "date": "2026-10-23",
-      "plan": "Pro",
-      "text": "The badge count never clears, even after I read everything."
+      "npsScore": 4,
+      "text": "Pricing is confusing, I don't even know which plan I'm on."
     },
     {
       "id": "FB-045",
-      "source": "app_review",
-      "date": "2026-10-23",
-      "rating": 3,
-      "text": "The empty screen after signing up tells me nothing."
-    },
-    {
-      "id": "FB-046",
-      "source": "support",
-      "date": "2026-10-23",
-      "plan": "Pro",
-      "text": "Sign in with Google just spins and sends me back to the start screen."
-    },
-    {
-      "id": "FB-047",
-      "source": "app_review",
-      "date": "2026-10-23",
-      "rating": 5,
-      "text": "Is this the app my cousin told me about?"
-    },
-    {
-      "id": "FB-048",
       "source": "support",
       "date": "2026-10-23",
       "plan": "Free",
-      "text": "Five crashes in an hour. Please test before releasing."
+      "text": "The app nags me constantly to publish the schedule."
     },
     {
-      "id": "FB-049",
+      "id": "FB-046",
+      "source": "app_review",
+      "date": "2026-10-23",
+      "rating": 2,
+      "text": "The tutorial is way too long and I couldn't skip it."
+    },
+    {
+      "id": "FB-047",
       "source": "support",
-      "date": "2026-10-24",
-      "plan": "Pro",
-      "text": "Requesting time-off requests again. Please."
+      "date": "2026-10-23",
+      "plan": "Free",
+      "text": "Sign in with Google just spins and sends me back to the start screen."
     },
     {
-      "id": "FB-050",
-      "source": "app_review",
-      "date": "2026-10-25",
-      "rating": 4,
-      "text": "My dog likes the colors."
-    },
-    {
-      "id": "FB-051",
+      "id": "FB-048",
       "source": "nps",
-      "date": "2026-10-25",
-      "npsScore": 3,
-      "text": "Every time I open the app I have to log in again."
-    },
-    {
-      "id": "FB-052",
-      "source": "nps",
-      "date": "2026-10-26",
-      "npsScore": 3,
-      "text": "The app force closes when I rotate the screen."
-    },
-    {
-      "id": "FB-053",
-      "source": "app_review",
-      "date": "2026-10-26",
-      "rating": 1,
-      "text": "Opening a shift makes the app crash."
-    },
-    {
-      "id": "FB-054",
-      "source": "nps",
-      "date": "2026-10-27",
+      "date": "2026-10-23",
       "npsScore": 10,
       "text": "Love Shiftly, I use it every day!"
     },
     {
-      "id": "FB-055",
+      "id": "FB-049",
+      "source": "app_review",
+      "date": "2026-10-23",
+      "rating": 1,
+      "text": "Is this the app my cousin told me about?"
+    },
+    {
+      "id": "FB-050",
       "source": "support",
-      "date": "2026-10-28",
-      "plan": "Pro",
-      "text": "The payroll export shows half the hours my staff worked. People got underpaid."
+      "date": "2026-10-23",
+      "plan": "Free",
+      "text": "Crashes on launch since the latest update on my iPad."
+    },
+    {
+      "id": "FB-051",
+      "source": "support",
+      "date": "2026-10-24",
+      "plan": "Free",
+      "text": "Five stars once time-off requests arrives."
+    },
+    {
+      "id": "FB-052",
+      "source": "nps",
+      "date": "2026-10-25",
+      "npsScore": 3,
+      "text": "I can't get into my account to publish the schedule. Please help."
+    },
+    {
+      "id": "FB-053",
+      "source": "nps",
+      "date": "2026-10-26",
+      "npsScore": 0,
+      "text": "Opening a shift makes the app crash."
+    },
+    {
+      "id": "FB-054",
+      "source": "app_review",
+      "date": "2026-10-26",
+      "rating": 2,
+      "text": "Crash when I tap the share button, every single time."
+    },
+    {
+      "id": "FB-055",
+      "source": "nps",
+      "date": "2026-10-27",
+      "npsScore": 9,
+      "text": "Simple and reliable. No complaints."
     },
     {
       "id": "FB-056",
-      "source": "nps",
+      "source": "support",
       "date": "2026-10-28",
-      "npsScore": 2,
-      "text": "The app crashes every time I try to publish the schedule."
+      "plan": "Pro",
+      "text": "Two employees were paid for the wrong week because of the export."
     },
     {
       "id": "FB-057",
       "source": "nps",
-      "date": "2026-10-29",
-      "npsScore": 6,
-      "text": "Make the annual plan cheaper and I'll stay."
+      "date": "2026-10-28",
+      "npsScore": 2,
+      "text": "Constant crashes on my Pixel, reinstalling didn't help."
     },
     {
       "id": "FB-058",
-      "source": "app_review",
+      "source": "nps",
       "date": "2026-10-29",
-      "rating": 3,
-      "text": "Why did my renewal cost 30% more than last year?"
+      "npsScore": 6,
+      "text": "Wish there was a family plan, paying for three accounts adds up."
     },
     {
       "id": "FB-059",
       "source": "app_review",
       "date": "2026-10-29",
-      "rating": 5,
-      "text": "The new design is beautiful."
+      "rating": 4,
+      "text": "Paying this much, I expected more than the basics."
     },
     {
       "id": "FB-060",
       "source": "nps",
       "date": "2026-10-29",
-      "npsScore": 3,
-      "text": "Constant crashes on my Pixel, reinstalling didn't help."
+      "npsScore": 0,
+      "text": "Five crashes in an hour. Please test before releasing."
     },
     {
       "id": "FB-061",
       "source": "support",
       "date": "2026-10-30",
-      "plan": "Pro",
+      "plan": "Free",
       "text": "Overtime is missing from the export since the last update."
     },
     {
       "id": "FB-062",
       "source": "support",
       "date": "2026-10-30",
-      "plan": "Free",
-      "text": "Other apps do this for free. Hard to keep paying."
+      "plan": "Pro",
+      "text": "The price went up again and I didn't get anything new for it."
     },
     {
       "id": "FB-063",
-      "source": "app_review",
+      "source": "nps",
       "date": "2026-10-30",
-      "rating": 2,
-      "text": "Can't wait for summer."
+      "npsScore": 10,
+      "text": "The new design is beautiful."
     },
     {
       "id": "FB-064",
       "source": "support",
       "date": "2026-10-30",
-      "plan": "Free",
-      "text": "Two employees were paid for the wrong week because of the export."
+      "plan": "Pro",
+      "text": "The payroll export shows half the hours my staff worked. People got underpaid."
     },
     {
       "id": "FB-065",
       "source": "app_review",
       "date": "2026-10-31",
-      "rating": 3,
-      "text": "Can I choose which notifications I get? It's all or nothing right now."
+      "rating": 4,
+      "text": "Muted the app because of the spammy alerts."
     },
     {
       "id": "FB-066",
       "source": "app_review",
       "date": "2026-10-31",
-      "rating": 2,
-      "text": "Crash when I tap the share button, every single time."
+      "rating": 1,
+      "text": "Unstable. It crashes at least once a day."
     }
   ]
 }
