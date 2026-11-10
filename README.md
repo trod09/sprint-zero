@@ -68,19 +68,20 @@ notice instead. Keys are only read on the server.
 
 ## Scripts
 
-| Command                            | What it does                                        |
-| ---------------------------------- | --------------------------------------------------- |
-| `npm run dev`                      | Development server                                  |
-| `npm run check`                    | Lint, typecheck and tests (run before every commit) |
-| `npm run build` / `npm start`      | Production build and server                         |
-| `npm run format`                   | Prettier                                            |
-| `npm run generate:backlog`         | Rebuild the 10 Backlog Simulator cases              |
-| `npm run generate:metric-drop`     | Rebuild the 5 Metric Drop cases                     |
-| `npm run generate:ab-test`         | Rebuild the 8 A/B Test Interpreter cases            |
-| `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                 |
-| `npm run generate:ux-critique`     | Rebuild the 5 UX Critique cases                     |
-| `npm run generate:product-case`    | Rebuild the 4 Product Case cases                    |
-| `npm run generate:prd-writer`      | Rebuild the 3 PRD Writer cases                      |
+| Command                            | What it does                                                                      |
+| ---------------------------------- | --------------------------------------------------------------------------------- |
+| `npm run dev`                      | Development server                                                                |
+| `npm run check`                    | Lint, typecheck and tests (run before every commit)                               |
+| `npm run build` / `npm start`      | Production build and server                                                       |
+| `npm run format`                   | Prettier                                                                          |
+| `npm run test:e2e`                 | Playwright: pages on desktop and phone, accessibility, one played case per module |
+| `npm run generate:backlog`         | Rebuild the 10 Backlog Simulator cases                                            |
+| `npm run generate:metric-drop`     | Rebuild the 5 Metric Drop cases                                                   |
+| `npm run generate:ab-test`         | Rebuild the 8 A/B Test Interpreter cases                                          |
+| `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                                               |
+| `npm run generate:ux-critique`     | Rebuild the 5 UX Critique cases                                                   |
+| `npm run generate:product-case`    | Rebuild the 4 Product Case cases                                                  |
+| `npm run generate:prd-writer`      | Rebuild the 3 PRD Writer cases                                                    |
 
 ### Generating cases
 

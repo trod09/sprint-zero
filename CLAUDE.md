@@ -8,6 +8,7 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 
 - `npm run dev` — dev server
 - `npm run check` — lint + typecheck + tests (run before every commit)
+- `npm run test:e2e` — Playwright: every page on desktop (dark and light) and on a phone must load without console errors, fit without sideways scroll and pass axe (WCAG A/AA, serious and critical), plus one full played case per module. Uses the installed Chrome and the dev server on :3000 (started if needed). Run it after UI changes.
 - `npm run build` — production build
 - `npm run format` — Prettier
 - `npm run generate:backlog` — rebuild `src/modules/backlog/cases/*.json` from the seeded generator (`-- --check` to verify, `-- --rewrite` to polish wording with Claude)
@@ -42,3 +43,5 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - Roadmap & OKRs has no stored JSON: `cases.ts` builds the featured cases from `content/specs.ts` when the module loads. The timeline rules (`planning.ts`) are public and shared by the board and the scoring; the best roadmap is found by exhaustive search in `optimal.ts`, which is why a team has at most four initiatives. `findRoadmapProblem` must pass.
 - Quick Cases are built from `content/specs.ts` like Roadmap cases (no JSON). An option's rating may be a function of the case numbers, so the right call changes with the seed; `findQuickProblem` requires a single best answer per step and specs `reject` numbers that are too close to call. It reuses Product Case's `CaseTimer`.
 - User Interview replies are rebuilt from the questions on every request (`ask.server.ts` behind the `askInterviewee` Server Action), so nothing is stored and replies never reach the browser in advance. Question reading (`analysis.ts`) is pure regex rules; topic keywords are word stems, with a trailing `$` for whole words. Every topic's `exampleQuestion` must route to that topic at full depth (a test checks it).
+- Buttons that switch what one area shows (modes, views, date ranges) use `SegmentedControl` (a radio group), not `Tabs`; `Tabs` are only for options that each have their own `TabsContent` panel.
+- Give an element an `aria-label` only when it has no visible text, and make the label start with that text when it has some (axe `label-content-name-mismatch`). Scrolling containers need `tabIndex={0}` and a name. UX Critique mock screens are excluded from axe with `data-mock-screen`: their flaws are the exercise.

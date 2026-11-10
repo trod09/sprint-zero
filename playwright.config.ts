@@ -19,6 +19,7 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: "retain-on-failure",
+    actionTimeout: 10_000,
     ...(channel ? { channel } : {}),
   },
   projects: [
