@@ -160,9 +160,9 @@ export function SprintPanel({
   return (
     <section
       aria-labelledby="sprint-title"
-      className="bg-card flex flex-col rounded-xl border lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)]"
+      className="pixel-card flex flex-col lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)]"
     >
-      <div className="space-y-3 border-b p-4">
+      <div className="border-frame space-y-3 border-b-2 p-4">
         <div className="flex items-center justify-between">
           <h2 id="sprint-title" className="font-heading font-semibold">
             {copy.title}
@@ -231,7 +231,7 @@ export function SprintPanel({
         )}
       </div>
 
-      <div className="border-t p-3">
+      <div className="border-frame border-t-2 p-3">
         <Button
           type="button"
           size="lg"

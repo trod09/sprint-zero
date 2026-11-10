@@ -34,11 +34,11 @@ export function EventCard({
   const Icon = EVENT_ICONS[event.type];
   return (
     <article className={cn("flex gap-3", className)}>
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-400">
+      <span className="border-warning bg-warning/15 text-warning flex size-8 shrink-0 items-center justify-center rounded-sm border-2">
         <Icon className="size-4" aria-hidden="true" />
       </span>
       <div className="min-w-0 space-y-1">
-        <p className="text-muted-foreground text-xs font-medium">
+        <p className="font-pixel text-warning text-xs tracking-wide uppercase">
           {copy.types[event.type]}
         </p>
         <h3 className="leading-snug font-medium">{event.title}</h3>

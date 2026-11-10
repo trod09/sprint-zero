@@ -21,7 +21,7 @@ export function SprintResult({
   return (
     <section
       aria-labelledby="result-title"
-      className="bg-card animate-in fade-in-0 slide-in-from-bottom-2 rounded-xl border p-6 duration-300"
+      className="pixel-card animate-in fade-in-0 slide-in-from-bottom-2 p-6 duration-200"
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>

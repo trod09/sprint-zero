@@ -148,8 +148,8 @@ function BacklogDropZone({
     <div
       ref={setNodeRef}
       className={cn(
-        "overflow-hidden rounded-xl border transition-colors",
-        isOver && isDragging && "border-brand/50 bg-brand/5",
+        "border-frame bg-card shadow-pixel overflow-hidden rounded-md border-2 transition-colors",
+        isOver && isDragging && "border-primary bg-primary/5",
       )}
     >
       {children}
@@ -542,12 +542,12 @@ function Planner({
         {events && (
           <section
             aria-labelledby="event-banner-title"
-            className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-4 lg:col-span-2"
+            className="border-warning bg-warning/10 shadow-pixel rounded-md border-2 p-4 lg:col-span-2"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2
                 id="event-banner-title"
-                className="text-xs font-medium tracking-wide text-amber-800 uppercase dark:text-amber-300"
+                className="font-pixel text-warning text-sm tracking-wide uppercase"
               >
                 {copy.events.bannerTitle}
               </h2>

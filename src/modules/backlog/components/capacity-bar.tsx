@@ -25,10 +25,12 @@ export function CapacityBar({
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 text-sm">
-        <span className="text-muted-foreground">{copy.capacityLabel}</span>
+        <span className="font-pixel text-muted-foreground">
+          {copy.capacityLabel}
+        </span>
         <span
           className={cn(
-            "font-mono font-medium tabular-nums",
+            "font-pixel tabular-nums",
             over > 0 && "text-destructive",
           )}
         >
@@ -42,18 +44,27 @@ export function CapacityBar({
         aria-valuemax={capacity}
         aria-valuenow={used}
         aria-valuetext={`${copy.capacity(used, capacity)}. ${status}`}
-        className="bg-muted mt-2 flex h-2 overflow-hidden rounded-full"
+        className="border-frame bg-muted relative mt-2 flex h-4 overflow-hidden rounded-sm border-2"
       >
         <div
           className={cn(
-            "h-full transition-[width] duration-300 ease-out",
-            over > 0 ? "bg-foreground/60" : "bg-brand",
+            "h-full transition-[width] duration-200 ease-[steps(8,end)]",
+            over > 0 ? "bg-warning" : "bg-primary",
           )}
           style={{ width: `${fillShare * 100}%` }}
         />
         <div
-          className="bg-destructive h-full transition-[width] duration-300 ease-out"
+          className="bg-destructive h-full transition-[width] duration-200 ease-[steps(8,end)]"
           style={{ width: `${overShare * 100}%` }}
+        />
+        {/* Segment gaps, one per tenth of the sprint. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), var(--card) calc(10% - 2px) 10%)",
+          }}
         />
       </div>
       <p

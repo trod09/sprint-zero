@@ -30,10 +30,7 @@ function Section({
   className?: string;
 }) {
   return (
-    <section
-      aria-labelledby={id}
-      className={cn("bg-card rounded-xl border p-5", className)}
-    >
+    <section aria-labelledby={id} className={cn("pixel-card p-5", className)}>
       <h2 id={id} className="font-heading font-semibold">
         {title}
       </h2>
@@ -96,13 +93,13 @@ export function BacklogResults({
   return (
     <div className="space-y-6">
       <section className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-5">
+        <div className="border-warning bg-warning/10 rounded-md border-2 p-5">
           <h2 className="text-xs font-medium tracking-wide text-amber-800 uppercase dark:text-amber-300">
             {copy.insight}
           </h2>
           <p className="mt-2 text-sm leading-relaxed">{report.keyInsight}</p>
         </div>
-        <div className="border-brand/30 bg-brand/5 rounded-xl border p-5">
+        <div className="border-brand bg-brand/5 rounded-md border-2 p-5">
           <h2 className="text-brand text-xs font-medium tracking-wide uppercase">
             {copy.principle}
           </h2>

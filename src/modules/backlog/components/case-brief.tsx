@@ -43,7 +43,7 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
       <CaseHeader publicCase={publicCase} />
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-        <div className="bg-card rounded-xl border p-4">
+        <div className="pixel-card p-4">
           <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
             {copy.label}
           </h2>
@@ -60,16 +60,16 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
               </div>
             ))}
           </dl>
-          <p className="mt-4 flex items-start gap-2 rounded-lg bg-amber-500/10 px-3 py-2 text-sm text-amber-800 dark:text-amber-300">
+          <p className="border-warning bg-warning/10 mt-4 flex items-start gap-2 rounded-sm border-2 px-3 py-2 text-sm">
             <TriangleAlert
-              className="mt-0.5 size-4 shrink-0"
+              className="text-warning mt-0.5 size-4 shrink-0"
               aria-hidden="true"
             />
             {copy.events(publicCase.eventCount)}
           </p>
         </div>
 
-        <div className="bg-card rounded-xl border p-4">
+        <div className="pixel-card p-4">
           <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
             {copy.baseline}
           </h2>
@@ -86,8 +86,8 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
         </div>
       </div>
 
-      <details className="group bg-card rounded-xl border">
-        <summary className="hover:bg-muted/50 focus-visible:ring-ring/50 flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-medium focus-visible:ring-3 focus-visible:outline-none">
+      <details className="group pixel-card">
+        <summary className="hover:bg-muted/50 focus-visible:ring-ring/50 font-pixel flex cursor-pointer list-none items-center justify-between rounded-md px-4 py-3 text-sm focus-visible:ring-3 focus-visible:outline-none">
           {copy.stakeholders}
           <span className="text-muted-foreground text-xs">
             {publicCase.stakeholders.length}
