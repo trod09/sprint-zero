@@ -1209,6 +1209,12 @@ export const en = {
         "Name the problem by its effect on the user's goal, not by how it looks.",
         "False alarms cost points. If a part works, leave it alone.",
       ],
+      "roadmap-okrs": [
+        "A key result is a number that moves when users behave differently. 'Launch X' is a task.",
+        "Find the initiatives other squads wait for and schedule them first.",
+        "Who asked for it is not a reason. Ask which objective it moves.",
+        "A full timeline is not the goal: empty sprints beat work nobody needs.",
+      ],
       "product-case": [
         "Pick one segment and say why. Everything after depends on it.",
         "Weigh relief against effort before you rank solutions.",
@@ -1273,6 +1279,113 @@ export const en = {
       ratio: "Ratio",
       pass: "Pass",
       fail: "Fail",
+    },
+  },
+  roadmap: {
+    brief: {
+      label: "The ask",
+      objectives: "Company objectives",
+      teams: "Teams",
+      teamCapacity: (sprints: number) =>
+        `${sprints} sprints, one initiative at a time`,
+    },
+    tabs: {
+      label: "Steps",
+      keyResults: "1. Key results",
+      roadmap: "2. Roadmap",
+      review: "3. Review",
+    },
+    keyResults: {
+      intro: (max: number) =>
+        `For each objective, choose the ${max} key results you would commit to. A good key result is a number that changes when users behave differently.`,
+      picked: (count: number, max: number) => `${count} of ${max} chosen`,
+    },
+    board: {
+      title: "Timeline",
+      intro:
+        "Give each initiative a start sprint. A team works on one initiative at a time, and an initiative cannot start until everything it needs is finished.",
+      sprint: (n: number) => `Sprint ${n}`,
+      sprintShort: (n: number) => `S${n}`,
+      team: "Team",
+      capacity: (used: number, total: number) => `${used}/${total} sprints`,
+      overbooked: "overbooked",
+      empty: "Nothing scheduled yet",
+      initiatives: "Initiatives",
+      effort: (sprints: number) =>
+        `${sprints} sprint${sprints === 1 ? "" : "s"}`,
+      requester: (who: string) => `Asked by ${who}`,
+      needs: "Needs",
+      start: "Start",
+      startLabel: (title: string) => `Start sprint for ${title}`,
+      notScheduled: "Not this quarter",
+      placeNext: "Next free slot",
+      remove: "Remove",
+      status: {
+        ok: "Ships this quarter",
+        overflow: "Runs past the end of the quarter",
+        overlap: "The team is busy with another initiative then",
+        blocked: (needs: string) =>
+          `Cannot start yet: needs ${needs} finished first`,
+        unscheduled: "Not scheduled",
+      },
+      statusShort: {
+        ok: "Ships",
+        overflow: "Too late",
+        overlap: "Overlap",
+        blocked: "Blocked",
+        unscheduled: "Left out",
+      },
+      barLabel: (title: string, from: number, to: number, status: string) =>
+        `${title}, sprint ${from} to ${to}. ${status}`,
+    },
+    review: {
+      title: "Review your plan",
+      keyResults: (count: number, total: number) =>
+        `${count} of ${total} key results chosen`,
+      shipping: (count: number) =>
+        `${count} initiative${count === 1 ? "" : "s"} ship this quarter`,
+      problems: (count: number) =>
+        `${count} scheduled initiative${count === 1 ? " does" : "s do"} not ship as planned`,
+      leftOut: (count: number) =>
+        `${count} initiative${count === 1 ? " is" : "s are"} left out`,
+      rationale: "Why this plan?",
+      rationalePlaceholder:
+        "Which initiatives move which key results, and what you chose not to do.",
+      tradeoffs: "Message to the people whose work is not in the plan",
+      tradeoffsPlaceholder:
+        "What you would tell them: why not now, and what would change your mind.",
+      coachNote:
+        "Your coach reads these two answers. They do not change the score.",
+    },
+    submit: {
+      button: "Submit plan",
+      needsPlan:
+        "Choose at least one key result and schedule one initiative to submit.",
+      confirmTitle: "Submit this plan?",
+      confirmBody:
+        "Your key results and your roadmap will be scored against the best possible plan for this quarter.",
+      confirm: "Submit",
+      cancel: "Keep planning",
+      submitting: "Scoring…",
+      failed:
+        "Your plan could not be scored. Check your connection and try again.",
+    },
+    results: {
+      keyResults: "Key results",
+      chosen: "You chose",
+      quality: "Quality",
+      ratings: ["Avoid", "Weak", "Strong"],
+      yourRoadmap: "Your roadmap",
+      bestRoadmap: "The best roadmap",
+      value: (yours: number, best: number) =>
+        `Your roadmap ships ${yours} points of value. The best one ships ${best}.`,
+      initiatives: "Every initiative, explained",
+      serves: "Moves",
+      noObjective: "No objective",
+      valueLabel: (value: number) => `Value ${value}`,
+      inBest: (sprint: number) => `Best plan: starts in sprint ${sprint}`,
+      notInBest: "Best plan: left out",
+      principle: "Principle to remember",
     },
   },
   generate: {

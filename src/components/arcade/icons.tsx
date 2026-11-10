@@ -18,6 +18,7 @@ const MODULE_COLORS = new Set([
   "ux-critique",
   "product-case",
   "prd-writer",
+  "roadmap-okrs",
 ]);
 
 /** The module's accent color, or the "locked" grey for modules not built yet. */

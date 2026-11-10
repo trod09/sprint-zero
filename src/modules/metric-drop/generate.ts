@@ -29,7 +29,6 @@ const CHANNEL_NAME = {
   paid_social: "paid social",
   paid_search: "paid search",
 } as const;
-type PaidChannel = keyof typeof CHANNEL_NAME;
 
 const PLATFORM_NAME = { ios: "iOS", android: "Android" } as const;
 type MobilePlatform = keyof typeof PLATFORM_NAME;

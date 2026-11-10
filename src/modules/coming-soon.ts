@@ -26,16 +26,6 @@ export const comingSoonModules: readonly ModuleMeta[] = [
     icon: "stakeholder-arena",
   },
   {
-    id: "roadmap-okrs",
-    name: "Roadmap & OKRs",
-    tagline: "Plan a quarter with limited teams and dependencies.",
-    description:
-      "Write OKRs from company goals and build a quarterly roadmap that respects team capacity and cross-team dependencies.",
-    skills: ["strategy", "execution"],
-    status: "coming_soon",
-    icon: "roadmap-okrs",
-  },
-  {
     id: "quick-cases",
     name: "Quick Cases",
     tagline: "Pricing, launches, incidents and build vs. buy in 15 minutes.",

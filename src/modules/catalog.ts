@@ -13,6 +13,7 @@ import { feedbackTriageMeta } from "./feedback-triage/module";
 import { metricDropMeta } from "./metric-drop/module";
 import { prdWriterMeta } from "./prd-writer/module";
 import { productCaseMeta } from "./product-case/module";
+import { roadmapMeta } from "./roadmap-okrs/module";
 import { uxCritiqueMeta } from "./ux-critique/module";
 
 export const moduleCatalog: readonly ModuleMeta[] = [
@@ -23,6 +24,7 @@ export const moduleCatalog: readonly ModuleMeta[] = [
   uxCritiqueMeta,
   productCaseMeta,
   prdWriterMeta,
+  roadmapMeta,
   ...comingSoonModules,
 ];
 
