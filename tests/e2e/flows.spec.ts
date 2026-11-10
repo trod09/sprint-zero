@@ -5,7 +5,7 @@
  */
 import { expect, test, type Page } from "@playwright/test";
 
-import { CASES, settle, watchErrors } from "./helpers";
+import { CASES, expectAccessible, settle, watchErrors } from "./helpers";
 
 test.describe.configure({ mode: "parallel" });
 test.skip(
@@ -26,6 +26,8 @@ async function submitAndSeeResults(page: Page, button: string | RegExp) {
   await expect(page).toHaveURL(/\/results\//, { timeout: 30_000 });
   await expect(page.getByText(/^Score: \d+ \/ 100$/)).toBeAttached();
   await expect(page.getByRole("heading", { name: "Breakdown" })).toBeVisible();
+  await settle(page);
+  await expectAccessible(page);
 }
 
 test("Quick Cases", async ({ page }) => {
@@ -192,5 +194,7 @@ test("Backlog Simulator", async ({ page }) => {
     .click();
   await expect(page).toHaveURL(/\/results\//, { timeout: 30_000 });
   await expect(page.getByText(/^Score: \d+ \/ 100$/)).toBeAttached();
+  await settle(page);
+  await expectAccessible(page);
   expect(errors()).toEqual([]);
 });

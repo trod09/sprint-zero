@@ -89,9 +89,9 @@ export function AttemptHistory({ cases }: { cases: CaseSummary[] }) {
                 className={cn(
                   "w-12 shrink-0 text-center font-mono text-lg font-semibold tabular-nums",
                   attempt.result.total >= 80
-                    ? "text-emerald-700 dark:text-emerald-400"
+                    ? "text-success"
                     : attempt.result.total >= 50
-                      ? "text-amber-700 dark:text-amber-400"
+                      ? "text-warning"
                       : "text-destructive",
                 )}
               >

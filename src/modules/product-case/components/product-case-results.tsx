@@ -411,7 +411,7 @@ function EstimationResults({
                         variant="outline"
                         className={cn(
                           !entry.required &&
-                            "border-red-500/40 text-red-800 dark:text-red-300",
+                            "border-destructive/40 text-destructive",
                         )}
                       >
                         {copy.used}

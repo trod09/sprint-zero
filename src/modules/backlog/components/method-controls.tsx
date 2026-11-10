@@ -97,7 +97,7 @@ export function RiceControls({
 const BUCKET_TONES: Record<MoscowBucket, string> = {
   must: "data-[active=true]:bg-brand data-[active=true]:text-brand-foreground",
   should:
-    "data-[active=true]:bg-sky-600 data-[active=true]:text-white dark:data-[active=true]:bg-sky-500",
+    "data-[active=true]:bg-secondary data-[active=true]:text-secondary-foreground",
   could:
     "data-[active=true]:bg-foreground/70 data-[active=true]:text-background",
   wont: "data-[active=true]:bg-muted-foreground/30 data-[active=true]:text-foreground",

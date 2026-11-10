@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 import type { PrdAnswer, PrdCase } from "../schema";
 import type { PrdReport } from "../scoring";
 
-const OK = "text-emerald-700 dark:text-emerald-300";
-const WRONG = "text-red-700 dark:text-red-300";
+const OK = "text-success";
+const WRONG = "text-destructive";
 
 export function PrdResults({
   caseData,

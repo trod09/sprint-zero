@@ -93,7 +93,7 @@ export function ClusterCard({
       ref={setNodeRef}
       className={cn(
         "bg-card rounded-lg border p-2.5 transition-colors",
-        critical && "border-red-500/50",
+        critical && "border-destructive/50",
         dragging && "border-dashed",
         isOver && dragging && "border-brand bg-brand/5",
       )}
@@ -137,7 +137,7 @@ export function ClusterCard({
           {copy.items(items.length)}
         </button>
         {critical && (
-          <span className="rounded-sm bg-red-500/10 px-1 text-xs font-medium text-red-700 dark:text-red-400">
+          <span className="bg-destructive/10 text-destructive rounded-sm px-1 text-xs font-medium">
             {copy.critical}
           </span>
         )}

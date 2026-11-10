@@ -742,7 +742,7 @@ function BucketOption({
         "has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:ring-3",
         checked
           ? bucket === "out"
-            ? "bg-background text-red-700 shadow-sm dark:text-red-300"
+            ? "bg-background text-destructive shadow-sm"
             : "bg-background text-foreground shadow-sm"
           : "text-muted-foreground hover:text-foreground",
       )}

@@ -174,7 +174,7 @@ export function CaseLibrary({
                         className={cn(
                           "rounded-md px-1.5 py-0.5 font-mono text-xs tabular-nums",
                           score >= 80
-                            ? "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300"
+                            ? "bg-success/10 text-success"
                             : "bg-muted text-muted-foreground",
                         )}
                       >

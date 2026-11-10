@@ -21,11 +21,11 @@ const TYPE_ICONS: Record<TicketType, LucideIcon> = {
 };
 
 const TYPE_TONES: Record<TicketType, string> = {
-  feature: "text-sky-600 dark:text-sky-400",
-  bug: "text-rose-600 dark:text-rose-400",
-  tech_debt: "text-amber-600 dark:text-amber-400",
-  sales_request: "text-emerald-600 dark:text-emerald-400",
-  ceo_request: "text-violet-600 dark:text-violet-400",
+  feature: "text-brand",
+  bug: "text-destructive",
+  tech_debt: "text-warning",
+  sales_request: "text-success",
+  ceo_request: "text-ink",
 };
 
 /** Ticket type as an icon, with the type name for screen readers and on hover. */

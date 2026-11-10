@@ -28,9 +28,8 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"], ...(channel ? { channel } : {}) },
     },
     {
-      // Dark is the default theme; this project runs the page checks in light.
+      // Dark is the default theme; this project runs everything in light.
       name: "desktop-light",
-      testMatch: /pages\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         ...(channel ? { channel } : {}),

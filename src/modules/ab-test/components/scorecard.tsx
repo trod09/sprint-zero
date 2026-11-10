@@ -24,9 +24,7 @@ export function changeTone(
     goodDirection === "up"
       ? comparison.relativeLift > 0
       : comparison.relativeLift < 0;
-  return better
-    ? "text-emerald-700 dark:text-emerald-400"
-    : "text-red-700 dark:text-red-400";
+  return better ? "text-success" : "text-destructive";
 }
 
 const th = "py-2 pr-4 text-xs font-medium";
@@ -183,14 +181,11 @@ export function Scorecard({
           </tbody>
         </table>
         <p className="text-muted-foreground mt-3 text-xs">
-          <span
-            aria-hidden="true"
-            className="text-emerald-700 dark:text-emerald-400"
-          >
+          <span aria-hidden="true" className="text-success">
             ■
           </span>{" "}
           {copy.significant}, {copy.better} ·{" "}
-          <span aria-hidden="true" className="text-red-700 dark:text-red-400">
+          <span aria-hidden="true" className="text-destructive">
             ■
           </span>{" "}
           {copy.significant}, {copy.worse}

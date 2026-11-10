@@ -7,9 +7,9 @@ import type { FeedbackTriageCase, Severity } from "../schema";
 import type { TriageReport } from "../scoring";
 
 const SEVERITY_TONE: Record<Severity, string> = {
-  critical: "bg-red-500/15 text-red-800 dark:text-red-300",
-  high: "bg-orange-500/15 text-orange-800 dark:text-orange-300",
-  medium: "bg-amber-500/15 text-amber-800 dark:text-amber-300",
+  critical: "bg-destructive/10 text-destructive",
+  high: "bg-warning/10 text-warning",
+  medium: "bg-muted text-foreground",
   low: "bg-muted text-muted-foreground",
 };
 
@@ -32,8 +32,8 @@ export function TriageResults({
   return (
     <div className="space-y-6">
       {critical && (
-        <section className="rounded-xl border border-red-500/40 bg-red-500/5 p-5">
-          <h2 className="text-xs font-medium tracking-wide text-red-800 uppercase dark:text-red-300">
+        <section className="border-destructive/40 bg-destructive/5 rounded-xl border p-5">
+          <h2 className="text-destructive text-xs font-medium tracking-wide uppercase">
             {copy.results.critical}
           </h2>
           <p className="mt-2 font-medium">{critical.label}</p>
@@ -86,9 +86,9 @@ export function TriageResults({
                   <span
                     className={cn(
                       theme.f1 >= 0.8
-                        ? "text-emerald-700 dark:text-emerald-400"
+                        ? "text-success"
                         : theme.f1 >= 0.5
-                          ? "text-amber-700 dark:text-amber-400"
+                          ? "text-warning"
                           : "text-destructive",
                     )}
                   >

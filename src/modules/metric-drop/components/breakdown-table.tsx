@@ -63,7 +63,7 @@ export function BreakdownTable({
                   row.change.changePercent <= -5
                     ? "text-destructive"
                     : row.change.changePercent >= 5
-                      ? "text-emerald-700 dark:text-emerald-400"
+                      ? "text-success"
                       : "text-muted-foreground",
                 )}
               >

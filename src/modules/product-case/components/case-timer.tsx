@@ -52,9 +52,9 @@ export function CaseTimer({
         className={cn(
           "flex items-center gap-2 rounded-md border px-2.5 py-1 font-mono text-sm tabular-nums",
           over
-            ? "border-red-500/40 bg-red-500/10 text-red-800 dark:text-red-300"
+            ? "border-destructive/40 bg-destructive/10 text-destructive"
             : left < 120
-              ? "border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-300"
+              ? "border-warning/40 bg-warning/10 text-warning"
               : "bg-card",
         )}
       >

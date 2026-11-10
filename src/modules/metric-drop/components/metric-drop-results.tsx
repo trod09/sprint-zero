@@ -108,9 +108,7 @@ export function MetricDropResults({
                     <td
                       className={cn(
                         "py-2 pr-4",
-                        row.right
-                          ? "text-emerald-700 dark:text-emerald-400"
-                          : "text-destructive",
+                        row.right ? "text-success" : "text-destructive",
                       )}
                     >
                       <span className="inline-flex items-start gap-1.5">

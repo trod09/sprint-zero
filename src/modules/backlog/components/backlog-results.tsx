@@ -13,8 +13,8 @@ import type { BacklogCase, PublicTicket } from "../schema";
 import { EffortPill, TicketTypeIcon } from "./ticket-meta";
 
 const OUTCOME_STYLES: Record<TrapOutcome, string> = {
-  identified: "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300",
-  avoided: "bg-sky-500/15 text-sky-800 dark:text-sky-300",
+  identified: "bg-success/10 text-success",
+  avoided: "bg-brand/10 text-brand",
   fell_for: "bg-destructive/10 text-destructive",
 };
 
@@ -94,13 +94,13 @@ export function BacklogResults({
     <div className="space-y-6">
       <section className="grid gap-4 md:grid-cols-2">
         <div className="border-warning bg-warning/10 rounded-md border-2 p-5">
-          <h2 className="text-xs font-medium tracking-wide text-amber-800 uppercase dark:text-amber-300">
+          <h2 className="text-warning text-xs font-medium tracking-wide uppercase">
             {copy.insight}
           </h2>
           <p className="mt-2 text-sm leading-relaxed">{report.keyInsight}</p>
         </div>
-        <div className="border-brand bg-brand/5 rounded-md border-2 p-5">
-          <h2 className="text-brand text-xs font-medium tracking-wide uppercase">
+        <div className="pixel-card p-5">
+          <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
             {copy.principle}
           </h2>
           <p className="mt-2 text-sm leading-relaxed font-medium">
@@ -153,7 +153,7 @@ export function BacklogResults({
                               ? "text-muted-foreground"
                               : column.key === "yours"
                                 ? "text-destructive"
-                                : "text-amber-700 dark:text-amber-400",
+                                : "text-warning",
                           )}
                         >
                           {shared
@@ -216,7 +216,7 @@ export function BacklogResults({
                         delta === 0
                           ? "text-muted-foreground"
                           : good
-                            ? "text-emerald-600 dark:text-emerald-400"
+                            ? "text-success"
                             : "text-destructive",
                       )}
                       aria-hidden="true"
@@ -262,9 +262,9 @@ export function BacklogResults({
                       className={cn(
                         "h-full rounded-full",
                         entry.satisfaction >= 60
-                          ? "bg-emerald-500"
+                          ? "bg-success"
                           : entry.satisfaction >= 30
-                            ? "bg-amber-500"
+                            ? "bg-warning"
                             : "bg-destructive",
                       )}
                       style={{ width: `${entry.satisfaction}%` }}
@@ -328,9 +328,7 @@ export function BacklogResults({
                   <span
                     className={cn(
                       "flex shrink-0 items-center gap-1 text-xs font-medium",
-                      entry.delivered
-                        ? "text-emerald-700 dark:text-emerald-400"
-                        : "text-destructive",
+                      entry.delivered ? "text-success" : "text-destructive",
                     )}
                   >
                     {entry.delivered ? (
@@ -359,9 +357,7 @@ export function BacklogResults({
                 <span
                   className={cn(
                     "font-mono text-xs tabular-nums",
-                    entry.handling >= 0.999
-                      ? "text-emerald-700 dark:text-emerald-400"
-                      : "text-amber-700 dark:text-amber-400",
+                    entry.handling >= 0.999 ? "text-success" : "text-warning",
                   )}
                 >
                   {copy.handling(Math.round(entry.handling * 100))}

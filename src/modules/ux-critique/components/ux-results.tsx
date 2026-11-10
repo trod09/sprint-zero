@@ -9,11 +9,9 @@ import { ScreenView } from "./screen-view";
 import type { MarkerTone } from "./screens/region";
 
 const OUTCOME_TONE = {
-  found:
-    "border-emerald-500/40 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300",
-  wrong_type:
-    "border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-300",
-  missed: "border-red-500/40 bg-red-500/10 text-red-800 dark:text-red-300",
+  found: "border-success/40 bg-success/10 text-success",
+  wrong_type: "border-warning/40 bg-warning/10 text-warning",
+  missed: "border-destructive/40 bg-destructive/10 text-destructive",
 } as const;
 
 export function UxResults({

@@ -28,11 +28,10 @@ function Section({
 }
 
 const STATUS_TONE: Record<IssueStatus, string> = {
-  found:
-    "border-emerald-500/40 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300",
-  missed: "border-red-500/40 bg-red-500/10 text-red-800 dark:text-red-300",
-  false_alarm: "border-red-500/40 bg-red-500/10 text-red-800 dark:text-red-300",
-  acceptable: "border-sky-500/40 bg-sky-500/10 text-sky-800 dark:text-sky-300",
+  found: "border-success/40 bg-success/10 text-success",
+  missed: "border-destructive/40 bg-destructive/10 text-destructive",
+  false_alarm: "border-destructive/40 bg-destructive/10 text-destructive",
+  acceptable: "border-brand/40 bg-brand/10 text-brand",
   clear: "text-muted-foreground",
 };
 
@@ -81,8 +80,8 @@ export function AbTestResults({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-5">
-        <h2 className="text-xs font-medium tracking-wide text-amber-800 uppercase dark:text-amber-300">
+      <section className="border-warning/40 bg-warning/5 rounded-xl border p-5">
+        <h2 className="text-warning text-xs font-medium tracking-wide uppercase">
           {copy.results.truth}
         </h2>
         <p className="mt-2 font-medium">{report.truth.summary}</p>
@@ -118,9 +117,7 @@ export function AbTestResults({
                     <td
                       className={cn(
                         "py-2 pr-4",
-                        row.right
-                          ? "text-emerald-700 dark:text-emerald-400"
-                          : "text-destructive",
+                        row.right ? "text-success" : "text-destructive",
                       )}
                     >
                       <span className="inline-flex items-start gap-1.5">
