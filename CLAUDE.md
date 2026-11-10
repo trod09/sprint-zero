@@ -11,6 +11,7 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - `npm run build` — production build
 - `npm run format` — Prettier
 - `npm run generate:backlog` — rebuild `src/modules/backlog/cases/*.json` from the seeded generator (`-- --check` to verify, `-- --rewrite` to polish wording with Claude)
+- `npm run generate:metric-drop` — rebuild `src/modules/metric-drop/cases/*.json` from the specs in `content/cases.ts` (`-- --check` to verify)
 
 ## Rules that are easy to break
 
@@ -20,6 +21,7 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - Claude is called only from the server via `getAIClient()` in `src/core/ai`. No `temperature`; output is schema-constrained and Zod-validated. Feedback goes through `generateFeedback` (`src/core/case-engine/feedback.ts`); modules give it digested facts with `feedbackContext`, and learner text always goes in the `learner_answer` block.
 - Results pages re-score the stored answer on the server (`/results/[attemptId]`); never persist ground truth in the browser beyond what the attempt already holds.
 - UI copy is English and lives in `src/i18n/en.ts`; code and comments in English.
+- Metric Drop cases store a specification, not data: `buildDataset` regenerates the daily cube from the seed on the server, and the browser only gets query results. Never send the cube or `hidden` to the client.
 - Backlog cases are generated, never edited by hand: change `content/` or `case-specs.ts`, then run `npm run generate:backlog`. A test fails if the JSON is out of date. The optimal sprint is derived in `plan.ts`, not stored.
 - Adding a module: `src/modules/<id>/module.ts` (meta) + entry in `src/modules/catalog.ts` + registration in `src/modules/registry.server.ts` + its case view in `src/modules/case-view.tsx` + its results view in `src/modules/results-view.tsx`. Do not touch `src/core`.
 - Planning rules live in pure, tested modules (e.g. `src/modules/backlog/planning.ts`); components only wire them to the UI and never see ground truth.

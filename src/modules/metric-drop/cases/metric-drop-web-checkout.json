@@ -1,0 +1,98 @@
+{
+  "id": "metric-drop-web-checkout",
+  "moduleId": "metric-drop",
+  "seed": 2104,
+  "difficulty": "pm",
+  "company": {
+    "name": "Northstar",
+    "industry": "Marketplace",
+    "stage": "Series A",
+    "description": "A marketplace for weekend trips. Travellers book stays and experiences on the web and in the app; most bookings happen on the web."
+  },
+  "title": "Northstar: bookings are slipping",
+  "brief": "Conversion, the share of daily active users who book, fell 10% in the last 7 days compared with the week before. The design team shipped a redesigned checkout the same week and says users love it. Find out what is going on.",
+  "hidden": {
+    "rootCause": {
+      "category": "product",
+      "segment": {
+        "dimension": "platform",
+        "value": "web"
+      },
+      "anomalies": [
+        {
+          "segment": {
+            "platform": "web"
+          },
+          "target": "conversion",
+          "multiplier": 0.4,
+          "startDay": 67,
+          "rampDays": 1
+        }
+      ],
+      "summary": "The redesigned web checkout converts far worse than the old one.",
+      "explanation": "Conversion fell only on the web, in every country and channel, from the day the new checkout reached all users. The apps, which kept the old checkout, convert as before.",
+      "idealAction": "Roll the web checkout back to the old version, then reintroduce the redesign as an A/B test with conversion as the primary metric.",
+      "idealPath": [
+        "Confirm the drop in conversion",
+        "Break down by platform: only the web drops",
+        "Check that the web drop is the same in every country and channel",
+        "Rule out the paid search cut: it lowers signups, not the conversion rate"
+      ]
+    },
+    "falseLeads": [
+      {
+        "segment": {
+          "dimension": "channel",
+          "value": "paid_search"
+        },
+        "category": "marketing",
+        "anomalies": [
+          {
+            "segment": {
+              "channel": "paid_search"
+            },
+            "target": "signups",
+            "multiplier": 0.55,
+            "startDay": 68,
+            "rampDays": 2
+          }
+        ],
+        "explanation": "Halving paid search brings fewer new users, which lowers traffic, not the share of visitors who book."
+      }
+    ]
+  },
+  "startDate": "2026-06-01",
+  "days": 75,
+  "headlineMetric": "conversion",
+  "release": {
+    "previous": "2.14.0",
+    "next": "2.15.0",
+    "day": 62
+  },
+  "annotations": [
+    {
+      "day": 62,
+      "kind": "release",
+      "label": "Mobile app 2.15.0 released (iOS and Android)"
+    },
+    {
+      "day": 67,
+      "kind": "experiment",
+      "label": "New web checkout rolled out to 100%"
+    },
+    {
+      "day": 68,
+      "kind": "campaign",
+      "label": "Paid search budget cut by half"
+    }
+  ],
+  "scale": {
+    "signups": 3100,
+    "returning": 41000
+  },
+  "rates": {
+    "activation": 0.35,
+    "sessionsPerUser": 1.9,
+    "conversion": 0.034
+  }
+}

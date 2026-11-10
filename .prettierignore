@@ -4,3 +4,4 @@ package-lock.json
 next-env.d.ts
 AGENTS.md
 MASTER_PROMPT.md
+src/modules/*/cases/*.json

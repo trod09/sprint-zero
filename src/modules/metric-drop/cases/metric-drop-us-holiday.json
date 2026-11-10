@@ -1,0 +1,119 @@
+{
+  "id": "metric-drop-us-holiday",
+  "moduleId": "metric-drop",
+  "seed": 2105,
+  "difficulty": "senior",
+  "company": {
+    "name": "Rally",
+    "industry": "Consumer",
+    "stage": "Series C",
+    "description": "A social running app: training plans, group runs and challenges with friends. The US is the largest market."
+  },
+  "title": "Rally: the July slump",
+  "brief": "Daily active users fell 10% in the last 7 days compared with the week before. A new app version shipped the same week, and the board meeting is on Monday. The CEO wants to know whether to roll back. Find the cause, and recommend what to do.",
+  "hidden": {
+    "rootCause": {
+      "category": "seasonality",
+      "segment": {
+        "dimension": "country",
+        "value": "US"
+      },
+      "anomalies": [
+        {
+          "segment": {
+            "country": "US",
+            "userType": "returning"
+          },
+          "target": "returning",
+          "multiplier": 0.62,
+          "startDay": 68,
+          "rampDays": 3
+        },
+        {
+          "segment": {
+            "country": "US",
+            "userType": "new"
+          },
+          "target": "signups",
+          "multiplier": 0.7,
+          "startDay": 68,
+          "rampDays": 3
+        }
+      ],
+      "summary": "The Independence Day holiday week: fewer people in the US run with the app, as every year.",
+      "explanation": "The drop is in the US only, on every platform and app version including the web, and it builds up around July 4. Users on 8.2.0 are as active as users on 8.1.2.",
+      "idealAction": "Do not roll back 8.2.0. Compare with the same week last year, add the holiday to the forecast, and check that US activity recovers the following week.",
+      "idealPath": [
+        "Confirm the drop in DAU",
+        "Break down by country: the US accounts for nearly all of it",
+        "Break down by app version within the US: 8.2.0 and 8.1.2 move together",
+        "Check the web in the US: it drops too, so the release is not the cause"
+      ]
+    },
+    "falseLeads": [
+      {
+        "segment": {
+          "dimension": "appVersion",
+          "value": "ios-8.2.0"
+        },
+        "category": "bug",
+        "anomalies": [],
+        "explanation": "8.2.0 shipped the same week, but its users are as active as everyone else, and the web fell as well."
+      },
+      {
+        "segment": {
+          "dimension": "channel",
+          "value": "paid_social"
+        },
+        "category": "marketing",
+        "anomalies": [
+          {
+            "segment": {
+              "channel": "paid_social",
+              "userType": "new"
+            },
+            "target": "signups",
+            "multiplier": 0.8,
+            "startDay": 69,
+            "rampDays": 2
+          }
+        ],
+        "explanation": "Trimming paid social costs a few hundred signups a day, a small slice of daily active users."
+      }
+    ]
+  },
+  "startDate": "2026-04-24",
+  "days": 75,
+  "headlineMetric": "dau",
+  "release": {
+    "previous": "8.1.2",
+    "next": "8.2.0",
+    "day": 68
+  },
+  "annotations": [
+    {
+      "day": 68,
+      "kind": "release",
+      "label": "Mobile app 8.2.0 released (iOS and Android)"
+    },
+    {
+      "day": 69,
+      "kind": "campaign",
+      "label": "Paid social budget trimmed by 20%"
+    },
+    {
+      "day": 71,
+      "kind": "holiday",
+      "label": "Independence Day (US)"
+    }
+  ],
+  "scale": {
+    "signups": 12500,
+    "returning": 210000
+  },
+  "rates": {
+    "activation": 0.44,
+    "sessionsPerUser": 2.3,
+    "conversion": 0.006
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "id": "metric-drop-campaign-ended",
+  "moduleId": "metric-drop",
+  "seed": 2102,
+  "difficulty": "pm",
+  "company": {
+    "name": "Simmer",
+    "industry": "Consumer",
+    "stage": "Series B",
+    "description": "A recipe and meal-planning app with a free tier and a paid plan. Most new users come from organic search and paid social."
+  },
+  "title": "Simmer: where did the signups go?",
+  "brief": "New signups fell 17% in the last 7 days compared with the week before. Engineering shipped a new app version the same week, and the CEO is convinced it broke signup. Work out what actually happened before anyone starts a rollback.",
+  "hidden": {
+    "rootCause": {
+      "category": "marketing",
+      "segment": {
+        "dimension": "channel",
+        "value": "paid_social"
+      },
+      "anomalies": [
+        {
+          "segment": {
+            "channel": "paid_social"
+          },
+          "target": "signups",
+          "multiplier": 0.15,
+          "startDay": 67,
+          "rampDays": 2
+        }
+      ],
+      "summary": "The paid social campaign ended and nothing replaced it, so paid social signups fell by about 85%.",
+      "explanation": "The drop is entirely in the paid social channel, on every platform and in every country, including the web, which did not get a release. The 6.4.0 release is a coincidence of timing.",
+      "idealAction": "Do not roll back 6.4.0. Agree with marketing whether to restart or replace the paid social budget, and reset the signup target to the organic baseline.",
+      "idealPath": [
+        "Confirm the drop in signups",
+        "Break down by channel: paid social collapses, other channels are flat",
+        "Check the web: it fell too, so the mobile release is not the cause",
+        "Check India: the holiday dip is small and short"
+      ]
+    },
+    "falseLeads": [
+      {
+        "segment": {
+          "dimension": "appVersion",
+          "value": "ios-6.4.0"
+        },
+        "category": "bug",
+        "anomalies": [],
+        "explanation": "6.4.0 shipped the same day, which makes it a tempting suspect, but users on 6.4.0 sign up at the same rate as on 6.3.1, and the web, which has no release, dropped as well."
+      },
+      {
+        "segment": {
+          "dimension": "country",
+          "value": "IN"
+        },
+        "category": "seasonality",
+        "anomalies": [
+          {
+            "segment": {
+              "country": "IN"
+            },
+            "target": "signups",
+            "multiplier": 0.85,
+            "startDay": 69,
+            "rampDays": 1,
+            "endDay": 70
+          }
+        ],
+        "explanation": "The holiday in India lowers signups there for two days, a small, short dip that recovers on its own."
+      }
+    ]
+  },
+  "startDate": "2026-06-01",
+  "days": 75,
+  "headlineMetric": "signups",
+  "release": {
+    "previous": "6.3.1",
+    "next": "6.4.0",
+    "day": 67
+  },
+  "annotations": [
+    {
+      "day": 67,
+      "kind": "release",
+      "label": "Mobile app 6.4.0 released (iOS and Android)"
+    },
+    {
+      "day": 67,
+      "kind": "campaign",
+      "label": "Paid social 'Summer Kitchen' flight ends"
+    },
+    {
+      "day": 69,
+      "kind": "holiday",
+      "label": "Public holiday in India"
+    }
+  ],
+  "scale": {
+    "signups": 9800,
+    "returning": 140000
+  },
+  "rates": {
+    "activation": 0.38,
+    "sessionsPerUser": 1.8,
+    "conversion": 0.009
+  }
+}

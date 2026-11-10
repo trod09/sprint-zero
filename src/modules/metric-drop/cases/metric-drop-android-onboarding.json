@@ -1,0 +1,95 @@
+{
+  "id": "metric-drop-android-onboarding",
+  "moduleId": "metric-drop",
+  "seed": 2101,
+  "difficulty": "apm",
+  "company": {
+    "name": "Brightpath",
+    "industry": "Edtech",
+    "stage": "Series A",
+    "description": "Bite-sized courses for professionals, on iOS, Android and the web. New users pick a goal during onboarding and finish a first lesson."
+  },
+  "title": "Brightpath: fewer new users get started",
+  "brief": "Activation, the share of new users who finish their first lesson on day one, fell 18% in the last 7 days compared with the week before. Growth reviews it every Monday, and the head of growth wants an answer before then. Find where the drop comes from and what to do about it.",
+  "hidden": {
+    "rootCause": {
+      "category": "bug",
+      "segment": {
+        "dimension": "appVersion",
+        "value": "android-4.2.0"
+      },
+      "anomalies": [
+        {
+          "segment": {
+            "appVersion": "android-4.2.0",
+            "userType": "new"
+          },
+          "target": "activation",
+          "multiplier": 0.3,
+          "startDay": 67,
+          "rampDays": 1
+        }
+      ],
+      "summary": "Android 4.2.0 crashes on the goal-picker screen during onboarding.",
+      "explanation": "Activation collapsed only for new users on Android 4.2.0, from the day it shipped. iOS 4.2.0, older Android versions and the web are flat, so the change is in that build, not in who is signing up.",
+      "idealAction": "Halt the Android 4.2.0 rollout, ship a hotfix for the onboarding crash, and check crash reports for that screen.",
+      "idealPath": [
+        "Confirm the drop in activation over time",
+        "Break down by platform: only Android drops",
+        "Break down by app version: only Android 4.2.0, starting on release day",
+        "Rule out the paid social campaign: its users activate a little less, but only by a few points"
+      ]
+    },
+    "falseLeads": [
+      {
+        "segment": {
+          "dimension": "channel",
+          "value": "paid_social"
+        },
+        "category": "marketing",
+        "anomalies": [
+          {
+            "segment": {
+              "channel": "paid_social",
+              "userType": "new"
+            },
+            "target": "activation",
+            "multiplier": 0.9,
+            "startDay": 66,
+            "rampDays": 2
+          }
+        ],
+        "explanation": "The new paid social campaign brings slightly less motivated users, but their activation dips by a few points on every platform. It cannot explain a drop concentrated in one app version."
+      }
+    ]
+  },
+  "startDate": "2026-06-01",
+  "days": 75,
+  "headlineMetric": "activation",
+  "release": {
+    "previous": "4.1.3",
+    "next": "4.2.0",
+    "day": 67
+  },
+  "annotations": [
+    {
+      "day": 66,
+      "kind": "campaign",
+      "label": "Paid social campaign 'Learn in 10' starts"
+    },
+    {
+      "day": 67,
+      "kind": "release",
+      "label": "Mobile app 4.2.0 released (iOS and Android)"
+    }
+  ],
+  "scale": {
+    "signups": 4200,
+    "returning": 52000
+  },
+  "rates": {
+    "activation": 0.42,
+    "sessionsPerUser": 2.1,
+    "conversion": 0.012
+  }
+}
