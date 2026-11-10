@@ -1212,7 +1212,7 @@ export const en = {
       "product-case": [
         "Pick one segment and say why. Everything after depends on it.",
         "Weigh relief against effort before you rank solutions.",
-        "For estimates, start from the unit that buys, and never count a factor twice.",
+        "Each step builds on the last one: users, then problems, then what to build, then how to measure it.",
       ],
       "prd-writer": [
         "Every number in your one-pager should come from the documents.",

@@ -129,6 +129,7 @@ export function ModuleBanner({
   size = "default",
   className,
   headingLevel = "h1",
+  headingId,
 }: {
   moduleId: string;
   eyebrow?: ReactNode;
@@ -139,6 +140,7 @@ export function ModuleBanner({
   size?: "default" | "sm";
   className?: string;
   headingLevel?: "h1" | "h2" | "h3";
+  headingId?: string;
 }) {
   const Heading = headingLevel;
   return (
@@ -181,6 +183,7 @@ export function ModuleBanner({
           </p>
         )}
         <Heading
+          id={headingId}
           className={cn(
             "font-pixel mt-1 leading-tight text-balance [text-shadow:2px_2px_0_#000]",
             size === "sm" ? "text-xl" : "text-2xl sm:text-3xl",

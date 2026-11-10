@@ -119,14 +119,14 @@ function TicketDetail({
 
       <div className="space-y-6 p-4">
         <section>
-          <h3 className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+          <h3 className="font-pixel text-ink text-xs tracking-wide uppercase">
             {copy.description}
           </h3>
           <p className="mt-1.5 text-sm leading-relaxed">{ticket.description}</p>
         </section>
 
         <section>
-          <h3 className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+          <h3 className="font-pixel text-ink text-xs tracking-wide uppercase">
             {copy.signals}
           </h3>
           <dl className="mt-1.5 space-y-1.5 text-sm">
@@ -162,7 +162,7 @@ function TicketDetail({
 
         {stakeholder && (
           <section>
-            <h3 className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+            <h3 className="font-pixel text-ink text-xs tracking-wide uppercase">
               {copy.priorities(stakeholder.name)}
             </h3>
             <p className="text-muted-foreground mt-1 text-xs">

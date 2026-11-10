@@ -694,7 +694,7 @@ function Planner({
           <section aria-labelledby="set-aside-title" className="pt-2">
             <h3
               id="set-aside-title"
-              className="text-muted-foreground text-xs font-medium tracking-wide uppercase"
+              className="font-pixel text-ink text-xs tracking-wide uppercase"
             >
               {copy.setAside.title}
               <span className="ml-1.5 tabular-nums">{setAside.length}</span>

@@ -115,7 +115,7 @@ export function AIFeedbackPanel({
         {status.name === "ready" && (
           <div className="mt-5 space-y-5 text-sm">
             <div>
-              <h3 className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              <h3 className="font-pixel text-ink text-xs tracking-wide uppercase">
                 {copy.summary}
               </h3>
               <p className="mt-1 leading-relaxed">{status.feedback.summary}</p>
@@ -157,7 +157,7 @@ function FeedbackList({
 }) {
   return (
     <div>
-      <h3 className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+      <h3 className="font-pixel text-ink text-xs tracking-wide uppercase">
         {title}
       </h3>
       <ul className="mt-1.5 list-disc space-y-1 pl-4">
