@@ -2,20 +2,14 @@
  * On-demand Feedback Triage inboxes: a product of the chosen industry, six
  * themes drawn from the library and the product's critical problem.
  */
-import type { GenerateParams, IndustryKey } from "@/core/case-engine";
+import type { GenerateParams } from "@/core/case-engine";
 import { createRng } from "@/core/rng";
+import { INDUSTRY_LABEL } from "@/modules/shared/industry";
 
 import { triageCaseSpecs } from "./content/cases";
 import { THEME_KEYS } from "./content/themes";
 import { generateTriageCase, TRIAGE_PROFILES } from "./generator";
 import type { FeedbackTriageCase } from "./schema";
-
-const INDUSTRY_LABEL: Record<IndustryKey, string> = {
-  fintech: "Fintech",
-  marketplace: "Marketplace",
-  saas: "SaaS B2B",
-  consumer: "Consumer",
-};
 
 export function generateTriageOnDemand(
   params: GenerateParams & { caseId: string },

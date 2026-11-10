@@ -2,19 +2,13 @@
  * On-demand UX Critique screens: a product of the chosen industry, a screen
  * template and the flawed regions, all from the seed.
  */
-import type { GenerateParams, IndustryKey } from "@/core/case-engine";
+import type { GenerateParams } from "@/core/case-engine";
 import { createRng } from "@/core/rng";
+import { INDUSTRY_LABEL } from "@/modules/shared/industry";
 
 import { uxCaseSpecs } from "./content/cases";
 import { generateUxCase } from "./generator";
 import { TEMPLATES, type UxCritiqueCase } from "./schema";
-
-const INDUSTRY_LABEL: Record<IndustryKey, string> = {
-  fintech: "Fintech",
-  marketplace: "Marketplace",
-  saas: "SaaS B2B",
-  consumer: "Consumer",
-};
 
 export function generateUxOnDemand(
   params: GenerateParams & { caseId: string },

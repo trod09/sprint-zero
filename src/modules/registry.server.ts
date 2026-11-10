@@ -12,6 +12,7 @@ import {
 } from "@/core/case-engine/registry";
 
 import { abTestRawCases } from "./ab-test/cases";
+import { generateAbTestOnDemand } from "./ab-test/generate";
 import { abTestModule } from "./ab-test/module.server";
 import { backlogRawCases } from "./backlog/cases";
 import { generateBacklogOnDemand } from "./backlog/generate";
@@ -20,10 +21,12 @@ import { feedbackTriageRawCases } from "./feedback-triage/cases";
 import { generateTriageOnDemand } from "./feedback-triage/generate";
 import { feedbackTriageModule } from "./feedback-triage/module.server";
 import { metricDropRawCases } from "./metric-drop/cases";
+import { generateMetricDropOnDemand } from "./metric-drop/generate";
 import { metricDropModule } from "./metric-drop/module.server";
 import { prdRawCases } from "./prd-writer/cases";
 import { prdWriterModule } from "./prd-writer/module.server";
 import { productCaseRawCases } from "./product-case/cases";
+import { generateProductCaseOnDemand } from "./product-case/generate";
 import { productCaseModule } from "./product-case/module.server";
 import { uxCritiqueRawCases } from "./ux-critique/cases";
 import { generateUxOnDemand } from "./ux-critique/generate";
@@ -38,10 +41,12 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: metricDropModule,
     loadRawCases: () => metricDropRawCases,
+    generate: generateMetricDropOnDemand,
   }),
   registerModule({
     module: abTestModule,
     loadRawCases: () => abTestRawCases,
+    generate: generateAbTestOnDemand,
   }),
   registerModule({
     module: feedbackTriageModule,
@@ -56,6 +61,7 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: productCaseModule,
     loadRawCases: () => productCaseRawCases,
+    generate: generateProductCaseOnDemand,
   }),
   registerModule({
     module: prdWriterModule,

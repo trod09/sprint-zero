@@ -8,7 +8,14 @@ import {
 } from "@/core/case-engine";
 import { caseRepository, moduleRegistry } from "@/modules/registry.server";
 
-const GENERATING = ["backlog", "feedback-triage", "ux-critique"];
+const GENERATING = [
+  "backlog",
+  "feedback-triage",
+  "ux-critique",
+  "metric-drop",
+  "ab-test",
+  "product-case",
+];
 
 describe("generated case ids", () => {
   it("round-trip their parameters", () => {
@@ -84,7 +91,7 @@ describe("on-demand generation", () => {
 
   it("returns null for modules without a generator", async () => {
     expect(
-      await caseRepository.getPublicCase("gen-metric-drop-fintech-pm-12"),
+      await caseRepository.getPublicCase("gen-prd-writer-fintech-pm-12"),
     ).toBeNull();
   });
 });
