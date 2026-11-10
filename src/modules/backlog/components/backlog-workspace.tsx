@@ -25,7 +25,6 @@ import {
   useReducer,
   useRef,
   useState,
-  useSyncExternalStore,
   useTransition,
 } from "react";
 
@@ -44,6 +43,7 @@ import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
 import { getAttemptStore } from "@/core/storage";
 import { getMessages } from "@/i18n";
+import { useIsClient } from "@/lib/use-is-client";
 import { cn } from "@/lib/utils";
 
 import {
@@ -83,16 +83,6 @@ export type SubmitAttempt = (input: unknown) => Promise<SubmissionOutcome>;
 export type RevealEvents = (input: unknown) => Promise<RevealEventsOutcome>;
 
 const BACKLOG_ZONE_ID = "backlog-zone";
-
-const noopSubscribe = () => () => {};
-/** False during the server render and hydration, true afterwards. */
-function useIsClient(): boolean {
-  return useSyncExternalStore(
-    noopSubscribe,
-    () => true,
-    () => false,
-  );
-}
 
 /**
  * Entry point. The server renders an empty plan; once in the browser the

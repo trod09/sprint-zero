@@ -8,6 +8,8 @@ import type { PublicBaseCase } from "@/core/case-engine";
 import { BacklogCaseView } from "./backlog/components/backlog-case-view";
 import type { SubmitAttempt } from "./backlog/components/backlog-workspace";
 import { publicBacklogCaseSchema } from "./backlog/schema";
+import { MetricDropCaseView } from "./metric-drop/components/metric-drop-case-view";
+import { publicMetricDropCaseSchema } from "./metric-drop/schema";
 
 export function CaseView({
   publicCase,
@@ -21,6 +23,13 @@ export function CaseView({
       return (
         <BacklogCaseView
           publicCase={publicBacklogCaseSchema.parse(publicCase)}
+          submit={submit}
+        />
+      );
+    case "metric-drop":
+      return (
+        <MetricDropCaseView
+          publicCase={publicMetricDropCaseSchema.parse(publicCase)}
           submit={submit}
         />
       );

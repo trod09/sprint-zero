@@ -10,13 +10,22 @@ import type { ScoreResult } from "@/core/scoring";
 import { BacklogResults } from "./backlog/components/backlog-results";
 import { backlogCaseSchema } from "./backlog/schema";
 import { backlogResultSchema } from "./backlog/scoring";
+import { MetricDropResults } from "./metric-drop/components/metric-drop-results";
+import {
+  metricDropAnswerSchema,
+  metricDropCaseSchema,
+} from "./metric-drop/schema";
+import { metricDropResultSchema } from "./metric-drop/scoring";
 
 export function ModuleResults({
   result,
   revealedCase,
+  answer,
 }: {
   result: ScoreResult;
   revealedCase: BaseCase;
+  /** The stored answer, as submitted. */
+  answer: unknown;
 }) {
   switch (revealedCase.moduleId) {
     case "backlog": {
@@ -25,6 +34,19 @@ export function ModuleResults({
       if (!caseData.success || !parsed.success) return null;
       return (
         <BacklogResults caseData={caseData.data} report={parsed.data.report} />
+      );
+    }
+    case "metric-drop": {
+      const caseData = metricDropCaseSchema.safeParse(revealedCase);
+      const parsed = metricDropResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      const stored = metricDropAnswerSchema.safeParse(answer);
+      return (
+        <MetricDropResults
+          caseData={caseData.data}
+          report={parsed.data.report}
+          answer={stored.success ? stored.data : null}
+        />
       );
     }
     default:

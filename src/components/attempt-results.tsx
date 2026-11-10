@@ -176,7 +176,11 @@ export function AttemptResults({
 
       <AIFeedbackPanel attempt={attempt} requestFeedback={requestFeedback} />
 
-      <ModuleResults result={result} revealedCase={revealedCase} />
+      <ModuleResults
+        result={result}
+        revealedCase={revealedCase}
+        answer={attempt.answer}
+      />
     </div>
   );
 }

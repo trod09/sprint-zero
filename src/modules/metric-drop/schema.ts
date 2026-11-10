@@ -133,6 +133,11 @@ const sharedShape = {
     day: z.number().int().min(1),
   }),
   annotations: z.array(annotationSchema).max(12),
+  /** Next steps the learner chooses from when recommending an action. */
+  actionOptions: z
+    .array(z.object({ id: z.string().min(1), label: z.string().min(1) }))
+    .min(3)
+    .max(5),
 };
 
 export const metricDropCaseSchema = baseCaseSchema
@@ -161,6 +166,10 @@ export const metricDropCaseSchema = baseCaseSchema
         explanation: z.string().min(1),
         /** What a good analyst recommends next. */
         idealAction: z.string().min(1),
+        /** The action option that matches `idealAction`. */
+        idealActionId: z.string().min(1),
+        /** Reasonable but incomplete options, worth half the credit. */
+        partialActionIds: z.array(z.string().min(1)).max(2).default([]),
         /** The investigation steps that find the cause fastest. */
         idealPath: z.array(z.string().min(1)).min(2).max(6),
       }),
@@ -203,6 +212,27 @@ export const metricDropCaseSchema = baseCaseSchema
         message: "The release happens after the last day",
       });
     }
+    const optionIds = new Set(
+      caseData.actionOptions.map((option) => option.id),
+    );
+    if (optionIds.size !== caseData.actionOptions.length) {
+      context.addIssue({ code: "custom", message: "Action option ids repeat" });
+    }
+    const { idealActionId, partialActionIds } = caseData.hidden.rootCause;
+    for (const id of [idealActionId, ...partialActionIds]) {
+      if (!optionIds.has(id)) {
+        context.addIssue({
+          code: "custom",
+          message: `Unknown action option "${id}"`,
+        });
+      }
+    }
+    if (partialActionIds.includes(idealActionId)) {
+      context.addIssue({
+        code: "custom",
+        message: "The ideal action cannot be partial",
+      });
+    }
     for (const annotation of caseData.annotations) {
       if (annotation.day > lastDay) {
         context.addIssue({
@@ -236,3 +266,27 @@ export function dimensionValues(
     userType: USER_TYPES,
   };
 }
+
+/** One view the learner opened in the dashboard. */
+export const explorationSchema = z.object({
+  metric: metricSchema,
+  breakdown: dimensionSchema.optional(),
+  filters: z
+    .partialRecord(
+      dimensionSchema,
+      z.array(z.string().min(1).max(40)).min(1).max(10),
+    )
+    .default({}),
+});
+export type Exploration = z.infer<typeof explorationSchema>;
+
+export const metricDropAnswerSchema = z.object({
+  segment: segmentAnswerSchema,
+  category: rootCauseCategorySchema,
+  actionId: z.string().min(1).max(60),
+  /** Why the learner believes this; read by the AI coach, never scored. */
+  justification: z.string().max(1000).default(""),
+  /** Every view opened, in order. Used to score how directly the cause was found. */
+  explorations: z.array(explorationSchema).max(300).default([]),
+});
+export type MetricDropAnswer = z.infer<typeof metricDropAnswerSchema>;

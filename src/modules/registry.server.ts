@@ -13,11 +13,17 @@ import {
 
 import { backlogRawCases } from "./backlog/cases";
 import { backlogModule } from "./backlog/module.server";
+import { metricDropRawCases } from "./metric-drop/cases";
+import { metricDropModule } from "./metric-drop/module.server";
 
 const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: backlogModule,
     loadRawCases: () => backlogRawCases,
+  }),
+  registerModule({
+    module: metricDropModule,
+    loadRawCases: () => metricDropRawCases,
   }),
 ];
 

@@ -47,6 +47,25 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
         label: "Mobile app 4.2.0 released (iOS and Android)",
       },
     ],
+    actionOptions: [
+      {
+        id: "halt-rollout",
+        label:
+          "Halt the Android 4.2.0 rollout and ship a hotfix for onboarding",
+      },
+      {
+        id: "pause-campaign",
+        label: "Pause the paid social campaign until activation recovers",
+      },
+      {
+        id: "redesign-onboarding",
+        label: "Start a redesign of the onboarding flow on every platform",
+      },
+      {
+        id: "monitor",
+        label: "Wait another week to see whether activation recovers",
+      },
+    ],
     hidden: {
       rootCause: {
         category: "bug",
@@ -66,6 +85,8 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
           "Activation collapsed only for new users on Android 4.2.0, from the day it shipped. iOS 4.2.0, older Android versions and the web are flat, so the change is in that build, not in who is signing up.",
         idealAction:
           "Halt the Android 4.2.0 rollout, ship a hotfix for the onboarding crash, and check crash reports for that screen.",
+        idealActionId: "halt-rollout",
+        partialActionIds: [],
         idealPath: [
           "Confirm the drop in activation over time",
           "Break down by platform: only Android drops",
@@ -126,6 +147,16 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
       },
       { day: 69, kind: "holiday", label: "Public holiday in India" },
     ],
+    actionOptions: [
+      { id: "rollback-release", label: "Roll back app version 6.4.0" },
+      {
+        id: "decide-paid-social",
+        label:
+          "Keep 6.4.0; agree with marketing on restarting or replacing paid social",
+      },
+      { id: "reset-target", label: "Lower the signup target for the quarter" },
+      { id: "fix-signup", label: "Open an incident on the signup flow" },
+    ],
     hidden: {
       rootCause: {
         category: "marketing",
@@ -145,6 +176,8 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
           "The drop is entirely in the paid social channel, on every platform and in every country, including the web, which did not get a release. The 6.4.0 release is a coincidence of timing.",
         idealAction:
           "Do not roll back 6.4.0. Agree with marketing whether to restart or replace the paid social budget, and reset the signup target to the organic baseline.",
+        idealActionId: "decide-paid-social",
+        partialActionIds: ["reset-target"],
         idealPath: [
           "Confirm the drop in signups",
           "Break down by channel: paid social collapses, other channels are flat",
@@ -213,6 +246,19 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
       },
       { day: 70, kind: "holiday", label: "Bank holiday in the UK" },
     ],
+    actionOptions: [
+      {
+        id: "escalate-provider",
+        label:
+          "Escalate to the Brazilian payment provider and add a fallback payment method",
+      },
+      { id: "stop-experiment", label: "Stop the web checkout copy experiment" },
+      { id: "discount-brazil", label: "Launch a discount for users in Brazil" },
+      {
+        id: "wait-holiday",
+        label: "Wait for the UK bank holiday effect to pass",
+      },
+    ],
     hidden: {
       rootCause: {
         category: "external",
@@ -232,6 +278,8 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
           "Conversion collapsed in Brazil on every platform and app version at once, overnight, while usage in Brazil stayed normal. People still want to buy; their payments fail. Nothing in our product changed that day.",
         idealAction:
           "Escalate to the payment provider, add a fallback payment method for Brazil, and tell affected users that they were not charged.",
+        idealActionId: "escalate-provider",
+        partialActionIds: [],
         idealPath: [
           "Confirm the drop in conversion",
           "Break down by country: Brazil collapses, other countries are flat",
@@ -308,6 +356,18 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
       },
       { day: 68, kind: "campaign", label: "Paid search budget cut by half" },
     ],
+    actionOptions: [
+      {
+        id: "rollback-checkout",
+        label: "Roll back the web checkout, then A/B test the redesign",
+      },
+      { id: "restore-search", label: "Restore the paid search budget" },
+      {
+        id: "fix-forward",
+        label: "Keep the new checkout and polish it over the next sprints",
+      },
+      { id: "rollback-app", label: "Roll back app version 2.15.0" },
+    ],
     hidden: {
       rootCause: {
         category: "product",
@@ -327,6 +387,8 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
           "Conversion fell only on the web, in every country and channel, from the day the new checkout reached all users. The apps, which kept the old checkout, convert as before.",
         idealAction:
           "Roll the web checkout back to the old version, then reintroduce the redesign as an A/B test with conversion as the primary metric.",
+        idealActionId: "rollback-checkout",
+        partialActionIds: ["fix-forward"],
         idealPath: [
           "Confirm the drop in conversion",
           "Break down by platform: only the web drops",
@@ -383,6 +445,19 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
       { day: 69, kind: "campaign", label: "Paid social budget trimmed by 20%" },
       { day: 71, kind: "holiday", label: "Independence Day (US)" },
     ],
+    actionOptions: [
+      { id: "rollback-release", label: "Roll back app version 8.2.0" },
+      {
+        id: "annotate-seasonality",
+        label:
+          "Keep 8.2.0; compare with last year and add the holiday to the forecast",
+      },
+      { id: "restore-social", label: "Restore the paid social budget" },
+      {
+        id: "push-campaign",
+        label: "Send a push campaign to US users this week",
+      },
+    ],
     hidden: {
       rootCause: {
         category: "seasonality",
@@ -409,6 +484,8 @@ export const metricDropCaseSpecs: readonly MetricDropCaseSpec[] = [
           "The drop is in the US only, on every platform and app version including the web, and it builds up around July 4. Users on 8.2.0 are as active as users on 8.1.2.",
         idealAction:
           "Do not roll back 8.2.0. Compare with the same week last year, add the holiday to the forecast, and check that US activity recovers the following week.",
+        idealActionId: "annotate-seasonality",
+        partialActionIds: [],
         idealPath: [
           "Confirm the drop in DAU",
           "Break down by country: the US accounts for nearly all of it",

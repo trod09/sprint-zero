@@ -32,6 +32,8 @@
       "summary": "The local payment provider in Brazil is failing most transactions.",
       "explanation": "Conversion collapsed in Brazil on every platform and app version at once, overnight, while usage in Brazil stayed normal. People still want to buy; their payments fail. Nothing in our product changed that day.",
       "idealAction": "Escalate to the payment provider, add a fallback payment method for Brazil, and tell affected users that they were not charged.",
+      "idealActionId": "escalate-provider",
+      "partialActionIds": [],
       "idealPath": [
         "Confirm the drop in conversion",
         "Break down by country: Brazil collapses, other countries are flat",
@@ -104,6 +106,24 @@
       "day": 70,
       "kind": "holiday",
       "label": "Bank holiday in the UK"
+    }
+  ],
+  "actionOptions": [
+    {
+      "id": "escalate-provider",
+      "label": "Escalate to the Brazilian payment provider and add a fallback payment method"
+    },
+    {
+      "id": "stop-experiment",
+      "label": "Stop the web checkout copy experiment"
+    },
+    {
+      "id": "discount-brazil",
+      "label": "Launch a discount for users in Brazil"
+    },
+    {
+      "id": "wait-holiday",
+      "label": "Wait for the UK bank holiday effect to pass"
     }
   ],
   "scale": {

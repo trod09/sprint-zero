@@ -32,6 +32,10 @@
       "summary": "The paid social campaign ended and nothing replaced it, so paid social signups fell by about 85%.",
       "explanation": "The drop is entirely in the paid social channel, on every platform and in every country, including the web, which did not get a release. The 6.4.0 release is a coincidence of timing.",
       "idealAction": "Do not roll back 6.4.0. Agree with marketing whether to restart or replace the paid social budget, and reset the signup target to the organic baseline.",
+      "idealActionId": "decide-paid-social",
+      "partialActionIds": [
+        "reset-target"
+      ],
       "idealPath": [
         "Confirm the drop in signups",
         "Break down by channel: paid social collapses, other channels are flat",
@@ -94,6 +98,24 @@
       "day": 69,
       "kind": "holiday",
       "label": "Public holiday in India"
+    }
+  ],
+  "actionOptions": [
+    {
+      "id": "rollback-release",
+      "label": "Roll back app version 6.4.0"
+    },
+    {
+      "id": "decide-paid-social",
+      "label": "Keep 6.4.0; agree with marketing on restarting or replacing paid social"
+    },
+    {
+      "id": "reset-target",
+      "label": "Lower the signup target for the quarter"
+    },
+    {
+      "id": "fix-signup",
+      "label": "Open an incident on the signup flow"
     }
   ],
   "scale": {

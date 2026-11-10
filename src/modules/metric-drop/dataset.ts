@@ -137,6 +137,31 @@ function versionsOf(platform: Platform, release: MetricDropCase["release"]) {
       ];
 }
 
+/** Every combination of dimensions in a case, in a fixed order. */
+export function enumerateCells(
+  release: MetricDropCase["release"],
+): CellDimensions[] {
+  const cells: CellDimensions[] = [];
+  for (const platform of PLATFORMS) {
+    for (const version of versionsOf(platform, release)) {
+      for (const country of COUNTRIES) {
+        for (const channel of CHANNELS) {
+          for (const userType of USER_TYPES) {
+            cells.push({
+              platform,
+              appVersion: version.value,
+              country,
+              channel,
+              userType,
+            });
+          }
+        }
+      }
+    }
+  }
+  return cells;
+}
+
 export function buildDataset(caseData: MetricDropCase): Dataset {
   const { days, startDate, scale, rates, release } = caseData;
   const root = createRng(caseData.seed);

@@ -32,6 +32,10 @@
       "summary": "The redesigned web checkout converts far worse than the old one.",
       "explanation": "Conversion fell only on the web, in every country and channel, from the day the new checkout reached all users. The apps, which kept the old checkout, convert as before.",
       "idealAction": "Roll the web checkout back to the old version, then reintroduce the redesign as an A/B test with conversion as the primary metric.",
+      "idealActionId": "rollback-checkout",
+      "partialActionIds": [
+        "fix-forward"
+      ],
       "idealPath": [
         "Confirm the drop in conversion",
         "Break down by platform: only the web drops",
@@ -84,6 +88,24 @@
       "day": 68,
       "kind": "campaign",
       "label": "Paid search budget cut by half"
+    }
+  ],
+  "actionOptions": [
+    {
+      "id": "rollback-checkout",
+      "label": "Roll back the web checkout, then A/B test the redesign"
+    },
+    {
+      "id": "restore-search",
+      "label": "Restore the paid search budget"
+    },
+    {
+      "id": "fix-forward",
+      "label": "Keep the new checkout and polish it over the next sprints"
+    },
+    {
+      "id": "rollback-app",
+      "label": "Roll back app version 2.15.0"
     }
   ],
   "scale": {

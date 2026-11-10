@@ -33,6 +33,8 @@
       "summary": "Android 4.2.0 crashes on the goal-picker screen during onboarding.",
       "explanation": "Activation collapsed only for new users on Android 4.2.0, from the day it shipped. iOS 4.2.0, older Android versions and the web are flat, so the change is in that build, not in who is signing up.",
       "idealAction": "Halt the Android 4.2.0 rollout, ship a hotfix for the onboarding crash, and check crash reports for that screen.",
+      "idealActionId": "halt-rollout",
+      "partialActionIds": [],
       "idealPath": [
         "Confirm the drop in activation over time",
         "Break down by platform: only Android drops",
@@ -81,6 +83,24 @@
       "day": 67,
       "kind": "release",
       "label": "Mobile app 4.2.0 released (iOS and Android)"
+    }
+  ],
+  "actionOptions": [
+    {
+      "id": "halt-rollout",
+      "label": "Halt the Android 4.2.0 rollout and ship a hotfix for onboarding"
+    },
+    {
+      "id": "pause-campaign",
+      "label": "Pause the paid social campaign until activation recovers"
+    },
+    {
+      "id": "redesign-onboarding",
+      "label": "Start a redesign of the onboarding flow on every platform"
+    },
+    {
+      "id": "monitor",
+      "label": "Wait another week to see whether activation recovers"
     }
   ],
   "scale": {

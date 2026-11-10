@@ -43,6 +43,8 @@
       "summary": "The Independence Day holiday week: fewer people in the US run with the app, as every year.",
       "explanation": "The drop is in the US only, on every platform and app version including the web, and it builds up around July 4. Users on 8.2.0 are as active as users on 8.1.2.",
       "idealAction": "Do not roll back 8.2.0. Compare with the same week last year, add the holiday to the forecast, and check that US activity recovers the following week.",
+      "idealActionId": "annotate-seasonality",
+      "partialActionIds": [],
       "idealPath": [
         "Confirm the drop in DAU",
         "Break down by country: the US accounts for nearly all of it",
@@ -105,6 +107,24 @@
       "day": 71,
       "kind": "holiday",
       "label": "Independence Day (US)"
+    }
+  ],
+  "actionOptions": [
+    {
+      "id": "rollback-release",
+      "label": "Roll back app version 8.2.0"
+    },
+    {
+      "id": "annotate-seasonality",
+      "label": "Keep 8.2.0; compare with last year and add the holiday to the forecast"
+    },
+    {
+      "id": "restore-social",
+      "label": "Restore the paid social budget"
+    },
+    {
+      "id": "push-campaign",
+      "label": "Send a push campaign to US users this week"
     }
   ],
   "scale": {
