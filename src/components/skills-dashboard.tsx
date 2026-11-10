@@ -29,10 +29,9 @@ import {
   ratingToLevel,
   START_RATING,
   recommendCases,
-  type RatedAttempt,
 } from "@/core/skills";
 import { getMessages } from "@/i18n";
-import { caseLabel } from "@/lib/case-label";
+import { ratedAttemptsFrom } from "@/lib/recommend";
 import { useAttempts } from "@/lib/use-attempts";
 import { moduleCatalog } from "@/modules/catalog";
 
@@ -73,20 +72,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
 
   const view = useMemo(() => {
     if (!attempts) return null;
-    const rated: RatedAttempt[] = attempts.flatMap((attempt) => {
-      const summary = caseLabel(attempt.caseId, caseById);
-      const skills = skillsOf.get(attempt.moduleId);
-      if (!summary || !skills) return [];
-      return [
-        {
-          caseId: attempt.caseId,
-          skills,
-          difficulty: summary.difficulty,
-          score: attempt.result.total,
-          submittedAt: attempt.submittedAt,
-        },
-      ];
-    });
+    const rated = ratedAttemptsFrom(attempts, caseById);
     const ratings = computeSkillRatings(rated);
     const recommendations = recommendCases(
       ratings,

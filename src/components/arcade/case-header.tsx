@@ -7,6 +7,7 @@ import type { PublicBaseCase } from "@/core/case-engine";
 import { getMessages } from "@/i18n";
 import { getModuleMeta } from "@/modules/catalog";
 
+import { LastAttemptHint } from "./last-attempt-hint";
 import { MascotBubble } from "./mascot-bubble";
 import { ModuleBanner } from "./module-banner";
 
@@ -58,6 +59,7 @@ export function CaseHeader({
           )}
         </div>
       </ModuleBanner>
+      <LastAttemptHint caseId={publicCase.id} />
       <MascotBubble label={messages.arcade.tipLabel} size={48}>
         {tipFor(tipKey ?? publicCase.moduleId, publicCase.seed)}
       </MascotBubble>

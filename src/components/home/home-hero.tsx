@@ -12,9 +12,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DIFFICULTIES } from "@/core/case-engine";
 import type { Progress } from "@/core/progress";
+import type { Attempt } from "@/core/storage";
 import { getMessages } from "@/i18n";
 import { casesWithDrafts, readLastCase } from "@/lib/last-case";
 import { useIsClient } from "@/lib/use-is-client";
+import { recommendFromAttempts } from "@/lib/recommend";
 import { useProgress } from "@/lib/use-progress";
 
 interface Pick {
@@ -27,6 +29,7 @@ interface Pick {
 function pickCase(
   catalog: readonly CaseSummary[],
   progress: Progress,
+  attempts: readonly Attempt[],
   submittedAfter: (caseId: string, iso: string) => boolean,
 ): Pick | null {
   const drafts = casesWithDrafts();
@@ -43,7 +46,12 @@ function pickCase(
     (a, b) =>
       DIFFICULTIES.indexOf(a.difficulty) - DIFFICULTIES.indexOf(b.difficulty),
   );
-  const unplayed = byDifficulty.find((c) => !progress.cases[c.id]);
+  // Once there is something to go on, train the weakest skill.
+  const [recommended] =
+    attempts.length > 0 ? recommendFromAttempts(attempts, catalog, 1) : [];
+  const unplayed =
+    (recommended && catalog.find((c) => c.id === recommended.caseId)) ??
+    byDifficulty.find((c) => !progress.cases[c.id]);
   const weakest = [...catalog].sort(
     (a, b) =>
       (progress.cases[a.id]?.best ?? 0) - (progress.cases[b.id]?.best ?? 0),
@@ -62,7 +70,7 @@ export function HomeHero({ catalog }: { catalog: readonly CaseSummary[] }) {
 
   const pick = useMemo(() => {
     if (!isClient || !progress || !attempts) return null;
-    return pickCase(catalog, progress, (caseId, iso) =>
+    return pickCase(catalog, progress, attempts, (caseId, iso) =>
       attempts.some((a) => a.caseId === caseId && a.submittedAt >= iso),
     );
   }, [isClient, progress, attempts, catalog]);
@@ -79,6 +87,8 @@ export function HomeHero({ catalog }: { catalog: readonly CaseSummary[] }) {
             : copy.greeting.back(progress.level.level)}
         </p>
       </MascotBubble>
+
+      {attempts?.length === 0 && <HowItWorks />}
 
       <section
         aria-labelledby="jump-title"
@@ -147,5 +157,33 @@ export function HomeHero({ catalog }: { catalog: readonly CaseSummary[] }) {
         </div>
       </section>
     </div>
+  );
+}
+
+/** First visit only: what a case is, in three steps. */
+function HowItWorks() {
+  const copy = getMessages().learn.onboarding;
+  return (
+    <section aria-labelledby="how-title" className="pixel-card p-5">
+      <h2 id="how-title" className="font-pixel text-lg">
+        {copy.title}
+      </h2>
+      <ol className="mt-4 grid gap-4 sm:grid-cols-3">
+        {copy.steps.map((step, index) => (
+          <li key={step.title} className="flex gap-3">
+            <span
+              aria-hidden="true"
+              className="font-pixel bg-primary text-primary-foreground border-frame flex size-8 shrink-0 items-center justify-center rounded-sm border-2"
+            >
+              {index + 1}
+            </span>
+            <div>
+              <h3 className="font-pixel text-sm">{step.title}</h3>
+              <p className="text-muted-foreground mt-1 text-sm">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }

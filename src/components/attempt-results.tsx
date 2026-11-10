@@ -8,6 +8,7 @@ import {
   AIFeedbackPanel,
   type RequestFeedback,
 } from "@/components/ai-feedback-panel";
+import { NextSteps } from "@/components/next-steps";
 import { ResultScreen } from "@/components/arcade/result-screen";
 import type { CaseSummary } from "@/components/case-library";
 import { Button } from "@/components/ui/button";
@@ -34,6 +35,8 @@ type State =
       revealedCase: BaseCase;
       reward: AttemptReward | null;
       nextHref: string;
+      /** Every attempt in this browser, for recommendations. */
+      attempts: Attempt[];
     };
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -70,12 +73,15 @@ export function AttemptResults({
   rescore,
   requestFeedback,
   catalog,
+  generatingModuleIds,
 }: {
   attemptId: string;
   rescore: Rescore;
   requestFeedback: RequestFeedback;
   /** Every curated case, for XP, badges and the next case. */
   catalog: readonly CaseSummary[];
+  /** Modules that can build a fresh case on demand. */
+  generatingModuleIds: readonly string[];
 }) {
   const messages = getMessages();
   const copy = messages.results;
@@ -117,6 +123,7 @@ export function AttemptResults({
           result: outcome.result,
           revealedCase: outcome.revealedCase,
           reward: rewardFor(toProgressAttempts(all), attempt.id, catalog),
+          attempts: all,
           nextHref: nextCaseHref(
             attempt.caseId,
             outcome.revealedCase.moduleId,
@@ -184,6 +191,14 @@ export function AttemptResults({
         reward={state.reward}
         nextHref={state.nextHref}
         playAgainHref={`/case/${revealedCase.id}`}
+      />
+
+      <NextSteps
+        revealedCase={revealedCase}
+        score={result.total}
+        attempts={state.attempts}
+        catalog={catalog}
+        generatingModuleIds={generatingModuleIds}
       />
 
       <AIFeedbackPanel attempt={attempt} requestFeedback={requestFeedback} />

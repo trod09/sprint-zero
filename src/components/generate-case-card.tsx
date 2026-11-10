@@ -10,21 +10,14 @@ import {
   DIFFICULTIES,
   generatedCaseId,
   INDUSTRY_KEYS,
-  MAX_SEED,
   type Difficulty,
   type IndustryKey,
 } from "@/core/case-engine";
 import { getMessages } from "@/i18n";
+import { randomSeed } from "@/lib/practice";
 
 const selectClassName =
   "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-8 w-full rounded-lg border px-2 text-sm outline-none focus-visible:ring-3 dark:bg-input/30";
-
-/** A fresh seed. Only picks which case to build; the case itself is deterministic. */
-function randomSeed(): number {
-  const values = new Uint32Array(1);
-  crypto.getRandomValues(values);
-  return (values[0] % MAX_SEED) + 1;
-}
 
 /** Builds a new case from an industry, a difficulty and a fresh seed. */
 export function GenerateCaseCard({ moduleId }: { moduleId: string }) {

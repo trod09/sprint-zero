@@ -1545,6 +1545,45 @@ export const en = {
       principle: "Principle to remember",
     },
   },
+  learn: {
+    onboarding: {
+      title: "How a case works",
+      steps: [
+        {
+          title: "Read the brief",
+          body: "A company, a problem and the data you would have on the job. Kanbo leaves a tip on every case.",
+        },
+        {
+          title: "Make the calls",
+          body: "Prioritise, investigate, decide or write, with the tools of the module. Take your time; drafts are saved as you go.",
+        },
+        {
+          title: "See what was right",
+          body: "Your score is computed by fixed rules, so it is the same every time. The results explain every choice and show the ideal answer.",
+        },
+      ],
+    },
+    lastTime: {
+      title: (score: number) => `Last time you scored ${score}/100`,
+      focus: "Focus on:",
+      perfect: "You already aced this one. Try a harder case to keep learning.",
+      attempts: (count: number) =>
+        `${count} attempt${count === 1 ? "" : "s"} so far`,
+    },
+    nextSteps: {
+      title: "What to do next",
+      freshTitle: "Practise on a fresh case",
+      freshBody:
+        "Same kind of problem and level, new company and numbers. The best way to check you learned the lesson, not the answer.",
+      freshCta: "New case",
+      replayTitle: "Replay this case",
+      replayBody:
+        "Your weakest points from this attempt will be shown at the top of the case.",
+      replayCta: "Replay",
+      recommendTitle: "For your weakest skill",
+      recommendCta: "Play",
+    },
+  },
   generate: {
     title: "Generate a new case",
     intro:

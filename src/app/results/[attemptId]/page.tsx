@@ -6,6 +6,7 @@ import { requestFeedback } from "@/app/actions/feedback";
 import { AttemptResults } from "@/components/attempt-results";
 import { getMessages } from "@/i18n";
 import { listCaseSummaries } from "@/modules/case-summaries.server";
+import { moduleRegistry } from "@/modules/registry.server";
 
 export const metadata: Metadata = { title: "Results" };
 
@@ -34,6 +35,10 @@ async function Results({
       rescore={submitAttempt}
       requestFeedback={requestFeedback}
       catalog={catalog}
+      generatingModuleIds={moduleRegistry
+        .list()
+        .filter((registered) => registered.canGenerate)
+        .map((registered) => registered.meta.id)}
     />
   );
 }

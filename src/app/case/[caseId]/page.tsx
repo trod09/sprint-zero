@@ -6,6 +6,7 @@ import { Suspense } from "react";
 
 import { submitAttempt } from "@/app/actions/attempts";
 import { RecordLastCase } from "@/components/arcade/record-last-case";
+import { CaseSession } from "@/components/case-session";
 import { getMessages } from "@/i18n";
 import { getModuleMeta } from "@/modules/catalog";
 import { CaseView } from "@/modules/case-view";
@@ -65,7 +66,9 @@ async function CaseContent({
         {messages.caseView.backToModule(meta.name)}
       </Link>
       <div className="mt-5">
-        <CaseView publicCase={publicCase} submit={submitAttempt} />
+        <CaseSession caseId={publicCase.id}>
+          <CaseView publicCase={publicCase} submit={submitAttempt} />
+        </CaseSession>
       </div>
     </>
   );
