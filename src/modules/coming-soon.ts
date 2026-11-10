@@ -25,14 +25,4 @@ export const comingSoonModules: readonly ModuleMeta[] = [
     status: "coming_soon",
     icon: "stakeholder-arena",
   },
-  {
-    id: "quick-cases",
-    name: "Quick Cases",
-    tagline: "Pricing, launches, incidents and build vs. buy in 15 minutes.",
-    description:
-      "Short cases on pricing, go-to-market, incident communication and build vs. buy vs. partner decisions.",
-    skills: ["strategy", "communication"],
-    status: "coming_soon",
-    icon: "quick-cases",
-  },
 ];

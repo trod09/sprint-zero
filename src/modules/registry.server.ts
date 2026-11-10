@@ -28,6 +28,9 @@ import { prdWriterModule } from "./prd-writer/module.server";
 import { productCaseRawCases } from "./product-case/cases";
 import { generateProductCaseOnDemand } from "./product-case/generate";
 import { productCaseModule } from "./product-case/module.server";
+import { buildFeaturedQuickCases } from "./quick-cases/cases";
+import { generateQuickOnDemand } from "./quick-cases/generate";
+import { quickCasesModule } from "./quick-cases/module.server";
 import { buildFeaturedRoadmapCases } from "./roadmap-okrs/cases";
 import { generateRoadmapOnDemand } from "./roadmap-okrs/generate";
 import { roadmapModule } from "./roadmap-okrs/module.server";
@@ -69,6 +72,11 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: prdWriterModule,
     loadRawCases: () => prdRawCases,
+  }),
+  registerModule({
+    module: quickCasesModule,
+    loadRawCases: buildFeaturedQuickCases,
+    generate: generateQuickOnDemand,
   }),
   registerModule({
     module: roadmapModule,

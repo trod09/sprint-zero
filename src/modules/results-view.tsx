@@ -10,6 +10,9 @@ import type { ScoreResult } from "@/core/scoring";
 import { PrdResults } from "./prd-writer/components/prd-results";
 import { prdAnswerSchema, prdCaseSchema } from "./prd-writer/schema";
 import { prdResultSchema } from "./prd-writer/scoring";
+import { QuickResults } from "./quick-cases/components/quick-results";
+import { quickCaseSchema } from "./quick-cases/schema";
+import { quickResultSchema } from "./quick-cases/scoring";
 import { RoadmapResults } from "./roadmap-okrs/components/roadmap-results";
 import { roadmapCaseSchema } from "./roadmap-okrs/schema";
 import { roadmapResultSchema } from "./roadmap-okrs/scoring";
@@ -129,6 +132,14 @@ export function ModuleResults({
       if (!caseData.success || !parsed.success) return null;
       return (
         <RoadmapResults caseData={caseData.data} report={parsed.data.report} />
+      );
+    }
+    case "quick-cases": {
+      const caseData = quickCaseSchema.safeParse(revealedCase);
+      const parsed = quickResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      return (
+        <QuickResults caseData={caseData.data} report={parsed.data.report} />
       );
     }
     default:

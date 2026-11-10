@@ -1209,6 +1209,12 @@ export const en = {
         "Name the problem by its effect on the user's goal, not by how it looks.",
         "False alarms cost points. If a part works, leave it alone.",
       ],
+      "quick-cases": [
+        "Do the arithmetic before you choose. The exhibits hold every number you need.",
+        "The numbers change from case to case, and the right call changes with them.",
+        "When you write to customers: what happened, what they must do, when they hear next.",
+        "Ask what cannot move (a date, a law, a budget) and decide around it.",
+      ],
       "roadmap-okrs": [
         "A key result is a number that moves when users behave differently. 'Launch X' is a task.",
         "Find the initiatives other squads wait for and schedule them first.",
@@ -1386,6 +1392,54 @@ export const en = {
       inBest: (sprint: number) => `Best plan: starts in sprint ${sprint}`,
       notInBest: "Best plan: left out",
       principle: "Principle to remember",
+    },
+  },
+  quick: {
+    kinds: {
+      pricing: "Pricing",
+      go_to_market: "Go-to-market",
+      incident: "Incident",
+      build_buy: "Build vs. buy",
+    },
+    brief: {
+      label: "The situation",
+      exhibits: "Exhibits",
+      source: (who: string) => `Source: ${who}`,
+    },
+    steps: {
+      decision: (n: number, total: number) => `Decision ${n} of ${total}`,
+      pickOne: "Choose one",
+      pickMany: (count: number) => `Choose ${count}`,
+      picked: (count: number, max: number) => `${count} of ${max} chosen`,
+    },
+    notes: {
+      title: "In your own words",
+      reasoning: "Your reasoning",
+      reasoningPlaceholder:
+        "The numbers you used and what tipped each decision.",
+      coachNote: "Your coach reads these. They do not change the score.",
+    },
+    submit: {
+      button: "Submit answer",
+      incomplete: (left: number) =>
+        `${left} decision${left === 1 ? "" : "s"} still to make.`,
+      confirmTitle: "Submit this answer?",
+      confirmBody:
+        "Your decisions will be scored, and you will see how every option rates with the numbers of this case.",
+      confirm: "Submit",
+      cancel: "Keep working",
+      submitting: "Scoring…",
+      failed:
+        "Your answer could not be scored. Check your connection and try again.",
+    },
+    results: {
+      ratings: ["Harmful", "Weak", "Defensible", "Best"],
+      chosen: "You chose",
+      ideal: "Model answer",
+      principle: "Principle to remember",
+      timed: (used: string, limit: number) =>
+        `Timed: you used ${used} of ${limit}:00.`,
+      untimed: "Played without the timer.",
     },
   },
   generate: {

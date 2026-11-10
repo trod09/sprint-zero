@@ -7,6 +7,8 @@ import type { PublicBaseCase } from "@/core/case-engine";
 
 import { PrdCaseView } from "./prd-writer/components/prd-case-view";
 import { publicPrdCaseSchema } from "./prd-writer/schema";
+import { QuickCaseView } from "./quick-cases/components/quick-case-view";
+import { publicQuickCaseSchema } from "./quick-cases/schema";
 import { RoadmapCaseView } from "./roadmap-okrs/components/roadmap-case-view";
 import { publicRoadmapCaseSchema } from "./roadmap-okrs/schema";
 import { ProductCaseView } from "./product-case/components/product-case-view";
@@ -84,6 +86,13 @@ export function CaseView({
       return (
         <RoadmapCaseView
           publicCase={publicRoadmapCaseSchema.parse(publicCase)}
+          submit={submit}
+        />
+      );
+    case "quick-cases":
+      return (
+        <QuickCaseView
+          publicCase={publicQuickCaseSchema.parse(publicCase)}
           submit={submit}
         />
       );
