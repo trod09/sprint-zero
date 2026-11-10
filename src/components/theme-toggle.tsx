@@ -1,8 +1,8 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import { useLayoutEffect } from "react";
 
+import { PixelIcon } from "@/components/arcade/icons";
 import { Button } from "@/components/ui/button";
 import { applyTheme, resolveTheme, storeTheme } from "@/lib/theme";
 
@@ -28,8 +28,8 @@ export function ThemeToggle({ label }: { label: string }) {
       aria-label={label}
       title={label}
     >
-      <Sun className="hidden dark:block" aria-hidden="true" />
-      <Moon className="dark:hidden" aria-hidden="true" />
+      <PixelIcon name="sun" size={18} className="hidden dark:block" />
+      <PixelIcon name="moon" size={18} className="dark:hidden" />
     </Button>
   );
 }

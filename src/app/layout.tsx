@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Nunito, Pixelify_Sans } from "next/font/google";
 
 import { SiteHeader } from "@/components/site-header";
 import { DEFAULT_LOCALE, getMessages } from "@/i18n";
@@ -7,8 +7,15 @@ import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/** Reading text: tickets, briefs, feedback. */
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+});
+
+/** Titles, buttons, XP numbers and short labels only. */
+const pixelify = Pixelify_Sans({
+  variable: "--font-pixelify",
   subsets: ["latin"],
 });
 
@@ -31,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang={DEFAULT_LOCALE}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${nunito.variable} ${pixelify.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

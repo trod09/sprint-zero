@@ -4,14 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Sprint Zero design tokens: arcade retro on a navy night sky.
+ * Dark is the main theme; light is a warm "paper" variant.
+ * Pixel font for titles, buttons, numbers and short labels only; Nunito for
+ * reading; Geist Mono for dense data.
+ */
 @theme inline {
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-nunito);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-pixel: var(--font-pixelify);
+  --font-heading: var(--font-pixelify);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -29,6 +36,8 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -41,86 +50,194 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --color-shadow: var(--shadow-color);
+  --color-frame: var(--frame);
+  --color-ink: var(--ink);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 1.5);
+  --radius-3xl: calc(var(--radius) * 1.5);
+  --radius-4xl: calc(var(--radius) * 1.5);
+  --animate-pixel-pop: pixel-pop 240ms steps(4, end) both;
+  --animate-pixel-blink: pixel-blink 4s steps(1, end) infinite;
+  --animate-pixel-bob: pixel-bob 1.6s steps(2, end) infinite;
 }
 
 :root {
-  --brand: oklch(0.51 0.21 268);
-  --brand-foreground: oklch(0.985 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Light: warm paper, ink borders. */
+  --background: #f6f3e8;
+  --foreground: #0a0e1f;
+  --card: #ffffff;
+  --card-foreground: #0a0e1f;
+  --popover: #ffffff;
+  --popover-foreground: #0a0e1f;
+  --primary: #ffd23f;
+  --primary-foreground: #0a0e1f;
+  --secondary: #1f5bff;
+  --secondary-foreground: #ffffff;
+  --muted: #ece8da;
+  --muted-foreground: #4a5070;
+  --accent: #ece8da;
+  --accent-foreground: #0a0e1f;
+  --destructive: #c8102e;
+  --success: #12804a;
+  --warning: #a8540a;
+  --border: #d3ccb4;
+  /* The 2px frame of cards, buttons and inputs. */
+  --frame: #0a0e1f;
+  --input: #0a0e1f;
+  --ring: #1f5bff;
+  --brand: #1f5bff;
+  --brand-foreground: #ffffff;
+  /* Text on light that must read like the accent. */
+  --ink: #0a0e1f;
+  --shadow-color: #0a0e1f;
+  --chart-1: #1f5bff;
+  --chart-2: #e8590c;
+  --chart-3: #12804a;
+  --chart-4: #8b3dff;
+  --chart-5: #c8102e;
+  --radius: 0.25rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0a0e1f;
+  --sidebar-primary: #ffd23f;
+  --sidebar-primary-foreground: #0a0e1f;
+  --sidebar-accent: #ece8da;
+  --sidebar-accent-foreground: #0a0e1f;
+  --sidebar-border: #d3ccb4;
+  --sidebar-ring: #1f5bff;
+
+  /* One color per module, used by banners, icons and accents. */
+  --module-backlog: #ff8a3d;
+  --module-metric-drop: #2ee6d6;
+  --module-ab-test: #a07cff;
+  --module-feedback-triage: #ff5fa2;
+  --module-ux-critique: #9be15d;
+  --module-product-case: #4cc9ff;
+  --module-prd-writer: #8c9eff;
+  --module-locked: #5b6488;
 }
 
 .dark {
-  --brand: oklch(0.74 0.14 268);
-  --brand-foreground: oklch(0.18 0.03 268);
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Dark: navy night sky, the main theme. */
+  --background: #0a0e1f;
+  --foreground: #eef1ff;
+  --card: #121833;
+  --card-foreground: #eef1ff;
+  --popover: #121833;
+  --popover-foreground: #eef1ff;
+  --primary: #ffd23f;
+  --primary-foreground: #0a0e1f;
+  --secondary: #4c8dff;
+  --secondary-foreground: #0a0e1f;
+  --muted: #1a2142;
+  --muted-foreground: #a3acd1;
+  --accent: #1a2142;
+  --accent-foreground: #eef1ff;
+  --destructive: #ff5d6c;
+  --success: #3ddc84;
+  --warning: #ff9f1c;
+  --border: #2c3768;
+  --frame: #5f6db0;
+  --input: #5f6db0;
+  --ring: #ffd23f;
+  --brand: #7fb0ff;
+  --brand-foreground: #0a0e1f;
+  --ink: #ffd23f;
+  --shadow-color: #000000;
+  --chart-1: #4c8dff;
+  --chart-2: #ff9f1c;
+  --chart-3: #3ddc84;
+  --chart-4: #a07cff;
+  --chart-5: #ff5d6c;
+  --sidebar: #121833;
+  --sidebar-foreground: #eef1ff;
+  --sidebar-primary: #ffd23f;
+  --sidebar-primary-foreground: #0a0e1f;
+  --sidebar-accent: #1a2142;
+  --sidebar-accent-foreground: #eef1ff;
+  --sidebar-border: #2c3768;
+  --sidebar-ring: #ffd23f;
+}
+
+/* Solid, offset shadows: never blurred. */
+@utility shadow-pixel {
+  box-shadow: 4px 4px 0 0 var(--shadow-color);
+}
+@utility shadow-pixel-sm {
+  box-shadow: 2px 2px 0 0 var(--shadow-color);
+}
+@utility shadow-pixel-lg {
+  box-shadow: 6px 6px 0 0 var(--shadow-color);
+}
+
+/* A card in the arcade frame: 2px border and a solid offset shadow. */
+@utility pixel-card {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 2px solid var(--frame);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 4px 4px 0 0 var(--shadow-color);
+}
+
+/* Lift on hover for clickable cards. */
+@utility pixel-lift {
+  transition:
+    transform 120ms steps(2, end),
+    box-shadow 120ms steps(2, end);
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--shadow-color);
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 var(--shadow-color);
+  }
+}
+
+/* Sprites and pixel scenes stay crisp at any size. */
+@utility pixelated {
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+}
+
+@keyframes pixel-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pixel-blink {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  94%,
+  98% {
+    opacity: 0;
+  }
+}
+
+@keyframes pixel-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }
 
 @layer base {
@@ -136,5 +253,20 @@
   }
   html {
     @apply font-sans;
+  }
+  :focus-visible {
+    outline-color: var(--ring);
+  }
+}
+
+/* Motion is decoration: drop it for people who ask for less. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
