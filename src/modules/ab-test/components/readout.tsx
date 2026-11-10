@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
 import { useIsClient } from "@/lib/use-is-client";
@@ -187,21 +187,15 @@ function ReadoutWorkspace({
           <h2 id="readout-title" className="font-heading font-semibold">
             {copy.readout.title}
           </h2>
-          <Tabs
+          <SegmentedControl
+            label={copy.readout.tabs}
             value={draft.view}
-            onValueChange={(value) => {
-              const view = VIEWS.find((v) => v === value);
-              if (view) openView(view);
-            }}
-          >
-            <TabsList aria-label={copy.readout.tabs}>
-              {VIEWS.map((view) => (
-                <TabsTrigger key={view} value={view}>
-                  {copy.views[view]}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
+            onValueChange={openView}
+            options={VIEWS.map((view) => ({
+              value: view,
+              label: copy.views[view],
+            }))}
+          />
         </div>
         {draft.view === "scorecard" && (
           <Scorecard publicCase={publicCase} readout={readout} />

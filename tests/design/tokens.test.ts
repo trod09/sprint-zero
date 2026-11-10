@@ -78,3 +78,12 @@ describe("sprites", () => {
     expect(new Set(AVATARS.map((a) => a.id)).size).toBe(6);
   });
 });
+
+describe("contrast helper", () => {
+  it("reads short and long hex colors alike", async () => {
+    const { contrastRatio } = await import("@/lib/contrast");
+    expect(contrastRatio("#fff", "#000")).toBeCloseTo(21, 5);
+    expect(contrastRatio("#ffffff", "#000")).toBeCloseTo(21, 5);
+    expect(() => contrastRatio("white", "#000")).toThrow();
+  });
+});

@@ -15,7 +15,7 @@ export function SiteHeader({ messages }: { messages: Messages }) {
           className="font-pixel focus-visible:ring-ring/60 flex items-center gap-2 rounded-sm text-base tracking-wide focus-visible:ring-3 focus-visible:outline-none"
         >
           <Mascot size={28} idle={false} />
-          <span className="hidden sm:inline">{messages.app.name}</span>
+          <span className="sr-only sm:not-sr-only">{messages.app.name}</span>
         </Link>
         <nav className="flex min-w-0 items-center gap-0.5 overflow-x-auto text-sm">
           {[

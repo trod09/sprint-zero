@@ -33,7 +33,7 @@ export function ItemMeta({ item }: { item: FeedbackItem }) {
         {copy.sources[item.source]}
       </span>
       {item.rating !== undefined && (
-        <span aria-label={copy.inbox.stars(item.rating)}>
+        <span role="img" aria-label={copy.inbox.stars(item.rating)}>
           <span aria-hidden="true">
             {"★".repeat(item.rating)}
             <span className="opacity-30">{"★".repeat(5 - item.rating)}</span>

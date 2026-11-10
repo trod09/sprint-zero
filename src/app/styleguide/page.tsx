@@ -22,14 +22,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
 import { moduleCatalog } from "@/modules/catalog";
 import { listCaseSummaries } from "@/modules/case-summaries.server";
 
 import { ContrastTable } from "./contrast-table";
-import { AnimatedDemos } from "./demos";
+import { AnimatedDemos, SegmentedDemo } from "./demos";
 
 export const metadata: Metadata = {
   title: "Styleguide",
@@ -211,12 +211,7 @@ export default async function StyleguidePage() {
             <Label htmlFor="sg-textarea">Textarea</Label>
             <Textarea id="sg-textarea" placeholder="Your reasoning" />
           </div>
-          <Tabs defaultValue="one">
-            <TabsList>
-              <TabsTrigger value="one">Scorecard</TabsTrigger>
-              <TabsTrigger value="two">Segments</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <SegmentedDemo />
         </div>
       </Section>
 

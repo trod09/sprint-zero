@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
 import { useIsClient } from "@/lib/use-is-client";
@@ -178,18 +178,18 @@ function Workspace({
               {mode === "use" ? copy.modes.useHint : copy.modes.markHint}
             </p>
           </div>
-          <Tabs
+          <SegmentedControl<Mode>
+            label={copy.modes.label}
             value={mode}
             onValueChange={(value) => {
-              setMode(value as Mode);
+              setMode(value);
               if (value === "use") setSelected(null);
             }}
-          >
-            <TabsList aria-label={copy.modes.label}>
-              <TabsTrigger value="use">{copy.modes.use}</TabsTrigger>
-              <TabsTrigger value="mark">{copy.modes.mark}</TabsTrigger>
-            </TabsList>
-          </Tabs>
+            options={[
+              { value: "use", label: copy.modes.use },
+              { value: "mark", label: copy.modes.mark },
+            ]}
+          />
         </div>
         <ScreenView
           screen={publicCase.screen}

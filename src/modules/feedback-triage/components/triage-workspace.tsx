@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { getMessages } from "@/i18n";
 import { useIsClient } from "@/lib/use-is-client";
 import { useSubmitAttempt, type SubmitAttempt } from "@/lib/use-submit-attempt";
@@ -281,16 +281,21 @@ function Workspace({
             <h2 id="inbox-title" className="font-heading font-semibold">
               {copy.inbox.title}
             </h2>
-            <Tabs value={show} onValueChange={(v) => setShow(v as Show)}>
-              <TabsList aria-label={copy.inbox.show}>
-                <TabsTrigger value="unsorted">
-                  {copy.inbox.unsorted(unsortedCount)}
-                </TabsTrigger>
-                <TabsTrigger value="all">
-                  {copy.inbox.all(publicCase.items.length)}
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <SegmentedControl<Show>
+              label={copy.inbox.show}
+              value={show}
+              onValueChange={setShow}
+              options={[
+                {
+                  value: "unsorted",
+                  label: copy.inbox.unsorted(unsortedCount),
+                },
+                {
+                  value: "all",
+                  label: copy.inbox.all(publicCase.items.length),
+                },
+              ]}
+            />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -403,7 +408,8 @@ function Workspace({
 
         <aside
           aria-labelledby="clusters-title"
-          className="space-y-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
+          tabIndex={0}
+          className="focus-visible:ring-ring/50 space-y-3 rounded-xl focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
         >
           <div className="bg-card space-y-3 rounded-xl border p-3">
             <div>

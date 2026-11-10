@@ -122,7 +122,6 @@ export const en = {
     } satisfies Record<TicketType, string>,
     ticket: {
       points: (points: number) => `${points} pt${points === 1 ? "" : "s"}`,
-      open: (id: string) => `Open details of ${id}`,
       add: (id: string) => `Add ${id} to the sprint`,
       remove: (id: string) => `Remove ${id} from the sprint`,
       moveUp: (id: string) => `Move ${id} up`,
@@ -1578,7 +1577,6 @@ export const en = {
       shown === total ? `${total} cases` : `${shown} of ${total} cases`,
     empty: "No case matches these filters.",
     best: (score: number) => `Best ${score}`,
-    open: (title: string) => `Open case: ${title}`,
   },
   history: {
     title: "History",

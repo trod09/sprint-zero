@@ -1,5 +1,5 @@
 /**
- * WCAG contrast between two colors given as #rrggbb. Shared by the contrast
+ * WCAG contrast between two colors given as #rgb or #rrggbb. Shared by the contrast
  * test and the styleguide.
  */
 function channel(value: number): number {
@@ -8,9 +8,13 @@ function channel(value: number): number {
 }
 
 export function relativeLuminance(hex: string): number {
-  const match = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
-  if (!match) throw new Error(`Not a #rrggbb color: ${hex}`);
-  const n = parseInt(match[1], 16);
+  const match = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(hex.trim());
+  if (!match) throw new Error(`Not a #rgb or #rrggbb color: ${hex}`);
+  const digits =
+    match[1].length === 3
+      ? match[1].replace(/./g, (digit) => digit + digit)
+      : match[1];
+  const n = parseInt(digits, 16);
   return (
     0.2126 * channel((n >> 16) & 255) +
     0.7152 * channel((n >> 8) & 255) +

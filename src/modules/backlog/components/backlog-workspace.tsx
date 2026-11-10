@@ -38,7 +38,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
 import { getAttemptStore } from "@/core/storage";
@@ -573,26 +573,22 @@ function Planner({
         )}
 
         <section aria-labelledby="backlog-title" className="min-w-0 space-y-3">
-          <Tabs
-            value={state.method}
-            onValueChange={(value) => {
-              const method = PLANNING_METHODS.find((m) => m === value);
-              if (method) dispatch({ type: "set_method", method });
-            }}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 id="backlog-title" className="font-heading font-semibold">
-                {copy.backlogTitle}
-              </h2>
-              <TabsList aria-label={copy.methods.label}>
-                {PLANNING_METHODS.map((method) => (
-                  <TabsTrigger key={method} value={method}>
-                    {copy.methods.names[method]}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-          </Tabs>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 id="backlog-title" className="font-heading font-semibold">
+              {copy.backlogTitle}
+            </h2>
+            <SegmentedControl
+              label={copy.methods.label}
+              value={state.method}
+              onValueChange={(method) =>
+                dispatch({ type: "set_method", method })
+              }
+              options={PLANNING_METHODS.map((method) => ({
+                value: method,
+                label: copy.methods.names[method],
+              }))}
+            />
+          </div>
           <p className="text-muted-foreground text-sm">
             {copy.methods.hints[state.method]}
           </p>

@@ -68,7 +68,10 @@ export function Scorecard({
 
   return (
     <div className="space-y-4">
-      <div className="bg-card overflow-x-auto rounded-xl border p-4">
+      <div
+        tabIndex={0}
+        className="bg-card focus-visible:ring-ring/50 overflow-x-auto rounded-xl border p-4 focus-visible:ring-3 focus-visible:outline-none"
+      >
         <table className="w-full text-sm">
           <caption className="text-muted-foreground mb-2 text-left text-xs">
             {copy.daysRun(results.daysRun, experiment.plan.days)}
@@ -118,7 +121,10 @@ export function Scorecard({
         </table>
       </div>
 
-      <div className="bg-card overflow-x-auto rounded-xl border p-4">
+      <div
+        tabIndex={0}
+        className="bg-card focus-visible:ring-ring/50 overflow-x-auto rounded-xl border p-4 focus-visible:ring-3 focus-visible:outline-none"
+      >
         <table className="w-full min-w-[40rem] text-sm">
           <thead>
             <tr className="text-muted-foreground border-b text-left">

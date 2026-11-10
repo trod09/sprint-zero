@@ -77,7 +77,6 @@ function SprintItem({
       <button
         type="button"
         onClick={onOpen}
-        aria-label={copy.open(ticket.id)}
         className={cn(
           "focus-visible:ring-ring/50 min-w-0 flex-1 truncate rounded-md text-left text-sm focus-visible:ring-3 focus-visible:outline-none",
           spilled && "text-muted-foreground line-through",

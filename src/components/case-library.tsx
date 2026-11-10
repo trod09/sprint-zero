@@ -159,7 +159,6 @@ export function CaseLibrary({
               <li key={summary.id}>
                 <Link
                   href={`/case/${summary.id}`}
-                  aria-label={copy.open(summary.title)}
                   className="group hover:bg-muted/50 focus-visible:ring-ring/50 flex items-center justify-between gap-4 px-4 py-3 transition-colors focus-visible:ring-3 focus-visible:outline-none focus-visible:ring-inset"
                 >
                   <div className="min-w-0">

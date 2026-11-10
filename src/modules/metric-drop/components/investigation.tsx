@@ -16,7 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Textarea } from "@/components/ui/textarea";
 import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
@@ -377,18 +377,15 @@ function Dashboard({
           <h2 id="dashboard-title" className="font-heading font-semibold">
             {copy.dashboard.title}
           </h2>
-          <Tabs
+          <SegmentedControl<Range>
+            label={copy.dashboard.range}
             value={range}
-            onValueChange={(value) => setRange(value as Range)}
-          >
-            <TabsList aria-label={copy.dashboard.range}>
-              {RANGES.map((value) => (
-                <TabsTrigger key={value} value={value}>
-                  {copy.dashboard.ranges[value]}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
+            onValueChange={setRange}
+            options={RANGES.map((value) => ({
+              value,
+              label: copy.dashboard.ranges[value],
+            }))}
+          />
         </div>
 
         <div className="border-frame bg-card space-y-3 rounded-md border-2 p-4">

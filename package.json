@@ -19,7 +19,8 @@
     "generate:feedback-triage": "tsx --conditions=react-server scripts/generate-feedback-triage-cases.ts",
     "generate:ux-critique": "tsx --conditions=react-server scripts/generate-ux-critique-cases.ts",
     "generate:product-case": "tsx --conditions=react-server scripts/generate-product-cases.ts",
-    "generate:prd-writer": "tsx --conditions=react-server scripts/generate-prd-cases.ts"
+    "generate:prd-writer": "tsx --conditions=react-server scripts/generate-prd-cases.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",
@@ -40,6 +41,8 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^24.19.2",
     "@types/react": "^19",

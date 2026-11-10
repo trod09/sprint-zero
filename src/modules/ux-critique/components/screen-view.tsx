@@ -30,6 +30,8 @@ export function ScreenView({
   return (
     <figure
       aria-label={copy.label(screen.product.name)}
+      // Planted contrast and labelling flaws are the exercise: accessibility checks skip this.
+      data-mock-screen=""
       className="overflow-hidden rounded-xl border border-zinc-300 shadow-sm"
       style={{ colorScheme: "light" }}
     >

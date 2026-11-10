@@ -135,7 +135,12 @@ function Workspace({
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
-      <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-1">
+      <div
+        role="region"
+        aria-labelledby="exhibits-title"
+        tabIndex={0}
+        className="focus-visible:ring-ring/50 rounded-md focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-1"
+      >
         <Exhibits exhibits={publicCase.exhibits} />
       </div>
 

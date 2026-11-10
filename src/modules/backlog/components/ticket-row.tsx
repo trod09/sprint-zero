@@ -119,7 +119,6 @@ export function TicketRow({
           <button
             type="button"
             onClick={onOpen}
-            aria-label={copy.ticket.open(ticket.id)}
             className="focus-visible:ring-ring/50 -mx-1 block max-w-full rounded-md px-1 text-left focus-visible:ring-3 focus-visible:outline-none"
           >
             <span className="text-muted-foreground mr-2 font-mono text-xs">

@@ -6,6 +6,7 @@ import { ResultScreen } from "@/components/arcade/result-screen";
 import { StarRating } from "@/components/arcade/star-rating";
 import { XPBar } from "@/components/arcade/xp-bar";
 import { Button } from "@/components/ui/button";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { levelFor } from "@/core/progress";
 import { getMessages } from "@/i18n";
 
@@ -83,5 +84,21 @@ export function AnimatedDemos() {
         />
       </div>
     </div>
+  );
+}
+
+/** A mode switch, as used by dashboards and workspaces. */
+export function SegmentedDemo() {
+  const [view, setView] = useState<"scorecard" | "segments">("scorecard");
+  return (
+    <SegmentedControl
+      label="View"
+      value={view}
+      onValueChange={setView}
+      options={[
+        { value: "scorecard", label: "Scorecard" },
+        { value: "segments", label: "Segments" },
+      ]}
+    />
   );
 }
