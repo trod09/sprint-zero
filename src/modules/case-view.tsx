@@ -5,6 +5,8 @@
  */
 import type { PublicBaseCase } from "@/core/case-engine";
 
+import { AbTestCaseView } from "./ab-test/components/ab-test-case-view";
+import { publicAbTestCaseSchema } from "./ab-test/schema";
 import { BacklogCaseView } from "./backlog/components/backlog-case-view";
 import type { SubmitAttempt } from "./backlog/components/backlog-workspace";
 import { publicBacklogCaseSchema } from "./backlog/schema";
@@ -30,6 +32,13 @@ export function CaseView({
       return (
         <MetricDropCaseView
           publicCase={publicMetricDropCaseSchema.parse(publicCase)}
+          submit={submit}
+        />
+      );
+    case "ab-test":
+      return (
+        <AbTestCaseView
+          publicCase={publicAbTestCaseSchema.parse(publicCase)}
           submit={submit}
         />
       );

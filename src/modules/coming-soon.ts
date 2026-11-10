@@ -16,16 +16,6 @@ export const comingSoonModules: readonly ModuleMeta[] = [
     icon: "product-case",
   },
   {
-    id: "ab-test",
-    name: "A/B Test Interpreter",
-    tagline: "Ship, iterate or kill? Mind the statistical traps.",
-    description:
-      "Read experiment results hiding sample ratio mismatch, novelty effects, Simpson's paradox or a degraded guardrail, then make the call and justify it.",
-    skills: ["analytics"],
-    status: "coming_soon",
-    icon: "ab-test",
-  },
-  {
     id: "feedback-triage",
     name: "Feedback Triage",
     tagline: "Find the signal in 60 reviews, tickets and NPS comments.",

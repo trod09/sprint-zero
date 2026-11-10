@@ -1,0 +1,344 @@
+{
+  "id": "ab-test-savings-streaks",
+  "moduleId": "ab-test",
+  "seed": 3105,
+  "difficulty": "pm",
+  "company": {
+    "name": "Mintwise",
+    "industry": "Fintech",
+    "stage": "Series A",
+    "description": "A savings app for young professionals: round-ups, savings goals and automatic transfers. Revenue comes from interest on deposits, so saving often is the core habit."
+  },
+  "title": "Mintwise: savings streaks",
+  "brief": "Mintwise ran savings streaks for 21 days. Over the whole test the daily deposit rate is +6.4%, and the team wants to ship it in the next release. Read the results and make the call.",
+  "hidden": {
+    "issues": [
+      "novelty"
+    ],
+    "acceptableIssues": [],
+    "effect": "no_effect",
+    "partialEffects": [
+      "inconclusive"
+    ],
+    "decision": "kill",
+    "partialDecisions": [
+      "iterate"
+    ],
+    "summary": "A novelty effect: the lift fades to nothing within three weeks.",
+    "explanation": "The overall +6.4% (p < 0.001) averages a big first-week spike with weeks where the effect is gone. The daily lift starts high and decays towards zero, and the last week alone shows +0.9%, which cannot be told apart from no effect. Shipping on the average would promise a gain that has already disappeared. The split, the sample and the guardrail are fine; the trap is the pattern over time.",
+    "issueNotes": {
+      "novelty": "The lift was +15.2% in the first week and +0.9% in the last (p = 0.720). The daily lift falls steadily: users reacted to something new, not to something better."
+    },
+    "recommendation": "Do not ship. The lasting effect is about zero, and a streak adds complexity to every screen it touches. If the team believes in habits, test another mechanic, such as automatic weekly transfers, and judge it on its last weeks rather than its average.",
+    "simulation": {
+      "attempt": 0,
+      "visitorsPerDay": 8000,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.1,
+      "trueLift": 0,
+      "novelty": {
+        "initialLift": 0.3,
+        "decayDays": 4
+      },
+      "segments": [
+        {
+          "value": "New",
+          "share": 0.3,
+          "rateMultiplier": 1.3
+        },
+        {
+          "value": "Returning",
+          "share": 0.7,
+          "rateMultiplier": 0.87
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "withdrawal_rate",
+          "baselineRate": 0.02,
+          "trueLift": 0
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "Savings streaks",
+    "change": "Adds a streak counter and a confetti animation on every day a user moves money into a savings goal.",
+    "hypothesis": "Turning saving into a game will make users save more often.",
+    "primaryMetric": {
+      "key": "deposit_rate",
+      "label": "Daily deposit rate",
+      "description": "Share of active users who move money into a savings goal that day."
+    },
+    "guardrails": [
+      {
+        "key": "withdrawal_rate",
+        "label": "Goal withdrawals",
+        "description": "Share of active users who withdraw from a savings goal that day.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "users"
+      }
+    ],
+    "segmentDimension": "User type",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 21,
+      "samplePerArm": 57760,
+      "mde": 0.05,
+      "baselineRate": 0.1
+    }
+  },
+  "results": {
+    "daysRun": 21,
+    "daily": [
+      {
+        "control": {
+          "users": 4065,
+          "conversions": 401
+        },
+        "treatment": {
+          "users": 4158,
+          "conversions": 544
+        }
+      },
+      {
+        "control": {
+          "users": 4236,
+          "conversions": 407
+        },
+        "treatment": {
+          "users": 4151,
+          "conversions": 477
+        }
+      },
+      {
+        "control": {
+          "users": 4241,
+          "conversions": 388
+        },
+        "treatment": {
+          "users": 4249,
+          "conversions": 480
+        }
+      },
+      {
+        "control": {
+          "users": 3895,
+          "conversions": 417
+        },
+        "treatment": {
+          "users": 3799,
+          "conversions": 404
+        }
+      },
+      {
+        "control": {
+          "users": 3883,
+          "conversions": 364
+        },
+        "treatment": {
+          "users": 3931,
+          "conversions": 450
+        }
+      },
+      {
+        "control": {
+          "users": 3772,
+          "conversions": 385
+        },
+        "treatment": {
+          "users": 3751,
+          "conversions": 415
+        }
+      },
+      {
+        "control": {
+          "users": 3615,
+          "conversions": 371
+        },
+        "treatment": {
+          "users": 3733,
+          "conversions": 386
+        }
+      },
+      {
+        "control": {
+          "users": 4154,
+          "conversions": 433
+        },
+        "treatment": {
+          "users": 4113,
+          "conversions": 407
+        }
+      },
+      {
+        "control": {
+          "users": 4101,
+          "conversions": 392
+        },
+        "treatment": {
+          "users": 4135,
+          "conversions": 411
+        }
+      },
+      {
+        "control": {
+          "users": 4099,
+          "conversions": 413
+        },
+        "treatment": {
+          "users": 4071,
+          "conversions": 414
+        }
+      },
+      {
+        "control": {
+          "users": 3998,
+          "conversions": 402
+        },
+        "treatment": {
+          "users": 4106,
+          "conversions": 438
+        }
+      },
+      {
+        "control": {
+          "users": 3978,
+          "conversions": 390
+        },
+        "treatment": {
+          "users": 3901,
+          "conversions": 398
+        }
+      },
+      {
+        "control": {
+          "users": 3755,
+          "conversions": 359
+        },
+        "treatment": {
+          "users": 3669,
+          "conversions": 382
+        }
+      },
+      {
+        "control": {
+          "users": 3893,
+          "conversions": 379
+        },
+        "treatment": {
+          "users": 3929,
+          "conversions": 400
+        }
+      },
+      {
+        "control": {
+          "users": 4101,
+          "conversions": 414
+        },
+        "treatment": {
+          "users": 4111,
+          "conversions": 415
+        }
+      },
+      {
+        "control": {
+          "users": 4218,
+          "conversions": 405
+        },
+        "treatment": {
+          "users": 4138,
+          "conversions": 407
+        }
+      },
+      {
+        "control": {
+          "users": 4017,
+          "conversions": 412
+        },
+        "treatment": {
+          "users": 4112,
+          "conversions": 457
+        }
+      },
+      {
+        "control": {
+          "users": 4104,
+          "conversions": 411
+        },
+        "treatment": {
+          "users": 4146,
+          "conversions": 422
+        }
+      },
+      {
+        "control": {
+          "users": 3810,
+          "conversions": 392
+        },
+        "treatment": {
+          "users": 3879,
+          "conversions": 385
+        }
+      },
+      {
+        "control": {
+          "users": 3706,
+          "conversions": 342
+        },
+        "treatment": {
+          "users": 3614,
+          "conversions": 359
+        }
+      },
+      {
+        "control": {
+          "users": 3930,
+          "conversions": 408
+        },
+        "treatment": {
+          "users": 3842,
+          "conversions": 360
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 25195,
+          "conversions": 3216
+        },
+        "treatment": {
+          "users": 24939,
+          "conversions": 3459
+        },
+        "value": "New"
+      },
+      {
+        "control": {
+          "users": 58376,
+          "conversions": 5069
+        },
+        "treatment": {
+          "users": 58599,
+          "conversions": 5352
+        },
+        "value": "Returning"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 83571,
+          "conversions": 1694
+        },
+        "treatment": {
+          "users": 83538,
+          "conversions": 1689
+        },
+        "key": "withdrawal_rate"
+      }
+    ]
+  }
+}

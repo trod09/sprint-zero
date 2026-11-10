@@ -1,0 +1,264 @@
+{
+  "id": "ab-test-annual-paywall",
+  "moduleId": "ab-test",
+  "seed": 3104,
+  "difficulty": "pm",
+  "company": {
+    "name": "Stillwater",
+    "industry": "Consumer",
+    "stage": "Series A",
+    "description": "A meditation and sleep app. The free tier has a few sessions; everything else needs a subscription, sold on a paywall shown after the third session."
+  },
+  "title": "Stillwater: annual plan by default",
+  "brief": "Stillwater tested an annual-first paywall for 14 days. The CEO is convinced annual plans are the future and asks whether to roll it out. Read the results and make the call.",
+  "hidden": {
+    "issues": [],
+    "acceptableIssues": [],
+    "effect": "harms",
+    "partialEffects": [],
+    "decision": "kill",
+    "partialDecisions": [
+      "iterate"
+    ],
+    "summary": "A real loss: the annual-first paywall converts fewer visitors.",
+    "explanation": "The test is healthy: the split is 49.9% treatment (SRM check: p = 0.553), it reached its planned sample and ran its full 14 days. Paywall conversion moved −7.5% (95% CI −12.5% to −2.5%, p = 0.003), for new and returning users alike (New −7.1%, Returning −7.9%). A bigger upfront price scares off people who were ready to pay monthly. A clean negative result is a result: the right call is to stop, not to keep testing until it turns green.",
+    "issueNotes": {},
+    "recommendation": "Kill this version. If annual plans matter, test a paywall that shows both plans side by side with the annual savings, and judge it on revenue per visitor as well as conversion.",
+    "simulation": {
+      "attempt": 0,
+      "visitorsPerDay": 8000,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.05,
+      "trueLift": -0.08,
+      "segments": [
+        {
+          "value": "New",
+          "share": 0.65,
+          "rateMultiplier": 0.8
+        },
+        {
+          "value": "Returning",
+          "share": 0.35,
+          "rateMultiplier": 1.37
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "refund_request_rate",
+          "baselineRate": 0.04,
+          "trueLift": 0.05
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "Annual plan by default",
+    "change": "The paywall preselects the annual plan ($59.99 a year) instead of the monthly one ($9.99 a month), and moves the monthly plan behind 'See other plans'.",
+    "hypothesis": "Most subscribers who stay a year save money on the annual plan, so defaulting to it will raise paywall conversion.",
+    "primaryMetric": {
+      "key": "paywall_conversion",
+      "label": "Paywall conversion",
+      "description": "Share of paywall visitors who start a subscription."
+    },
+    "guardrails": [
+      {
+        "key": "refund_request_rate",
+        "label": "Refund requests",
+        "description": "Share of new subscriptions with a refund request within 14 days.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "primary"
+      }
+    ],
+    "segmentDimension": "User type",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 14,
+      "samplePerArm": 48361,
+      "mde": 0.08,
+      "baselineRate": 0.05
+    }
+  },
+  "results": {
+    "daysRun": 14,
+    "daily": [
+      {
+        "control": {
+          "users": 4122,
+          "conversions": 215
+        },
+        "treatment": {
+          "users": 4219,
+          "conversions": 212
+        }
+      },
+      {
+        "control": {
+          "users": 4082,
+          "conversions": 208
+        },
+        "treatment": {
+          "users": 3959,
+          "conversions": 178
+        }
+      },
+      {
+        "control": {
+          "users": 4442,
+          "conversions": 224
+        },
+        "treatment": {
+          "users": 4245,
+          "conversions": 194
+        }
+      },
+      {
+        "control": {
+          "users": 4052,
+          "conversions": 211
+        },
+        "treatment": {
+          "users": 4048,
+          "conversions": 189
+        }
+      },
+      {
+        "control": {
+          "users": 4087,
+          "conversions": 214
+        },
+        "treatment": {
+          "users": 4106,
+          "conversions": 166
+        }
+      },
+      {
+        "control": {
+          "users": 3601,
+          "conversions": 159
+        },
+        "treatment": {
+          "users": 3650,
+          "conversions": 194
+        }
+      },
+      {
+        "control": {
+          "users": 3716,
+          "conversions": 189
+        },
+        "treatment": {
+          "users": 3676,
+          "conversions": 202
+        }
+      },
+      {
+        "control": {
+          "users": 4223,
+          "conversions": 231
+        },
+        "treatment": {
+          "users": 4231,
+          "conversions": 199
+        }
+      },
+      {
+        "control": {
+          "users": 4265,
+          "conversions": 204
+        },
+        "treatment": {
+          "users": 4210,
+          "conversions": 183
+        }
+      },
+      {
+        "control": {
+          "users": 4253,
+          "conversions": 203
+        },
+        "treatment": {
+          "users": 4150,
+          "conversions": 182
+        }
+      },
+      {
+        "control": {
+          "users": 3925,
+          "conversions": 204
+        },
+        "treatment": {
+          "users": 3935,
+          "conversions": 189
+        }
+      },
+      {
+        "control": {
+          "users": 3750,
+          "conversions": 174
+        },
+        "treatment": {
+          "users": 3784,
+          "conversions": 183
+        }
+      },
+      {
+        "control": {
+          "users": 3665,
+          "conversions": 197
+        },
+        "treatment": {
+          "users": 3655,
+          "conversions": 173
+        }
+      },
+      {
+        "control": {
+          "users": 3674,
+          "conversions": 190
+        },
+        "treatment": {
+          "users": 3791,
+          "conversions": 157
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 36284,
+          "conversions": 1453
+        },
+        "treatment": {
+          "users": 36202,
+          "conversions": 1347
+        },
+        "value": "New"
+      },
+      {
+        "control": {
+          "users": 19573,
+          "conversions": 1370
+        },
+        "treatment": {
+          "users": 19457,
+          "conversions": 1254
+        },
+        "value": "Returning"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 2823,
+          "conversions": 127
+        },
+        "treatment": {
+          "users": 2601,
+          "conversions": 126
+        },
+        "key": "refund_request_rate"
+      }
+    ]
+  }
+}

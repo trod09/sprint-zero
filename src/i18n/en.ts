@@ -28,7 +28,7 @@ export const en = {
     eyebrow: "The PM practice gym",
     title: "Practice product management by doing.",
     subtitle:
-      "Simulations with a hidden ground truth: prioritize a messy backlog, hunt down a metric drop, and see criterion by criterion why you got your score.",
+      "Simulations with a hidden ground truth: prioritize a messy backlog, hunt down a metric drop, call an A/B test, and see criterion by criterion why you got your score.",
     pillars: [
       {
         title: "Hidden ground truth",
@@ -486,6 +486,145 @@ export const en = {
           : `You opened ${views} view${views === 1 ? "" : "s"} and first looked at the right dimension on view ${step}.`,
       falseLeads: "False leads",
       youChoseThis: "You chose this",
+    },
+  },
+  abTest: {
+    issues: {
+      srm: {
+        label: "Sample ratio mismatch",
+        hint: "The split between arms is not the one planned.",
+      },
+      novelty: {
+        label: "Novelty effect",
+        hint: "The effect fades as users get used to the change.",
+      },
+      simpson: {
+        label: "Simpson's paradox",
+        hint: "Segments and the total point in opposite directions.",
+      },
+      guardrail: {
+        label: "Guardrail breach",
+        hint: "A metric that must not get worse got worse.",
+      },
+      underpowered: {
+        label: "Not enough data",
+        hint: "Too few users to detect the effect the test was planned for.",
+      },
+    },
+    effects: {
+      improves: "It really improves the primary metric",
+      no_effect: "It has no real effect",
+      harms: "It really hurts the primary metric",
+      inconclusive: "Cannot tell from this data",
+    },
+    decisions: {
+      ship: { label: "Ship", hint: "Roll it out to everyone." },
+      iterate: {
+        label: "Iterate",
+        hint: "Do not roll out yet: fix the test or the design, or keep it running.",
+      },
+      kill: { label: "Kill", hint: "Stop and drop this version." },
+    },
+    views: {
+      scorecard: "Scorecard",
+      over_time: "Over time",
+      segments: "Segments",
+    },
+    brief: {
+      label: "The ask",
+      design: "Experiment design",
+      change: "What changed",
+      hypothesis: "Hypothesis",
+      primaryMetric: "Primary metric",
+      guardrails: "Guardrails",
+      tolerance: (percent: number, down: boolean) =>
+        `Must not ${down ? "rise" : "fall"} more than ${percent}%`,
+      overConverters: "Measured over converters",
+      plan: "Plan",
+      split: (treatment: number) =>
+        `${100 - treatment}/${treatment} split (control/treatment)`,
+      duration: (days: number) => `${days} days`,
+      sample: (users: string, mde: string) =>
+        `${users} users per arm to detect a ${mde} lift (80% power, 5% significance)`,
+    },
+    readout: {
+      title: "Results",
+      tabs: "Result views",
+      users: "Users",
+      control: "Control",
+      treatment: "Treatment",
+      split: "Share of users",
+      planned: "Planned",
+      daysRun: (days: number, planned: number) =>
+        `Ran ${days} of ${planned} planned days`,
+      metric: "Metric",
+      change: "Relative change",
+      interval: "95% CI",
+      pValue: "p-value",
+      primary: "Primary",
+      guardrail: "Guardrail",
+      significant: "Significant at 5%",
+      notSignificant: "Not significant",
+      better: "better",
+      worse: "worse",
+      overTimeTitle: "Lift over time",
+      overTimeIntro:
+        "Relative difference between treatment and control in the primary metric, each day and cumulatively.",
+      dailyLift: "Daily lift",
+      cumulativeLift: "Cumulative lift",
+      dayLabel: (day: number) => `Day ${day}`,
+      chartLabel: "Daily and cumulative lift of the primary metric",
+      firstWeek: "First 7 days",
+      lastWeek: "Last 7 days",
+      segmentsTitle: (dimension: string) =>
+        `Primary metric by ${dimension.toLowerCase()}`,
+      segmentsIntro:
+        "Each segment compared separately, with its share of users in treatment.",
+      segment: "Segment",
+      treatmentShare: "In treatment",
+      all: "All users",
+    },
+    decision: {
+      title: "Your call",
+      intro:
+        "Flag what is wrong with the readout, judge the real effect and decide.",
+      issues: "Problems in this readout",
+      issuesHint: "Leave all unchecked if the readout is trustworthy.",
+      noIssues: "No problems flagged: you trust this readout.",
+      effect: "Real effect on the primary metric",
+      decision: "Decision",
+      justification: "Why (optional)",
+      justificationPlaceholder: "Which numbers drove your call?",
+      submit: "Submit decision",
+      confirmTitle: "Submit this decision?",
+      confirmBody:
+        "Your flags, your read of the effect and your decision will be scored. You cannot change them afterwards.",
+      confirm: "Submit",
+      cancel: "Keep reading",
+      submitting: "Scoring…",
+      failed:
+        "Your decision could not be scored. Check your connection and try again.",
+    },
+    results: {
+      truth: "What was really going on",
+      yourCall: "Your call vs. the answer",
+      yours: "You said",
+      answer: "Answer",
+      decision: "Decision",
+      effect: "Real effect",
+      problems: "Problems",
+      none: "None",
+      problemsTitle: "Problem by problem",
+      statuses: {
+        found: "Found",
+        missed: "Missed",
+        false_alarm: "False alarm",
+        acceptable: "Fair flag",
+        clear: "Not present",
+      },
+      recommendation: "What a strong analyst would do",
+      notPresent:
+        "This problem is not in the data: flagging it would have sent the team after the wrong fix.",
     },
   },
   library: {

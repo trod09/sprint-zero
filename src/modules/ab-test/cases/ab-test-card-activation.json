@@ -1,0 +1,275 @@
+{
+  "id": "ab-test-card-activation",
+  "moduleId": "ab-test",
+  "seed": 3107,
+  "difficulty": "senior",
+  "company": {
+    "name": "Northvault",
+    "industry": "Fintech",
+    "stage": "Series B",
+    "description": "A digital bank for freelancers. Interchange on card spending is the main revenue line, so a card that never gets activated is a customer who never pays off."
+  },
+  "title": "Northvault: one-screen card activation",
+  "brief": "Northvault tested a one-screen card activation for 14 days. Activation is +11.9% overall, and the cards team wants to ship. Read the results and make the call.",
+  "hidden": {
+    "issues": [
+      "simpson"
+    ],
+    "acceptableIssues": [
+      "srm"
+    ],
+    "effect": "harms",
+    "partialEffects": [
+      "inconclusive"
+    ],
+    "decision": "kill",
+    "partialDecisions": [
+      "iterate"
+    ],
+    "summary": "Simpson's paradox: the new screen loses on every platform but wins overall, because treatment got more mobile users.",
+    "explanation": "A routing rule sent more mobile app users to treatment and more desktop users to control, while the total split stayed close to 50/50, so the usual SRM check on totals looks fine. Mobile users activate their card almost three times as often as desktop users, so the arm with more of them looks better overall. Compared like for like, within each platform, the one-screen flow does worse (Mobile app −7.2%, Desktop web −11.0%). The overall +11.9% is an artefact of the mix.",
+    "issueNotes": {
+      "simpson": "Treatment is worse on both platforms (Mobile app −7.2%, Desktop web −11.0%) yet better overall. The arms mix platforms in different proportions (Mobile app 60.0% in treatment, Desktop web 37.7% in treatment), and mobile app users activate far more often, so the arm with more of them wins overall whatever the screen does.",
+      "srm": "The total split looks fine, but each platform is split unevenly between the arms. Checking the split per segment is what reveals the broken assignment."
+    },
+    "recommendation": "Do not ship. The fair comparison, within each platform, shows the new flow hurts activation. Fix the assignment so each platform splits 50/50, and if the team still believes in the idea, test a revised flow.",
+    "simulation": {
+      "attempt": 0,
+      "visitorsPerDay": 1500,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.4,
+      "trueLift": -0.08,
+      "segments": [
+        {
+          "value": "Mobile app",
+          "share": 0.55,
+          "rateMultiplier": 1.4,
+          "treatmentShare": 0.6
+        },
+        {
+          "value": "Desktop web",
+          "share": 0.45,
+          "rateMultiplier": 0.5,
+          "treatmentShare": 0.378
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "activation_support_rate",
+          "baselineRate": 0.03,
+          "trueLift": 0
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "One-screen card activation",
+    "change": "Replaces the three-step card activation flow with a single screen that asks for the last four digits of the card and a new PIN.",
+    "hypothesis": "Fewer steps will get more new cardholders to activate their card within 7 days.",
+    "primaryMetric": {
+      "key": "card_activation",
+      "label": "Card activation",
+      "description": "Share of new cardholders who activate their card within 7 days."
+    },
+    "guardrails": [
+      {
+        "key": "activation_support_rate",
+        "label": "Activation support contacts",
+        "description": "Share of new cardholders who contact support about activating their card.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "users"
+      }
+    ],
+    "segmentDimension": "Platform",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 14,
+      "samplePerArm": 9490,
+      "mde": 0.05,
+      "baselineRate": 0.4
+    }
+  },
+  "results": {
+    "daysRun": 14,
+    "daily": [
+      {
+        "control": {
+          "users": 790,
+          "conversions": 277
+        },
+        "treatment": {
+          "users": 799,
+          "conversions": 336
+        }
+      },
+      {
+        "control": {
+          "users": 790,
+          "conversions": 294
+        },
+        "treatment": {
+          "users": 785,
+          "conversions": 306
+        }
+      },
+      {
+        "control": {
+          "users": 808,
+          "conversions": 293
+        },
+        "treatment": {
+          "users": 808,
+          "conversions": 338
+        }
+      },
+      {
+        "control": {
+          "users": 772,
+          "conversions": 278
+        },
+        "treatment": {
+          "users": 759,
+          "conversions": 335
+        }
+      },
+      {
+        "control": {
+          "users": 763,
+          "conversions": 262
+        },
+        "treatment": {
+          "users": 770,
+          "conversions": 302
+        }
+      },
+      {
+        "control": {
+          "users": 705,
+          "conversions": 253
+        },
+        "treatment": {
+          "users": 676,
+          "conversions": 254
+        }
+      },
+      {
+        "control": {
+          "users": 733,
+          "conversions": 257
+        },
+        "treatment": {
+          "users": 733,
+          "conversions": 281
+        }
+      },
+      {
+        "control": {
+          "users": 785,
+          "conversions": 296
+        },
+        "treatment": {
+          "users": 744,
+          "conversions": 307
+        }
+      },
+      {
+        "control": {
+          "users": 765,
+          "conversions": 274
+        },
+        "treatment": {
+          "users": 764,
+          "conversions": 298
+        }
+      },
+      {
+        "control": {
+          "users": 825,
+          "conversions": 301
+        },
+        "treatment": {
+          "users": 792,
+          "conversions": 321
+        }
+      },
+      {
+        "control": {
+          "users": 756,
+          "conversions": 273
+        },
+        "treatment": {
+          "users": 780,
+          "conversions": 292
+        }
+      },
+      {
+        "control": {
+          "users": 687,
+          "conversions": 235
+        },
+        "treatment": {
+          "users": 712,
+          "conversions": 270
+        }
+      },
+      {
+        "control": {
+          "users": 673,
+          "conversions": 239
+        },
+        "treatment": {
+          "users": 724,
+          "conversions": 322
+        }
+      },
+      {
+        "control": {
+          "users": 729,
+          "conversions": 275
+        },
+        "treatment": {
+          "users": 716,
+          "conversions": 289
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 4651,
+          "conversions": 2579
+        },
+        "treatment": {
+          "users": 6977,
+          "conversions": 3590
+        },
+        "value": "Mobile app"
+      },
+      {
+        "control": {
+          "users": 5930,
+          "conversions": 1228
+        },
+        "treatment": {
+          "users": 3585,
+          "conversions": 661
+        },
+        "value": "Desktop web"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 10581,
+          "conversions": 364
+        },
+        "treatment": {
+          "users": 10562,
+          "conversions": 312
+        },
+        "key": "activation_support_rate"
+      }
+    ]
+  }
+}

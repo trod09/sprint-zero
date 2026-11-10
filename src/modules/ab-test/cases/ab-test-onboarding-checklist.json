@@ -1,0 +1,270 @@
+{
+  "id": "ab-test-onboarding-checklist",
+  "moduleId": "ab-test",
+  "seed": 3102,
+  "difficulty": "apm",
+  "company": {
+    "name": "Draftboard",
+    "industry": "SaaS B2B",
+    "stage": "Series A",
+    "description": "A collaborative whiteboard for product teams. Teams sign up for free and upgrade once several people use it every week."
+  },
+  "title": "Draftboard: the onboarding checklist",
+  "brief": "Draftboard's growth squad ran an onboarding checklist for 14 days with a planned 50/50 split. Activation is +8.4% in treatment, and the squad lead wants to ship before the next release. Read the results and make the call.",
+  "hidden": {
+    "issues": [
+      "srm"
+    ],
+    "acceptableIssues": [],
+    "effect": "inconclusive",
+    "partialEffects": [],
+    "decision": "iterate",
+    "partialDecisions": [],
+    "summary": "The split is broken: treatment lost users, so its lift cannot be trusted.",
+    "explanation": "The event that puts a workspace in treatment fires from the checklist script. When that script loads slowly or fails, the workspace is never counted in treatment. Those are the workspaces on slow connections and the least engaged ones, so the treatment users who remain convert better for reasons that have nothing to do with the checklist. That is why activation looks +8.4%. When the split misses the plan this badly (SRM check: p < 0.001), no metric in the readout can be trusted, however significant it looks.",
+    "issueNotes": {
+      "srm": "The plan was a 50/50 split, but only 47.9% of users landed in treatment. With this many users, a gap like that is not chance (p < 0.001). Treatment is missing users."
+    },
+    "recommendation": "Do not ship or kill on this data. Fire the assignment event on the server before the checklist loads, check that the split is back to 50/50, and run the test again.",
+    "simulation": {
+      "attempt": 0,
+      "visitorsPerDay": 2500,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.3,
+      "trueLift": 0.01,
+      "missing": {
+        "share": 0.08,
+        "relativeRate": 0.3
+      },
+      "segments": [
+        {
+          "value": "Desktop",
+          "share": 0.75,
+          "rateMultiplier": 1.1
+        },
+        {
+          "value": "Mobile web",
+          "share": 0.25,
+          "rateMultiplier": 0.7
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "support_ticket_rate",
+          "baselineRate": 0.02,
+          "trueLift": 0
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "Onboarding checklist",
+    "change": "New workspaces see a five-step checklist (invite a teammate, create a board, add a template...). The checklist loads as a separate script right after sign-up.",
+    "hypothesis": "A visible checklist will get more new workspaces to a first real board on day one.",
+    "primaryMetric": {
+      "key": "activation",
+      "label": "Activation",
+      "description": "Share of new workspaces that create a board with three or more items on day one."
+    },
+    "guardrails": [
+      {
+        "key": "support_ticket_rate",
+        "label": "Support tickets",
+        "description": "Share of new workspaces that open a support ticket on day one.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "users"
+      }
+    ],
+    "segmentDimension": "Platform",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 14,
+      "samplePerArm": 14853,
+      "mde": 0.05,
+      "baselineRate": 0.3
+    }
+  },
+  "results": {
+    "daysRun": 14,
+    "daily": [
+      {
+        "control": {
+          "users": 1231,
+          "conversions": 388
+        },
+        "treatment": {
+          "users": 1208,
+          "conversions": 404
+        }
+      },
+      {
+        "control": {
+          "users": 1214,
+          "conversions": 370
+        },
+        "treatment": {
+          "users": 1140,
+          "conversions": 357
+        }
+      },
+      {
+        "control": {
+          "users": 1319,
+          "conversions": 397
+        },
+        "treatment": {
+          "users": 1237,
+          "conversions": 411
+        }
+      },
+      {
+        "control": {
+          "users": 1222,
+          "conversions": 346
+        },
+        "treatment": {
+          "users": 1169,
+          "conversions": 363
+        }
+      },
+      {
+        "control": {
+          "users": 1233,
+          "conversions": 370
+        },
+        "treatment": {
+          "users": 1081,
+          "conversions": 374
+        }
+      },
+      {
+        "control": {
+          "users": 1186,
+          "conversions": 364
+        },
+        "treatment": {
+          "users": 1028,
+          "conversions": 328
+        }
+      },
+      {
+        "control": {
+          "users": 1217,
+          "conversions": 358
+        },
+        "treatment": {
+          "users": 1141,
+          "conversions": 349
+        }
+      },
+      {
+        "control": {
+          "users": 1341,
+          "conversions": 419
+        },
+        "treatment": {
+          "users": 1164,
+          "conversions": 371
+        }
+      },
+      {
+        "control": {
+          "users": 1302,
+          "conversions": 383
+        },
+        "treatment": {
+          "users": 1113,
+          "conversions": 366
+        }
+      },
+      {
+        "control": {
+          "users": 1330,
+          "conversions": 397
+        },
+        "treatment": {
+          "users": 1162,
+          "conversions": 381
+        }
+      },
+      {
+        "control": {
+          "users": 1299,
+          "conversions": 398
+        },
+        "treatment": {
+          "users": 1213,
+          "conversions": 413
+        }
+      },
+      {
+        "control": {
+          "users": 1213,
+          "conversions": 364
+        },
+        "treatment": {
+          "users": 1214,
+          "conversions": 380
+        }
+      },
+      {
+        "control": {
+          "users": 1221,
+          "conversions": 361
+        },
+        "treatment": {
+          "users": 1157,
+          "conversions": 384
+        }
+      },
+      {
+        "control": {
+          "users": 1187,
+          "conversions": 335
+        },
+        "treatment": {
+          "users": 1097,
+          "conversions": 359
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 13110,
+          "conversions": 4309
+        },
+        "treatment": {
+          "users": 12125,
+          "conversions": 4287
+        },
+        "value": "Desktop"
+      },
+      {
+        "control": {
+          "users": 4405,
+          "conversions": 941
+        },
+        "treatment": {
+          "users": 3999,
+          "conversions": 953
+        },
+        "value": "Mobile web"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 17515,
+          "conversions": 367
+        },
+        "treatment": {
+          "users": 16124,
+          "conversions": 326
+        },
+        "key": "support_ticket_rate"
+      }
+    ]
+  }
+}

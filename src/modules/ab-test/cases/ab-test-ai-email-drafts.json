@@ -1,0 +1,167 @@
+{
+  "id": "ab-test-ai-email-drafts",
+  "moduleId": "ab-test",
+  "seed": 3106,
+  "difficulty": "pm",
+  "company": {
+    "name": "Pipestream",
+    "industry": "SaaS B2B",
+    "stage": "Series B",
+    "description": "A sales engagement platform: reps build email sequences, and Pipestream sends them and tracks replies. Pricing is per seat, so active reps are the metric everyone watches."
+  },
+  "title": "Pipestream: AI email drafts",
+  "brief": "Pipestream planned a 35-day test of AI email drafts. After 4 days the result looked so good (+6.7%) that the team stopped it and asked for approval to launch. Read the results and make the call.",
+  "hidden": {
+    "issues": [
+      "underpowered"
+    ],
+    "acceptableIssues": [],
+    "effect": "inconclusive",
+    "partialEffects": [],
+    "decision": "iterate",
+    "partialDecisions": [],
+    "summary": "Stopped too early: the test has a fraction of the sample it needs, and the result is not significant.",
+    "explanation": "Big early lifts are common in small samples and usually shrink as data comes in. With 6,016 reps per arm, the observed +6.7% has p = 0.187 and a 95% interval of −3.2% to +16.5%: it is compatible with no effect at all. Stopping as soon as the result 'looks good' (peeking) inflates false positives. The split and the guardrail are fine; the problem is that there is not enough data to decide.",
+    "issueNotes": {
+      "underpowered": "The plan needed 47,034 reps per arm to detect a 5% lift, and the test stopped at 6,016. The 95% interval (−3.2% to +16.5%) includes zero and effects far smaller than the one the team is celebrating."
+    },
+    "recommendation": "Resume the test and let it run to the planned sample (47,034 per arm) before deciding. Agree on the stopping rule before the test starts, not while watching the numbers.",
+    "simulation": {
+      "attempt": 3,
+      "visitorsPerDay": 3000,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.12,
+      "trueLift": 0.03,
+      "segments": [
+        {
+          "value": "Small teams",
+          "share": 0.4,
+          "rateMultiplier": 0.9
+        },
+        {
+          "value": "Large teams",
+          "share": 0.6,
+          "rateMultiplier": 1.07
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "reply_rate",
+          "baselineRate": 0.18,
+          "trueLift": 0
+        }
+      ],
+      "stoppedAfterDays": 4
+    }
+  },
+  "experiment": {
+    "name": "AI email drafts",
+    "change": "The sequence editor offers an AI-written first draft of each email, based on the prospect's company and role.",
+    "hypothesis": "Reps who do not have to start from a blank page will launch more sequences.",
+    "primaryMetric": {
+      "key": "sequence_launch_rate",
+      "label": "Sequence launch rate",
+      "description": "Share of active reps who launch at least one email sequence that day."
+    },
+    "guardrails": [
+      {
+        "key": "reply_rate",
+        "label": "Prospect replies",
+        "description": "Share of launched sequences that get a reply.",
+        "goodDirection": "up",
+        "tolerance": 5,
+        "denominator": "primary"
+      }
+    ],
+    "segmentDimension": "Team size",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 35,
+      "samplePerArm": 47034,
+      "mde": 0.05,
+      "baselineRate": 0.12
+    }
+  },
+  "results": {
+    "daysRun": 4,
+    "daily": [
+      {
+        "control": {
+          "users": 1506,
+          "conversions": 166
+        },
+        "treatment": {
+          "users": 1563,
+          "conversions": 195
+        }
+      },
+      {
+        "control": {
+          "users": 1556,
+          "conversions": 188
+        },
+        "treatment": {
+          "users": 1519,
+          "conversions": 198
+        }
+      },
+      {
+        "control": {
+          "users": 1407,
+          "conversions": 167
+        },
+        "treatment": {
+          "users": 1475,
+          "conversions": 182
+        }
+      },
+      {
+        "control": {
+          "users": 1547,
+          "conversions": 190
+        },
+        "treatment": {
+          "users": 1536,
+          "conversions": 193
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 2445,
+          "conversions": 261
+        },
+        "treatment": {
+          "users": 2399,
+          "conversions": 281
+        },
+        "value": "Small teams"
+      },
+      {
+        "control": {
+          "users": 3571,
+          "conversions": 450
+        },
+        "treatment": {
+          "users": 3694,
+          "conversions": 487
+        },
+        "value": "Large teams"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 711,
+          "conversions": 139
+        },
+        "treatment": {
+          "users": 768,
+          "conversions": 143
+        },
+        "key": "reply_rate"
+      }
+    ]
+  }
+}

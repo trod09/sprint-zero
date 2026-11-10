@@ -11,6 +11,8 @@ import {
   type RegisteredModule,
 } from "@/core/case-engine/registry";
 
+import { abTestRawCases } from "./ab-test/cases";
+import { abTestModule } from "./ab-test/module.server";
 import { backlogRawCases } from "./backlog/cases";
 import { backlogModule } from "./backlog/module.server";
 import { metricDropRawCases } from "./metric-drop/cases";
@@ -24,6 +26,10 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: metricDropModule,
     loadRawCases: () => metricDropRawCases,
+  }),
+  registerModule({
+    module: abTestModule,
+    loadRawCases: () => abTestRawCases,
   }),
 ];
 

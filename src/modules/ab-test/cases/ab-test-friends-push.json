@@ -1,0 +1,300 @@
+{
+  "id": "ab-test-friends-push",
+  "moduleId": "ab-test",
+  "seed": 3108,
+  "difficulty": "senior",
+  "company": {
+    "name": "Snapdeck",
+    "industry": "Consumer",
+    "stage": "Series A",
+    "description": "A photo-sharing app for close friends. Growth depends on people posting: every post brings friends back, and push notifications are the main way to reach them."
+  },
+  "title": "Snapdeck: the evening friends push",
+  "brief": "Snapdeck sent an evening push to half of its users for 14 days. Posting rate is +4.5% over the test, and the growth lead wants it on for everyone. Read the results and make the call.",
+  "hidden": {
+    "issues": [
+      "novelty",
+      "guardrail"
+    ],
+    "acceptableIssues": [],
+    "effect": "no_effect",
+    "partialEffects": [
+      "inconclusive"
+    ],
+    "decision": "kill",
+    "partialDecisions": [
+      "iterate"
+    ],
+    "summary": "The push wears off within a week, and it costs push permission for good.",
+    "explanation": "The overall +4.5% (p < 0.001) is the average of a first week where the push felt new and a second week where it barely matters. Meanwhile push opt-outs rose 45.9%, and opt-outs do not come back when the novelty fades. The trade is a temporary bump in posting for the permanent loss of a channel.",
+    "issueNotes": {
+      "novelty": "The lift in posting was +8.9% in the first week but only +0.1% in the last (p = 0.966): the push stopped working as people got used to it.",
+      "guardrail": "Push opt-outs rose 45.9% (p < 0.001). Every user who turns off push is a user you can no longer reach, for this feature or any other."
+    },
+    "recommendation": "Kill the daily push. To nudge posting, test a rarer, more personal trigger (a close friend posting for the first time in a while) and judge it on its last week and on opt-outs.",
+    "simulation": {
+      "attempt": 0,
+      "visitorsPerDay": 20000,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.15,
+      "trueLift": 0,
+      "novelty": {
+        "initialLift": 0.2,
+        "decayDays": 3
+      },
+      "segments": [
+        {
+          "value": "New",
+          "share": 0.25,
+          "rateMultiplier": 1.3
+        },
+        {
+          "value": "Established",
+          "share": 0.75,
+          "rateMultiplier": 0.9
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "push_opt_out_rate",
+          "baselineRate": 0.004,
+          "trueLift": 0.5
+        },
+        {
+          "key": "uninstall_rate",
+          "baselineRate": 0.0015,
+          "trueLift": 0.15
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "Evening friends push",
+    "change": "Sends a push notification every evening listing the friends who posted that day.",
+    "hypothesis": "Reminding people that their friends are active will get more of them to post.",
+    "primaryMetric": {
+      "key": "post_rate",
+      "label": "Posting rate",
+      "description": "Share of daily active users who post at least one photo."
+    },
+    "guardrails": [
+      {
+        "key": "push_opt_out_rate",
+        "label": "Push opt-outs",
+        "description": "Share of daily active users who turn off push notifications.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "users"
+      },
+      {
+        "key": "uninstall_rate",
+        "label": "Uninstalls",
+        "description": "Share of daily active users who uninstall the app.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "users"
+      }
+    ],
+    "segmentDimension": "User type",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 14,
+      "samplePerArm": 56505,
+      "mde": 0.04,
+      "baselineRate": 0.15
+    }
+  },
+  "results": {
+    "daysRun": 14,
+    "daily": [
+      {
+        "control": {
+          "users": 10450,
+          "conversions": 1562
+        },
+        "treatment": {
+          "users": 10429,
+          "conversions": 1859
+        }
+      },
+      {
+        "control": {
+          "users": 10738,
+          "conversions": 1588
+        },
+        "treatment": {
+          "users": 10685,
+          "conversions": 1850
+        }
+      },
+      {
+        "control": {
+          "users": 10545,
+          "conversions": 1588
+        },
+        "treatment": {
+          "users": 10426,
+          "conversions": 1755
+        }
+      },
+      {
+        "control": {
+          "users": 10101,
+          "conversions": 1535
+        },
+        "treatment": {
+          "users": 10167,
+          "conversions": 1690
+        }
+      },
+      {
+        "control": {
+          "users": 10890,
+          "conversions": 1660
+        },
+        "treatment": {
+          "users": 10715,
+          "conversions": 1628
+        }
+      },
+      {
+        "control": {
+          "users": 9355,
+          "conversions": 1380
+        },
+        "treatment": {
+          "users": 9317,
+          "conversions": 1428
+        }
+      },
+      {
+        "control": {
+          "users": 9209,
+          "conversions": 1398
+        },
+        "treatment": {
+          "users": 9315,
+          "conversions": 1415
+        }
+      },
+      {
+        "control": {
+          "users": 10406,
+          "conversions": 1547
+        },
+        "treatment": {
+          "users": 10598,
+          "conversions": 1666
+        }
+      },
+      {
+        "control": {
+          "users": 11241,
+          "conversions": 1670
+        },
+        "treatment": {
+          "users": 10952,
+          "conversions": 1659
+        }
+      },
+      {
+        "control": {
+          "users": 10005,
+          "conversions": 1498
+        },
+        "treatment": {
+          "users": 9815,
+          "conversions": 1449
+        }
+      },
+      {
+        "control": {
+          "users": 10187,
+          "conversions": 1561
+        },
+        "treatment": {
+          "users": 10284,
+          "conversions": 1574
+        }
+      },
+      {
+        "control": {
+          "users": 9529,
+          "conversions": 1401
+        },
+        "treatment": {
+          "users": 9398,
+          "conversions": 1387
+        }
+      },
+      {
+        "control": {
+          "users": 8802,
+          "conversions": 1386
+        },
+        "treatment": {
+          "users": 8905,
+          "conversions": 1345
+        }
+      },
+      {
+        "control": {
+          "users": 9606,
+          "conversions": 1455
+        },
+        "treatment": {
+          "users": 9859,
+          "conversions": 1449
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 35249,
+          "conversions": 6842
+        },
+        "treatment": {
+          "users": 35234,
+          "conversions": 7235
+        },
+        "value": "New"
+      },
+      {
+        "control": {
+          "users": 105815,
+          "conversions": 14387
+        },
+        "treatment": {
+          "users": 105631,
+          "conversions": 14919
+        },
+        "value": "Established"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 141064,
+          "conversions": 574
+        },
+        "treatment": {
+          "users": 140865,
+          "conversions": 836
+        },
+        "key": "push_opt_out_rate"
+      },
+      {
+        "control": {
+          "users": 141064,
+          "conversions": 230
+        },
+        "treatment": {
+          "users": 140865,
+          "conversions": 253
+        },
+        "key": "uninstall_rate"
+      }
+    ]
+  }
+}

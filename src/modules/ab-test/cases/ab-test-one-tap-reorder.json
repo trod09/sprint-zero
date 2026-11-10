@@ -1,0 +1,264 @@
+{
+  "id": "ab-test-one-tap-reorder",
+  "moduleId": "ab-test",
+  "seed": 3101,
+  "difficulty": "apm",
+  "company": {
+    "name": "Harvest Lane",
+    "industry": "Marketplace",
+    "stage": "Series B",
+    "description": "An online grocery marketplace that delivers from local stores in under two hours. Most revenue comes from households that order every week."
+  },
+  "title": "Harvest Lane: one-tap reorder",
+  "brief": "The growth team ran One-tap reorder for 14 days on half of Harvest Lane's traffic. Order rate is +4.8% in treatment, and the team wants to roll it out to everyone on Monday. Read the results and make the call.",
+  "hidden": {
+    "issues": [],
+    "acceptableIssues": [],
+    "effect": "improves",
+    "partialEffects": [],
+    "decision": "ship",
+    "partialDecisions": [
+      "iterate"
+    ],
+    "summary": "A clean win: the test ran as planned and order rate really went up.",
+    "explanation": "The split is 50.2% treatment, in line with the 50/50 plan (SRM check: p = 0.164). The test reached its planned sample (83,211 visitors per arm against 73,851 needed). The lift of +4.8% (95% CI +1.5% to +8.0%, p = 0.004) is there in the first week (+4.1%) and in the last (+5.5%), and on every platform (App +2.6%, Web +14.3%). The orders-with-issues guardrail did not move. Nothing in the readout argues against the result: sometimes the right call is simply to ship.",
+    "issueNotes": {},
+    "recommendation": "Ship it to everyone, and keep an eye on order rate and order issues for two weeks after the rollout.",
+    "simulation": {
+      "attempt": 0,
+      "visitorsPerDay": 12000,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.08,
+      "trueLift": 0.07,
+      "segments": [
+        {
+          "value": "App",
+          "share": 0.7,
+          "rateMultiplier": 1.15
+        },
+        {
+          "value": "Web",
+          "share": 0.3,
+          "rateMultiplier": 0.65
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "order_issue_rate",
+          "baselineRate": 0.03,
+          "trueLift": 0
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "One-tap reorder",
+    "change": "Past orders on the home screen get a Reorder button that refills the cart with everything from that order.",
+    "hypothesis": "Shoppers who buy the same groceries every week will order more often if they can rebuild their cart in one tap.",
+    "primaryMetric": {
+      "key": "order_rate",
+      "label": "Order rate",
+      "description": "Share of visitors who place an order that day."
+    },
+    "guardrails": [
+      {
+        "key": "order_issue_rate",
+        "label": "Orders with issues",
+        "description": "Share of orders with a wrong or missing item reported to support.",
+        "goodDirection": "down",
+        "tolerance": 5,
+        "denominator": "primary"
+      }
+    ],
+    "segmentDimension": "Platform",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 14,
+      "samplePerArm": 73851,
+      "mde": 0.05,
+      "baselineRate": 0.08
+    }
+  },
+  "results": {
+    "daysRun": 14,
+    "daily": [
+      {
+        "control": {
+          "users": 6193,
+          "conversions": 479
+        },
+        "treatment": {
+          "users": 6094,
+          "conversions": 541
+        }
+      },
+      {
+        "control": {
+          "users": 6421,
+          "conversions": 551
+        },
+        "treatment": {
+          "users": 6435,
+          "conversions": 546
+        }
+      },
+      {
+        "control": {
+          "users": 6269,
+          "conversions": 529
+        },
+        "treatment": {
+          "users": 6293,
+          "conversions": 483
+        }
+      },
+      {
+        "control": {
+          "users": 6179,
+          "conversions": 504
+        },
+        "treatment": {
+          "users": 6263,
+          "conversions": 556
+        }
+      },
+      {
+        "control": {
+          "users": 5929,
+          "conversions": 462
+        },
+        "treatment": {
+          "users": 5793,
+          "conversions": 519
+        }
+      },
+      {
+        "control": {
+          "users": 5300,
+          "conversions": 433
+        },
+        "treatment": {
+          "users": 5393,
+          "conversions": 461
+        }
+      },
+      {
+        "control": {
+          "users": 5500,
+          "conversions": 476
+        },
+        "treatment": {
+          "users": 5553,
+          "conversions": 472
+        }
+      },
+      {
+        "control": {
+          "users": 6309,
+          "conversions": 509
+        },
+        "treatment": {
+          "users": 6207,
+          "conversions": 542
+        }
+      },
+      {
+        "control": {
+          "users": 6231,
+          "conversions": 499
+        },
+        "treatment": {
+          "users": 6263,
+          "conversions": 565
+        }
+      },
+      {
+        "control": {
+          "users": 6113,
+          "conversions": 513
+        },
+        "treatment": {
+          "users": 6196,
+          "conversions": 518
+        }
+      },
+      {
+        "control": {
+          "users": 6276,
+          "conversions": 532
+        },
+        "treatment": {
+          "users": 6382,
+          "conversions": 547
+        }
+      },
+      {
+        "control": {
+          "users": 5601,
+          "conversions": 474
+        },
+        "treatment": {
+          "users": 5643,
+          "conversions": 464
+        }
+      },
+      {
+        "control": {
+          "users": 5344,
+          "conversions": 363
+        },
+        "treatment": {
+          "users": 5558,
+          "conversions": 472
+        }
+      },
+      {
+        "control": {
+          "users": 5546,
+          "conversions": 466
+        },
+        "treatment": {
+          "users": 5707,
+          "conversions": 477
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 58236,
+          "conversions": 5523
+        },
+        "treatment": {
+          "users": 58656,
+          "conversions": 5706
+        },
+        "value": "App"
+      },
+      {
+        "control": {
+          "users": 24975,
+          "conversions": 1267
+        },
+        "treatment": {
+          "users": 25124,
+          "conversions": 1457
+        },
+        "value": "Web"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 6790,
+          "conversions": 196
+        },
+        "treatment": {
+          "users": 7163,
+          "conversions": 203
+        },
+        "key": "order_issue_rate"
+      }
+    ]
+  }
+}

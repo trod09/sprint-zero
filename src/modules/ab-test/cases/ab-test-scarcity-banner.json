@@ -1,0 +1,292 @@
+{
+  "id": "ab-test-scarcity-banner",
+  "moduleId": "ab-test",
+  "seed": 3103,
+  "difficulty": "apm",
+  "company": {
+    "name": "Stayloop",
+    "industry": "Marketplace",
+    "stage": "Series C",
+    "description": "A vacation rental marketplace with 80,000 listings. Hosts are paid when the stay happens, and a cancelled booking blocks their calendar for nothing."
+  },
+  "title": "Stayloop: the scarcity banner",
+  "brief": "Stayloop ran a scarcity banner on listing pages for 14 days. Booking conversion is +8.1%, and the marketplace team calls it the best result of the quarter. Read the results and make the call.",
+  "hidden": {
+    "issues": [
+      "guardrail"
+    ],
+    "acceptableIssues": [],
+    "effect": "improves",
+    "partialEffects": [],
+    "decision": "iterate",
+    "partialDecisions": [
+      "kill"
+    ],
+    "summary": "Bookings went up, but so did cancellations: the banner rushes guests into bookings they regret.",
+    "explanation": "The primary metric is a real win: +8.1% (95% CI +4.0% to +12.2%, p < 0.001), on both platforms and with a healthy split. But the guardrail exists for exactly this case. Cancellations within 48 hours rose 39.2%. Each cancelled booking costs the host a blocked calendar and Stayloop a refund and a support contact, so net bookings and trust grow much less than the headline suggests. A guardrail breach means you do not ship as is, even with a significant win on the primary metric.",
+    "issueNotes": {
+      "guardrail": "Cancellations within 48 hours rose 39.2% (p < 0.001), far beyond the 5% the team accepts. Many of the extra bookings come from guests rushed into dates they cancel days later."
+    },
+    "recommendation": "Do not ship this version. Keep urgency only when it is true and specific (real availability, no countdown), make net bookings after cancellations the primary metric, and test again.",
+    "simulation": {
+      "attempt": 2,
+      "visitorsPerDay": 16000,
+      "treatmentShare": 0.5,
+      "baselineRate": 0.04,
+      "trueLift": 0.09,
+      "segments": [
+        {
+          "value": "App",
+          "share": 0.55,
+          "rateMultiplier": 1.2
+        },
+        {
+          "value": "Web",
+          "share": 0.45,
+          "rateMultiplier": 0.76
+        }
+      ],
+      "guardrails": [
+        {
+          "key": "cancellation_rate",
+          "baselineRate": 0.06,
+          "trueLift": 0.3
+        },
+        {
+          "key": "support_contact_rate",
+          "baselineRate": 0.01,
+          "trueLift": 0
+        }
+      ]
+    }
+  },
+  "experiment": {
+    "name": "Scarcity banner",
+    "change": "When less than 30% of a listing's nights are free for the searched dates, the page shows 'Only a few nights left at this price' with a countdown timer.",
+    "hypothesis": "Urgency helps undecided guests commit, so booking conversion will go up.",
+    "primaryMetric": {
+      "key": "booking_conversion",
+      "label": "Booking conversion",
+      "description": "Share of listing page visitors who book."
+    },
+    "guardrails": [
+      {
+        "key": "cancellation_rate",
+        "label": "Cancellations within 48 hours",
+        "description": "Share of bookings cancelled within 48 hours.",
+        "goodDirection": "down",
+        "tolerance": 5,
+        "denominator": "primary"
+      },
+      {
+        "key": "support_contact_rate",
+        "label": "Support contacts",
+        "description": "Share of visitors who contact support that day.",
+        "goodDirection": "down",
+        "tolerance": 10,
+        "denominator": "users"
+      }
+    ],
+    "segmentDimension": "Platform",
+    "plan": {
+      "treatmentShare": 0.5,
+      "days": 14,
+      "samplePerArm": 107653,
+      "mde": 0.06,
+      "baselineRate": 0.04
+    }
+  },
+  "results": {
+    "daysRun": 14,
+    "daily": [
+      {
+        "control": {
+          "users": 7952,
+          "conversions": 341
+        },
+        "treatment": {
+          "users": 8145,
+          "conversions": 343
+        }
+      },
+      {
+        "control": {
+          "users": 8103,
+          "conversions": 331
+        },
+        "treatment": {
+          "users": 8213,
+          "conversions": 370
+        }
+      },
+      {
+        "control": {
+          "users": 8599,
+          "conversions": 361
+        },
+        "treatment": {
+          "users": 8468,
+          "conversions": 366
+        }
+      },
+      {
+        "control": {
+          "users": 8335,
+          "conversions": 320
+        },
+        "treatment": {
+          "users": 8283,
+          "conversions": 352
+        }
+      },
+      {
+        "control": {
+          "users": 8333,
+          "conversions": 317
+        },
+        "treatment": {
+          "users": 8063,
+          "conversions": 348
+        }
+      },
+      {
+        "control": {
+          "users": 7404,
+          "conversions": 295
+        },
+        "treatment": {
+          "users": 7372,
+          "conversions": 309
+        }
+      },
+      {
+        "control": {
+          "users": 7774,
+          "conversions": 334
+        },
+        "treatment": {
+          "users": 7928,
+          "conversions": 349
+        }
+      },
+      {
+        "control": {
+          "users": 8043,
+          "conversions": 333
+        },
+        "treatment": {
+          "users": 7988,
+          "conversions": 334
+        }
+      },
+      {
+        "control": {
+          "users": 8191,
+          "conversions": 345
+        },
+        "treatment": {
+          "users": 8006,
+          "conversions": 335
+        }
+      },
+      {
+        "control": {
+          "users": 8384,
+          "conversions": 334
+        },
+        "treatment": {
+          "users": 8291,
+          "conversions": 342
+        }
+      },
+      {
+        "control": {
+          "users": 7822,
+          "conversions": 293
+        },
+        "treatment": {
+          "users": 7821,
+          "conversions": 364
+        }
+      },
+      {
+        "control": {
+          "users": 7676,
+          "conversions": 309
+        },
+        "treatment": {
+          "users": 7692,
+          "conversions": 353
+        }
+      },
+      {
+        "control": {
+          "users": 7629,
+          "conversions": 284
+        },
+        "treatment": {
+          "users": 7664,
+          "conversions": 330
+        }
+      },
+      {
+        "control": {
+          "users": 7557,
+          "conversions": 310
+        },
+        "treatment": {
+          "users": 7683,
+          "conversions": 368
+        }
+      }
+    ],
+    "segments": [
+      {
+        "control": {
+          "users": 61225,
+          "conversions": 2938
+        },
+        "treatment": {
+          "users": 61655,
+          "conversions": 3197
+        },
+        "value": "App"
+      },
+      {
+        "control": {
+          "users": 50577,
+          "conversions": 1569
+        },
+        "treatment": {
+          "users": 49962,
+          "conversions": 1666
+        },
+        "value": "Web"
+      }
+    ],
+    "guardrails": [
+      {
+        "control": {
+          "users": 4507,
+          "conversions": 261
+        },
+        "treatment": {
+          "users": 4863,
+          "conversions": 392
+        },
+        "key": "cancellation_rate"
+      },
+      {
+        "control": {
+          "users": 111802,
+          "conversions": 1093
+        },
+        "treatment": {
+          "users": 111617,
+          "conversions": 1141
+        },
+        "key": "support_contact_rate"
+      }
+    ]
+  }
+}

@@ -6,6 +6,7 @@
  */
 import type { ModuleMeta } from "@/core/case-engine";
 
+import { abTestMeta } from "./ab-test/module";
 import { backlogMeta } from "./backlog/module";
 import { comingSoonModules } from "./coming-soon";
 import { metricDropMeta } from "./metric-drop/module";
@@ -13,6 +14,7 @@ import { metricDropMeta } from "./metric-drop/module";
 export const moduleCatalog: readonly ModuleMeta[] = [
   backlogMeta,
   metricDropMeta,
+  abTestMeta,
   ...comingSoonModules,
 ];
 

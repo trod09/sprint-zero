@@ -13,6 +13,10 @@ Playable today:
 - **Metric Drop**: a metric fell this week. Investigate it in an
   Amplitude-style dashboard over synthetic data, tell the root cause from the
   false leads, and recommend a next step. 5 cases.
+- **A/B Test Interpreter**: read an experiment readout (scorecard, lift over
+  time, segments) that may hide a sample ratio mismatch, a novelty effect,
+  Simpson's paradox, a breached guardrail or too little data, then decide
+  ship, iterate or kill. 8 cases.
 
 ## Getting started
 
@@ -46,6 +50,7 @@ notice instead. Keys are only read on the server.
 | `npm run format`               | Prettier                                            |
 | `npm run generate:backlog`     | Rebuild the 10 Backlog Simulator cases              |
 | `npm run generate:metric-drop` | Rebuild the 5 Metric Drop cases                     |
+| `npm run generate:ab-test`     | Rebuild the 8 A/B Test Interpreter cases            |
 
 ### Generating cases
 
@@ -63,6 +68,11 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   specifications (scale, release, timeline, root cause and false leads as
   anomalies). The data itself is not stored: the server regenerates a 75-day
   cube from the seed, and the browser only receives the views it asks for.
+- **A/B Test Interpreter**: `src/modules/ab-test/content/cases.ts` holds 8
+  experiment specifications (design, hidden traps, simulation parameters).
+  The builder sizes the plan, simulates the counts from the seed, retries
+  until the data shows exactly the traps the case claims, and fills the
+  measured numbers into the texts. The counts are public; the traps are not.
 
 ## How it works
 
@@ -81,6 +91,7 @@ src/
   modules/
     backlog/           schema, generator, optimal sprint, scoring, UI
     metric-drop/       schema, data generator, queries, scoring, UI
+    ab-test/           schema, statistics, simulation, scoring, UI
 ```
 
 - **Ground truth stays on the server.** Cases are read only through
@@ -121,6 +132,6 @@ Or from the terminal with the Vercel CLI: `npx vercel` for a preview and
 ## Project plan
 
 `MASTER_PROMPT.md` describes the product, the architecture and the phased
-plan. Phase 1 (this version) covers the core, the Backlog Simulator and
-Metric Drop, without accounts. Accounts, more modules and automatic case
-generation come in Phase 2.
+plan. Phase 1 covered the core, the Backlog Simulator and Metric Drop,
+without accounts. Phase 2 (in progress) adds more modules (A/B Test
+Interpreter so far), accounts and automatic case generation.

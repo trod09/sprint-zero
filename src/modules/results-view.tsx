@@ -7,6 +7,9 @@
 import type { BaseCase } from "@/core/case-engine";
 import type { ScoreResult } from "@/core/scoring";
 
+import { AbTestResults } from "./ab-test/components/ab-test-results";
+import { abTestAnswerSchema, abTestCaseSchema } from "./ab-test/schema";
+import { abTestResultSchema } from "./ab-test/scoring";
 import { BacklogResults } from "./backlog/components/backlog-results";
 import { backlogCaseSchema } from "./backlog/schema";
 import { backlogResultSchema } from "./backlog/scoring";
@@ -43,6 +46,19 @@ export function ModuleResults({
       const stored = metricDropAnswerSchema.safeParse(answer);
       return (
         <MetricDropResults
+          caseData={caseData.data}
+          report={parsed.data.report}
+          answer={stored.success ? stored.data : null}
+        />
+      );
+    }
+    case "ab-test": {
+      const caseData = abTestCaseSchema.safeParse(revealedCase);
+      const parsed = abTestResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      const stored = abTestAnswerSchema.safeParse(answer);
+      return (
+        <AbTestResults
           caseData={caseData.data}
           report={parsed.data.report}
           answer={stored.success ? stored.data : null}
