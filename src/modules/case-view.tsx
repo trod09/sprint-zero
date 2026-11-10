@@ -5,6 +5,8 @@
  */
 import type { PublicBaseCase } from "@/core/case-engine";
 
+import { ProductCaseView } from "./product-case/components/product-case-view";
+import { publicProductCaseSchema } from "./product-case/schema";
 import { UxCaseView } from "./ux-critique/components/ux-case-view";
 import { publicUxCritiqueCaseSchema } from "./ux-critique/schema";
 import { TriageCaseView } from "./feedback-triage/components/triage-case-view";
@@ -57,6 +59,13 @@ export function CaseView({
       return (
         <UxCaseView
           publicCase={publicUxCritiqueCaseSchema.parse(publicCase)}
+          submit={submit}
+        />
+      );
+    case "product-case":
+      return (
+        <ProductCaseView
+          publicCase={publicProductCaseSchema.parse(publicCase)}
           submit={submit}
         />
       );

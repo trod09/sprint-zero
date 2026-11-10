@@ -6,16 +6,6 @@ import type { ModuleMeta } from "@/core/case-engine";
  */
 export const comingSoonModules: readonly ModuleMeta[] = [
   {
-    id: "product-case",
-    name: "Product Case",
-    tagline: "Interview-style cases, answered step by step.",
-    description:
-      "Design, improvement, estimation and strategy cases in the format of a PM interview: user, problem, solutions, prioritization and metrics, graded against a rubric.",
-    skills: ["product_sense", "communication", "strategy"],
-    status: "coming_soon",
-    icon: "product-case",
-  },
-  {
     id: "prd-writer",
     name: "PRD Writer",
     tagline: "Turn a brief into a sharp one-pager.",

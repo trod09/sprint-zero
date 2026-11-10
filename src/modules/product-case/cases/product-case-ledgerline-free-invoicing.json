@@ -1,0 +1,372 @@
+{
+  "id": "product-case-ledgerline-free-invoicing",
+  "moduleId": "product-case",
+  "seed": 52303,
+  "difficulty": "senior",
+  "company": {
+    "name": "Ledgerline",
+    "industry": "Accounting software for small businesses",
+    "stage": "Series C, 90k paying businesses",
+    "description": "Ledgerline sells bookkeeping, invoicing and payroll to small businesses, on a $12 Starter plan and a $79 Growth plan."
+  },
+  "title": "Respond to a competitor's free invoicing",
+  "brief": "The board wants a response this quarter, and the sales team is pushing to make invoicing free too. You are the senior PM for the core product. Decide which customers to defend, which needs to win on, which move to make first and how you will know it is working.",
+  "hidden": {
+    "segments": [
+      {
+        "id": "growth_smbs",
+        "fit": 3,
+        "why": "Most of the revenue, untouched by a competitor that only does invoicing, and asking for things only Ledgerline can build. Defend and deepen the moat here."
+      },
+      {
+        "id": "sole_traders",
+        "fit": 1,
+        "why": "The segment under attack and the loudest in churn data, but a small share of revenue. Chasing them on price is the competitor's game."
+      },
+      {
+        "id": "accounting_firms",
+        "fit": 2,
+        "why": "A strong channel into Growth customers. A good second front, not the first."
+      },
+      {
+        "id": "mid_market",
+        "fit": 0,
+        "why": "A different product and none of the open deals closed. Not a response to this threat."
+      }
+    ],
+    "problems": [
+      {
+        "id": "reconciliation",
+        "severity": {
+          "growth_smbs": 3,
+          "sole_traders": 1,
+          "accounting_firms": 2,
+          "mid_market": 1
+        },
+        "why": "The Growth customers' biggest pain, and something an invoicing-only competitor cannot offer."
+      },
+      {
+        "id": "cash_visibility",
+        "severity": {
+          "growth_smbs": 2,
+          "sole_traders": 1,
+          "accounting_firms": 1,
+          "mid_market": 1
+        },
+        "why": "Second in the interviews; builds on data only Ledgerline has (invoices, bills and payroll)."
+      },
+      {
+        "id": "invoicing_price",
+        "severity": {
+          "growth_smbs": 1,
+          "sole_traders": 3,
+          "accounting_firms": 0,
+          "mid_market": 0
+        },
+        "why": "Real for sole traders; Growth customers pay for much more than invoicing."
+      },
+      {
+        "id": "many_clients",
+        "severity": {
+          "growth_smbs": 0,
+          "sole_traders": 0,
+          "accounting_firms": 3,
+          "mid_market": 0
+        },
+        "why": "The accounting firms' main pain."
+      },
+      {
+        "id": "late_payments",
+        "severity": {
+          "growth_smbs": 1,
+          "sole_traders": 2,
+          "accounting_firms": 0,
+          "mid_market": 0
+        },
+        "why": "Matters more to the smallest businesses."
+      },
+      {
+        "id": "consolidation",
+        "severity": {
+          "growth_smbs": 0,
+          "sole_traders": 0,
+          "accounting_firms": 1,
+          "mid_market": 3
+        },
+        "why": "A mid-market need."
+      }
+    ],
+    "solutions": [
+      {
+        "id": "auto_reconciliation",
+        "relief": {
+          "reconciliation": 3,
+          "cash_visibility": 1,
+          "invoicing_price": 0,
+          "many_clients": 1,
+          "late_payments": 0,
+          "consolidation": 0
+        },
+        "why": "Large, but it removes the Growth customers' biggest pain and widens the gap with an invoicing-only rival. Best value per unit of effort here."
+      },
+      {
+        "id": "cash_forecast",
+        "relief": {
+          "reconciliation": 0,
+          "cash_visibility": 3,
+          "invoicing_price": 0,
+          "many_clients": 0,
+          "late_payments": 1,
+          "consolidation": 0
+        },
+        "why": "A strong second move on data the competitor does not have."
+      },
+      {
+        "id": "free_invoicing",
+        "relief": {
+          "reconciliation": 0,
+          "cash_visibility": 0,
+          "invoicing_price": 3,
+          "many_clients": 0,
+          "late_payments": 0,
+          "consolidation": 0
+        },
+        "why": "Cheap to ship and loved by sales, but it gives away revenue to defend the smallest customers and fights on the competitor's terms."
+      },
+      {
+        "id": "partner_hub",
+        "relief": {
+          "reconciliation": 1,
+          "cash_visibility": 0,
+          "invoicing_price": 0,
+          "many_clients": 3,
+          "late_payments": 0,
+          "consolidation": 1
+        },
+        "why": "Right for the accounting channel; a good third move."
+      },
+      {
+        "id": "invoice_payments",
+        "relief": {
+          "reconciliation": 0,
+          "cash_visibility": 1,
+          "invoicing_price": 1,
+          "many_clients": 0,
+          "late_payments": 3,
+          "consolidation": 0
+        },
+        "why": "Helps small businesses get paid, mostly sole traders."
+      },
+      {
+        "id": "acquire_startup",
+        "relief": {
+          "reconciliation": 0,
+          "cash_visibility": 0,
+          "invoicing_price": 2,
+          "many_clients": 0,
+          "late_payments": 1,
+          "consolidation": 0
+        },
+        "why": "Expensive and slow, and it buys more of what is being commoditized."
+      }
+    ],
+    "metrics": [
+      {
+        "id": "growth_nrr",
+        "success": 2,
+        "guardrail": 0,
+        "why": "Measures whether the segment that pays the bills stays and grows."
+      },
+      {
+        "id": "signups",
+        "success": 0,
+        "guardrail": 0,
+        "why": "Free invoicing would lift it while revenue falls; the wrong signal."
+      },
+      {
+        "id": "starter_churn",
+        "success": 1,
+        "guardrail": 1,
+        "why": "Worth watching, but it measures the segment you chose not to defend first."
+      },
+      {
+        "id": "gross_margin",
+        "success": 0,
+        "guardrail": 2,
+        "why": "The right guardrail: a strategic response must not buy retention with price cuts or costly bets."
+      },
+      {
+        "id": "invoices_sent",
+        "success": 0,
+        "guardrail": 0,
+        "why": "Measures the commodity you decided not to compete on."
+      },
+      {
+        "id": "accountant_referrals",
+        "success": 1,
+        "guardrail": 1,
+        "why": "Good for the channel, but only part of the picture."
+      }
+    ],
+    "ideal": {
+      "users": "Defend Growth businesses. They bring about 60% of revenue, their churn did not move and they rely on things the competitor does not have. Sole traders are the ones churning, but chasing them means competing on price for a fifth of revenue.",
+      "problems": "Bank reconciliation, then cash visibility. Both are deep accounting problems that an invoicing-only rival cannot solve.",
+      "solutions": "Build automatic reconciliation first, then the cash forecast, then the partner hub for the accountant channel. Making invoicing free is cheap to ship but gives revenue away to fight on the competitor's terms.",
+      "metrics": "Success: net revenue retention of Growth customers. Guardrail: gross margin, so the response does not buy retention with price cuts. Keep an eye on Starter churn without letting it drive the plan."
+    },
+    "principle": "When a competitor commoditizes one feature, do not race them to zero: defend the customers who pay for the whole product and deepen what the competitor cannot copy."
+  },
+  "kind": "strategy",
+  "prompt": "A well-funded competitor just made invoicing free for small businesses. What should Ledgerline do?",
+  "research": [
+    {
+      "id": "plan_mix",
+      "source": "analytics",
+      "text": "Starter is 58% of customers and 19% of revenue. Growth is 28% of customers and 60% of revenue."
+    },
+    {
+      "id": "churn_reasons",
+      "source": "survey",
+      "text": "Since the launch, Starter churn rose by 1.6 points; Growth churn did not move. Leaving Starter customers name price first."
+    },
+    {
+      "id": "growth_interviews",
+      "source": "interviews",
+      "text": "11 of 14 Growth customers said bank reconciliation takes them a day or more each month; many also want to see cash for the coming weeks."
+    },
+    {
+      "id": "accountant_channel",
+      "source": "analytics",
+      "text": "Accounting firms are 13% of accounts but bring 38% of new Growth customers."
+    },
+    {
+      "id": "competitor",
+      "source": "market",
+      "text": "The competitor offers invoicing only. It has no payroll, no bank reconciliation and no multi-user access."
+    },
+    {
+      "id": "midmarket",
+      "source": "support",
+      "text": "25 mid-market prospects asked for multi-entity consolidation last quarter; none of them closed."
+    }
+  ],
+  "segments": [
+    {
+      "id": "mid_market",
+      "name": "Mid-market companies",
+      "description": "Businesses with 200+ employees that need ERP-like features."
+    },
+    {
+      "id": "accounting_firms",
+      "name": "Accounting firms",
+      "description": "Firms that keep the books of many small clients."
+    },
+    {
+      "id": "sole_traders",
+      "name": "Sole traders",
+      "description": "Freelancers and one-person businesses on the $12 Starter plan."
+    },
+    {
+      "id": "growth_smbs",
+      "name": "Growth businesses",
+      "description": "Companies with 5 to 50 employees on the $79 plan, using payroll and several users."
+    }
+  ],
+  "problems": [
+    {
+      "id": "reconciliation",
+      "statement": "Bank reconciliation takes hours every month."
+    },
+    {
+      "id": "invoicing_price",
+      "statement": "Paying for invoicing that others now give away."
+    },
+    {
+      "id": "late_payments",
+      "statement": "Customers pay invoices late."
+    },
+    {
+      "id": "many_clients",
+      "statement": "Accountants juggle many client books with separate logins."
+    },
+    {
+      "id": "cash_visibility",
+      "statement": "No view of cash for the coming weeks."
+    },
+    {
+      "id": "consolidation",
+      "statement": "Several companies cannot be consolidated."
+    }
+  ],
+  "solutions": [
+    {
+      "id": "partner_hub",
+      "name": "Partner hub",
+      "description": "One login for accountants to manage every client's books.",
+      "effort": "M"
+    },
+    {
+      "id": "acquire_startup",
+      "name": "Acquire an invoicing startup",
+      "description": "Buy a small invoicing company to bundle its product.",
+      "effort": "L"
+    },
+    {
+      "id": "cash_forecast",
+      "name": "Cash forecast",
+      "description": "A 13-week cash forecast from invoices, bills and payroll.",
+      "effort": "M"
+    },
+    {
+      "id": "free_invoicing",
+      "name": "Make invoicing free",
+      "description": "Match the competitor: free invoicing on every plan.",
+      "effort": "S"
+    },
+    {
+      "id": "invoice_payments",
+      "name": "Card payments on invoices",
+      "description": "Let customers pay invoices by card with next-day payouts.",
+      "effort": "M"
+    },
+    {
+      "id": "auto_reconciliation",
+      "name": "Automatic reconciliation",
+      "description": "Match bank transactions to invoices and bills automatically, with rules for the rest.",
+      "effort": "L"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "gross_margin",
+      "name": "Gross margin",
+      "definition": "Revenue minus the cost to serve it, as a share of revenue."
+    },
+    {
+      "id": "accountant_referrals",
+      "name": "Accountant referrals",
+      "definition": "New Growth customers referred by accounting firms."
+    },
+    {
+      "id": "signups",
+      "name": "New sign-ups",
+      "definition": "New accounts on any plan, free included."
+    },
+    {
+      "id": "starter_churn",
+      "name": "Starter churn",
+      "definition": "Monthly cancellations of the Starter plan."
+    },
+    {
+      "id": "growth_nrr",
+      "name": "Net revenue retention of Growth",
+      "definition": "Revenue from Growth customers this year over the same customers last year, upgrades included."
+    },
+    {
+      "id": "invoices_sent",
+      "name": "Invoices sent",
+      "definition": "Invoices sent through Ledgerline per month."
+    }
+  ],
+  "timeLimitMinutes": 30
+}

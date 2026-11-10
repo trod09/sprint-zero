@@ -7,6 +7,12 @@
 import type { BaseCase } from "@/core/case-engine";
 import type { ScoreResult } from "@/core/scoring";
 
+import { ProductCaseResults } from "./product-case/components/product-case-results";
+import {
+  productCaseAnswerSchema,
+  productCaseSchema,
+} from "./product-case/schema";
+import { productCaseResultSchema } from "./product-case/scoring";
 import { UxResults } from "./ux-critique/components/ux-results";
 import { uxCritiqueCaseSchema } from "./ux-critique/schema";
 import { uxResultSchema } from "./ux-critique/scoring";
@@ -84,6 +90,19 @@ export function ModuleResults({
       const parsed = uxResultSchema.safeParse(result);
       if (!caseData.success || !parsed.success) return null;
       return <UxResults caseData={caseData.data} report={parsed.data.report} />;
+    }
+    case "product-case": {
+      const caseData = productCaseSchema.safeParse(revealedCase);
+      const parsed = productCaseResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      const stored = productCaseAnswerSchema.safeParse(answer);
+      return (
+        <ProductCaseResults
+          caseData={caseData.data}
+          report={parsed.data.report}
+          answer={stored.success ? stored.data : null}
+        />
+      );
     }
     default:
       return null;

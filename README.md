@@ -24,6 +24,11 @@ Playable today:
 - **UX Critique**: use a mock sign-up, checkout or settings screen with planted
   usability problems, then mark each one and name it without flagging the
   parts that work. 5 cases.
+- **Product Case**: interview-style design, improvement, strategy and
+  estimation questions. Choose the users, the problems, the order to build in
+  and the metrics from the research, or build an estimate from a fact sheet
+  with traps; an optional interview timer and an annotated ideal answer.
+  4 cases.
 
 ## Getting started
 
@@ -60,6 +65,7 @@ notice instead. Keys are only read on the server.
 | `npm run generate:ab-test`         | Rebuild the 8 A/B Test Interpreter cases            |
 | `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                 |
 | `npm run generate:ux-critique`     | Rebuild the 5 UX Critique cases                     |
+| `npm run generate:product-case`    | Rebuild the 4 Product Case cases                    |
 
 ### Generating cases
 
@@ -91,6 +97,12 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   screens region by region, each with a good version and its possible flaws.
   The seed picks which regions are flawed; the renderers in
   `components/screens` draw every region from plain visual props.
+- **Product Case**: `src/modules/product-case/content/cases.ts` holds the
+  words and the 0-3 ratings of every option; the seed draws every number in
+  the research and the fact sheets, and the true estimate is computed from
+  them. The generator rejects a case without a single best answer at each
+  step. Only structured choices are scored; the written reasoning goes to the
+  AI coach.
 
 ### Cases on demand
 
@@ -122,6 +134,7 @@ src/
     ab-test/           schema, statistics, simulation, scoring, UI
     feedback-triage/   schema, theme library, generator, board, scoring, UI
     ux-critique/       schema, screen templates, generator, scoring, UI
+    product-case/      schema, case specs, generator, scoring, UI
 ```
 
 - **Ground truth stays on the server.** Cases are read only through
@@ -164,4 +177,5 @@ Or from the terminal with the Vercel CLI: `npx vercel` for a preview and
 `MASTER_PROMPT.md` describes the product, the architecture and the phased
 plan. Phase 1 covered the core, the Backlog Simulator and Metric Drop,
 without accounts. Phase 2 (in progress) adds more modules (A/B Test
-Interpreter, Feedback Triage and UX Critique so far, plus the skills radar), accounts and automatic case generation.
+Interpreter, Feedback Triage, UX Critique and Product Case so far, plus the
+skills radar), accounts and automatic case generation.

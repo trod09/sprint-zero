@@ -1,0 +1,372 @@
+{
+  "id": "product-case-harvest-meal-planning",
+  "moduleId": "product-case",
+  "seed": 52101,
+  "difficulty": "apm",
+  "company": {
+    "name": "Harvest",
+    "industry": "Grocery delivery",
+    "stage": "Series B, 400k monthly customers",
+    "description": "Harvest delivers groceries from local stores in under two hours in eight cities."
+  },
+  "title": "Design a feature that helps people cook at home",
+  "brief": "The CEO saw that customers who cook from fresh ingredients order more often and stay longer, and asked your team to design something for them. You have the latest research below. Walk through it like an interview: who you build for, which problems matter, what you build first and how you will know it worked.",
+  "hidden": {
+    "segments": [
+      {
+        "id": "busy_parents",
+        "fit": 3,
+        "why": "They bring most of the revenue, already cook most nights and say planning is their biggest pain. Helping them is helping the business."
+      },
+      {
+        "id": "young_professionals",
+        "fit": 1,
+        "why": "They rarely cook, so a cooking feature asks them to change a habit they do not want to change. Their real pain is delivery slots."
+      },
+      {
+        "id": "students",
+        "fit": 1,
+        "why": "Price is their problem, not cooking. A feature for them would be a discount, and they bring little revenue."
+      },
+      {
+        "id": "retirees",
+        "fit": 0,
+        "why": "The research says nothing about their needs, so building for them would be a guess."
+      }
+    ],
+    "problems": [
+      {
+        "id": "deciding",
+        "severity": {
+          "busy_parents": 3,
+          "young_professionals": 1,
+          "students": 1,
+          "retirees": 1
+        },
+        "why": "Most interviewed parents named it first. It happens every day and blocks everything after it."
+      },
+      {
+        "id": "shopping_list",
+        "severity": {
+          "busy_parents": 2,
+          "young_professionals": 1,
+          "students": 0,
+          "retirees": 0
+        },
+        "why": "The second step of the same job. Parents lose time on it every week, and Harvest is the natural place to fix it."
+      },
+      {
+        "id": "picky_eaters",
+        "severity": {
+          "busy_parents": 1,
+          "young_professionals": 0,
+          "students": 0,
+          "retirees": 0
+        },
+        "why": "Real but not what parents raised first; a good planner can take it into account later."
+      },
+      {
+        "id": "price",
+        "severity": {
+          "busy_parents": 1,
+          "young_professionals": 0,
+          "students": 3,
+          "retirees": 1
+        },
+        "why": "The students' first concern. For families it matters but does not stop them cooking."
+      },
+      {
+        "id": "substitutions",
+        "severity": {
+          "busy_parents": 1,
+          "young_professionals": 1,
+          "students": 0,
+          "retirees": 1
+        },
+        "why": "A real annoyance in support tickets, but a minority of a few hundred tickets: worth fixing, not worth leading with."
+      },
+      {
+        "id": "delivery_slots",
+        "severity": {
+          "busy_parents": 1,
+          "young_professionals": 2,
+          "students": 0,
+          "retirees": 0
+        },
+        "why": "An operations problem that matters to young professionals; it does not make anyone cook more."
+      }
+    ],
+    "solutions": [
+      {
+        "id": "weekly_planner",
+        "relief": {
+          "deciding": 3,
+          "shopping_list": 3,
+          "picky_eaters": 1,
+          "price": 0,
+          "substitutions": 0,
+          "delivery_slots": 0
+        },
+        "why": "Solves both top problems in one flow: what to cook, then what to buy. Medium effort for the most relief."
+      },
+      {
+        "id": "list_import",
+        "relief": {
+          "deciding": 0,
+          "shopping_list": 2,
+          "picky_eaters": 0,
+          "price": 0,
+          "substitutions": 0,
+          "delivery_slots": 0
+        },
+        "why": "Cheap and useful for the shopping list, but leaves the hardest part, deciding, untouched."
+      },
+      {
+        "id": "ai_chef",
+        "relief": {
+          "deciding": 2,
+          "shopping_list": 1,
+          "picky_eaters": 1,
+          "price": 0,
+          "substitutions": 0,
+          "delivery_slots": 0
+        },
+        "why": "Helps with ideas, but a chat asks tired parents to do the work of asking. Large effort for less relief than a planner."
+      },
+      {
+        "id": "recipe_library",
+        "relief": {
+          "deciding": 1,
+          "shopping_list": 1,
+          "picky_eaters": 1,
+          "price": 0,
+          "substitutions": 0,
+          "delivery_slots": 0
+        },
+        "why": "More choice makes deciding harder, not easier. Every competitor has one."
+      },
+      {
+        "id": "budget_mode",
+        "relief": {
+          "deciding": 0,
+          "shopping_list": 0,
+          "picky_eaters": 0,
+          "price": 3,
+          "substitutions": 0,
+          "delivery_slots": 0
+        },
+        "why": "Good for students, irrelevant to cooking more."
+      },
+      {
+        "id": "recipe_safe_substitutions",
+        "relief": {
+          "deciding": 0,
+          "shopping_list": 0,
+          "picky_eaters": 0,
+          "price": 0,
+          "substitutions": 3,
+          "delivery_slots": 0
+        },
+        "why": "A good follow-up once people plan recipes, not the first thing to build."
+      }
+    ],
+    "metrics": [
+      {
+        "id": "weekly_planners",
+        "success": 2,
+        "guardrail": 0,
+        "why": "Measures the new behavior directly and moves within weeks."
+      },
+      {
+        "id": "recipe_views",
+        "success": 0,
+        "guardrail": 0,
+        "why": "A vanity metric: views go up with curiosity, not with cooking."
+      },
+      {
+        "id": "basket_value",
+        "success": 1,
+        "guardrail": 1,
+        "why": "Likely to rise, but many things move it; it does not prove people cook more."
+      },
+      {
+        "id": "retention",
+        "success": 1,
+        "guardrail": 1,
+        "why": "The business outcome you hope for, but it takes two months to read and lags the feature."
+      },
+      {
+        "id": "checkout_conversion",
+        "success": 0,
+        "guardrail": 2,
+        "why": "The right guardrail: a planner adds steps, and it must not make ordering harder."
+      },
+      {
+        "id": "downloads",
+        "success": 0,
+        "guardrail": 0,
+        "why": "Has nothing to do with a feature for existing customers."
+      }
+    ],
+    "ideal": {
+      "users": "Working parents: they bring more than half the revenue, already cook most evenings and told us planning is their biggest pain. Students and young professionals have real problems, but not cooking problems.",
+      "problems": "Deciding what to cook, then turning it into a shopping list. They are the two halves of the same weekly job, and most parents named them first.",
+      "solutions": "Build the weekly planner first: it relieves both problems in one flow for medium effort. The list import is a cheap second step, and the AI chef is a large bet that solves less.",
+      "metrics": "Success: weekly active planners, because it measures the new habit within weeks. Guardrail: checkout conversion, because the planner must not make ordering harder. Retention is the outcome to watch over the quarter."
+    },
+    "principle": "Pick the segment where the user's pain and the business's value overlap, then solve their most frequent problem end to end before adding anything else."
+  },
+  "kind": "design",
+  "prompt": "Harvest wants more of its customers to cook at home during the week. Design a product or feature to make that happen.",
+  "research": [
+    {
+      "id": "revenue_mix",
+      "source": "analytics",
+      "text": "Households with children bring 57% of revenue and order every 6 days on average."
+    },
+    {
+      "id": "parent_interviews",
+      "source": "interviews",
+      "text": "9 of 12 working parents we interviewed said deciding what to cook every evening is the most tiring part of the week; most then lose time turning the idea into a shopping list."
+    },
+    {
+      "id": "student_survey",
+      "source": "survey",
+      "text": "Among students, 73% name price as their first concern; only 13% say they plan meals ahead."
+    },
+    {
+      "id": "professional_interviews",
+      "source": "interviews",
+      "text": "Young professionals mostly buy ready meals and snacks. They cook about 2 times a week and complain mainly that weekend delivery slots run out."
+    },
+    {
+      "id": "substitutions",
+      "source": "support",
+      "text": "430 support tickets last month were about substituted items, 23% of them from customers who said it broke a recipe."
+    },
+    {
+      "id": "recipe_baskets",
+      "source": "analytics",
+      "text": "Baskets that contain every ingredient of at least one recipe are reordered 1.6x more often within two weeks."
+    }
+  ],
+  "segments": [
+    {
+      "id": "young_professionals",
+      "name": "Young professionals",
+      "description": "Singles and couples in their twenties who order often, mostly ready meals."
+    },
+    {
+      "id": "busy_parents",
+      "name": "Working parents",
+      "description": "Families with children at home who do one big weekly order and cook most evenings."
+    },
+    {
+      "id": "retirees",
+      "name": "Retirees",
+      "description": "Older customers who order for convenience and cook the same few meals."
+    },
+    {
+      "id": "students",
+      "name": "Students",
+      "description": "Students sharing flats, small baskets, very price-sensitive."
+    }
+  ],
+  "problems": [
+    {
+      "id": "delivery_slots",
+      "statement": "Weekend delivery slots run out."
+    },
+    {
+      "id": "shopping_list",
+      "statement": "Turning a meal plan into a shopping list takes too long."
+    },
+    {
+      "id": "picky_eaters",
+      "statement": "Meals have to suit everyone at the table, picky children included."
+    },
+    {
+      "id": "price",
+      "statement": "Groceries cost too much."
+    },
+    {
+      "id": "substitutions",
+      "statement": "Substituted items break the recipe the customer bought for."
+    },
+    {
+      "id": "deciding",
+      "statement": "Deciding what to cook every day takes mental energy."
+    }
+  ],
+  "solutions": [
+    {
+      "id": "recipe_library",
+      "name": "Recipe library",
+      "description": "Two thousand recipes with filters by time, diet and cuisine.",
+      "effort": "M"
+    },
+    {
+      "id": "list_import",
+      "name": "Shopping list import",
+      "description": "Paste or photograph a list and Harvest fills the basket.",
+      "effort": "S"
+    },
+    {
+      "id": "budget_mode",
+      "name": "Budget mode",
+      "description": "Swaps every item for the cheapest equivalent.",
+      "effort": "S"
+    },
+    {
+      "id": "ai_chef",
+      "name": "AI chef chat",
+      "description": "A chat assistant that answers cooking questions and suggests recipes.",
+      "effort": "L"
+    },
+    {
+      "id": "recipe_safe_substitutions",
+      "name": "Recipe-safe substitutions",
+      "description": "Never substitutes an ingredient of a recipe without asking.",
+      "effort": "S"
+    },
+    {
+      "id": "weekly_planner",
+      "name": "Weekly meal planner",
+      "description": "Suggests five dinners for the week from the family's past orders and tastes; one tap puts every ingredient in the basket.",
+      "effort": "M"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "recipe_views",
+      "name": "Recipe page views",
+      "definition": "Views of any recipe page."
+    },
+    {
+      "id": "checkout_conversion",
+      "name": "Checkout conversion",
+      "definition": "Share of started baskets that become orders."
+    },
+    {
+      "id": "weekly_planners",
+      "name": "Weekly active planners",
+      "definition": "Households that put at least one planned meal in their basket each week."
+    },
+    {
+      "id": "basket_value",
+      "name": "Average basket value",
+      "definition": "Average value of a delivered order."
+    },
+    {
+      "id": "retention",
+      "name": "8-week retention of families",
+      "definition": "Share of households with children still ordering eight weeks later."
+    },
+    {
+      "id": "downloads",
+      "name": "App downloads",
+      "definition": "New installs of the Harvest app."
+    }
+  ],
+  "timeLimitMinutes": 30
+}

@@ -1,0 +1,372 @@
+{
+  "id": "product-case-tunebox-podcasts",
+  "moduleId": "product-case",
+  "seed": 52202,
+  "difficulty": "pm",
+  "company": {
+    "name": "Tunebox",
+    "industry": "Music streaming",
+    "stage": "Public, 30M monthly listeners",
+    "description": "Tunebox is a music streaming app that added podcasts two years ago."
+  },
+  "title": "Improve Tunebox for podcast listeners",
+  "brief": "Podcasts are a quarter of new Tunebox sign-ups, but podcast listeners churn faster than music listeners and many move to a dedicated podcast app. You lead the podcast team. Read the research and answer like an interview: who exactly you improve it for, what problem, what you ship first and how you measure it.",
+  "hidden": {
+    "segments": [
+      {
+        "id": "commuters",
+        "fit": 3,
+        "why": "A minority of listeners but most of the listening hours, and the ones leaving for other apps. Keeping them is the podcast business."
+      },
+      {
+        "id": "music_first",
+        "fit": 1,
+        "why": "Biggest by headcount, which makes them tempting, but most say they do not want podcasts. Volume is not need."
+      },
+      {
+        "id": "language_learners",
+        "fit": 2,
+        "why": "A clear need and a loud voice in reviews, but a niche next to commuters."
+      },
+      {
+        "id": "creators",
+        "fit": 0,
+        "why": "The question is about listeners. Creators matter, but they are a different product."
+      }
+    ],
+    "problems": [
+      {
+        "id": "lost_position",
+        "severity": {
+          "commuters": 3,
+          "music_first": 1,
+          "language_learners": 2,
+          "creators": 0
+        },
+        "why": "Hits commuters every day at the exact moment they listen, and pushes them to apps that get it right."
+      },
+      {
+        "id": "buried_episodes",
+        "severity": {
+          "commuters": 2,
+          "music_first": 0,
+          "language_learners": 1,
+          "creators": 1
+        },
+        "why": "Makes the daily habit harder to keep; second in the interviews."
+      },
+      {
+        "id": "discovery",
+        "severity": {
+          "commuters": 1,
+          "music_first": 2,
+          "language_learners": 1,
+          "creators": 3
+        },
+        "why": "Matters most to creators and music-first listeners. Commuters already know what they follow."
+      },
+      {
+        "id": "downloads",
+        "severity": {
+          "commuters": 1,
+          "music_first": 0,
+          "language_learners": 1,
+          "creators": 0
+        },
+        "why": "A real annoyance in tunnels and on planes, but less frequent than the two above."
+      },
+      {
+        "id": "playback_controls",
+        "severity": {
+          "commuters": 1,
+          "music_first": 0,
+          "language_learners": 3,
+          "creators": 0
+        },
+        "why": "The learners' top need; nice to have for everyone else."
+      },
+      {
+        "id": "creator_analytics",
+        "severity": {
+          "commuters": 0,
+          "music_first": 0,
+          "language_learners": 0,
+          "creators": 3
+        },
+        "why": "A creator problem, outside a listener question."
+      }
+    ],
+    "solutions": [
+      {
+        "id": "cross_device_resume",
+        "relief": {
+          "lost_position": 3,
+          "buried_episodes": 0,
+          "discovery": 0,
+          "downloads": 1,
+          "playback_controls": 0,
+          "creator_analytics": 0
+        },
+        "why": "Removes the commuters' biggest pain completely. The best value per unit of effort."
+      },
+      {
+        "id": "new_episodes_shelf",
+        "relief": {
+          "lost_position": 0,
+          "buried_episodes": 2,
+          "discovery": 1,
+          "downloads": 0,
+          "playback_controls": 0,
+          "creator_analytics": 0
+        },
+        "why": "A cheap, good second step. It helps the habit but leaves the daily frustration in place."
+      },
+      {
+        "id": "smart_downloads",
+        "relief": {
+          "lost_position": 1,
+          "buried_episodes": 1,
+          "discovery": 0,
+          "downloads": 3,
+          "playback_controls": 0,
+          "creator_analytics": 0
+        },
+        "why": "Solves a smaller problem well. A sensible third item."
+      },
+      {
+        "id": "ai_recommendations",
+        "relief": {
+          "lost_position": 0,
+          "buried_episodes": 1,
+          "discovery": 3,
+          "downloads": 0,
+          "playback_controls": 0,
+          "creator_analytics": 0
+        },
+        "why": "The tempting answer, aimed at music-first listeners who said they do not want podcasts. Large effort for the wrong problem."
+      },
+      {
+        "id": "transcripts",
+        "relief": {
+          "lost_position": 0,
+          "buried_episodes": 0,
+          "discovery": 0,
+          "downloads": 0,
+          "playback_controls": 3,
+          "creator_analytics": 0
+        },
+        "why": "Exactly right for language learners; little for commuters."
+      },
+      {
+        "id": "creator_dashboard",
+        "relief": {
+          "lost_position": 0,
+          "buried_episodes": 0,
+          "discovery": 0,
+          "downloads": 0,
+          "playback_controls": 0,
+          "creator_analytics": 3
+        },
+        "why": "Serves creators, not listeners."
+      }
+    ],
+    "metrics": [
+      {
+        "id": "commuter_retention",
+        "success": 2,
+        "guardrail": 0,
+        "why": "Measures the exact behavior you want to keep, for the segment you chose, and reads within weeks."
+      },
+      {
+        "id": "shows_followed",
+        "success": 1,
+        "guardrail": 0,
+        "why": "Related, but following is cheap; it does not show people stay."
+      },
+      {
+        "id": "music_hours",
+        "success": 0,
+        "guardrail": 2,
+        "why": "The right guardrail: podcast changes on Home must not eat into music, which pays the bills."
+      },
+      {
+        "id": "premium_churn",
+        "success": 1,
+        "guardrail": 1,
+        "why": "Moves for many reasons and slowly; a business outcome, not a feature metric."
+      },
+      {
+        "id": "podcast_dau",
+        "success": 1,
+        "guardrail": 0,
+        "why": "Mixes every segment; a shelf could lift it while commuters still leave."
+      },
+      {
+        "id": "app_rating",
+        "success": 0,
+        "guardrail": 0,
+        "why": "Too slow and too noisy to judge one feature."
+      }
+    ],
+    "ideal": {
+      "users": "Daily commuters: about a fifth of podcast listeners but most of the hours, and the ones moving to other apps. Music-first listeners are the biggest group, but most of them told us they do not want podcasts.",
+      "problems": "Losing their place between phone and car, then new episodes buried under music. Both break the daily habit that keeps commuters on Tunebox.",
+      "solutions": "Ship resume on any device first: it removes the biggest pain for medium effort. Then the new episodes shelf, which is cheap, then smart downloads. AI recommendations are the tempting answer for the wrong segment.",
+      "metrics": "Success: weekly podcast retention of commuters. Guardrail: music listening hours, so podcast work on Home does not hurt the core business."
+    },
+    "principle": "In an improvement question, find the users who get the most value today and are at risk of leaving; fix what makes them leave before chasing new users."
+  },
+  "kind": "improvement",
+  "prompt": "How would you improve Tunebox for podcast listeners?",
+  "research": [
+    {
+      "id": "listening_hours",
+      "source": "analytics",
+      "text": "Daily commuters are 17% of podcast listeners but 64% of podcast listening hours. They follow 5 shows on average."
+    },
+    {
+      "id": "churn",
+      "source": "analytics",
+      "text": "46% of commuters who stopped listening on Tunebox kept listening to the same shows in another podcast app the next month."
+    },
+    {
+      "id": "commuter_interviews",
+      "source": "interviews",
+      "text": "8 of 11 commuters complained that an episode starts from the beginning when they move from phone to car. Several said new episodes of their shows are buried under music on Home."
+    },
+    {
+      "id": "casual_survey",
+      "source": "survey",
+      "text": "Music-first listeners are the biggest group, but 65% of them say they are not interested in podcasts."
+    },
+    {
+      "id": "learner_reviews",
+      "source": "support",
+      "text": "160 app reviews this quarter asked for transcripts or finer speed control, mostly from people learning a language."
+    },
+    {
+      "id": "creator_requests",
+      "source": "support",
+      "text": "Podcast creators sent 70 requests for audience analytics."
+    }
+  ],
+  "segments": [
+    {
+      "id": "commuters",
+      "name": "Daily commuters",
+      "description": "Listen to a few shows every day on the way to and from work, across phone and car."
+    },
+    {
+      "id": "music_first",
+      "name": "Music-first listeners",
+      "description": "The largest group; tried a podcast once or twice."
+    },
+    {
+      "id": "creators",
+      "name": "Podcast creators",
+      "description": "Publish their shows on Tunebox."
+    },
+    {
+      "id": "language_learners",
+      "name": "Language learners",
+      "description": "Use podcasts to study a language."
+    }
+  ],
+  "problems": [
+    {
+      "id": "playback_controls",
+      "statement": "No transcripts and only coarse speed control."
+    },
+    {
+      "id": "creator_analytics",
+      "statement": "Creators cannot see who listens."
+    },
+    {
+      "id": "downloads",
+      "statement": "Offline downloads fail or fill the phone."
+    },
+    {
+      "id": "buried_episodes",
+      "statement": "New episodes of followed shows are buried under music on Home."
+    },
+    {
+      "id": "discovery",
+      "statement": "It is hard to discover new shows worth trying."
+    },
+    {
+      "id": "lost_position",
+      "statement": "Episodes lose their place when switching between phone and car."
+    }
+  ],
+  "solutions": [
+    {
+      "id": "new_episodes_shelf",
+      "name": "New episodes shelf",
+      "description": "A shelf at the top of Home with new episodes of followed shows.",
+      "effort": "S"
+    },
+    {
+      "id": "smart_downloads",
+      "name": "Smart downloads",
+      "description": "Download the next episode of followed shows on wifi and delete finished ones.",
+      "effort": "M"
+    },
+    {
+      "id": "transcripts",
+      "name": "Transcripts and speed",
+      "description": "Synced transcripts and speed from 0.5x to 3x.",
+      "effort": "M"
+    },
+    {
+      "id": "cross_device_resume",
+      "name": "Resume on any device",
+      "description": "Sync the playback position across phone, car and web in real time.",
+      "effort": "M"
+    },
+    {
+      "id": "creator_dashboard",
+      "name": "Creator dashboard",
+      "description": "Audience analytics for podcast creators.",
+      "effort": "L"
+    },
+    {
+      "id": "ai_recommendations",
+      "name": "AI show recommendations",
+      "description": "Recommend new shows from each person's music taste.",
+      "effort": "L"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "podcast_dau",
+      "name": "Podcast DAU",
+      "definition": "Daily users who play any podcast."
+    },
+    {
+      "id": "music_hours",
+      "name": "Music listening hours",
+      "definition": "Weekly music hours per listener."
+    },
+    {
+      "id": "app_rating",
+      "name": "App store rating",
+      "definition": "Average rating in the app stores."
+    },
+    {
+      "id": "shows_followed",
+      "name": "Shows followed per user",
+      "definition": "Average number of shows a podcast listener follows."
+    },
+    {
+      "id": "premium_churn",
+      "name": "Premium churn",
+      "definition": "Monthly cancellations of paid plans."
+    },
+    {
+      "id": "commuter_retention",
+      "name": "Weekly podcast retention of commuters",
+      "definition": "Share of commuters who listen to a podcast on Tunebox in two consecutive weeks."
+    }
+  ],
+  "timeLimitMinutes": 25
+}

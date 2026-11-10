@@ -1,0 +1,123 @@
+{
+  "id": "product-case-pawpal-dog-walking",
+  "moduleId": "product-case",
+  "seed": 52404,
+  "difficulty": "pm",
+  "company": {
+    "name": "Pawpal",
+    "industry": "Pet services marketplace",
+    "stage": "Seed, live in two cities",
+    "description": "Pawpal connects dog owners with vetted local dog walkers and takes a commission on every walk."
+  },
+  "title": "Estimate Pawpal's revenue in a new city",
+  "brief": "The founders want a quick estimate before they spend on a launch. Analysts left you a fact sheet with more facts than you need, and some of them would lead you astray. Choose the facts the estimate needs, add any constant factors, and give your number. Pawpal's revenue is its commission, not what owners pay walkers.",
+  "hidden": {
+    "requiredFactIds": [
+      "households",
+      "dog_share",
+      "paid_walk_share",
+      "walks_per_week",
+      "price",
+      "take_rate"
+    ],
+    "factNotes": {
+      "households": "The right base: dogs, and decisions to pay a walker, belong to households.",
+      "population": "The trap: starting from people counts every member of a dog-owning household as a separate customer.",
+      "dog_share": "Needed: only households with a dog can buy walks.",
+      "likes_dogs": "Irrelevant: liking dogs does not mean owning one or paying for walks.",
+      "paid_walk_share": "Needed: most owners walk their own dog.",
+      "walks_per_week": "Needed: frequency of the paid service.",
+      "price": "Needed: the price is per visit, so the number of dogs does not multiply it.",
+      "dogs_per_household": "Double counting: the walk price already covers every dog of the household.",
+      "take_rate": "Needed: Pawpal earns its commission, not the price of the walk.",
+      "vet_spend": "Irrelevant: a different market."
+    },
+    "constants": [
+      {
+        "value": 52,
+        "label": "weeks in a year"
+      }
+    ],
+    "truth": 8087040,
+    "formula": "540,000 households x 20% with a dog x 12% paying for walks x 3 walks a week x 52 weeks x $20 a walk x 20% commission",
+    "trapEstimate": 19468800,
+    "ideal": "Start from households, not people: a dog and the decision to hire a walker belong to a household. Narrow to the 20% with a dog and the 12% of those who pay for walks every week. Multiply by 3 walks a week and 52 weeks to get walks a year, then by the $20 price and Pawpal's 20% commission. Leave out dogs per household (the price already covers every dog), people who like dogs and vet spend. A quick sanity check: about 12,960 paying households, each worth roughly $624 a year to Pawpal.",
+    "principle": "Pick the unit that buys (a household, a business, a trip) before you multiply, and check each factor is not already counted in another."
+  },
+  "kind": "estimation",
+  "prompt": "Pawpal is thinking about launching in Marlow Bay. If it won the whole paid dog-walking market there, how much revenue would Pawpal make in a year?",
+  "answerUnit": "US dollars per year",
+  "facts": [
+    {
+      "id": "take_rate",
+      "label": "Pawpal's commission on each walk",
+      "value": 20,
+      "unit": "%",
+      "source": "Pawpal"
+    },
+    {
+      "id": "dogs_per_household",
+      "label": "Dogs per dog-owning household",
+      "value": 1.3,
+      "unit": "dogs",
+      "source": "Pet owners' survey"
+    },
+    {
+      "id": "likes_dogs",
+      "label": "Adults who say they like dogs",
+      "value": 56,
+      "unit": "%",
+      "source": "Opinion poll"
+    },
+    {
+      "id": "paid_walk_share",
+      "label": "Dog-owning households that pay for walks every week",
+      "value": 12,
+      "unit": "%",
+      "source": "Pet owners' survey"
+    },
+    {
+      "id": "price",
+      "label": "Average price of a walk, all dogs of the household included",
+      "value": 20,
+      "unit": "USD",
+      "source": "Walker interviews"
+    },
+    {
+      "id": "dog_share",
+      "label": "Households with at least one dog",
+      "value": 20,
+      "unit": "%",
+      "source": "Pet owners' survey"
+    },
+    {
+      "id": "population",
+      "label": "People living in Marlow Bay",
+      "value": 1300000,
+      "unit": "people",
+      "source": "City census"
+    },
+    {
+      "id": "vet_spend",
+      "label": "Yearly vet spend per dog",
+      "value": 400,
+      "unit": "USD",
+      "source": "Pet owners' survey"
+    },
+    {
+      "id": "walks_per_week",
+      "label": "Paid walks per week, in households that pay for walks",
+      "value": 3,
+      "unit": "walks",
+      "source": "Walker interviews"
+    },
+    {
+      "id": "households",
+      "label": "Households in Marlow Bay",
+      "value": 540000,
+      "unit": "households",
+      "source": "City census"
+    }
+  ],
+  "timeLimitMinutes": 15
+}
