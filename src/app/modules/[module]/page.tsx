@@ -1,14 +1,15 @@
-import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { CaseLibrary } from "@/components/case-library";
 import { ModuleIcon } from "@/components/module-icon";
 import { Badge } from "@/components/ui/badge";
 import { getMessages } from "@/i18n";
 import { getModuleMeta, moduleCatalog } from "@/modules/catalog";
-import { caseRepository } from "@/modules/registry.server";
+import { listCaseSummaries } from "@/modules/case-summaries.server";
 
 export function generateStaticParams() {
   return moduleCatalog.map((meta) => ({ module: meta.id }));
@@ -53,8 +54,8 @@ async function ModuleContent({
   if (!meta) notFound();
 
   const messages = getMessages();
-  // Public views only: ground truth never leaves the case repository here.
-  const cases = await caseRepository.listPublicCases(meta.id);
+  // Public summaries only: ground truth never leaves the case repository here.
+  const cases = await listCaseSummaries(meta.id);
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pt-8 pb-20 sm:px-6">
@@ -118,33 +119,9 @@ async function ModuleContent({
             </p>
           </div>
         ) : (
-          <ul className="mt-4 divide-y overflow-hidden rounded-xl border">
-            {cases.map((publicCase) => (
-              <li key={publicCase.id}>
-                <Link
-                  href={`/case/${publicCase.id}`}
-                  aria-label={`${messages.module.startCase}: ${publicCase.title}`}
-                  className="group hover:bg-muted/50 focus-visible:ring-ring/50 flex items-center justify-between gap-4 px-4 py-3 transition-colors focus-visible:ring-3 focus-visible:outline-none focus-visible:ring-inset"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{publicCase.title}</p>
-                    <p className="text-muted-foreground truncate text-sm">
-                      {publicCase.company.name} · {publicCase.company.industry}
-                    </p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-3">
-                    <Badge variant="outline">
-                      {messages.difficulty[publicCase.difficulty]}
-                    </Badge>
-                    <ArrowRight
-                      className="text-muted-foreground size-4 transition-transform group-hover:translate-x-0.5"
-                      aria-hidden="true"
-                    />
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-4">
+            <CaseLibrary cases={cases} showModuleFilter={false} />
+          </div>
         )}
       </section>
     </div>
