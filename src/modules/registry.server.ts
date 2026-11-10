@@ -15,6 +15,8 @@ import { abTestRawCases } from "./ab-test/cases";
 import { abTestModule } from "./ab-test/module.server";
 import { backlogRawCases } from "./backlog/cases";
 import { backlogModule } from "./backlog/module.server";
+import { feedbackTriageRawCases } from "./feedback-triage/cases";
+import { feedbackTriageModule } from "./feedback-triage/module.server";
 import { metricDropRawCases } from "./metric-drop/cases";
 import { metricDropModule } from "./metric-drop/module.server";
 
@@ -30,6 +32,10 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: abTestModule,
     loadRawCases: () => abTestRawCases,
+  }),
+  registerModule({
+    module: feedbackTriageModule,
+    loadRawCases: () => feedbackTriageRawCases,
   }),
 ];
 

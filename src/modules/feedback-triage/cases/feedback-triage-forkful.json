@@ -1,0 +1,619 @@
+{
+  "id": "feedback-triage-forkful",
+  "moduleId": "feedback-triage",
+  "seed": 4104,
+  "difficulty": "senior",
+  "company": {
+    "name": "Forkful",
+    "industry": "Marketplace",
+    "stage": "Series C",
+    "description": "A food delivery marketplace with 6,000 restaurants. Menus come from restaurants; Forkful adds dietary and allergen filters on top. Forkful Pass gives free delivery."
+  },
+  "title": "Forkful: a month of feedback",
+  "brief": "Forkful's inbox for the last 30 days holds 66 pieces of feedback: app reviews, support tickets and NPS comments. The PM who used to triage it has left, and the team plans the next quarter on Monday. Group the feedback into themes, set the noise aside, flag anything critical, rank the themes by what matters, and write opportunities for the top ones.",
+  "hidden": {
+    "themes": [
+      {
+        "key": "allergen_filter",
+        "label": "Allergen filters show unsafe dishes",
+        "severity": "critical",
+        "itemIds": [
+          "FB-052",
+          "FB-048",
+          "FB-060"
+        ],
+        "summary": "Since a menu import change, allergen tags are dropped for some restaurants and the filters treat untagged dishes as safe. People with allergies are being served food that can put them in hospital.",
+        "opportunity": "How might we make sure an allergen filter never shows a dish we cannot vouch for, starting with hiding untagged dishes from filtered results today?"
+      },
+      {
+        "key": "crashes",
+        "label": "The app crashes",
+        "severity": "high",
+        "itemIds": [
+          "FB-047",
+          "FB-057",
+          "FB-036",
+          "FB-012",
+          "FB-006",
+          "FB-040",
+          "FB-025",
+          "FB-032",
+          "FB-020",
+          "FB-038",
+          "FB-055"
+        ],
+        "summary": "Crashes in core flows. People lose work and cannot finish what they came to do.",
+        "opportunity": "How might we catch crashes in core flows before release, and fix the top crash signatures this sprint?"
+      },
+      {
+        "key": "support",
+        "label": "Support is slow",
+        "severity": "medium",
+        "itemIds": [
+          "FB-015",
+          "FB-026",
+          "FB-021",
+          "FB-003",
+          "FB-046",
+          "FB-009",
+          "FB-033",
+          "FB-041",
+          "FB-066"
+        ],
+        "summary": "Slow or unhelpful support. It multiplies the pain of every other problem, but it is a symptom as much as a cause.",
+        "opportunity": "How might we answer the most common questions before people need to contact us, and reply to the rest within a day?"
+      },
+      {
+        "key": "pricing",
+        "label": "The price feels too high",
+        "severity": "low",
+        "itemIds": [
+          "FB-010",
+          "FB-019",
+          "FB-005",
+          "FB-039",
+          "FB-064",
+          "FB-054",
+          "FB-045",
+          "FB-035",
+          "FB-007",
+          "FB-017",
+          "FB-008",
+          "FB-063",
+          "FB-011",
+          "FB-027"
+        ],
+        "summary": "Complaints about the price and the last increase. Loud and frequent, but people still use the product; it is a positioning question, not a broken experience.",
+        "opportunity": "How might we make the value of Forkful Pass obvious before renewal, so the price feels earned?"
+      },
+      {
+        "key": "upsell",
+        "label": "Upsells are pushy",
+        "severity": "low",
+        "itemIds": [
+          "FB-044",
+          "FB-018",
+          "FB-014",
+          "FB-034",
+          "FB-030",
+          "FB-028",
+          "FB-029",
+          "FB-042"
+        ],
+        "summary": "Upgrade prompts feel aggressive. It erodes goodwill, but nobody is blocked.",
+        "opportunity": "How might we show Forkful Pass at the moment someone needs it, instead of on every screen?"
+      },
+      {
+        "key": "feature_request",
+        "label": "Requests for scheduled weekly orders",
+        "severity": "low",
+        "itemIds": [
+          "FB-031",
+          "FB-056",
+          "FB-022",
+          "FB-023",
+          "FB-024",
+          "FB-002"
+        ],
+        "summary": "A popular request. It signals what people want next, but its absence does not hurt anyone today.",
+        "opportunity": "How might we find out which job scheduled weekly orders would do for people, and whether a smaller version solves it?"
+      },
+      {
+        "key": "notifications",
+        "label": "Too many notifications",
+        "severity": "low",
+        "itemIds": [
+          "FB-016",
+          "FB-013",
+          "FB-037",
+          "FB-050",
+          "FB-004"
+        ],
+        "summary": "Push and email volume annoys people. Easy to fix and worth fixing, but it does not stop anyone from using the product.",
+        "opportunity": "How might we let people choose which notifications they get, and send fewer that matter more?"
+      }
+    ],
+    "noiseItemIds": [
+      "FB-043",
+      "FB-049",
+      "FB-058",
+      "FB-061",
+      "FB-059",
+      "FB-051",
+      "FB-001",
+      "FB-065",
+      "FB-053",
+      "FB-062"
+    ],
+    "explanation": "The critical problem, \"Allergen filters show unsafe dishes\", appears in only 3 items, all from the last 6 days. Few items, but each describes harm that grows every day it stays live, so it goes first whatever the volume. Volume alone would put \"The price feels too high\" next, with 14 items, but it is a low-severity problem. \"The app crashes\" (11 items, high severity) and \"Support is slow\" (9 items, medium severity) hurt more people more. Impact here is reach times severity: low counts 1, medium 2, high 3 per item. 10 items were noise: praise, spam and off-topic messages that belong in no theme.",
+    "principle": "Rank feedback by reach times severity, not by volume, and read the rare, recent and severe items first: a critical problem is usually quiet before it gets loud."
+  },
+  "period": {
+    "from": "2026-10-02",
+    "to": "2026-10-31"
+  },
+  "items": [
+    {
+      "id": "FB-001",
+      "source": "app_review",
+      "date": "2026-10-02",
+      "rating": 5,
+      "text": "Simple and reliable. No complaints."
+    },
+    {
+      "id": "FB-002",
+      "source": "app_review",
+      "date": "2026-10-02",
+      "rating": 3,
+      "text": "The only thing I miss is scheduled weekly orders."
+    },
+    {
+      "id": "FB-003",
+      "source": "app_review",
+      "date": "2026-10-03",
+      "rating": 3,
+      "text": "Waiting five days for a reply as a paying Forkful Pass customer is unacceptable."
+    },
+    {
+      "id": "FB-004",
+      "source": "nps",
+      "date": "2026-10-03",
+      "npsScore": 6,
+      "text": "Please stop the marketing pushes, I only want the important ones."
+    },
+    {
+      "id": "FB-005",
+      "source": "support",
+      "date": "2026-10-04",
+      "plan": "Forkful Pass",
+      "text": "Cancelled Forkful Pass because of the price increase."
+    },
+    {
+      "id": "FB-006",
+      "source": "nps",
+      "date": "2026-10-05",
+      "npsScore": 2,
+      "text": "It closes itself randomly in the middle of what I'm doing."
+    },
+    {
+      "id": "FB-007",
+      "source": "app_review",
+      "date": "2026-10-06",
+      "rating": 4,
+      "text": "Other apps do this for free. Hard to keep paying."
+    },
+    {
+      "id": "FB-008",
+      "source": "support",
+      "date": "2026-10-06",
+      "plan": "Forkful Pass",
+      "text": "The price went up again and I didn't get anything new for it."
+    },
+    {
+      "id": "FB-009",
+      "source": "app_review",
+      "date": "2026-10-07",
+      "rating": 2,
+      "text": "The help center is out of date, the screenshots show the old app."
+    },
+    {
+      "id": "FB-010",
+      "source": "app_review",
+      "date": "2026-10-07",
+      "rating": 2,
+      "text": "Pricing is confusing, I don't even know which plan I'm on."
+    },
+    {
+      "id": "FB-011",
+      "source": "app_review",
+      "date": "2026-10-08",
+      "rating": 2,
+      "text": "Make the annual plan cheaper and I'll stay."
+    },
+    {
+      "id": "FB-012",
+      "source": "support",
+      "date": "2026-10-09",
+      "plan": "Free",
+      "text": "Since the update it crashes in the background and drains my battery."
+    },
+    {
+      "id": "FB-013",
+      "source": "app_review",
+      "date": "2026-10-09",
+      "rating": 3,
+      "text": "My notification settings don't save, I keep getting everything."
+    },
+    {
+      "id": "FB-014",
+      "source": "support",
+      "date": "2026-10-10",
+      "plan": "Forkful Pass",
+      "text": "Constant banners for Forkful Pass make the app feel cheap."
+    },
+    {
+      "id": "FB-015",
+      "source": "support",
+      "date": "2026-10-11",
+      "plan": "Forkful Pass",
+      "text": "Support replied with a help article that doesn't apply to me."
+    },
+    {
+      "id": "FB-016",
+      "source": "app_review",
+      "date": "2026-10-12",
+      "rating": 3,
+      "text": "Way too many push notifications. I turned them all off."
+    },
+    {
+      "id": "FB-017",
+      "source": "app_review",
+      "date": "2026-10-13",
+      "rating": 4,
+      "text": "Too expensive for what it does. Forkful Pass should be half the price."
+    },
+    {
+      "id": "FB-018",
+      "source": "app_review",
+      "date": "2026-10-13",
+      "rating": 3,
+      "text": "I paid for Forkful Pass and I still see promos for other plans."
+    },
+    {
+      "id": "FB-019",
+      "source": "app_review",
+      "date": "2026-10-13",
+      "rating": 2,
+      "text": "Paying this much, I expected more than the basics."
+    },
+    {
+      "id": "FB-020",
+      "source": "support",
+      "date": "2026-10-14",
+      "plan": "Free",
+      "text": "Unstable. It crashes at least once a day."
+    },
+    {
+      "id": "FB-021",
+      "source": "support",
+      "date": "2026-10-14",
+      "plan": "Forkful Pass",
+      "text": "Support closed my ticket without solving anything."
+    },
+    {
+      "id": "FB-022",
+      "source": "app_review",
+      "date": "2026-10-14",
+      "rating": 4,
+      "text": "My team needs scheduled weekly orders before we can roll Forkful out."
+    },
+    {
+      "id": "FB-023",
+      "source": "app_review",
+      "date": "2026-10-14",
+      "rating": 4,
+      "text": "Can you prioritize scheduled weekly orders? Upvote from me."
+    },
+    {
+      "id": "FB-024",
+      "source": "app_review",
+      "date": "2026-10-14",
+      "rating": 3,
+      "text": "Still no scheduled weekly orders? Come on."
+    },
+    {
+      "id": "FB-025",
+      "source": "app_review",
+      "date": "2026-10-15",
+      "rating": 2,
+      "text": "The app crashes every time I try to place an order."
+    },
+    {
+      "id": "FB-026",
+      "source": "nps",
+      "date": "2026-10-15",
+      "npsScore": 2,
+      "text": "Third time explaining the same problem to a new agent."
+    },
+    {
+      "id": "FB-027",
+      "source": "nps",
+      "date": "2026-10-15",
+      "npsScore": 6,
+      "text": "Why did my renewal cost 30% more than last year?"
+    },
+    {
+      "id": "FB-028",
+      "source": "nps",
+      "date": "2026-10-16",
+      "npsScore": 6,
+      "text": "The upgrade button is right where the save button used to be."
+    },
+    {
+      "id": "FB-029",
+      "source": "nps",
+      "date": "2026-10-16",
+      "npsScore": 4,
+      "text": "I get it, you want me to pay. Stop asking every five minutes."
+    },
+    {
+      "id": "FB-030",
+      "source": "app_review",
+      "date": "2026-10-17",
+      "rating": 4,
+      "text": "The 'upgrade' popup appears every time I open the app."
+    },
+    {
+      "id": "FB-031",
+      "source": "app_review",
+      "date": "2026-10-17",
+      "rating": 3,
+      "text": "I would switch to Forkful Pass in a heartbeat if you had scheduled weekly orders."
+    },
+    {
+      "id": "FB-032",
+      "source": "nps",
+      "date": "2026-10-17",
+      "npsScore": 3,
+      "text": "Crash when I tap the share button, every single time."
+    },
+    {
+      "id": "FB-033",
+      "source": "nps",
+      "date": "2026-10-18",
+      "npsScore": 3,
+      "text": "Emailed support a week ago, still no answer."
+    },
+    {
+      "id": "FB-034",
+      "source": "nps",
+      "date": "2026-10-18",
+      "npsScore": 6,
+      "text": "Ads covering the content on the free plan."
+    },
+    {
+      "id": "FB-035",
+      "source": "support",
+      "date": "2026-10-18",
+      "plan": "Forkful Pass",
+      "text": "The free tier keeps shrinking. Feels like a push to pay."
+    },
+    {
+      "id": "FB-036",
+      "source": "app_review",
+      "date": "2026-10-18",
+      "rating": 1,
+      "text": "Constant crashes on my Pixel, reinstalling didn't help."
+    },
+    {
+      "id": "FB-037",
+      "source": "support",
+      "date": "2026-10-19",
+      "plan": "Forkful Pass",
+      "text": "Every update brings a new kind of notification I didn't ask for."
+    },
+    {
+      "id": "FB-038",
+      "source": "app_review",
+      "date": "2026-10-20",
+      "rating": 1,
+      "text": "It crashes whenever I attach a photo."
+    },
+    {
+      "id": "FB-039",
+      "source": "app_review",
+      "date": "2026-10-20",
+      "rating": 3,
+      "text": "Student discount please, Forkful Pass is too pricey."
+    },
+    {
+      "id": "FB-040",
+      "source": "support",
+      "date": "2026-10-21",
+      "plan": "Forkful Pass",
+      "text": "Can't use it at all, it crashes right after the splash screen."
+    },
+    {
+      "id": "FB-041",
+      "source": "nps",
+      "date": "2026-10-21",
+      "npsScore": 4,
+      "text": "Your support team promised a callback that never came."
+    },
+    {
+      "id": "FB-042",
+      "source": "support",
+      "date": "2026-10-21",
+      "plan": "Free",
+      "text": "Every other screen is an upsell to Forkful Pass."
+    },
+    {
+      "id": "FB-043",
+      "source": "app_review",
+      "date": "2026-10-22",
+      "rating": 4,
+      "text": "ok"
+    },
+    {
+      "id": "FB-044",
+      "source": "nps",
+      "date": "2026-10-23",
+      "npsScore": 5,
+      "text": "It feels like a sales funnel more than an app now."
+    },
+    {
+      "id": "FB-045",
+      "source": "support",
+      "date": "2026-10-24",
+      "plan": "Forkful Pass",
+      "text": "I'd pay for Forkful Pass if there was a monthly option under $5."
+    },
+    {
+      "id": "FB-046",
+      "source": "app_review",
+      "date": "2026-10-25",
+      "rating": 2,
+      "text": "Chat support is a bot that goes in circles. I need a human."
+    },
+    {
+      "id": "FB-047",
+      "source": "app_review",
+      "date": "2026-10-26",
+      "rating": 1,
+      "text": "The app force closes when I rotate the screen."
+    },
+    {
+      "id": "FB-048",
+      "source": "support",
+      "date": "2026-10-26",
+      "plan": "Free",
+      "text": "I filtered for nut-free and got a dish with peanuts. My son had a reaction."
+    },
+    {
+      "id": "FB-049",
+      "source": "app_review",
+      "date": "2026-10-26",
+      "rating": 1,
+      "text": "My dog likes the colors."
+    },
+    {
+      "id": "FB-050",
+      "source": "nps",
+      "date": "2026-10-26",
+      "npsScore": 4,
+      "text": "I get three emails a day from Forkful. Unsubscribed."
+    },
+    {
+      "id": "FB-051",
+      "source": "nps",
+      "date": "2026-10-27",
+      "npsScore": 9,
+      "text": "Love Forkful, I use it every day!"
+    },
+    {
+      "id": "FB-052",
+      "source": "support",
+      "date": "2026-10-27",
+      "plan": "Forkful Pass",
+      "text": "Ordered 'dairy-free' based on your label, the restaurant says it was never dairy-free."
+    },
+    {
+      "id": "FB-053",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 1,
+      "text": "Wrong app, I meant to review a game. Sorry!"
+    },
+    {
+      "id": "FB-054",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Free",
+      "text": "A price hike without warning is not cool."
+    },
+    {
+      "id": "FB-055",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Free",
+      "text": "Crashes on launch since the latest update on my iPad."
+    },
+    {
+      "id": "FB-056",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Free",
+      "text": "scheduled weekly orders would make this perfect."
+    },
+    {
+      "id": "FB-057",
+      "source": "nps",
+      "date": "2026-10-29",
+      "npsScore": 3,
+      "text": "Opening a order makes the app crash."
+    },
+    {
+      "id": "FB-058",
+      "source": "app_review",
+      "date": "2026-10-29",
+      "rating": 5,
+      "text": "Is this the app my cousin told me about?"
+    },
+    {
+      "id": "FB-059",
+      "source": "nps",
+      "date": "2026-10-29",
+      "npsScore": 9,
+      "text": "Five stars, does exactly what I need."
+    },
+    {
+      "id": "FB-060",
+      "source": "support",
+      "date": "2026-10-29",
+      "plan": "Forkful Pass",
+      "text": "The gluten-free filter shows dishes that clearly contain wheat."
+    },
+    {
+      "id": "FB-061",
+      "source": "app_review",
+      "date": "2026-10-29",
+      "rating": 5,
+      "text": "The new design is beautiful."
+    },
+    {
+      "id": "FB-062",
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 2,
+      "text": "How do I change the language of my phone?"
+    },
+    {
+      "id": "FB-063",
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 3,
+      "text": "Love the app but I can't justify the subscription anymore."
+    },
+    {
+      "id": "FB-064",
+      "source": "nps",
+      "date": "2026-10-30",
+      "npsScore": 6,
+      "text": "Wish there was a family plan, paying for three accounts adds up."
+    },
+    {
+      "id": "FB-065",
+      "source": "nps",
+      "date": "2026-10-31",
+      "npsScore": 10,
+      "text": "Thanks to the team, this app changed my routine."
+    },
+    {
+      "id": "FB-066",
+      "source": "app_review",
+      "date": "2026-10-31",
+      "rating": 1,
+      "text": "Ticket marked 'resolved' but nobody contacted me."
+    }
+  ]
+}

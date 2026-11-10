@@ -1,0 +1,587 @@
+{
+  "id": "feedback-triage-taskhive",
+  "moduleId": "feedback-triage",
+  "seed": 4103,
+  "difficulty": "pm",
+  "company": {
+    "name": "Taskhive",
+    "industry": "SaaS B2B",
+    "stage": "Series B",
+    "description": "Project management for agencies: tasks, timelines and client portals. Agencies pay per seat on the Business plan."
+  },
+  "title": "Taskhive: a month of feedback",
+  "brief": "Taskhive's inbox for the last 30 days holds 62 pieces of feedback: app reviews, support tickets and NPS comments. The PM who used to triage it has left, and the team plans the next quarter on Monday. Group the feedback into themes, set the noise aside, flag anything critical, rank the themes by what matters, and write opportunities for the top ones.",
+  "hidden": {
+    "themes": [
+      {
+        "key": "data_leak",
+        "label": "Customers see other companies' data",
+        "severity": "critical",
+        "itemIds": [
+          "FB-062",
+          "FB-054",
+          "FB-053",
+          "FB-057"
+        ],
+        "summary": "A caching change serves some workspaces data from other workspaces. It is a data breach: confidential client work is exposed, with legal and contractual consequences.",
+        "opportunity": "How might we make it impossible for one workspace to see another's data, starting with turning off the cache and telling affected customers?"
+      },
+      {
+        "key": "login",
+        "label": "People cannot log in",
+        "severity": "high",
+        "itemIds": [
+          "FB-025",
+          "FB-039",
+          "FB-013",
+          "FB-048",
+          "FB-056",
+          "FB-058",
+          "FB-010",
+          "FB-022",
+          "FB-060"
+        ],
+        "summary": "Password resets, verification codes and social sign-in fail, and people are locked out of their own data. Every one of these users is fully blocked.",
+        "opportunity": "How might we make sure nobody stays locked out of Taskhive, with sign-in and recovery that work on the first try?"
+      },
+      {
+        "key": "performance",
+        "label": "The app got slow",
+        "severity": "medium",
+        "itemIds": [
+          "FB-032",
+          "FB-027",
+          "FB-034",
+          "FB-011",
+          "FB-049",
+          "FB-029",
+          "FB-019",
+          "FB-038",
+          "FB-028",
+          "FB-023",
+          "FB-040",
+          "FB-006",
+          "FB-061"
+        ],
+        "summary": "Load times and responsiveness got worse over recent releases. It annoys everyone a little and pushes some people away, but nobody is blocked.",
+        "opportunity": "How might we make opening Taskhive and loading tasks feel instant again, with a load-time budget every release has to meet?"
+      },
+      {
+        "key": "support",
+        "label": "Support is slow",
+        "severity": "medium",
+        "itemIds": [
+          "FB-017",
+          "FB-012",
+          "FB-016",
+          "FB-055",
+          "FB-014",
+          "FB-041",
+          "FB-020"
+        ],
+        "summary": "Slow or unhelpful support. It multiplies the pain of every other problem, but it is a symptom as much as a cause.",
+        "opportunity": "How might we answer the most common questions before people need to contact us, and reply to the rest within a day?"
+      },
+      {
+        "key": "onboarding",
+        "label": "Getting started is confusing",
+        "severity": "medium",
+        "itemIds": [
+          "FB-007",
+          "FB-002",
+          "FB-026",
+          "FB-030",
+          "FB-018"
+        ],
+        "summary": "New users struggle with the first steps. It costs activation quietly: these people rarely complain twice, they just leave.",
+        "opportunity": "How might we get a new user to assign a task in their first two minutes, without a tutorial?"
+      },
+      {
+        "key": "notifications",
+        "label": "Too many notifications",
+        "severity": "low",
+        "itemIds": [
+          "FB-043",
+          "FB-046",
+          "FB-009",
+          "FB-035",
+          "FB-031",
+          "FB-052",
+          "FB-001",
+          "FB-044",
+          "FB-047",
+          "FB-015"
+        ],
+        "summary": "Push and email volume annoys people. Easy to fix and worth fixing, but it does not stop anyone from using the product.",
+        "opportunity": "How might we let people choose which notifications they get, and send fewer that matter more?"
+      },
+      {
+        "key": "feature_request",
+        "label": "Requests for a Gantt view",
+        "severity": "low",
+        "itemIds": [
+          "FB-004",
+          "FB-005",
+          "FB-042",
+          "FB-036",
+          "FB-024",
+          "FB-037"
+        ],
+        "summary": "A popular request. It signals what people want next, but its absence does not hurt anyone today.",
+        "opportunity": "How might we find out which job a Gantt view would do for people, and whether a smaller version solves it?"
+      }
+    ],
+    "noiseItemIds": [
+      "FB-051",
+      "FB-045",
+      "FB-008",
+      "FB-033",
+      "FB-050",
+      "FB-021",
+      "FB-003",
+      "FB-059"
+    ],
+    "explanation": "The critical problem, \"Customers see other companies' data\", appears in only 4 items, all from the last 6 days. Few items, but each describes harm that grows every day it stays live, so it goes first whatever the volume. Volume alone would put \"The app got slow\" next, with 13 items, but it is a medium-severity problem. \"People cannot log in\" (9 items, high severity) and \"The app got slow\" (13 items, medium severity) hurt more people more. Impact here is reach times severity: low counts 1, medium 2, high 3 per item. 8 items were noise: praise, spam and off-topic messages that belong in no theme.",
+    "principle": "Rank feedback by reach times severity, not by volume, and read the rare, recent and severe items first: a critical problem is usually quiet before it gets loud."
+  },
+  "period": {
+    "from": "2026-10-02",
+    "to": "2026-10-31"
+  },
+  "items": [
+    {
+      "id": "FB-001",
+      "source": "support",
+      "date": "2026-10-02",
+      "plan": "Business",
+      "text": "The app nags me constantly to assign a task."
+    },
+    {
+      "id": "FB-002",
+      "source": "app_review",
+      "date": "2026-10-02",
+      "rating": 3,
+      "text": "The empty screen after signing up tells me nothing."
+    },
+    {
+      "id": "FB-003",
+      "source": "app_review",
+      "date": "2026-10-02",
+      "rating": 5,
+      "text": "Simple and reliable. No complaints."
+    },
+    {
+      "id": "FB-004",
+      "source": "support",
+      "date": "2026-10-02",
+      "plan": "Business",
+      "text": "Please add a Gantt view. It's the one thing missing."
+    },
+    {
+      "id": "FB-005",
+      "source": "support",
+      "date": "2026-10-03",
+      "plan": "Business",
+      "text": "Any plans for a Gantt view? I've been waiting a year."
+    },
+    {
+      "id": "FB-006",
+      "source": "nps",
+      "date": "2026-10-03",
+      "npsScore": 4,
+      "text": "Search is painfully slow, I can type my query faster than it returns."
+    },
+    {
+      "id": "FB-007",
+      "source": "app_review",
+      "date": "2026-10-03",
+      "rating": 2,
+      "text": "The welcome tour covers everything except what I needed."
+    },
+    {
+      "id": "FB-008",
+      "source": "app_review",
+      "date": "2026-10-03",
+      "rating": 1,
+      "text": "ok"
+    },
+    {
+      "id": "FB-009",
+      "source": "support",
+      "date": "2026-10-04",
+      "plan": "Free",
+      "text": "Way too many push notifications. I turned them all off."
+    },
+    {
+      "id": "FB-010",
+      "source": "app_review",
+      "date": "2026-10-05",
+      "rating": 1,
+      "text": "Can't log in since yesterday. It says my password is wrong but I reset it twice."
+    },
+    {
+      "id": "FB-011",
+      "source": "app_review",
+      "date": "2026-10-06",
+      "rating": 3,
+      "text": "Lag, lag, lag. Unusable on my commute."
+    },
+    {
+      "id": "FB-012",
+      "source": "support",
+      "date": "2026-10-06",
+      "plan": "Business",
+      "text": "Your support team promised a callback that never came."
+    },
+    {
+      "id": "FB-013",
+      "source": "app_review",
+      "date": "2026-10-07",
+      "rating": 1,
+      "text": "Sign in with Google just spins and sends me back to the start screen."
+    },
+    {
+      "id": "FB-014",
+      "source": "app_review",
+      "date": "2026-10-07",
+      "rating": 2,
+      "text": "Support replied with a help article that doesn't apply to me."
+    },
+    {
+      "id": "FB-015",
+      "source": "support",
+      "date": "2026-10-08",
+      "plan": "Business",
+      "text": "Too many 'we miss you' messages."
+    },
+    {
+      "id": "FB-016",
+      "source": "app_review",
+      "date": "2026-10-08",
+      "rating": 1,
+      "text": "Ticket marked 'resolved' but nobody contacted me."
+    },
+    {
+      "id": "FB-017",
+      "source": "support",
+      "date": "2026-10-08",
+      "plan": "Business",
+      "text": "Emailed support a week ago, still no answer."
+    },
+    {
+      "id": "FB-018",
+      "source": "app_review",
+      "date": "2026-10-08",
+      "rating": 1,
+      "text": "I signed up but couldn't find how to add my first task."
+    },
+    {
+      "id": "FB-019",
+      "source": "support",
+      "date": "2026-10-08",
+      "plan": "Free",
+      "text": "Taskhive takes forever to load lately. I open it and stare at a spinner for ten seconds."
+    },
+    {
+      "id": "FB-020",
+      "source": "app_review",
+      "date": "2026-10-09",
+      "rating": 3,
+      "text": "Waiting five days for a reply as a paying Business customer is unacceptable."
+    },
+    {
+      "id": "FB-021",
+      "source": "app_review",
+      "date": "2026-10-10",
+      "rating": 1,
+      "text": "first"
+    },
+    {
+      "id": "FB-022",
+      "source": "support",
+      "date": "2026-10-10",
+      "plan": "Business",
+      "text": "Logged out after the update and none of my passwords work."
+    },
+    {
+      "id": "FB-023",
+      "source": "nps",
+      "date": "2026-10-11",
+      "npsScore": 5,
+      "text": "Great idea, terrible speed. I gave up waiting to assign a task this morning."
+    },
+    {
+      "id": "FB-024",
+      "source": "support",
+      "date": "2026-10-11",
+      "plan": "Free",
+      "text": "Can you prioritize a Gantt view? Upvote from me."
+    },
+    {
+      "id": "FB-025",
+      "source": "support",
+      "date": "2026-10-11",
+      "plan": "Business",
+      "text": "Every time I open the app I have to log in again."
+    },
+    {
+      "id": "FB-026",
+      "source": "nps",
+      "date": "2026-10-12",
+      "npsScore": 6,
+      "text": "It took me twenty minutes to figure out how to assign a task."
+    },
+    {
+      "id": "FB-027",
+      "source": "nps",
+      "date": "2026-10-12",
+      "npsScore": 5,
+      "text": "Opening a single task takes several seconds now."
+    },
+    {
+      "id": "FB-028",
+      "source": "nps",
+      "date": "2026-10-13",
+      "npsScore": 4,
+      "text": "Everything feels sluggish since the last update. Scrolling through my tasks stutters."
+    },
+    {
+      "id": "FB-029",
+      "source": "support",
+      "date": "2026-10-13",
+      "plan": "Business",
+      "text": "Performance has gotten worse with every release this year."
+    },
+    {
+      "id": "FB-030",
+      "source": "app_review",
+      "date": "2026-10-14",
+      "rating": 2,
+      "text": "The tutorial is way too long and I couldn't skip it."
+    },
+    {
+      "id": "FB-031",
+      "source": "nps",
+      "date": "2026-10-14",
+      "npsScore": 7,
+      "text": "The badge count never clears, even after I read everything."
+    },
+    {
+      "id": "FB-032",
+      "source": "nps",
+      "date": "2026-10-14",
+      "npsScore": 5,
+      "text": "The app freezes for a few seconds every time I switch tabs."
+    },
+    {
+      "id": "FB-033",
+      "source": "app_review",
+      "date": "2026-10-14",
+      "rating": 5,
+      "text": "Love Taskhive, I use it every day!"
+    },
+    {
+      "id": "FB-034",
+      "source": "app_review",
+      "date": "2026-10-14",
+      "rating": 1,
+      "text": "It's slow to start and slow to sync. Please fix the speed."
+    },
+    {
+      "id": "FB-035",
+      "source": "support",
+      "date": "2026-10-15",
+      "plan": "Business",
+      "text": "I get three emails a day from Taskhive. Unsubscribed."
+    },
+    {
+      "id": "FB-036",
+      "source": "nps",
+      "date": "2026-10-16",
+      "npsScore": 5,
+      "text": "Other apps have a Gantt view, why doesn't Taskhive?"
+    },
+    {
+      "id": "FB-037",
+      "source": "app_review",
+      "date": "2026-10-16",
+      "rating": 3,
+      "text": "I would switch to Business in a heartbeat if you had a Gantt view."
+    },
+    {
+      "id": "FB-038",
+      "source": "nps",
+      "date": "2026-10-17",
+      "npsScore": 3,
+      "text": "Loading my tasks takes almost a minute on wifi. Something is wrong."
+    },
+    {
+      "id": "FB-039",
+      "source": "app_review",
+      "date": "2026-10-17",
+      "rating": 1,
+      "text": "Sign in with Apple fails with 'something went wrong'."
+    },
+    {
+      "id": "FB-040",
+      "source": "nps",
+      "date": "2026-10-17",
+      "npsScore": 2,
+      "text": "Why is the app so slow now? It used to be instant."
+    },
+    {
+      "id": "FB-041",
+      "source": "nps",
+      "date": "2026-10-18",
+      "npsScore": 6,
+      "text": "Chat support is a bot that goes in circles. I need a human."
+    },
+    {
+      "id": "FB-042",
+      "source": "support",
+      "date": "2026-10-19",
+      "plan": "Free",
+      "text": "Five stars once a Gantt view arrives."
+    },
+    {
+      "id": "FB-043",
+      "source": "support",
+      "date": "2026-10-19",
+      "plan": "Business",
+      "text": "Notifications at 6am on a Sunday? No thanks."
+    },
+    {
+      "id": "FB-044",
+      "source": "nps",
+      "date": "2026-10-19",
+      "npsScore": 4,
+      "text": "Please stop the marketing pushes, I only want the important ones."
+    },
+    {
+      "id": "FB-045",
+      "source": "app_review",
+      "date": "2026-10-21",
+      "rating": 3,
+      "text": "Is this the app my cousin told me about?"
+    },
+    {
+      "id": "FB-046",
+      "source": "support",
+      "date": "2026-10-22",
+      "plan": "Business",
+      "text": "Muted the app because of the spammy alerts."
+    },
+    {
+      "id": "FB-047",
+      "source": "app_review",
+      "date": "2026-10-24",
+      "rating": 2,
+      "text": "My notification settings don't save, I keep getting everything."
+    },
+    {
+      "id": "FB-048",
+      "source": "app_review",
+      "date": "2026-10-24",
+      "rating": 1,
+      "text": "Login loop on my Pixel: enter password, back to the login screen."
+    },
+    {
+      "id": "FB-049",
+      "source": "app_review",
+      "date": "2026-10-25",
+      "rating": 2,
+      "text": "Super laggy on my Android phone. Typing has a delay."
+    },
+    {
+      "id": "FB-050",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 2,
+      "text": "How do I change the language of my phone?"
+    },
+    {
+      "id": "FB-051",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 5,
+      "text": "Thanks to the team, this app changed my routine."
+    },
+    {
+      "id": "FB-052",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 3,
+      "text": "Stop sending me reminders every single day."
+    },
+    {
+      "id": "FB-053",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Free",
+      "text": "Search returned documents from another workspace. Is our data visible to others too?"
+    },
+    {
+      "id": "FB-054",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Free",
+      "text": "A client's confidential project showed up in our activity feed. It's not ours."
+    },
+    {
+      "id": "FB-055",
+      "source": "app_review",
+      "date": "2026-10-28",
+      "rating": 3,
+      "text": "The help center is out of date, the screenshots show the old app."
+    },
+    {
+      "id": "FB-056",
+      "source": "support",
+      "date": "2026-10-29",
+      "plan": "Business",
+      "text": "I can't get into my account to assign a task. Please help."
+    },
+    {
+      "id": "FB-057",
+      "source": "support",
+      "date": "2026-10-29",
+      "plan": "Free",
+      "text": "I'm seeing tasks from a company I've never heard of in my dashboard."
+    },
+    {
+      "id": "FB-058",
+      "source": "app_review",
+      "date": "2026-10-29",
+      "rating": 1,
+      "text": "The 'forgot password' link goes to a broken page."
+    },
+    {
+      "id": "FB-059",
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 4,
+      "text": "Earn $500 a day from home, visit my profile!!!"
+    },
+    {
+      "id": "FB-060",
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 1,
+      "text": "I can't reach my tasks because login keeps failing."
+    },
+    {
+      "id": "FB-061",
+      "source": "app_review",
+      "date": "2026-10-31",
+      "rating": 2,
+      "text": "Pages load in slow motion compared to a month ago."
+    },
+    {
+      "id": "FB-062",
+      "source": "support",
+      "date": "2026-10-31",
+      "plan": "Free",
+      "text": "I opened a shared link and landed in someone else's workspace with full access."
+    }
+  ]
+}

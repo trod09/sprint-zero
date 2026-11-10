@@ -7,6 +7,9 @@
 import type { BaseCase } from "@/core/case-engine";
 import type { ScoreResult } from "@/core/scoring";
 
+import { TriageResults } from "./feedback-triage/components/triage-results";
+import { feedbackTriageCaseSchema } from "./feedback-triage/schema";
+import { triageResultSchema } from "./feedback-triage/scoring";
 import { AbTestResults } from "./ab-test/components/ab-test-results";
 import { abTestAnswerSchema, abTestCaseSchema } from "./ab-test/schema";
 import { abTestResultSchema } from "./ab-test/scoring";
@@ -63,6 +66,14 @@ export function ModuleResults({
           report={parsed.data.report}
           answer={stored.success ? stored.data : null}
         />
+      );
+    }
+    case "feedback-triage": {
+      const caseData = feedbackTriageCaseSchema.safeParse(revealedCase);
+      const parsed = triageResultSchema.safeParse(result);
+      if (!caseData.success || !parsed.success) return null;
+      return (
+        <TriageResults caseData={caseData.data} report={parsed.data.report} />
       );
     }
     default:

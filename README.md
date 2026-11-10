@@ -17,6 +17,10 @@ Playable today:
   time, segments) that may hide a sample ratio mismatch, a novelty effect,
   Simpson's paradox, a breached guardrail or too little data, then decide
   ship, iterate or kill. 8 cases.
+- **Feedback Triage**: cluster an inbox of ~60 app reviews, support tickets
+  and NPS comments into themes, set the noise aside, flag the critical
+  problem hiding in a few recent items, rank by reach times severity and
+  write opportunities. 5 cases.
 
 ## Getting started
 
@@ -42,15 +46,16 @@ notice instead. Keys are only read on the server.
 
 ## Scripts
 
-| Command                        | What it does                                        |
-| ------------------------------ | --------------------------------------------------- |
-| `npm run dev`                  | Development server                                  |
-| `npm run check`                | Lint, typecheck and tests (run before every commit) |
-| `npm run build` / `npm start`  | Production build and server                         |
-| `npm run format`               | Prettier                                            |
-| `npm run generate:backlog`     | Rebuild the 10 Backlog Simulator cases              |
-| `npm run generate:metric-drop` | Rebuild the 5 Metric Drop cases                     |
-| `npm run generate:ab-test`     | Rebuild the 8 A/B Test Interpreter cases            |
+| Command                            | What it does                                        |
+| ---------------------------------- | --------------------------------------------------- |
+| `npm run dev`                      | Development server                                  |
+| `npm run check`                    | Lint, typecheck and tests (run before every commit) |
+| `npm run build` / `npm start`      | Production build and server                         |
+| `npm run format`                   | Prettier                                            |
+| `npm run generate:backlog`         | Rebuild the 10 Backlog Simulator cases              |
+| `npm run generate:metric-drop`     | Rebuild the 5 Metric Drop cases                     |
+| `npm run generate:ab-test`         | Rebuild the 8 A/B Test Interpreter cases            |
+| `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                 |
 
 ### Generating cases
 
@@ -73,6 +78,11 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   The builder sizes the plan, simulates the counts from the seed, retries
   until the data shows exactly the traps the case claims, and fills the
   measured numbers into the texts. The counts are public; the traps are not.
+- **Feedback Triage**: `src/modules/feedback-triage/content/themes.ts` holds a
+  library of feedback texts by theme, with product slots; `content/cases.ts`
+  picks six themes per product and adds its critical problem. The seeded
+  generator sizes each theme, sets sources, dates and ratings, and only
+  accepts inboxes with a clear top three where volume and impact disagree.
 
 ## How it works
 
@@ -92,6 +102,7 @@ src/
     backlog/           schema, generator, optimal sprint, scoring, UI
     metric-drop/       schema, data generator, queries, scoring, UI
     ab-test/           schema, statistics, simulation, scoring, UI
+    feedback-triage/   schema, theme library, generator, board, scoring, UI
 ```
 
 - **Ground truth stays on the server.** Cases are read only through
@@ -134,4 +145,4 @@ Or from the terminal with the Vercel CLI: `npx vercel` for a preview and
 `MASTER_PROMPT.md` describes the product, the architecture and the phased
 plan. Phase 1 covered the core, the Backlog Simulator and Metric Drop,
 without accounts. Phase 2 (in progress) adds more modules (A/B Test
-Interpreter so far), accounts and automatic case generation.
+Interpreter and Feedback Triage so far), accounts and automatic case generation.

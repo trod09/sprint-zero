@@ -16,16 +16,6 @@ export const comingSoonModules: readonly ModuleMeta[] = [
     icon: "product-case",
   },
   {
-    id: "feedback-triage",
-    name: "Feedback Triage",
-    tagline: "Find the signal in 60 reviews, tickets and NPS comments.",
-    description:
-      "Cluster a noisy inbox into themes, spot the one problem that really matters, and turn it into product opportunities.",
-    skills: ["product_sense", "analytics"],
-    status: "coming_soon",
-    icon: "feedback-triage",
-  },
-  {
     id: "prd-writer",
     name: "PRD Writer",
     tagline: "Turn a brief into a sharp one-pager.",

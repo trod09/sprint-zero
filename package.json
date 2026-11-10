@@ -15,7 +15,8 @@
     "check": "npm run lint && npm run typecheck && npm run test",
     "generate:backlog": "tsx --conditions=react-server scripts/generate-backlog-cases.ts",
     "generate:metric-drop": "tsx --conditions=react-server scripts/generate-metric-drop-cases.ts",
-    "generate:ab-test": "tsx --conditions=react-server scripts/generate-ab-test-cases.ts"
+    "generate:ab-test": "tsx --conditions=react-server scripts/generate-ab-test-cases.ts",
+    "generate:feedback-triage": "tsx --conditions=react-server scripts/generate-feedback-triage-cases.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",

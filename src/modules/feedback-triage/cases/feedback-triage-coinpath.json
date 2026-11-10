@@ -1,0 +1,587 @@
+{
+  "id": "feedback-triage-coinpath",
+  "moduleId": "feedback-triage",
+  "seed": 4102,
+  "difficulty": "pm",
+  "company": {
+    "name": "Coinpath",
+    "industry": "Fintech",
+    "stage": "Series B",
+    "description": "A budgeting app with a debit card. Every card payment shows up instantly and is sorted into budgets. Coinpath Premium adds savings goals and cashback."
+  },
+  "title": "Coinpath: a month of feedback",
+  "brief": "Coinpath's inbox for the last 30 days holds 62 pieces of feedback: app reviews, support tickets and NPS comments. The PM who used to triage it has left, and the team plans the next quarter on Monday. Group the feedback into themes, set the noise aside, flag anything critical, rank the themes by what matters, and write opportunities for the top ones.",
+  "hidden": {
+    "themes": [
+      {
+        "key": "double_charges",
+        "label": "Card payments are charged twice",
+        "severity": "critical",
+        "itemIds": [
+          "FB-055",
+          "FB-062",
+          "FB-053",
+          "FB-049"
+        ],
+        "summary": "A retry in the card processor duplicates some payments, and the money really leaves the account. It is a regulatory and trust incident: people cannot pay rent with money they do not have.",
+        "opportunity": "How might we stop duplicate charges today, refund every affected customer automatically and tell them before they notice?"
+      },
+      {
+        "key": "login",
+        "label": "People cannot log in",
+        "severity": "high",
+        "itemIds": [
+          "FB-017",
+          "FB-020",
+          "FB-059",
+          "FB-060",
+          "FB-050",
+          "FB-016",
+          "FB-004"
+        ],
+        "summary": "Password resets, verification codes and social sign-in fail, and people are locked out of their own data. Every one of these users is fully blocked.",
+        "opportunity": "How might we make sure nobody stays locked out of Coinpath, with sign-in and recovery that work on the first try?"
+      },
+      {
+        "key": "performance",
+        "label": "The app got slow",
+        "severity": "medium",
+        "itemIds": [
+          "FB-044",
+          "FB-034",
+          "FB-051",
+          "FB-011",
+          "FB-023",
+          "FB-052",
+          "FB-009",
+          "FB-022",
+          "FB-019"
+        ],
+        "summary": "Load times and responsiveness got worse over recent releases. It annoys everyone a little and pushes some people away, but nobody is blocked.",
+        "opportunity": "How might we make opening Coinpath and loading transactions feel instant again, with a load-time budget every release has to meet?"
+      },
+      {
+        "key": "pricing",
+        "label": "The price feels too high",
+        "severity": "low",
+        "itemIds": [
+          "FB-039",
+          "FB-048",
+          "FB-046",
+          "FB-037",
+          "FB-014",
+          "FB-002",
+          "FB-042",
+          "FB-018",
+          "FB-001",
+          "FB-061",
+          "FB-021",
+          "FB-015",
+          "FB-032"
+        ],
+        "summary": "Complaints about the price and the last increase. Loud and frequent, but people still use the product; it is a positioning question, not a broken experience.",
+        "opportunity": "How might we make the value of Coinpath Premium obvious before renewal, so the price feels earned?"
+      },
+      {
+        "key": "support",
+        "label": "Support is slow",
+        "severity": "medium",
+        "itemIds": [
+          "FB-005",
+          "FB-012",
+          "FB-028",
+          "FB-036",
+          "FB-040"
+        ],
+        "summary": "Slow or unhelpful support. It multiplies the pain of every other problem, but it is a symptom as much as a cause.",
+        "opportunity": "How might we answer the most common questions before people need to contact us, and reply to the rest within a day?"
+      },
+      {
+        "key": "feature_request",
+        "label": "Requests for shared budgets with a partner",
+        "severity": "low",
+        "itemIds": [
+          "FB-025",
+          "FB-003",
+          "FB-038",
+          "FB-056",
+          "FB-043",
+          "FB-033",
+          "FB-054",
+          "FB-024",
+          "FB-057",
+          "FB-031"
+        ],
+        "summary": "A popular request. It signals what people want next, but its absence does not hurt anyone today.",
+        "opportunity": "How might we find out which job shared budgets with a partner would do for people, and whether a smaller version solves it?"
+      },
+      {
+        "key": "upsell",
+        "label": "Upsells are pushy",
+        "severity": "low",
+        "itemIds": [
+          "FB-045",
+          "FB-008",
+          "FB-013",
+          "FB-058",
+          "FB-026",
+          "FB-010"
+        ],
+        "summary": "Upgrade prompts feel aggressive. It erodes goodwill, but nobody is blocked.",
+        "opportunity": "How might we show Coinpath Premium at the moment someone needs it, instead of on every screen?"
+      }
+    ],
+    "noiseItemIds": [
+      "FB-007",
+      "FB-030",
+      "FB-047",
+      "FB-027",
+      "FB-029",
+      "FB-035",
+      "FB-006",
+      "FB-041"
+    ],
+    "explanation": "The critical problem, \"Card payments are charged twice\", appears in only 4 items, all from the last 6 days. Few items, but each describes harm that grows every day it stays live, so it goes first whatever the volume. Volume alone would put \"The price feels too high\" next, with 13 items, but it is a low-severity problem. \"People cannot log in\" (7 items, high severity) and \"The app got slow\" (9 items, medium severity) hurt more people more. Impact here is reach times severity: low counts 1, medium 2, high 3 per item. 8 items were noise: praise, spam and off-topic messages that belong in no theme.",
+    "principle": "Rank feedback by reach times severity, not by volume, and read the rare, recent and severe items first: a critical problem is usually quiet before it gets loud."
+  },
+  "period": {
+    "from": "2026-10-02",
+    "to": "2026-10-31"
+  },
+  "items": [
+    {
+      "id": "FB-001",
+      "source": "support",
+      "date": "2026-10-02",
+      "plan": "Free",
+      "text": "The price went up again and I didn't get anything new for it."
+    },
+    {
+      "id": "FB-002",
+      "source": "nps",
+      "date": "2026-10-03",
+      "npsScore": 7,
+      "text": "Other apps do this for free. Hard to keep paying."
+    },
+    {
+      "id": "FB-003",
+      "source": "support",
+      "date": "2026-10-03",
+      "plan": "Free",
+      "text": "Any plans for shared budgets with a partner? I've been waiting a year."
+    },
+    {
+      "id": "FB-004",
+      "source": "app_review",
+      "date": "2026-10-04",
+      "rating": 1,
+      "text": "My session expires every few minutes, I have to sign in constantly."
+    },
+    {
+      "id": "FB-005",
+      "source": "nps",
+      "date": "2026-10-04",
+      "npsScore": 3,
+      "text": "No phone number, no live chat, just a form."
+    },
+    {
+      "id": "FB-006",
+      "source": "app_review",
+      "date": "2026-10-04",
+      "rating": 5,
+      "text": "Simple and reliable. No complaints."
+    },
+    {
+      "id": "FB-007",
+      "source": "nps",
+      "date": "2026-10-05",
+      "npsScore": 9,
+      "text": "Five stars, does exactly what I need."
+    },
+    {
+      "id": "FB-008",
+      "source": "app_review",
+      "date": "2026-10-06",
+      "rating": 3,
+      "text": "I get it, you want me to pay. Stop asking every five minutes."
+    },
+    {
+      "id": "FB-009",
+      "source": "app_review",
+      "date": "2026-10-07",
+      "rating": 2,
+      "text": "Pages load in slow motion compared to a month ago."
+    },
+    {
+      "id": "FB-010",
+      "source": "app_review",
+      "date": "2026-10-08",
+      "rating": 3,
+      "text": "Constant banners for Coinpath Premium make the app feel cheap."
+    },
+    {
+      "id": "FB-011",
+      "source": "app_review",
+      "date": "2026-10-08",
+      "rating": 2,
+      "text": "Opening a single transaction takes several seconds now."
+    },
+    {
+      "id": "FB-012",
+      "source": "nps",
+      "date": "2026-10-08",
+      "npsScore": 5,
+      "text": "Support replied with a help article that doesn't apply to me."
+    },
+    {
+      "id": "FB-013",
+      "source": "app_review",
+      "date": "2026-10-09",
+      "rating": 2,
+      "text": "Ads covering the content on the free plan."
+    },
+    {
+      "id": "FB-014",
+      "source": "support",
+      "date": "2026-10-09",
+      "plan": "Coinpath Premium",
+      "text": "Pricing is confusing, I don't even know which plan I'm on."
+    },
+    {
+      "id": "FB-015",
+      "source": "app_review",
+      "date": "2026-10-10",
+      "rating": 3,
+      "text": "I'd pay for Coinpath Premium if there was a monthly option under $5."
+    },
+    {
+      "id": "FB-016",
+      "source": "app_review",
+      "date": "2026-10-10",
+      "rating": 1,
+      "text": "The 'forgot password' link goes to a broken page."
+    },
+    {
+      "id": "FB-017",
+      "source": "app_review",
+      "date": "2026-10-11",
+      "rating": 1,
+      "text": "Locked out of my account for three days now. Nobody has helped."
+    },
+    {
+      "id": "FB-018",
+      "source": "support",
+      "date": "2026-10-13",
+      "plan": "Free",
+      "text": "Too expensive for what it does. Coinpath Premium should be half the price."
+    },
+    {
+      "id": "FB-019",
+      "source": "support",
+      "date": "2026-10-15",
+      "plan": "Free",
+      "text": "Great idea, terrible speed. I gave up waiting to check my balance this morning."
+    },
+    {
+      "id": "FB-020",
+      "source": "nps",
+      "date": "2026-10-17",
+      "npsScore": 1,
+      "text": "Sign in with Google just spins and sends me back to the start screen."
+    },
+    {
+      "id": "FB-021",
+      "source": "support",
+      "date": "2026-10-18",
+      "plan": "Free",
+      "text": "The free tier keeps shrinking. Feels like a push to pay."
+    },
+    {
+      "id": "FB-022",
+      "source": "nps",
+      "date": "2026-10-18",
+      "npsScore": 4,
+      "text": "Search is painfully slow, I can type my query faster than it returns."
+    },
+    {
+      "id": "FB-023",
+      "source": "app_review",
+      "date": "2026-10-18",
+      "rating": 2,
+      "text": "Lag, lag, lag. Unusable on my commute."
+    },
+    {
+      "id": "FB-024",
+      "source": "nps",
+      "date": "2026-10-18",
+      "npsScore": 5,
+      "text": "My team needs shared budgets with a partner before we can roll Coinpath out."
+    },
+    {
+      "id": "FB-025",
+      "source": "support",
+      "date": "2026-10-19",
+      "plan": "Coinpath Premium",
+      "text": "shared budgets with a partner would make this perfect."
+    },
+    {
+      "id": "FB-026",
+      "source": "app_review",
+      "date": "2026-10-19",
+      "rating": 2,
+      "text": "The upgrade button is right where the save button used to be."
+    },
+    {
+      "id": "FB-027",
+      "source": "nps",
+      "date": "2026-10-19",
+      "npsScore": 9,
+      "text": "The new design is beautiful."
+    },
+    {
+      "id": "FB-028",
+      "source": "nps",
+      "date": "2026-10-20",
+      "npsScore": 4,
+      "text": "Your support team promised a callback that never came."
+    },
+    {
+      "id": "FB-029",
+      "source": "app_review",
+      "date": "2026-10-20",
+      "rating": 4,
+      "text": "My dog likes the colors."
+    },
+    {
+      "id": "FB-030",
+      "source": "app_review",
+      "date": "2026-10-20",
+      "rating": 5,
+      "text": "Thanks to the team, this app changed my routine."
+    },
+    {
+      "id": "FB-031",
+      "source": "support",
+      "date": "2026-10-21",
+      "plan": "Coinpath Premium",
+      "text": "Five stars once shared budgets with a partner arrives."
+    },
+    {
+      "id": "FB-032",
+      "source": "app_review",
+      "date": "2026-10-22",
+      "rating": 2,
+      "text": "Why did my renewal cost 30% more than last year?"
+    },
+    {
+      "id": "FB-033",
+      "source": "support",
+      "date": "2026-10-22",
+      "plan": "Free",
+      "text": "Still no shared budgets with a partner? Come on."
+    },
+    {
+      "id": "FB-034",
+      "source": "nps",
+      "date": "2026-10-23",
+      "npsScore": 2,
+      "text": "Why is the app so slow now? It used to be instant."
+    },
+    {
+      "id": "FB-035",
+      "source": "app_review",
+      "date": "2026-10-23",
+      "rating": 4,
+      "text": "Earn $500 a day from home, visit my profile!!!"
+    },
+    {
+      "id": "FB-036",
+      "source": "app_review",
+      "date": "2026-10-23",
+      "rating": 2,
+      "text": "Support closed my ticket without solving anything."
+    },
+    {
+      "id": "FB-037",
+      "source": "support",
+      "date": "2026-10-24",
+      "plan": "Coinpath Premium",
+      "text": "Love the app but I can't justify the subscription anymore."
+    },
+    {
+      "id": "FB-038",
+      "source": "app_review",
+      "date": "2026-10-24",
+      "rating": 3,
+      "text": "I would switch to Coinpath Premium in a heartbeat if you had shared budgets with a partner."
+    },
+    {
+      "id": "FB-039",
+      "source": "app_review",
+      "date": "2026-10-24",
+      "rating": 3,
+      "text": "Make the annual plan cheaper and I'll stay."
+    },
+    {
+      "id": "FB-040",
+      "source": "nps",
+      "date": "2026-10-24",
+      "npsScore": 3,
+      "text": "Ticket marked 'resolved' but nobody contacted me."
+    },
+    {
+      "id": "FB-041",
+      "source": "app_review",
+      "date": "2026-10-25",
+      "rating": 4,
+      "text": "Free gift cards on my channel, link in bio."
+    },
+    {
+      "id": "FB-042",
+      "source": "nps",
+      "date": "2026-10-25",
+      "npsScore": 5,
+      "text": "Cancelled Coinpath Premium because of the price increase."
+    },
+    {
+      "id": "FB-043",
+      "source": "app_review",
+      "date": "2026-10-26",
+      "rating": 3,
+      "text": "Other apps have shared budgets with a partner, why doesn't Coinpath?"
+    },
+    {
+      "id": "FB-044",
+      "source": "support",
+      "date": "2026-10-26",
+      "plan": "Coinpath Premium",
+      "text": "Performance has gotten worse with every release this year."
+    },
+    {
+      "id": "FB-045",
+      "source": "app_review",
+      "date": "2026-10-26",
+      "rating": 2,
+      "text": "The trial reminder popup can't be dismissed."
+    },
+    {
+      "id": "FB-046",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 4,
+      "text": "Student discount please, Coinpath Premium is too pricey."
+    },
+    {
+      "id": "FB-047",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 4,
+      "text": "Is this the app my cousin told me about?"
+    },
+    {
+      "id": "FB-048",
+      "source": "app_review",
+      "date": "2026-10-27",
+      "rating": 2,
+      "text": "Wish there was a family plan, paying for three accounts adds up."
+    },
+    {
+      "id": "FB-049",
+      "source": "support",
+      "date": "2026-10-27",
+      "plan": "Free",
+      "text": "My card payment went through twice at the supermarket, $86 each. That's rent money."
+    },
+    {
+      "id": "FB-050",
+      "source": "app_review",
+      "date": "2026-10-28",
+      "rating": 1,
+      "text": "I can't get into my account to check my balance. Please help."
+    },
+    {
+      "id": "FB-051",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Coinpath Premium",
+      "text": "Loading my transactions takes almost a minute on wifi. Something is wrong."
+    },
+    {
+      "id": "FB-052",
+      "source": "nps",
+      "date": "2026-10-28",
+      "npsScore": 4,
+      "text": "It's slow to start and slow to sync. Please fix the speed."
+    },
+    {
+      "id": "FB-053",
+      "source": "support",
+      "date": "2026-10-28",
+      "plan": "Free",
+      "text": "I was charged twice for the same coffee and the app shows both."
+    },
+    {
+      "id": "FB-054",
+      "source": "support",
+      "date": "2026-10-29",
+      "plan": "Free",
+      "text": "I'd use Coinpath daily if it had shared budgets with a partner."
+    },
+    {
+      "id": "FB-055",
+      "source": "app_review",
+      "date": "2026-10-29",
+      "rating": 1,
+      "text": "Every card payment this week appears twice and the money is actually gone."
+    },
+    {
+      "id": "FB-056",
+      "source": "app_review",
+      "date": "2026-10-29",
+      "rating": 3,
+      "text": "Please add shared budgets with a partner. It's the one thing missing."
+    },
+    {
+      "id": "FB-057",
+      "source": "app_review",
+      "date": "2026-10-29",
+      "rating": 3,
+      "text": "Can you prioritize shared budgets with a partner? Upvote from me."
+    },
+    {
+      "id": "FB-058",
+      "source": "support",
+      "date": "2026-10-29",
+      "plan": "Coinpath Premium",
+      "text": "Too many prompts to rate the app and upgrade."
+    },
+    {
+      "id": "FB-059",
+      "source": "nps",
+      "date": "2026-10-30",
+      "npsScore": 3,
+      "text": "Logged out after the update and none of my passwords work."
+    },
+    {
+      "id": "FB-060",
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 1,
+      "text": "Login loop on my Android phone: enter password, back to the login screen."
+    },
+    {
+      "id": "FB-061",
+      "source": "app_review",
+      "date": "2026-10-30",
+      "rating": 3,
+      "text": "Paying this much, I expected more than the basics."
+    },
+    {
+      "id": "FB-062",
+      "source": "support",
+      "date": "2026-10-31",
+      "plan": "Coinpath Premium",
+      "text": "Duplicate charge on my subscription renewal, and nobody answers."
+    }
+  ]
+}

@@ -5,6 +5,8 @@
  */
 import type { PublicBaseCase } from "@/core/case-engine";
 
+import { TriageCaseView } from "./feedback-triage/components/triage-case-view";
+import { publicFeedbackTriageCaseSchema } from "./feedback-triage/schema";
 import { AbTestCaseView } from "./ab-test/components/ab-test-case-view";
 import { publicAbTestCaseSchema } from "./ab-test/schema";
 import { BacklogCaseView } from "./backlog/components/backlog-case-view";
@@ -39,6 +41,13 @@ export function CaseView({
       return (
         <AbTestCaseView
           publicCase={publicAbTestCaseSchema.parse(publicCase)}
+          submit={submit}
+        />
+      );
+    case "feedback-triage":
+      return (
+        <TriageCaseView
+          publicCase={publicFeedbackTriageCaseSchema.parse(publicCase)}
           submit={submit}
         />
       );
