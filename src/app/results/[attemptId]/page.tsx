@@ -5,6 +5,7 @@ import { submitAttempt } from "@/app/actions/attempts";
 import { requestFeedback } from "@/app/actions/feedback";
 import { AttemptResults } from "@/components/attempt-results";
 import { getMessages } from "@/i18n";
+import { listCaseSummaries } from "@/modules/case-summaries.server";
 
 export const metadata: Metadata = { title: "Results" };
 
@@ -26,11 +27,13 @@ async function Results({
   params: PageProps<"/results/[attemptId]">["params"];
 }) {
   const { attemptId } = await params;
+  const catalog = await listCaseSummaries();
   return (
     <AttemptResults
       attemptId={attemptId}
       rescore={submitAttempt}
       requestFeedback={requestFeedback}
+      catalog={catalog}
     />
   );
 }

@@ -34,6 +34,16 @@ Playable today:
   metric with baseline, target and time frame, scope and non-goals, risks
   with mitigations and open questions. 3 cases.
 
+## Look and feel
+
+An arcade retro skin, dark by default: Pixelify Sans for titles and short
+labels, Nunito for reading, solid pixel shadows and pressable buttons. Each
+module is a "world" with its own color and a pixel banner drawn from a seed.
+Kanbo, a sticky-note robot, greets you and leaves a tip in every brief. XP,
+levels, streaks, stars and badges are computed from your attempts. Sound
+effects are synthesized and off by default; motion respects
+`prefers-reduced-motion`. Every token and component is on `/styleguide`.
+
 ## Getting started
 
 Requirements: Node 20 or later (developed on Node 24) and npm.

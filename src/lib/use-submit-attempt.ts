@@ -11,6 +11,8 @@ import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
 import { ATTEMPT_SCHEMA_VERSION, getAttemptStore } from "@/core/storage";
 
+import { notifyAttemptsChanged } from "./use-attempts";
+
 export type SubmitAttempt = (input: unknown) => Promise<SubmissionOutcome>;
 
 export function useSubmitAttempt({
@@ -71,6 +73,7 @@ export function useSubmitAttempt({
         setInlineResult(outcome.result);
         return;
       }
+      notifyAttemptsChanged();
       router.push(`/results/${attemptId}`);
     });
   };

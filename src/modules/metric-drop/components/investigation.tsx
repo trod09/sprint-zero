@@ -22,6 +22,7 @@ import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
 import { getAttemptStore } from "@/core/storage";
 import { getMessages } from "@/i18n";
+import { notifyAttemptsChanged } from "@/lib/use-attempts";
 import { useIsClient } from "@/lib/use-is-client";
 import { cn } from "@/lib/utils";
 
@@ -346,6 +347,7 @@ function Dashboard({
         return;
       }
       clearDraft(publicCase.id);
+      notifyAttemptsChanged();
       router.push(`/results/${attemptId}`);
     });
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, RotateCcw } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -8,13 +8,16 @@ import {
   AIFeedbackPanel,
   type RequestFeedback,
 } from "@/components/ai-feedback-panel";
-import { ScoreBreakdown } from "@/components/score-breakdown";
+import { ResultScreen } from "@/components/arcade/result-screen";
+import type { CaseSummary } from "@/components/case-library";
 import { Button } from "@/components/ui/button";
 import type { BaseCase } from "@/core/case-engine";
 import type { SubmissionOutcome } from "@/core/case-engine/submission";
+import { rewardFor, type AttemptReward } from "@/core/progress";
 import type { ScoreResult } from "@/core/scoring";
 import { getAttemptStore, type Attempt } from "@/core/storage";
 import { getMessages } from "@/i18n";
+import { toProgressAttempts } from "@/lib/use-progress";
 import { getModuleMeta } from "@/modules/catalog";
 import { ModuleResults } from "@/modules/results-view";
 
@@ -29,12 +32,33 @@ type State =
       attempt: Attempt;
       result: ScoreResult;
       revealedCase: BaseCase;
+      reward: AttemptReward | null;
+      nextHref: string;
     };
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   dateStyle: "medium",
   timeStyle: "short",
 });
+
+/**
+ * The next case to play: the next unplayed case of the same module, then any
+ * unplayed case, then the module page.
+ */
+export function nextCaseHref(
+  caseId: string,
+  moduleId: string,
+  catalog: readonly CaseSummary[],
+  attempts: readonly Attempt[],
+): string {
+  const played = new Set(attempts.map((a) => a.caseId));
+  const index = catalog.findIndex((c) => c.id === caseId);
+  const after = [...catalog.slice(index + 1), ...catalog.slice(0, index + 1)];
+  const next =
+    after.find((c) => c.moduleId === moduleId && !played.has(c.id)) ??
+    after.find((c) => !played.has(c.id));
+  return next ? `/case/${next.id}` : `/modules/${moduleId}`;
+}
 
 /**
  * Results of a stored attempt. The attempt (answer) lives in this browser; the
@@ -45,10 +69,13 @@ export function AttemptResults({
   attemptId,
   rescore,
   requestFeedback,
+  catalog,
 }: {
   attemptId: string;
   rescore: Rescore;
   requestFeedback: RequestFeedback;
+  /** Every curated case, for XP, badges and the next case. */
+  catalog: readonly CaseSummary[];
 }) {
   const messages = getMessages();
   const copy = messages.results;
@@ -73,16 +100,30 @@ export function AttemptResults({
           answer: attempt.answer,
         });
         if (cancelled) return;
-        setState(
-          outcome.ok
-            ? {
-                name: "ready",
-                attempt,
-                result: outcome.result,
-                revealedCase: outcome.revealedCase,
-              }
-            : { name: "error" },
-        );
+        if (!outcome.ok) {
+          setState({ name: "error" });
+          return;
+        }
+        let all: Attempt[];
+        try {
+          all = await getAttemptStore().listAttempts();
+        } catch {
+          all = [attempt];
+        }
+        if (cancelled) return;
+        setState({
+          name: "ready",
+          attempt,
+          result: outcome.result,
+          revealedCase: outcome.revealedCase,
+          reward: rewardFor(toProgressAttempts(all), attempt.id, catalog),
+          nextHref: nextCaseHref(
+            attempt.caseId,
+            outcome.revealedCase.moduleId,
+            catalog,
+            all,
+          ),
+        });
       } catch {
         if (!cancelled) setState({ name: "error" });
       }
@@ -90,7 +131,7 @@ export function AttemptResults({
     return () => {
       cancelled = true;
     };
-  }, [attemptId, rescore]);
+  }, [attemptId, rescore, catalog]);
 
   if (state.name === "loading") {
     return (
@@ -135,44 +176,15 @@ export function AttemptResults({
         </Link>
       )}
 
-      <header className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
-        <div className="bg-card animate-in fade-in-0 slide-in-from-bottom-2 rounded-xl border p-6 duration-500">
-          <p className="text-muted-foreground text-sm">
-            {revealedCase.company.name} · {revealedCase.company.industry} ·{" "}
-            {messages.difficulty[revealedCase.difficulty]}
-          </p>
-          <h1 className="font-heading mt-1 text-xl font-semibold tracking-tight text-balance">
-            {revealedCase.title}
-          </h1>
-          <p className="mt-4 flex items-baseline gap-1">
-            <span className="sr-only">{copy.score}: </span>
-            <span className="font-heading text-6xl font-semibold tabular-nums">
-              {result.total}
-            </span>
-            <span className="text-muted-foreground text-xl">{copy.outOf}</span>
-          </p>
-          <p className="text-muted-foreground mt-2 text-xs">
-            {copy.playedOn(dateFormat.format(new Date(attempt.submittedAt)))}
-          </p>
-          <Button asChild variant="outline" className="mt-5">
-            <Link href={`/case/${revealedCase.id}`}>
-              <RotateCcw aria-hidden="true" />
-              {copy.retry}
-            </Link>
-          </Button>
-        </div>
-        <section
-          aria-labelledby="breakdown-title"
-          className="bg-card rounded-xl border p-6"
-        >
-          <h2 id="breakdown-title" className="font-heading font-semibold">
-            {copy.breakdown}
-          </h2>
-          <div className="mt-4">
-            <ScoreBreakdown criteria={result.criteria} />
-          </div>
-        </section>
-      </header>
+      <ResultScreen
+        moduleId={revealedCase.moduleId}
+        title={revealedCase.title}
+        subtitle={`${revealedCase.company.name} · ${revealedCase.company.industry} · ${messages.difficulty[revealedCase.difficulty]} · ${copy.playedOn(dateFormat.format(new Date(attempt.submittedAt)))}`}
+        result={result}
+        reward={state.reward}
+        nextHref={state.nextHref}
+        playAgainHref={`/case/${revealedCase.id}`}
+      />
 
       <AIFeedbackPanel attempt={attempt} requestFeedback={requestFeedback} />
 

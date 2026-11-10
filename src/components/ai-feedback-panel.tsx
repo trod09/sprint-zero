@@ -75,10 +75,7 @@ export function AIFeedbackPanel({
     });
 
   return (
-    <section
-      aria-labelledby="ai-feedback-title"
-      className="bg-card rounded-xl border p-5"
-    >
+    <section aria-labelledby="ai-feedback-title" className="pixel-card p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2
