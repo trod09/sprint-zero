@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  addedTickets,
+  capacityAfterEvents,
   fillSprint,
   initialPlanningState,
   orderByMoscow,
@@ -8,6 +10,8 @@ import {
   planningStateSchema,
   rankByRice,
   riceScore,
+  planningDraftSchema,
+  sanitizePlanningDraft,
   sanitizePlanningState,
   splitByCapacity,
   type PlanningAction,
@@ -249,5 +253,76 @@ describe("sanitizePlanningState", () => {
     expect(planningStateSchema.safeParse({ sprint: "AB-1" }).success).toBe(
       false,
     );
+  });
+});
+
+describe("planning draft", () => {
+  const event = {
+    id: "event-1",
+    type: "production_outage" as const,
+    title: "Outage",
+    description: "Something broke.",
+    capacityDelta: -4,
+    addedTicket: {
+      id: "AB-9",
+      title: "Hotfix",
+      description: "Fix it.",
+      type: "bug" as const,
+      requester: "Eng – Test",
+      stakeholderId: "engineering",
+      effort: 3,
+      visible: {},
+    },
+  };
+  const backlog = new Set(["AB-1", "AB-2", "AB-3"]);
+
+  it("knows the tickets and capacity events bring", () => {
+    expect(addedTickets([event]).map((t) => t.id)).toEqual(["AB-9"]);
+    expect(
+      capacityAfterEvents(20, [event, { ...event, capacityDelta: -6 }]),
+    ).toBe(10);
+    expect(capacityAfterEvents(3, [event])).toBe(0);
+  });
+
+  it("keeps added tickets once the sprint is committed", () => {
+    const draft = planningDraftSchema.parse({
+      planning: {
+        ...initialPlanningState,
+        sprint: ["AB-1", "AB-9", "ZZ-1"],
+      },
+      committed: { sprint: ["AB-1", "ZZ-1"], events: [event] },
+    });
+    const clean = sanitizePlanningDraft(draft, backlog);
+    expect(clean.planning.sprint).toEqual(["AB-1", "AB-9"]);
+    expect(clean.committed?.sprint).toEqual(["AB-1"]);
+  });
+
+  it("drops added tickets and a broken commit when the sprint has not started", () => {
+    const notCommitted = sanitizePlanningDraft(
+      planningDraftSchema.parse({
+        planning: { ...initialPlanningState, sprint: ["AB-1", "AB-9"] },
+      }),
+      backlog,
+    );
+    expect(notCommitted.planning.sprint).toEqual(["AB-1"]);
+
+    const broken = sanitizePlanningDraft(
+      planningDraftSchema.parse({
+        planning: { ...initialPlanningState, sprint: ["AB-9"] },
+        committed: { sprint: ["ZZ-1"], events: [event] },
+      }),
+      backlog,
+    );
+    expect(broken.committed).toBeUndefined();
+    expect(broken.planning.sprint).toEqual([]);
+  });
+
+  it("resets to an empty plan", () => {
+    const state = run(
+      { type: "add_to_sprint", id: "AB-1" },
+      { type: "set_method", method: "rice" },
+      { type: "reset" },
+    );
+    expect(state).toEqual(initialPlanningState);
   });
 });

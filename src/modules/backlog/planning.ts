@@ -9,9 +9,11 @@ import { z } from "zod";
 
 import {
   planningMethodSchema,
+  publicMidSprintEventSchema,
   ticketIdSchema,
   ticketMarkSchema,
   type PlanningMethod,
+  type PublicMidSprintEvent,
   type TicketMark,
 } from "./schema";
 
@@ -198,7 +200,8 @@ export type PlanningAction =
   | { type: "mark"; id: string; mark: TicketMark }
   | { type: "unmark"; id: string }
   | { type: "set_rice"; id: string; input: RiceInput }
-  | { type: "set_moscow"; id: string; bucket: MoscowBucket | null };
+  | { type: "set_moscow"; id: string; bucket: MoscowBucket | null }
+  | { type: "reset" };
 
 function without<T>(record: Record<string, T>, key: string): Record<string, T> {
   if (!(key in record)) return record;
@@ -290,6 +293,9 @@ export function planningReducer(
       };
     }
 
+    case "reset":
+      return initialPlanningState;
+
     case "set_moscow":
       return {
         ...state,
@@ -325,5 +331,69 @@ export function sanitizePlanningState(
     marks,
     rice: keep(state.rice),
     moscow: keep(state.moscow),
+  };
+}
+
+// --------------------------------------------------------------------- draft
+
+/** Everything needed to resume a case after a reload. */
+export const planningDraftSchema = z.object({
+  planning: planningStateSchema,
+  /** Set once the first sprint is committed and the events are known. */
+  committed: z
+    .object({
+      sprint: z.array(ticketIdSchema).min(1),
+      events: z.array(publicMidSprintEventSchema).min(1).max(2),
+    })
+    .optional(),
+});
+export type PlanningDraft = z.infer<typeof planningDraftSchema>;
+
+export const initialPlanningDraft: PlanningDraft = {
+  planning: initialPlanningState,
+};
+
+/** Tickets added by events join the backlog once the sprint has started. */
+export function addedTickets(events: readonly PublicMidSprintEvent[]) {
+  return events.flatMap((event) =>
+    event.addedTicket ? [event.addedTicket] : [],
+  );
+}
+
+/** Capacity for the rest of the sprint once the events have happened. */
+export function capacityAfterEvents(
+  capacity: number,
+  events: readonly PublicMidSprintEvent[],
+): number {
+  return Math.max(
+    0,
+    events.reduce((total, event) => total + event.capacityDelta, capacity),
+  );
+}
+
+/** Validates a saved draft against the case's tickets. */
+export function sanitizePlanningDraft(
+  draft: PlanningDraft,
+  backlogTicketIds: ReadonlySet<string>,
+): PlanningDraft {
+  if (!draft.committed) {
+    return {
+      planning: sanitizePlanningState(draft.planning, backlogTicketIds),
+    };
+  }
+  const known = new Set(backlogTicketIds);
+  for (const ticket of addedTickets(draft.committed.events))
+    known.add(ticket.id);
+  const sprint = draft.committed.sprint.filter((id) =>
+    backlogTicketIds.has(id),
+  );
+  if (sprint.length === 0) {
+    return {
+      planning: sanitizePlanningState(draft.planning, backlogTicketIds),
+    };
+  }
+  return {
+    planning: sanitizePlanningState(draft.planning, known),
+    committed: { sprint, events: draft.committed.events },
   };
 }

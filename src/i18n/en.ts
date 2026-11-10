@@ -2,6 +2,7 @@ import type { Difficulty, ModuleStatus, Skill } from "@/core/case-engine";
 import type { MoscowBucket } from "@/modules/backlog/planning";
 import type {
   DiscardReason,
+  EventType,
   PlanningMethod,
   TicketType,
 } from "@/modules/backlog/schema";
@@ -128,6 +129,7 @@ export const en = {
       supportShort: (count: number) => `${count} tickets`,
       revenueShort: (amount: string) => `${amount} at risk`,
       claim: "Has a claim",
+      newBadge: "New",
     },
     detail: {
       requestedBy: "Requested by",
@@ -228,11 +230,43 @@ export const en = {
       capacityLine: "Capacity line",
       clear: "Clear",
       commit: "Commit sprint",
+      confirmReplan: "Confirm replanned sprint",
+    },
+    events: {
+      types: {
+        production_outage: "Production incident",
+        sales_promise: "Sales escalation",
+        dev_unavailable: "Team change",
+        compliance_deadline: "Legal deadline",
+        ceo_escalation: "CEO request",
+      } satisfies Record<EventType, string>,
+      dialogTitle: (count: number) =>
+        count === 1
+          ? "Day 4 of the sprint: something happened"
+          : `Day 4 of the sprint: ${count} things happened`,
+      dialogBody:
+        "Your sprint is under way, and the plan no longer matches reality. Replan with what you know now, then confirm.",
+      capacityChange: (points: number) =>
+        `${points} pts of capacity for the rest of the sprint`,
+      newTicket: (id: string) => `New ticket in the backlog: ${id}`,
+      replan: "Replan the sprint",
+      bannerTitle: "Mid-sprint",
+      bannerCapacity: (before: number, after: number) =>
+        `Capacity: ${before} → ${after} pts`,
+      reopen: "Show what happened",
+      changes: (added: number, removed: number) =>
+        added === 0 && removed === 0
+          ? "No changes since you committed."
+          : `Since you committed: ${added} added, ${removed} removed.`,
     },
     commit: {
+      replanTitle: "Confirm the replanned sprint?",
+      replanBody: (count: number, used: number, capacity: number) =>
+        `${count} ticket${count === 1 ? "" : "s"}, ${used} of ${capacity} story points. This is the sprint your team delivers.`,
+      revealing: "Starting the sprint…",
       title: "Commit this sprint?",
       body: (count: number, used: number, capacity: number) =>
-        `${count} ticket${count === 1 ? "" : "s"}, ${used} of ${capacity} story points. Once committed, the plan is final.`,
+        `${count} ticket${count === 1 ? "" : "s"}, ${used} of ${capacity} story points. Once committed, the sprint starts.`,
       overWarning: (points: number) =>
         `You are ${points} pts over capacity. Tickets below the capacity line will not be finished.`,
       emptyWarning: "Your sprint is empty.",

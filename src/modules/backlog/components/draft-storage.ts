@@ -1,35 +1,35 @@
 /**
- * Keeps an unfinished plan in the browser, so a refresh does not lose work.
+ * Keeps an unfinished case in the browser, so a refresh does not lose work.
  * Storage is user-editable, so a draft is validated and cleaned before use.
  */
 import {
-  initialPlanningState,
-  planningStateSchema,
-  sanitizePlanningState,
-  type PlanningState,
+  initialPlanningDraft,
+  planningDraftSchema,
+  sanitizePlanningDraft,
+  type PlanningDraft,
 } from "../planning";
 
-const draftKey = (caseId: string) => `sprint-zero:backlog-draft:v1:${caseId}`;
+const draftKey = (caseId: string) => `sprint-zero:backlog-draft:v2:${caseId}`;
 
 export function loadDraft(
   caseId: string,
-  ticketIds: ReadonlySet<string>,
-): PlanningState {
+  backlogTicketIds: ReadonlySet<string>,
+): PlanningDraft {
   try {
     const raw = window.localStorage.getItem(draftKey(caseId));
-    if (!raw) return initialPlanningState;
-    const parsed = planningStateSchema.safeParse(JSON.parse(raw));
+    if (!raw) return initialPlanningDraft;
+    const parsed = planningDraftSchema.safeParse(JSON.parse(raw));
     return parsed.success
-      ? sanitizePlanningState(parsed.data, ticketIds)
-      : initialPlanningState;
+      ? sanitizePlanningDraft(parsed.data, backlogTicketIds)
+      : initialPlanningDraft;
   } catch {
-    return initialPlanningState;
+    return initialPlanningDraft;
   }
 }
 
-export function saveDraft(caseId: string, state: PlanningState): void {
+export function saveDraft(caseId: string, draft: PlanningDraft): void {
   try {
-    window.localStorage.setItem(draftKey(caseId), JSON.stringify(state));
+    window.localStorage.setItem(draftKey(caseId), JSON.stringify(draft));
   } catch {
     // Storage full or disabled: the plan still works for this visit.
   }

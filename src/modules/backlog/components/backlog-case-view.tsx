@@ -1,3 +1,4 @@
+import { revealBacklogEvents } from "../actions";
 import type { PublicBacklogCase } from "../schema";
 import { BacklogWorkspace, type SubmitAttempt } from "./backlog-workspace";
 import { CaseBrief } from "./case-brief";
@@ -13,7 +14,11 @@ export function BacklogCaseView({
   return (
     <div className="space-y-8">
       <CaseBrief publicCase={publicCase} />
-      <BacklogWorkspace publicCase={publicCase} submit={submit} />
+      <BacklogWorkspace
+        publicCase={publicCase}
+        submit={submit}
+        revealEvents={revealBacklogEvents}
+      />
     </div>
   );
 }

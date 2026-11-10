@@ -6,10 +6,16 @@ import { scoreResultSchema } from "@/core/scoring";
 import { backlogCaseSpecs } from "@/modules/backlog/case-specs";
 import { backlogRawCases } from "@/modules/backlog/cases";
 import { generateBacklogCase } from "@/modules/backlog/generator";
-import { initialScenario, solveOptimalSprint } from "@/modules/backlog/plan";
+import { revealMidSprintEvents } from "@/modules/backlog/events.server";
+import {
+  initialScenario,
+  scenarioAfterEvents,
+  solveOptimalSprint,
+} from "@/modules/backlog/plan";
 import {
   backlogCaseSchema,
   publicBacklogCaseSchema,
+  publicMidSprintEventSchema,
   type BacklogAnswer,
   type BacklogCase,
   type Ticket,
@@ -39,8 +45,16 @@ function withoutWording(caseData: BacklogCase): BacklogCase {
 }
 
 /** A complete answer for a list of sprint tickets. */
-function answerOf(sprintTicketIds: string[]): BacklogAnswer {
-  return { method: "drag", sprintTicketIds, marks: {} };
+function answerOf(
+  sprintTicketIds: string[],
+  replanTicketIds?: string[],
+): BacklogAnswer {
+  return {
+    method: "drag",
+    sprintTicketIds,
+    ...(replanTicketIds ? { replanTicketIds } : {}),
+    marks: {},
+  };
 }
 
 function criterion(result: ReturnType<typeof scoreBacklogAnswer>, id: string) {
@@ -109,13 +123,36 @@ describe("pregenerated backlog cases", () => {
 });
 
 describe("backlog scoring (provisional)", () => {
-  it("gives 100 to the optimal sprint of every case", () => {
+  it("gives 100 to the optimal replanned sprint of every case", () => {
     for (const caseData of cases) {
-      const optimal = solveOptimalSprint(initialScenario(caseData));
-      const result = scoreBacklogAnswer(caseData, answerOf(optimal.ticketIds));
+      const initial = solveOptimalSprint(initialScenario(caseData));
+      const final = solveOptimalSprint(scenarioAfterEvents(caseData));
+      const result = scoreBacklogAnswer(
+        caseData,
+        answerOf(initial.ticketIds, final.ticketIds),
+      );
       expect(result.total, caseData.id).toBe(100);
       expect(scoreResultSchema.safeParse(result).success).toBe(true);
     }
+  });
+
+  it("scores the replanned sprint, not the first commit", () => {
+    const initial = solveOptimalSprint(initialScenario(first));
+    const final = solveOptimalSprint(scenarioAfterEvents(first));
+    const replanned = scoreBacklogAnswer(first, answerOf([], final.ticketIds));
+    const notReplanned = scoreBacklogAnswer(
+      first,
+      answerOf(final.ticketIds, initial.ticketIds),
+    );
+    expect(replanned.total).toBe(100);
+    expect(notReplanned.total).toBeLessThan(100);
+  });
+
+  it("uses the committed sprint when there is no replan", () => {
+    const final = solveOptimalSprint(scenarioAfterEvents(first));
+    expect(scoreBacklogAnswer(first, answerOf(final.ticketIds)).total).toBe(
+      100,
+    );
   });
 
   it("is deterministic", () => {
@@ -133,14 +170,25 @@ describe("backlog scoring (provisional)", () => {
     expect(result.total).toBe(20);
   });
 
-  it("rewards critical tickets and penalises missing them", () => {
-    const criticalIds = first.tickets
+  it("counts critical tickets added by events", () => {
+    const scenario = scenarioAfterEvents(first);
+    const criticalIds = scenario.tickets
       .filter((ticket) => ticket.hidden.critical)
       .map((ticket) => ticket.id);
-    const onlyCritical = scoreBacklogAnswer(first, answerOf(criticalIds));
-    expect(criterion(onlyCritical, "critical").ratio).toBe(1);
+    const eventCritical = criticalIds.filter(
+      (id) => !first.tickets.some((ticket) => ticket.id === id),
+    );
+    expect(eventCritical.length).toBeGreaterThan(0);
 
-    const optimal = solveOptimalSprint(initialScenario(first));
+    const all = scoreBacklogAnswer(first, answerOf(criticalIds));
+    expect(criterion(all, "critical").ratio).toBe(1);
+    const missingHotfix = scoreBacklogAnswer(
+      first,
+      answerOf(criticalIds.filter((id) => !eventCritical.includes(id))),
+    );
+    expect(criterion(missingHotfix, "critical").ratio).toBeLessThan(1);
+
+    const optimal = solveOptimalSprint(scenario);
     const withoutCritical = scoreBacklogAnswer(
       first,
       answerOf(optimal.ticketIds.filter((id) => !criticalIds.includes(id))),
@@ -180,10 +228,14 @@ describe("backlog scoring (provisional)", () => {
 
 describe("submitting a backlog answer", () => {
   it("scores on the server and reveals the full case", async () => {
-    const optimal = solveOptimalSprint(initialScenario(first));
+    const initial = solveOptimalSprint(initialScenario(first));
+    const final = solveOptimalSprint(scenarioAfterEvents(first));
     const outcome = await scoreSubmission(caseRepository, {
       caseId: first.id,
-      answer: { sprintTicketIds: optimal.ticketIds },
+      answer: {
+        sprintTicketIds: initial.ticketIds,
+        replanTicketIds: final.ticketIds,
+      },
     });
     expect(outcome.ok).toBe(true);
     if (!outcome.ok) return;
@@ -202,5 +254,40 @@ describe("submitting a backlog answer", () => {
     expect(outcome.ok).toBe(false);
     if (outcome.ok) return;
     expect(outcome.error.code).toBe("invalid_answer");
+  });
+});
+
+describe("revealing mid-sprint events", () => {
+  it("returns the public events once a sprint is committed", async () => {
+    const outcome = await revealMidSprintEvents(caseRepository, {
+      caseId: first.id,
+      sprintTicketIds: [first.tickets[0].id],
+    });
+    expect(outcome.ok).toBe(true);
+    if (!outcome.ok) return;
+    expect(outcome.events).toHaveLength(first.midSprintEvents.length);
+    for (const event of outcome.events) {
+      assertNoHiddenKeys(event);
+      expect(publicMidSprintEventSchema.safeParse(event).success).toBe(true);
+    }
+    expect(JSON.stringify(outcome.events)).not.toContain('"guidance"');
+    expect(JSON.stringify(outcome.events)).not.toContain('"trueValue"');
+  });
+
+  it("refuses before a sprint is committed, and for unknown cases", async () => {
+    const empty = await revealMidSprintEvents(caseRepository, {
+      caseId: first.id,
+      sprintTicketIds: [],
+    });
+    expect(empty).toEqual({ ok: false, error: { code: "invalid_request" } });
+
+    const unknown = await revealMidSprintEvents(caseRepository, {
+      caseId: "backlog-nope-99",
+      sprintTicketIds: ["LED-1"],
+    });
+    expect(unknown).toEqual({ ok: false, error: { code: "case_not_found" } });
+
+    const garbage = await revealMidSprintEvents(caseRepository, "nope");
+    expect(garbage.ok).toBe(false);
   });
 });

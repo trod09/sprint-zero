@@ -67,6 +67,7 @@ export function TicketSignals({ ticket }: { ticket: PublicTicket }) {
 export function TicketRow({
   ticket,
   inSprint,
+  isNew = false,
   mark,
   draggable,
   onOpen,
@@ -75,6 +76,8 @@ export function TicketRow({
 }: {
   ticket: PublicTicket;
   inSprint: boolean;
+  /** Added to the backlog by a mid-sprint event. */
+  isNew?: boolean;
   mark?: TicketMark;
   /** Rows can be dragged into the sprint when they are not in it already. */
   draggable: boolean;
@@ -125,6 +128,11 @@ export function TicketRow({
             <span className="text-sm font-medium hover:underline">
               {ticket.title}
             </span>
+            {isNew && (
+              <span className="ml-2 rounded-md bg-amber-500/15 px-1.5 py-0.5 align-middle text-[0.7rem] font-medium text-amber-800 dark:text-amber-300">
+                {copy.ticket.newBadge}
+              </span>
+            )}
           </button>
           <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5">
             <span className="text-muted-foreground text-xs">

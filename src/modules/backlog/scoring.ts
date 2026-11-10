@@ -1,9 +1,9 @@
 /**
  * Deterministic scoring of a Backlog Simulator answer.
  *
- * Provisional for Hito 1.2: it scores the committed sprint against the
- * initial backlog. Traps and the mid-sprint event join the breakdown in
- * Hito 1.5.
+ * Provisional until Hito 1.5: it scores the sprint the team actually delivers,
+ * that is the replanned sprint against the backlog after the mid-sprint
+ * events. Traps and event handling join the breakdown in Hito 1.5.
  */
 import {
   buildScoreResult,
@@ -12,19 +12,28 @@ import {
   type ScoreResult,
 } from "@/core/scoring";
 
-import { evaluateSprint, initialScenario, solveOptimalSprint } from "./plan";
+import {
+  evaluateSprint,
+  scenarioAfterEvents,
+  solveOptimalSprint,
+} from "./plan";
 import type { BacklogAnswer, BacklogCase } from "./schema";
 
 /** Going over capacity by this share of the sprint zeroes the capacity criterion. */
 const OVERBOOKING_TOLERANCE = 0.25;
 
+/** The sprint the team works on once the events have happened. */
+export function deliveredPlan(answer: BacklogAnswer): string[] {
+  return answer.replanTicketIds ?? answer.sprintTicketIds;
+}
+
 export function scoreBacklogAnswer(
   caseData: BacklogCase,
   answer: BacklogAnswer,
 ): ScoreResult {
-  const scenario = initialScenario(caseData);
+  const scenario = scenarioAfterEvents(caseData);
   const optimal = solveOptimalSprint(scenario);
-  const evaluation = evaluateSprint(scenario, answer.sprintTicketIds);
+  const evaluation = evaluateSprint(scenario, deliveredPlan(answer));
 
   const delivered = new Set(evaluation.deliveredIds);
   const criticalIds = scenario.tickets

@@ -46,8 +46,10 @@ import { getMessages } from "@/i18n";
 import { cn } from "@/lib/utils";
 
 import {
+  addedTickets,
+  capacityAfterEvents,
   fillSprint,
-  initialPlanningState,
+  initialPlanningDraft,
   MOSCOW_BUCKETS,
   orderByMoscow,
   planningReducer,
@@ -55,7 +57,7 @@ import {
   riceScore,
   splitByCapacity,
   type MoscowBucket,
-  type PlanningState,
+  type PlanningDraft,
 } from "../planning";
 import {
   PLANNING_METHODS,
@@ -66,7 +68,9 @@ import {
   type PublicTicket,
   type TicketType,
 } from "../schema";
+import type { RevealEventsOutcome } from "../events.server";
 import { clearDraft, loadDraft, saveDraft } from "./draft-storage";
+import { EventCard } from "./event-card";
 import { MoscowControls, RiceControls } from "./method-controls";
 import { SPRINT_ZONE_ID, SprintPanel, sprintDragId } from "./sprint-panel";
 import { SprintResult } from "./sprint-result";
@@ -75,6 +79,7 @@ import { TicketRow } from "./ticket-row";
 import { selectClassName, TicketSheet } from "./ticket-sheet";
 
 export type SubmitAttempt = (input: unknown) => Promise<SubmissionOutcome>;
+export type RevealEvents = (input: unknown) => Promise<RevealEventsOutcome>;
 
 const BACKLOG_ZONE_ID = "backlog-zone";
 
@@ -95,27 +100,30 @@ function useIsClient(): boolean {
 export function BacklogWorkspace({
   publicCase,
   submit,
+  revealEvents,
 }: {
   publicCase: PublicBacklogCase;
   submit: SubmitAttempt;
+  revealEvents: RevealEvents;
 }) {
   const isClient = useIsClient();
-  const initialState = useMemo(
+  const initialDraft = useMemo(
     () =>
       isClient
         ? loadDraft(
             publicCase.id,
             new Set(publicCase.tickets.map((ticket) => ticket.id)),
           )
-        : initialPlanningState,
+        : initialPlanningDraft,
     [isClient, publicCase],
   );
   return (
     <Planner
       key={isClient ? "client" : "server"}
       publicCase={publicCase}
-      initialState={initialState}
+      initialDraft={initialDraft}
       submit={submit}
+      revealEvents={revealEvents}
       persist={isClient}
     />
   );
@@ -180,22 +188,32 @@ function matchesFilters(ticket: PublicTicket, filters: Filters): boolean {
 type Phase =
   | { name: "planning" }
   | { name: "confirming"; error?: string }
+  /** The events were just revealed and are shown in a dialog. */
+  | { name: "event" }
   | { name: "done"; result: ScoreResult };
+
+type Committed = NonNullable<PlanningDraft["committed"]>;
 
 function Planner({
   publicCase,
-  initialState,
+  initialDraft,
   submit,
+  revealEvents,
   persist,
 }: {
   publicCase: PublicBacklogCase;
-  initialState: PlanningState;
+  initialDraft: PlanningDraft;
   submit: SubmitAttempt;
+  revealEvents: RevealEvents;
   persist: boolean;
 }) {
   const messages = getMessages();
   const copy = messages.backlog;
-  const [state, dispatch] = useReducer(planningReducer, initialState);
+  const [state, dispatch] = useReducer(planningReducer, initialDraft.planning);
+  // Set once the first sprint is committed: the sprint has started.
+  const [committed, setCommitted] = useState<Committed | undefined>(
+    initialDraft.committed,
+  );
   const [filters, setFilters] = useState<Filters>(NO_FILTERS);
   const [openTicketId, setOpenTicketId] = useState<string | null>(null);
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
@@ -203,7 +221,16 @@ function Planner({
   const [isSubmitting, startSubmitting] = useTransition();
   const startedAt = useRef<string | null>(null);
 
-  const { tickets, sprintCapacity: capacity, activeUsers } = publicCase;
+  const { activeUsers } = publicCase;
+  const events = committed?.events;
+  const isReplanning = committed !== undefined;
+  const tickets = useMemo(
+    // Tickets brought by events go first so they are not missed.
+    () => [...addedTickets(events ?? []), ...publicCase.tickets],
+    [publicCase.tickets, events],
+  );
+  const newTicketIds = new Set(addedTickets(events ?? []).map((t) => t.id));
+  const capacity = capacityAfterEvents(publicCase.sprintCapacity, events ?? []);
   const byId = useMemo(
     () => new Map(tickets.map((ticket) => [ticket.id, ticket])),
     [tickets],
@@ -214,8 +241,13 @@ function Planner({
   }, []);
 
   useEffect(() => {
-    if (persist && phase.name !== "done") saveDraft(publicCase.id, state);
-  }, [persist, phase.name, publicCase.id, state]);
+    if (persist && phase.name !== "done") {
+      saveDraft(publicCase.id, {
+        planning: state,
+        ...(committed ? { committed } : {}),
+      });
+    }
+  }, [persist, phase.name, publicCase.id, state, committed]);
 
   const sprintSet = new Set(state.sprint);
   const sprintTickets = state.sprint.flatMap((id) => byId.get(id) ?? []);
@@ -316,13 +348,43 @@ function Planner({
 
   // --------------------------------------------------------------- submit
 
-  const answer: BacklogAnswer = {
-    method: state.method,
-    sprintTicketIds: state.sprint,
-    marks: state.marks,
+  const answer: BacklogAnswer = committed
+    ? {
+        method: state.method,
+        sprintTicketIds: committed.sprint,
+        replanTicketIds: state.sprint,
+        marks: state.marks,
+      }
+    : {
+        method: state.method,
+        sprintTicketIds: state.sprint,
+        marks: state.marks,
+      };
+
+  /** First commit: the sprint starts and the mid-sprint events happen. */
+  const startSprint = () => {
+    startSubmitting(async () => {
+      let outcome: RevealEventsOutcome;
+      try {
+        outcome = await revealEvents({
+          caseId: publicCase.id,
+          sprintTicketIds: state.sprint,
+        });
+      } catch {
+        setPhase({ name: "confirming", error: copy.commit.failed });
+        return;
+      }
+      if (!outcome.ok) {
+        setPhase({ name: "confirming", error: copy.commit.failed });
+        return;
+      }
+      setCommitted({ sprint: state.sprint, events: outcome.events });
+      setPhase({ name: "event" });
+    });
   };
 
-  const commit = () => {
+  /** Second commit: the replanned sprint is scored on the server. */
+  const finish = () => {
     startSubmitting(async () => {
       let outcome: SubmissionOutcome;
       try {
@@ -362,6 +424,8 @@ function Planner({
         moduleId={publicCase.moduleId}
         onPlanAgain={() => {
           startedAt.current = new Date().toISOString();
+          dispatch({ type: "reset" });
+          setCommitted(undefined);
           setPhase({ name: "planning" });
         }}
       />
@@ -377,6 +441,7 @@ function Planner({
       key={ticket.id}
       ticket={ticket}
       inSprint={sprintSet.has(ticket.id)}
+      isNew={newTicketIds.has(ticket.id)}
       mark={state.marks[ticket.id]}
       draggable
       onOpen={() => setOpenTicketId(ticket.id)}
@@ -478,6 +543,37 @@ function Planner({
       }}
     >
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        {events && (
+          <section
+            aria-labelledby="event-banner-title"
+            className="rounded-xl border border-amber-500/40 bg-amber-500/5 p-4 lg:col-span-2"
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h2
+                id="event-banner-title"
+                className="text-xs font-medium tracking-wide text-amber-800 uppercase dark:text-amber-300"
+              >
+                {copy.events.bannerTitle}
+              </h2>
+              <p className="font-mono text-xs tabular-nums">
+                {copy.events.bannerCapacity(
+                  publicCase.sprintCapacity,
+                  capacity,
+                )}
+              </p>
+            </div>
+            <div className="mt-3 grid gap-4 md:grid-cols-2">
+              {events.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  onOpenTicket={setOpenTicketId}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
         <section aria-labelledby="backlog-title" className="min-w-0 space-y-3">
           <Tabs
             value={state.method}
@@ -656,6 +752,19 @@ function Planner({
           onRemove={(id) => dispatch({ type: "remove_from_sprint", id })}
           onClear={() => dispatch({ type: "clear_sprint" })}
           onCommit={() => setPhase({ name: "confirming" })}
+          commitLabel={
+            isReplanning ? copy.sprint.confirmReplan : copy.sprint.commit
+          }
+          note={
+            committed
+              ? copy.events.changes(
+                  state.sprint.filter((id) => !committed.sprint.includes(id))
+                    .length,
+                  committed.sprint.filter((id) => !state.sprint.includes(id))
+                    .length,
+                )
+              : undefined
+          }
         />
       </div>
 
@@ -701,9 +810,11 @@ function Planner({
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{copy.commit.title}</DialogTitle>
+            <DialogTitle>
+              {isReplanning ? copy.commit.replanTitle : copy.commit.title}
+            </DialogTitle>
             <DialogDescription>
-              {copy.commit.body(
+              {(isReplanning ? copy.commit.replanBody : copy.commit.body)(
                 sprintTickets.length,
                 split.plannedEffort,
                 capacity,
@@ -729,8 +840,45 @@ function Planner({
             >
               {copy.commit.cancel}
             </Button>
-            <Button type="button" disabled={isSubmitting} onClick={commit}>
-              {isSubmitting ? copy.commit.submitting : copy.commit.confirm}
+            <Button
+              type="button"
+              disabled={isSubmitting}
+              onClick={isReplanning ? finish : startSprint}
+            >
+              {isSubmitting
+                ? isReplanning
+                  ? copy.commit.submitting
+                  : copy.commit.revealing
+                : copy.commit.confirm}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={phase.name === "event" && events !== undefined}
+        onOpenChange={(open) => {
+          if (!open) setPhase({ name: "planning" });
+        }}
+      >
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>
+              {copy.events.dialogTitle(events?.length ?? 1)}
+            </DialogTitle>
+            <DialogDescription>{copy.events.dialogBody}</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            {events?.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              onClick={() => setPhase({ name: "planning" })}
+            >
+              {copy.events.replan}
             </Button>
           </DialogFooter>
         </DialogContent>

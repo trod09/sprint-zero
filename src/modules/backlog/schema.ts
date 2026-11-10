@@ -249,16 +249,24 @@ export type TicketMark = z.infer<typeof ticketMarkSchema>;
 
 const MAX_ANSWER_TICKETS = 60;
 
-/** The learner's plan. The sprint is ordered: the team works top to bottom. */
+const sprintIdsSchema = z
+  .array(ticketIdSchema)
+  .max(MAX_ANSWER_TICKETS)
+  .refine((ids) => new Set(ids).size === ids.length, {
+    message: "A ticket can only be in the sprint once",
+  });
+
+/**
+ * The learner's plan. Sprints are ordered: the team works top to bottom.
+ * `sprintTicketIds` is the sprint as first committed; `replanTicketIds` is the
+ * sprint after the mid-sprint events, which is what the team delivers.
+ */
 export const backlogAnswerSchema = z.object({
   /** How the learner prioritised. Recorded for feedback, never scored. */
   method: planningMethodSchema.default("drag"),
-  sprintTicketIds: z
-    .array(ticketIdSchema)
-    .max(MAX_ANSWER_TICKETS)
-    .refine((ids) => new Set(ids).size === ids.length, {
-      message: "A ticket can only be in the sprint once",
-    }),
+  sprintTicketIds: sprintIdsSchema,
+  /** Omitted when the learner kept the committed sprint as it was. */
+  replanTicketIds: sprintIdsSchema.optional(),
   /** Tickets flagged as duplicates or discarded, by ticket id. */
   marks: z
     .record(ticketIdSchema, ticketMarkSchema)

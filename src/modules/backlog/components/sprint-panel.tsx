@@ -136,6 +136,8 @@ export function SprintPanel({
   onRemove,
   onClear,
   onCommit,
+  commitLabel,
+  note,
 }: {
   /** Sprint tickets in order. */
   tickets: readonly PublicTicket[];
@@ -146,6 +148,9 @@ export function SprintPanel({
   onRemove: (id: string) => void;
   onClear: () => void;
   onCommit: () => void;
+  commitLabel: string;
+  /** Extra line under the capacity bar, e.g. changes since the commit. */
+  note?: string;
 }) {
   const copy = getMessages().backlog.sprint;
   const { setNodeRef, isOver } = useDroppable({ id: SPRINT_ZONE_ID });
@@ -173,6 +178,7 @@ export function SprintPanel({
           capacity={capacity}
           spilledCount={split.spilledIds.length}
         />
+        {note && <p className="text-muted-foreground text-xs">{note}</p>}
       </div>
 
       <div
@@ -233,7 +239,7 @@ export function SprintPanel({
           onClick={onCommit}
           disabled={tickets.length === 0}
         >
-          {copy.commit}
+          {commitLabel}
         </Button>
       </div>
     </section>
