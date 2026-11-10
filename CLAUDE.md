@@ -20,4 +20,6 @@ PM simulation platform. `MASTER_PROMPT.md` is the source of truth for product, a
 - Claude is called only from the server via `getAIClient()` in `src/core/ai`. No `temperature`; output is schema-constrained and Zod-validated.
 - UI copy is English and lives in `src/i18n/en.ts`; code and comments in English.
 - Backlog cases are generated, never edited by hand: change `content/` or `case-specs.ts`, then run `npm run generate:backlog`. A test fails if the JSON is out of date. The optimal sprint is derived in `plan.ts`, not stored.
-- Adding a module: `src/modules/<id>/module.ts` (meta) + entry in `src/modules/catalog.ts` + registration in `src/modules/registry.server.ts`. Do not touch `src/core`.
+- Adding a module: `src/modules/<id>/module.ts` (meta) + entry in `src/modules/catalog.ts` + registration in `src/modules/registry.server.ts` + its case view in `src/modules/case-view.tsx`. Do not touch `src/core`.
+- Planning rules live in pure, tested modules (e.g. `src/modules/backlog/planning.ts`); components only wire them to the UI and never see ground truth.
+- Pages that read `params` do it inside a `<Suspense>` child (Cache Components), see `src/app/case/[caseId]/page.tsx`.

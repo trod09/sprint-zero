@@ -10,6 +10,7 @@ import { initialScenario, solveOptimalSprint } from "@/modules/backlog/plan";
 import {
   backlogCaseSchema,
   publicBacklogCaseSchema,
+  type BacklogAnswer,
   type BacklogCase,
   type Ticket,
 } from "@/modules/backlog/schema";
@@ -35,6 +36,11 @@ function withoutWording(caseData: BacklogCase): BacklogCase {
         : event,
     ),
   };
+}
+
+/** A complete answer for a list of sprint tickets. */
+function answerOf(sprintTicketIds: string[]): BacklogAnswer {
+  return { method: "drag", sprintTicketIds, marks: {} };
 }
 
 function criterion(result: ReturnType<typeof scoreBacklogAnswer>, id: string) {
@@ -106,25 +112,21 @@ describe("backlog scoring (provisional)", () => {
   it("gives 100 to the optimal sprint of every case", () => {
     for (const caseData of cases) {
       const optimal = solveOptimalSprint(initialScenario(caseData));
-      const result = scoreBacklogAnswer(caseData, {
-        sprintTicketIds: optimal.ticketIds,
-      });
+      const result = scoreBacklogAnswer(caseData, answerOf(optimal.ticketIds));
       expect(result.total, caseData.id).toBe(100);
       expect(scoreResultSchema.safeParse(result).success).toBe(true);
     }
   });
 
   it("is deterministic", () => {
-    const answer = {
-      sprintTicketIds: first.tickets.slice(0, 6).map((t) => t.id),
-    };
+    const answer = answerOf(first.tickets.slice(0, 6).map((t) => t.id));
     expect(scoreBacklogAnswer(first, answer)).toEqual(
       scoreBacklogAnswer(first, answer),
     );
   });
 
   it("scores an empty sprint with capacity points only", () => {
-    const result = scoreBacklogAnswer(first, { sprintTicketIds: [] });
+    const result = scoreBacklogAnswer(first, answerOf([]));
     expect(criterion(result, "value").ratio).toBe(0);
     expect(criterion(result, "critical").ratio).toBe(0);
     expect(criterion(result, "capacity").ratio).toBe(1);
@@ -135,25 +137,23 @@ describe("backlog scoring (provisional)", () => {
     const criticalIds = first.tickets
       .filter((ticket) => ticket.hidden.critical)
       .map((ticket) => ticket.id);
-    const onlyCritical = scoreBacklogAnswer(first, {
-      sprintTicketIds: criticalIds,
-    });
+    const onlyCritical = scoreBacklogAnswer(first, answerOf(criticalIds));
     expect(criterion(onlyCritical, "critical").ratio).toBe(1);
 
     const optimal = solveOptimalSprint(initialScenario(first));
-    const withoutCritical = scoreBacklogAnswer(first, {
-      sprintTicketIds: optimal.ticketIds.filter(
-        (id) => !criticalIds.includes(id),
-      ),
-    });
+    const withoutCritical = scoreBacklogAnswer(
+      first,
+      answerOf(optimal.ticketIds.filter((id) => !criticalIds.includes(id))),
+    );
     expect(criterion(withoutCritical, "critical").ratio).toBe(0);
     expect(withoutCritical.total).toBeLessThan(70);
   });
 
   it("penalises an overbooked sprint and does not count what spills", () => {
-    const everything = scoreBacklogAnswer(first, {
-      sprintTicketIds: first.tickets.map((ticket) => ticket.id),
-    });
+    const everything = scoreBacklogAnswer(
+      first,
+      answerOf(first.tickets.map((ticket) => ticket.id)),
+    );
     expect(criterion(everything, "capacity").ratio).toBe(0);
     expect(criterion(everything, "value").ratio).toBeLessThan(1);
     expect(everything.total).toBeLessThan(80);
@@ -164,15 +164,16 @@ describe("backlog scoring (provisional)", () => {
       (ticket) => ticket.hidden.trap === "duplicate",
     )!;
     const originalId = duplicate.hidden.duplicateOf!;
-    const one = scoreBacklogAnswer(first, { sprintTicketIds: [originalId] });
-    const both = scoreBacklogAnswer(first, {
-      sprintTicketIds: [originalId, duplicate.id],
-    });
+    const one = scoreBacklogAnswer(first, answerOf([originalId]));
+    const both = scoreBacklogAnswer(
+      first,
+      answerOf([originalId, duplicate.id]),
+    );
     expect(criterion(both, "value").ratio).toBe(criterion(one, "value").ratio);
   });
 
   it("ignores ids that are not tickets of the case", () => {
-    const result = scoreBacklogAnswer(first, { sprintTicketIds: ["ZZZ-1"] });
+    const result = scoreBacklogAnswer(first, answerOf(["ZZZ-1"]));
     expect(result.total).toBe(20);
   });
 });

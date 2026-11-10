@@ -218,14 +218,54 @@ export const publicBacklogCaseSchema = publicBaseCaseSchema.extend({
 });
 export type PublicBacklogCase = z.infer<typeof publicBacklogCaseSchema>;
 
-/** The sprint as an ordered list: the team works top to bottom. */
+export const PLANNING_METHODS = ["drag", "rice", "moscow"] as const;
+export const planningMethodSchema = z.enum(PLANNING_METHODS);
+export type PlanningMethod = z.infer<typeof planningMethodSchema>;
+
+export const DISCARD_REASONS = [
+  "single_customer",
+  "no_evidence",
+  "no_impact",
+  "too_expensive",
+  "not_now",
+] as const;
+export const discardReasonSchema = z.enum(DISCARD_REASONS);
+export type DiscardReason = z.infer<typeof discardReasonSchema>;
+
+/** A judgment the learner records on a ticket they are leaving out. */
+export const ticketMarkSchema = z.discriminatedUnion("kind", [
+  z.object({
+    kind: z.literal("duplicate"),
+    /** The ticket the learner believes describes the same work. */
+    duplicateOfId: ticketIdSchema,
+  }),
+  z.object({
+    kind: z.literal("discard"),
+    reason: discardReasonSchema,
+    note: z.string().max(280).optional(),
+  }),
+]);
+export type TicketMark = z.infer<typeof ticketMarkSchema>;
+
+const MAX_ANSWER_TICKETS = 60;
+
+/** The learner's plan. The sprint is ordered: the team works top to bottom. */
 export const backlogAnswerSchema = z.object({
+  /** How the learner prioritised. Recorded for feedback, never scored. */
+  method: planningMethodSchema.default("drag"),
   sprintTicketIds: z
     .array(ticketIdSchema)
-    .max(60)
+    .max(MAX_ANSWER_TICKETS)
     .refine((ids) => new Set(ids).size === ids.length, {
       message: "A ticket can only be in the sprint once",
     }),
+  /** Tickets flagged as duplicates or discarded, by ticket id. */
+  marks: z
+    .record(ticketIdSchema, ticketMarkSchema)
+    .refine((marks) => Object.keys(marks).length <= MAX_ANSWER_TICKETS, {
+      message: "Too many marked tickets",
+    })
+    .default({}),
 });
 export type BacklogAnswer = z.infer<typeof backlogAnswerSchema>;
 

@@ -1,7 +1,8 @@
-import { ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { ModuleIcon } from "@/components/module-icon";
 import { Badge } from "@/components/ui/badge";
@@ -21,9 +22,32 @@ export async function generateMetadata({
   return meta ? { title: meta.name, description: meta.tagline } : {};
 }
 
-export default async function ModulePage({
+export default function ModulePage({ params }: PageProps<"/modules/[module]">) {
+  return (
+    <Suspense fallback={<ModuleSkeleton />}>
+      <ModuleContent params={params} />
+    </Suspense>
+  );
+}
+
+function ModuleSkeleton() {
+  return (
+    <div
+      aria-hidden="true"
+      className="mx-auto w-full max-w-4xl animate-pulse space-y-6 px-4 pt-8 pb-20 sm:px-6"
+    >
+      <div className="bg-muted h-4 w-28 rounded" />
+      <div className="bg-muted h-16 rounded-xl" />
+      <div className="bg-muted h-64 rounded-xl" />
+    </div>
+  );
+}
+
+async function ModuleContent({
   params,
-}: PageProps<"/modules/[module]">) {
+}: {
+  params: PageProps<"/modules/[module]">["params"];
+}) {
   const { module: moduleId } = await params;
   const meta = getModuleMeta(moduleId);
   if (!meta) notFound();
@@ -94,21 +118,30 @@ export default async function ModulePage({
             </p>
           </div>
         ) : (
-          <ul className="mt-4 divide-y rounded-xl border">
+          <ul className="mt-4 divide-y overflow-hidden rounded-xl border">
             {cases.map((publicCase) => (
-              <li
-                key={publicCase.id}
-                className="flex items-center justify-between gap-4 px-4 py-3"
-              >
-                <div className="min-w-0">
-                  <p className="truncate font-medium">{publicCase.title}</p>
-                  <p className="text-muted-foreground truncate text-sm">
-                    {publicCase.company.name} · {publicCase.company.industry}
-                  </p>
-                </div>
-                <Badge variant="outline">
-                  {messages.difficulty[publicCase.difficulty]}
-                </Badge>
+              <li key={publicCase.id}>
+                <Link
+                  href={`/case/${publicCase.id}`}
+                  aria-label={`${messages.module.startCase}: ${publicCase.title}`}
+                  className="group hover:bg-muted/50 focus-visible:ring-ring/50 flex items-center justify-between gap-4 px-4 py-3 transition-colors focus-visible:ring-3 focus-visible:outline-none focus-visible:ring-inset"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{publicCase.title}</p>
+                    <p className="text-muted-foreground truncate text-sm">
+                      {publicCase.company.name} · {publicCase.company.industry}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-3">
+                    <Badge variant="outline">
+                      {messages.difficulty[publicCase.difficulty]}
+                    </Badge>
+                    <ArrowRight
+                      className="text-muted-foreground size-4 transition-transform group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>

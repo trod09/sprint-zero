@@ -5,6 +5,7 @@
  * The optimal sprint is never stored in the case JSON. It is derived from the
  * tickets here, so it cannot drift from the data.
  */
+import { splitByCapacity } from "./planning";
 import type { BacklogCase, Ticket } from "./schema";
 
 /** A planning problem: the tickets on the table and the points available. */
@@ -158,39 +159,26 @@ export function evaluateSprint(
   orderedTicketIds: readonly string[],
 ): SprintEvaluation {
   const byId = new Map(scenario.tickets.map((ticket) => [ticket.id, ticket]));
-  const delivered: Ticket[] = [];
-  const spilledIds: string[] = [];
+  const planned: Ticket[] = [];
   const unknownIds: string[] = [];
   const seen = new Set<string>();
-  let plannedEffort = 0;
-  let deliveredEffort = 0;
-  let sprintIsFull = false;
-
   for (const id of orderedTicketIds) {
     if (seen.has(id)) continue;
     seen.add(id);
     const ticket = byId.get(id);
-    if (!ticket) {
-      unknownIds.push(id);
-      continue;
-    }
-    plannedEffort += ticket.effort;
-    if (!sprintIsFull && deliveredEffort + ticket.effort <= scenario.capacity) {
-      delivered.push(ticket);
-      deliveredEffort += ticket.effort;
-    } else {
-      sprintIsFull = true;
-      spilledIds.push(id);
-    }
+    if (ticket) planned.push(ticket);
+    else unknownIds.push(id);
   }
 
+  const split = splitByCapacity(planned, scenario.capacity);
+  const delivered = split.deliveredIds.map((id) => byId.get(id)!);
   return {
-    deliveredIds: delivered.map((ticket) => ticket.id),
-    spilledIds,
+    deliveredIds: split.deliveredIds,
+    spilledIds: split.spilledIds,
     unknownIds,
-    plannedEffort,
-    deliveredEffort,
+    plannedEffort: split.plannedEffort,
+    deliveredEffort: split.deliveredEffort,
     value: deliveredValue(delivered),
-    overCapacityBy: Math.max(0, plannedEffort - scenario.capacity),
+    overCapacityBy: split.overCapacityBy,
   };
 }
