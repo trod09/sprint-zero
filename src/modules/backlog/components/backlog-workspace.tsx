@@ -702,7 +702,7 @@ function Planner({
                 {copy.setAside.empty}
               </p>
             ) : (
-              <ul className="mt-2 divide-y rounded-xl border">
+              <ul className="pixel-frame mt-2 divide-y">
                 {setAside.map((ticket) => {
                   const mark = state.marks[ticket.id];
                   return (

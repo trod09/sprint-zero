@@ -32,7 +32,7 @@ export function TriageResults({
   return (
     <div className="space-y-6">
       {critical && (
-        <section className="border-destructive/40 bg-destructive/5 rounded-xl border p-5">
+        <section className="border-destructive bg-destructive/5 rounded-md border-2 p-5">
           <h2 className="text-destructive text-xs font-medium tracking-wide uppercase">
             {copy.results.critical}
           </h2>
@@ -43,10 +43,7 @@ export function TriageResults({
         </section>
       )}
 
-      <section
-        aria-labelledby="themes-ranking"
-        className="bg-card rounded-xl border p-5"
-      >
+      <section aria-labelledby="themes-ranking" className="pixel-card p-5">
         <h2 id="themes-ranking" className="font-heading font-semibold">
           {copy.results.ranking}
         </h2>
@@ -114,10 +111,7 @@ export function TriageResults({
         </p>
       </section>
 
-      <section
-        aria-labelledby="ranking-why"
-        className="bg-card rounded-xl border p-5"
-      >
+      <section aria-labelledby="ranking-why" className="pixel-card p-5">
         <h2 id="ranking-why" className="font-heading font-semibold">
           {copy.results.explanation}
         </h2>

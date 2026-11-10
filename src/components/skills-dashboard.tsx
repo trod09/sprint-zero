@@ -135,7 +135,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
   return (
     <div className="space-y-6">
       {view.counted === 0 && (
-        <div className="rounded-xl border border-dashed px-6 py-8 text-center">
+        <div className="border-frame rounded-md border-2 border-dashed px-6 py-8 text-center">
           <p className="text-muted-foreground">{copy.empty}</p>
           <Button asChild className="mt-4">
             <Link href="/library">{copy.emptyCta}</Link>
@@ -144,10 +144,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
       )}
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <section
-          aria-labelledby="radar-title"
-          className="bg-card rounded-xl border p-5"
-        >
+        <section aria-labelledby="radar-title" className="pixel-card p-5">
           <h2 id="radar-title" className="font-heading font-semibold">
             {copy.radarTitle}
           </h2>
@@ -180,7 +177,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
 
         <section
           aria-labelledby="skills-table-title"
-          className="bg-card rounded-xl border p-5"
+          className="pixel-card p-5"
         >
           <h2 id="skills-table-title" className="sr-only">
             {copy.rating}
@@ -218,10 +215,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
         </section>
       </div>
 
-      <section
-        aria-labelledby="next-title"
-        className="bg-card rounded-xl border p-5"
-      >
+      <section aria-labelledby="next-title" className="pixel-card p-5">
         <h2 id="next-title" className="font-heading font-semibold">
           {copy.nextTitle}
         </h2>
@@ -262,10 +256,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
         )}
       </section>
 
-      <section
-        aria-labelledby="trend-title"
-        className="bg-card rounded-xl border p-5"
-      >
+      <section aria-labelledby="trend-title" className="pixel-card p-5">
         <h2 id="trend-title" className="font-heading font-semibold">
           {copy.trendTitle}
         </h2>

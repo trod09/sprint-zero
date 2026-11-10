@@ -34,7 +34,7 @@ export function LiftOverTime({ readout }: { readout: ExperimentReadout }) {
   ];
 
   return (
-    <div className="bg-card space-y-4 rounded-xl border p-4">
+    <div className="pixel-frame space-y-4 p-4">
       <div>
         <h3 className="font-medium">{copy.overTimeTitle}</h3>
         <p className="text-muted-foreground mt-0.5 text-xs">

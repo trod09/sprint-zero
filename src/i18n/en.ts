@@ -1231,6 +1231,11 @@ export const en = {
         "Weigh relief against effort before you rank solutions.",
         "Each step builds on the last one: users, then problems, then what to build, then how to measure it.",
       ],
+      "product-case-estimation": [
+        "Start from the unit that buys: a household, a business, a trip.",
+        "Before you multiply, check the fact is not already counted in another one.",
+        "Percentages only hold for the group they were measured in.",
+      ],
       "prd-writer": [
         "Every number in your one-pager should come from the documents.",
         "Non-goals are decisions. Write down what you will not do and why.",

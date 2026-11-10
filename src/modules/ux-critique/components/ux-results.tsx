@@ -37,10 +37,7 @@ export function UxResults({
 
   return (
     <div className="space-y-6">
-      <section
-        aria-labelledby="planted-title"
-        className="bg-card rounded-xl border p-5"
-      >
+      <section aria-labelledby="planted-title" className="pixel-card p-5">
         <h2 id="planted-title" className="font-heading font-semibold">
           {copy.results.planted}
         </h2>
@@ -83,10 +80,7 @@ export function UxResults({
         </ol>
       </section>
 
-      <section
-        aria-labelledby="alarms-title"
-        className="bg-card rounded-xl border p-5"
-      >
+      <section aria-labelledby="alarms-title" className="pixel-card p-5">
         <h2 id="alarms-title" className="font-heading font-semibold">
           {copy.results.falseAlarms}
         </h2>

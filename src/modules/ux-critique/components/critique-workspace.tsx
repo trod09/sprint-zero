@@ -154,7 +154,7 @@ function Workspace({
 
   if (inlineResult) {
     return (
-      <section className="bg-card rounded-xl border p-6">
+      <section className="pixel-card p-6">
         <p className="font-heading text-5xl font-semibold tabular-nums">
           {inlineResult.total}
           <span className="text-muted-foreground text-lg"> / 100</span>
@@ -205,7 +205,7 @@ function Workspace({
       <aside className="space-y-4 lg:sticky lg:top-20">
         <section
           aria-labelledby="finding-title"
-          className="bg-card space-y-3 rounded-xl border p-4"
+          className="pixel-card space-y-3 p-4"
         >
           <h2 id="finding-title" className="font-heading font-semibold">
             {copy.finding.title}
@@ -288,7 +288,7 @@ function Workspace({
 
         <section
           aria-labelledby="findings-title"
-          className="bg-card space-y-2 rounded-xl border p-4"
+          className="pixel-card space-y-2 p-4"
         >
           <h2 id="findings-title" className="font-heading font-semibold">
             {copy.findings.title}

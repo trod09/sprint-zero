@@ -8,7 +8,7 @@ export function ResearchPanel({ notes }: { notes: readonly ResearchNote[] }) {
   return (
     <section
       aria-labelledby="research-title"
-      className="bg-card space-y-3 rounded-xl border p-4"
+      className="pixel-card space-y-3 p-4"
     >
       <div>
         <h2 id="research-title" className="font-heading font-semibold">

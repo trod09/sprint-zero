@@ -19,9 +19,17 @@ export function ProductCaseView({
   return (
     <div className="space-y-8">
       <section aria-labelledby="case-title" className="space-y-5">
-        <CaseHeader publicCase={publicCase} tag={copy.kinds[publicCase.kind]} />
+        <CaseHeader
+          publicCase={publicCase}
+          tag={copy.kinds[publicCase.kind]}
+          tipKey={
+            publicCase.kind === "estimation"
+              ? "product-case-estimation"
+              : undefined
+          }
+        />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <figure className="bg-card rounded-xl border p-4">
+          <figure className="pixel-card p-4">
             <figcaption className="font-pixel text-ink text-xs tracking-wide uppercase">
               {copy.brief.question}
             </figcaption>
@@ -29,7 +37,7 @@ export function ProductCaseView({
               {publicCase.prompt}
             </blockquote>
           </figure>
-          <div className="bg-card rounded-xl border p-4">
+          <div className="pixel-card p-4">
             <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
               {copy.brief.context}
             </h2>

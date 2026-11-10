@@ -43,7 +43,7 @@ export function AttemptHistory({ cases }: { cases: CaseSummary[] }) {
 
   if (attempts.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed px-6 py-12 text-center">
+      <div className="border-frame rounded-md border-2 border-dashed px-6 py-12 text-center">
         <p className="text-muted-foreground">{copy.empty}</p>
         <Button asChild className="mt-4">
           <Link href="/library">{copy.emptyCta}</Link>
@@ -79,7 +79,7 @@ export function AttemptHistory({ cases }: { cases: CaseSummary[] }) {
           {copy.clearAll}
         </Button>
       </div>
-      <ul className="divide-y overflow-hidden rounded-xl border">
+      <ul className="pixel-frame divide-y overflow-hidden">
         {attempts.map((attempt) => {
           const summary = caseLabel(attempt.caseId, byId);
           const title = summary?.title ?? copy.unknownCase;

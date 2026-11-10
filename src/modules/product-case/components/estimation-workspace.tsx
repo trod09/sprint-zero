@@ -150,7 +150,7 @@ function Workspace({
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <section
           aria-labelledby="facts-title"
-          className="bg-card min-w-0 space-y-3 rounded-xl border p-5"
+          className="pixel-card min-w-0 space-y-3 p-5"
         >
           <div>
             <h2 id="facts-title" className="font-heading text-lg font-semibold">
@@ -203,7 +203,7 @@ function Workspace({
         <div className="space-y-4 lg:sticky lg:top-20">
           <section
             aria-labelledby="multipliers-title"
-            className="bg-card space-y-3 rounded-xl border p-4"
+            className="pixel-card space-y-3 p-4"
           >
             <div>
               <h2 id="multipliers-title" className="font-heading font-semibold">
@@ -301,7 +301,7 @@ function Workspace({
 
           <section
             aria-labelledby="calculator-title"
-            className="bg-card space-y-3 rounded-xl border p-4"
+            className="pixel-card space-y-3 p-4"
           >
             <h2 id="calculator-title" className="font-heading font-semibold">
               {copy.estimation.calculator}
@@ -339,7 +339,7 @@ function Workspace({
             )}
           </section>
 
-          <section className="bg-card space-y-3 rounded-xl border p-4">
+          <section className="pixel-card space-y-3 p-4">
             <div className="space-y-1">
               <Label htmlFor="estimate">{copy.estimation.estimate}</Label>
               <Input

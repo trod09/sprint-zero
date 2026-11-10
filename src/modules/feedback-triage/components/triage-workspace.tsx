@@ -247,7 +247,7 @@ function Workspace({
 
   if (inlineResult) {
     return (
-      <section className="bg-card rounded-xl border p-6">
+      <section className="pixel-card p-6">
         <p className="font-heading text-5xl font-semibold tabular-nums">
           {inlineResult.total}
           <span className="text-muted-foreground text-lg"> / 100</span>
@@ -378,13 +378,13 @@ function Workspace({
           )}
 
           {visible.length === 0 ? (
-            <p className="text-muted-foreground bg-card rounded-xl border p-6 text-center text-sm">
+            <p className="pixel-card text-muted-foreground p-6 text-center text-sm">
               {show === "unsorted" && unsortedCount === 0
                 ? copy.inbox.allSorted
                 : copy.inbox.empty}
             </p>
           ) : (
-            <ul className="divide-y overflow-hidden rounded-xl border">
+            <ul className="pixel-frame divide-y overflow-hidden">
               {visible.map((item) => (
                 <FeedbackCard
                   key={item.id}
@@ -409,9 +409,9 @@ function Workspace({
         <aside
           aria-labelledby="clusters-title"
           tabIndex={0}
-          className="focus-visible:ring-ring/50 space-y-3 rounded-xl focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
+          className="focus-visible:ring-ring/50 space-y-3 rounded-md focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
         >
-          <div className="bg-card space-y-3 rounded-xl border p-3">
+          <div className="pixel-card space-y-3 p-3">
             <div>
               <h2 id="clusters-title" className="font-heading font-semibold">
                 {copy.clusters.title}

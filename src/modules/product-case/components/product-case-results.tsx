@@ -70,7 +70,7 @@ function StepSection({
   return (
     <section
       aria-labelledby={`${id}-title`}
-      className="bg-card space-y-4 rounded-xl border p-5"
+      className="pixel-card space-y-4 p-5"
     >
       <h2 id={`${id}-title`} className="font-heading font-semibold">
         {title}
@@ -337,7 +337,7 @@ function EstimationResults({
     <>
       <section
         aria-labelledby="estimate-title"
-        className="bg-card space-y-4 rounded-xl border p-5"
+        className="pixel-card space-y-4 p-5"
       >
         <h2 id="estimate-title" className="font-heading font-semibold">
           {copy.title}
@@ -385,7 +385,7 @@ function EstimationResults({
 
       <section
         aria-labelledby="facts-explained"
-        className="bg-card space-y-3 rounded-xl border p-5"
+        className="pixel-card space-y-3 p-5"
       >
         <h2 id="facts-explained" className="font-heading font-semibold">
           {copy.facts}

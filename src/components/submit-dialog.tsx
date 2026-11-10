@@ -75,7 +75,7 @@ export function SubmitDialog({
 /** Shown in place of the case when the score came back but could not be stored. */
 export function InlineResult({ result }: { result: ScoreResult }) {
   return (
-    <section className="bg-card rounded-xl border p-6">
+    <section className="pixel-card p-6">
       <p className="font-heading text-5xl font-semibold tabular-nums">
         {result.total}
         <span className="text-muted-foreground text-lg"> / 100</span>

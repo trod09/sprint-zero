@@ -36,10 +36,7 @@ export function GenerateCaseCard({ moduleId }: { moduleId: string }) {
   const [pending, setPending] = useState(false);
 
   return (
-    <section
-      aria-labelledby="generate-title"
-      className="bg-card mt-8 rounded-xl border p-5"
-    >
+    <section aria-labelledby="generate-title" className="pixel-card mt-8 p-5">
       <div className="flex items-start gap-3">
         <Sparkles className="text-brand mt-0.5 size-5" aria-hidden="true" />
         <div>

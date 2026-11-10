@@ -40,8 +40,8 @@ function ModuleSkeleton() {
       className="mx-auto w-full max-w-4xl animate-pulse space-y-6 px-4 pt-8 pb-20 sm:px-6"
     >
       <div className="bg-muted h-4 w-28 rounded" />
-      <div className="bg-muted h-16 rounded-xl" />
-      <div className="bg-muted h-64 rounded-xl" />
+      <div className="bg-muted h-16 rounded-md" />
+      <div className="bg-muted h-64 rounded-md" />
     </div>
   );
 }
@@ -70,7 +70,7 @@ async function ModuleContent({
       </Link>
 
       <header className="mt-6 flex items-start gap-4">
-        <span className="border-brand/25 bg-brand/10 text-brand flex size-11 shrink-0 items-center justify-center rounded-xl border">
+        <span className="border-brand bg-brand/10 text-brand flex size-11 shrink-0 items-center justify-center rounded-md border-2">
           <ModuleIcon icon={meta.icon} className="size-5" />
         </span>
         <div className="min-w-0">
@@ -116,7 +116,7 @@ async function ModuleContent({
         </h2>
 
         {cases.length === 0 ? (
-          <div className="mt-4 rounded-xl border border-dashed px-6 py-12 text-center">
+          <div className="border-frame mt-4 rounded-md border-2 border-dashed px-6 py-12 text-center">
             <p className="font-medium">{messages.module.emptyTitle}</p>
             <p className="text-muted-foreground mx-auto mt-1 max-w-md text-sm">
               {meta.status === "coming_soon"

@@ -40,17 +40,14 @@ export function AbTestCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
 
-        <div className="bg-card rounded-xl border p-4">
+        <div className="pixel-card p-4">
           <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
             {copy.label}
           </h2>
           <p className="mt-2 leading-relaxed text-pretty">{publicCase.brief}</p>
         </div>
 
-        <section
-          aria-labelledby="design-title"
-          className="bg-card rounded-xl border p-4"
-        >
+        <section aria-labelledby="design-title" className="pixel-card p-4">
           <h2 id="design-title" className="font-heading font-semibold">
             {copy.design}: {experiment.name}
           </h2>

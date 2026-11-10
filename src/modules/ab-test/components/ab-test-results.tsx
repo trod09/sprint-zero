@@ -18,7 +18,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section aria-labelledby={id} className="bg-card rounded-xl border p-5">
+    <section aria-labelledby={id} className="pixel-card p-5">
       <h2 id={id} className="font-heading font-semibold">
         {title}
       </h2>
@@ -80,7 +80,7 @@ export function AbTestResults({
 
   return (
     <div className="space-y-6">
-      <section className="border-warning/40 bg-warning/5 rounded-xl border p-5">
+      <section className="border-warning bg-warning/5 rounded-md border-2 p-5">
         <h2 className="text-warning text-xs font-medium tracking-wide uppercase">
           {copy.results.truth}
         </h2>

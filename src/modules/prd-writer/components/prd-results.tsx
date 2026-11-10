@@ -242,7 +242,7 @@ function Section({
   return (
     <section
       aria-labelledby={`${id}-title`}
-      className="bg-card space-y-4 rounded-xl border p-5"
+      className="pixel-card space-y-4 p-5"
     >
       <h2 id={`${id}-title`} className="font-heading font-semibold">
         {title}

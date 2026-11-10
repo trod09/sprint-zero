@@ -254,7 +254,7 @@ function Workspace({
 
         <section
           aria-labelledby="step-title"
-          className="bg-card space-y-4 rounded-xl border p-5"
+          className="pixel-card space-y-4 p-5"
         >
           {draft.step === "users" && (
             <>

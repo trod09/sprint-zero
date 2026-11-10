@@ -148,11 +148,11 @@ export function CaseLibrary({
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-muted-foreground rounded-xl border border-dashed px-6 py-10 text-center text-sm">
+        <p className="border-frame text-muted-foreground rounded-md border-2 border-dashed px-6 py-10 text-center text-sm">
           {copy.empty}
         </p>
       ) : (
-        <ul className="divide-y overflow-hidden rounded-xl border">
+        <ul className="pixel-frame divide-y overflow-hidden">
           {filtered.map((summary) => {
             const score = best.get(summary.id);
             return (

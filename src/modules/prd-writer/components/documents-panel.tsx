@@ -14,7 +14,7 @@ export function DocumentsPanel({
     <section
       aria-labelledby="documents-title"
       tabIndex={0}
-      className="bg-card focus-visible:ring-ring/50 space-y-3 rounded-xl border p-4 focus-visible:ring-3 focus-visible:outline-none lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
+      className="pixel-card focus-visible:ring-ring/50 space-y-3 p-4 focus-visible:ring-3 focus-visible:outline-none lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
     >
       <div>
         <h2 id="documents-title" className="font-heading font-semibold">

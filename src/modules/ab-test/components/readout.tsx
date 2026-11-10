@@ -168,7 +168,7 @@ function ReadoutWorkspace({
 
   if (inlineResult) {
     return (
-      <section className="bg-card rounded-xl border p-6">
+      <section className="pixel-card p-6">
         <p className="font-heading text-5xl font-semibold tabular-nums">
           {inlineResult.total}
           <span className="text-muted-foreground text-lg"> / 100</span>
@@ -209,7 +209,7 @@ function ReadoutWorkspace({
       <aside className="lg:sticky lg:top-20">
         <section
           aria-labelledby="decision-title"
-          className="bg-card space-y-4 rounded-xl border p-4"
+          className="pixel-card space-y-4 p-4"
         >
           <div>
             <h2 id="decision-title" className="font-heading font-semibold">

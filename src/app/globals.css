@@ -186,6 +186,14 @@
   box-shadow: 4px 4px 0 0 var(--shadow-color);
 }
 
+/* The same frame without the shadow: dense data (tables, lists) stays flat. */
+@utility pixel-frame {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 2px solid var(--frame);
+  border-radius: calc(var(--radius) * 1.5);
+}
+
 /* Lift on hover for clickable cards. */
 @utility pixel-lift {
   transition:

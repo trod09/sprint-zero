@@ -21,10 +21,13 @@ export function tipFor(moduleId: string, seed: number): string {
 export function CaseHeader({
   publicCase,
   tag,
+  tipKey,
 }: {
   publicCase: PublicBaseCase;
   /** An extra label, such as the kind of Product Case. */
   tag?: string;
+  /** Picks a more specific tip list than the module's, e.g. "product-case-estimation". */
+  tipKey?: string;
 }) {
   const messages = getMessages();
   const meta = getModuleMeta(publicCase.moduleId);
@@ -56,7 +59,7 @@ export function CaseHeader({
         </div>
       </ModuleBanner>
       <MascotBubble label={messages.arcade.tipLabel} size={48}>
-        {tipFor(publicCase.moduleId, publicCase.seed)}
+        {tipFor(tipKey ?? publicCase.moduleId, publicCase.seed)}
       </MascotBubble>
     </div>
   );

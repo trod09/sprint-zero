@@ -61,7 +61,7 @@ export function ModuleCard({
     </>
   );
 
-  const shell = "flex h-full flex-col gap-4 rounded-xl border bg-card p-4";
+  const shell = "pixel-card flex h-full flex-col gap-4 p-4";
 
   if (!isOpen) {
     return (

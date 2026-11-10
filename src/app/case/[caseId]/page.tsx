@@ -79,10 +79,10 @@ function CaseSkeleton() {
         <div className="bg-muted h-4 w-56 rounded" />
         <div className="bg-muted h-7 w-96 max-w-full rounded" />
       </div>
-      <div className="bg-muted h-40 rounded-xl" />
+      <div className="bg-muted h-40 rounded-md" />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <div className="bg-muted h-96 rounded-xl" />
-        <div className="bg-muted h-72 rounded-xl" />
+        <div className="bg-muted h-96 rounded-md" />
+        <div className="bg-muted h-72 rounded-md" />
       </div>
     </div>
   );
