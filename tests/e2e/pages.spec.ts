@@ -25,6 +25,8 @@ const PAGES = [
   "/case/gen-metric-drop-consumer-senior-4242",
   "/case/gen-ab-test-fintech-apm-4242",
   "/case/gen-quick-cases-marketplace-pm-4242",
+  "/case/gen-prd-writer-marketplace-senior-4242",
+  "/case/prd-writer-fixly-rebook",
 ];
 
 for (const path of PAGES) {

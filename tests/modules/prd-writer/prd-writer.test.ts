@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { prdRawCases } from "@/modules/prd-writer/cases";
-import { prdSpecs } from "@/modules/prd-writer/content/cases";
+import { featuredPrdSpecs } from "@/modules/prd-writer/bank";
 import {
   findPrdProblem,
   generatePrdCase,
@@ -53,17 +53,15 @@ const points = (result: ReturnType<typeof scorePrd>, id: string) =>
   result.criteria.find((c) => c.id === id)!.points;
 
 describe("pregenerated PRD Writer cases", () => {
-  it("has one case per level", () => {
-    expect(cases.map((c) => c.difficulty).sort()).toEqual([
-      "apm",
-      "pm",
-      "senior",
-    ]);
+  it("has a case at every level", () => {
+    expect(new Set(cases.map((c) => c.difficulty))).toEqual(
+      new Set(["apm", "pm", "senior"]),
+    );
   });
 
   it("matches what the generator produces from the specifications", () => {
-    expect(cases.map((c) => c.id)).toEqual(prdSpecs.map((s) => s.id));
-    for (const spec of prdSpecs) {
+    expect(cases.map((c) => c.id)).toEqual(featuredPrdSpecs.map((s) => s.id));
+    for (const spec of featuredPrdSpecs) {
       expect(cases.find((c) => c.id === spec.id)).toEqual(
         generatePrdCase(spec),
       );

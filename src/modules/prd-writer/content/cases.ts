@@ -10,6 +10,7 @@ import type { PrdSpec } from "../generator";
 
 const trailheadOffline: PrdSpec = {
   id: "prd-writer-trailhead-offline-maps",
+  industry: "consumer",
   seed: 61_101,
   difficulty: "apm",
   feature: "Offline maps",
@@ -261,6 +262,7 @@ const trailheadOffline: PrdSpec = {
 
 const coinpathSavings: PrdSpec = {
   id: "prd-writer-coinpath-round-ups",
+  industry: "fintech",
   seed: 61_202,
   difficulty: "pm",
   feature: "Automatic savings with round-ups",
@@ -514,6 +516,7 @@ const coinpathSavings: PrdSpec = {
 
 const shiftlySwaps: PrdSpec = {
   id: "prd-writer-shiftly-shift-swaps",
+  industry: "saas",
   seed: 61_303,
   difficulty: "senior",
   feature: "Shift swaps",

@@ -18,6 +18,24 @@ export function isAIConfigured(env: Env = process.env): boolean {
   );
 }
 
+/**
+ * A client for one specific model, e.g. the most capable one for offline
+ * case drafting while the app keeps its default. Throws `AIConfigError`
+ * without credentials.
+ */
+export function createAnthropicClient(model?: string): AIClient {
+  if (!isAIConfigured()) throw new AIConfigError();
+  // Reads ANTHROPIC_API_KEY (or ANTHROPIC_AUTH_TOKEN) from the environment.
+  const anthropic = new Anthropic();
+  return createAIClient({
+    transport: {
+      create: (params, options) =>
+        anthropic.beta.messages.create(params, options),
+    },
+    model,
+  });
+}
+
 let defaultClient: AIClient | undefined;
 
 /**
@@ -26,16 +44,6 @@ let defaultClient: AIClient | undefined;
  */
 export function getAIClient(): AIClient {
   if (!isAIConfigured()) throw new AIConfigError();
-  if (!defaultClient) {
-    // Reads ANTHROPIC_API_KEY (or ANTHROPIC_AUTH_TOKEN) from the environment.
-    const anthropic = new Anthropic();
-    defaultClient = createAIClient({
-      transport: {
-        create: (params, options) =>
-          anthropic.beta.messages.create(params, options),
-      },
-      model: process.env.ANTHROPIC_MODEL,
-    });
-  }
+  defaultClient ??= createAnthropicClient(process.env.ANTHROPIC_MODEL);
   return defaultClient;
 }

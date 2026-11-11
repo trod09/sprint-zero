@@ -17,6 +17,7 @@ const GENERATING = [
   "product-case",
   "roadmap-okrs",
   "quick-cases",
+  "prd-writer",
 ];
 
 describe("generated case ids", () => {

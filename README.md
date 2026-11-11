@@ -81,7 +81,8 @@ notice instead. Keys are only read on the server.
 | `npm run generate:feedback-triage` | Rebuild the 5 Feedback Triage cases                                               |
 | `npm run generate:ux-critique`     | Rebuild the 5 UX Critique cases                                                   |
 | `npm run generate:product-case`    | Rebuild the 4 Product Case cases                                                  |
-| `npm run generate:prd-writer`      | Rebuild the 3 PRD Writer cases                                                    |
+| `npm run generate:prd-writer`      | Rebuild the PRD Writer cases from every spec                                      |
+| `npm run draft:prd-writer`         | Draft a new PRD Writer case with Claude, checked and saved for review             |
 
 ### Generating cases
 
@@ -123,7 +124,11 @@ out of date, and both scripts accept `-- --check` to verify without writing.
   documents with `{slots}` for every number, the strength of each piece of
   evidence, the right bucket for each requirement and the relevance of each
   risk. The baseline and target range are computed from the drawn numbers,
-  and the generator checks the documents state the baseline.
+  and the generator checks the documents state the baseline. New specs are
+  plain JSON in `content/specs/`: `npm run draft:prd-writer -- --industry
+fintech` asks Claude (Opus by default) for one, checks it with five seeds
+  and sends any problems back for up to three rounds, then saves it for you
+  to review before `npm run generate:prd-writer` adds it to the game.
 
 ### Cases on demand
 

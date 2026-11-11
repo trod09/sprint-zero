@@ -16,4 +16,8 @@ export {
   type StructuredRequest,
   type StructuredResult,
 } from "./client";
-export { getAIClient, isAIConfigured } from "./anthropic";
+export {
+  createAnthropicClient,
+  getAIClient,
+  isAIConfigured,
+} from "./anthropic";

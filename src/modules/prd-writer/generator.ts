@@ -7,7 +7,7 @@
  * numbers. A case is only accepted when each step has a clear best answer and
  * the documents actually state the baseline.
  */
-import type { Company, Difficulty } from "@/core/case-engine";
+import type { Company, Difficulty, IndustryKey } from "@/core/case-engine";
 import { createRng, type Rng } from "@/core/rng";
 
 import {
@@ -31,6 +31,8 @@ export interface PrdSpec {
   id: string;
   seed: number;
   difficulty: Difficulty;
+  /** Industry for on-demand cases; specs without one are only featured. */
+  industry?: IndustryKey;
   company: Company;
   title: string;
   brief: string;

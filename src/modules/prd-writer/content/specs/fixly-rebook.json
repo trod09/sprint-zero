@@ -1,0 +1,236 @@
+{
+  "key": "fixly-rebook",
+  "industry": "marketplace",
+  "difficulty": "pm",
+  "feature": "Rebook the same tradesperson",
+  "company": {
+    "name": "Fixly",
+    "industry": "Marketplace",
+    "stage": "Seed, live in two cities",
+    "description": "Fixly matches households with vetted tradespeople for small repairs, booked and paid in the app."
+  },
+  "title": "Write the one-pager for rebooking",
+  "brief": "Customers keep asking to book the same tradesperson again, and the founders want rebooking in the next release. Read the documents, then write the problem, the goal and how you will measure it, what is in and out of the first version, and the main risks.",
+  "numbers": [
+    { "name": "repeatShare", "min": 22, "max": 28, "step": 1 },
+    { "name": "lift", "min": 5, "max": 8, "step": 1 },
+    { "name": "tickets", "min": 300, "max": 500, "step": 20 },
+    { "name": "sameTrades", "min": 61, "max": 71, "step": 1 },
+    { "name": "searchTime", "min": 9, "max": 14, "step": 1 },
+    { "name": "weeks", "min": 6, "max": 8, "step": 1 },
+    { "name": "bookedUp", "min": 30, "max": 38, "step": 1 }
+  ],
+  "derived": [{ "name": "goal", "expression": "repeatShare + lift" }],
+  "documents": [
+    {
+      "id": "memo",
+      "kind": "memo",
+      "title": "Rebooking for the next release",
+      "from": "Head of Product",
+      "body": "Customers tell us they would happily use the same tradesperson again, and Fixly gives them no way to do it. Last quarter {tickets} support tickets asked how to book a previous tradesperson. Rebooking goes in the next release, in {weeks} weeks, with two engineers and one designer. We will judge it over the first quarter after launch."
+    },
+    {
+      "id": "data",
+      "kind": "data",
+      "title": "Repeat customers, last quarter",
+      "from": "Data team",
+      "body": "Customers who book a second job within 90 days of their first: {repeatShare}%. Of the customers who did book again, {sameTrades}% asked support for the same tradesperson. Finding a past job and the tradesperson's name in the app takes a median of {searchTime} minutes."
+    },
+    {
+      "id": "ceo",
+      "kind": "email",
+      "title": "Re: rebooking",
+      "from": "CEO",
+      "body": "If rebooking works, 90-day repeat should get to around {goal}%, which is what we see in the city where tradespeople hand out their cards. Let's aim for that."
+    },
+    {
+      "id": "supply",
+      "kind": "notes",
+      "title": "What tradespeople told us",
+      "from": "Supply lead",
+      "body": "Tradespeople set their own hours, and about {bookedUp}% of them are fully booked two weeks ahead. Some worry that regular customers will take all their time and leave no room for new jobs."
+    },
+    {
+      "id": "trust",
+      "kind": "notes",
+      "title": "Insurance and contact details",
+      "from": "Trust and safety",
+      "body": "Our insurance only covers jobs booked and paid on Fixly. Customers and tradespeople must not see each other's phone numbers or arrange jobs outside the app."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "support_tickets",
+      "text": "{tickets} support tickets last quarter asked how to book a previous tradesperson.",
+      "strength": 2,
+      "why": "Direct, recent and frequent: customers name the problem themselves."
+    },
+    {
+      "id": "repeat_gap",
+      "text": "Only {repeatShare}% of customers book a second job within 90 days.",
+      "strength": 2,
+      "why": "Shows the outcome the problem costs, with a number to move."
+    },
+    {
+      "id": "search_time",
+      "text": "Finding a past job and its tradesperson takes a median of {searchTime} minutes.",
+      "strength": 2,
+      "why": "Shows why customers give up: the path back to the same person is slow."
+    },
+    {
+      "id": "competitor",
+      "text": "A rival app lets customers save favourite tradespeople.",
+      "strength": 1,
+      "why": "Context, not proof that our customers have the problem."
+    },
+    {
+      "id": "ceo_neighbour",
+      "text": "The CEO's neighbour wanted to rebook her plumber.",
+      "strength": 0,
+      "why": "An anecdote from one person."
+    },
+    {
+      "id": "dark_mode",
+      "text": "Customers asked for a dark mode in the app.",
+      "strength": 0,
+      "why": "Unrelated to rebooking."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "repeat",
+      "name": "90-day repeat rate",
+      "definition": "Share of first-time customers who book a second job within 90 days.",
+      "unit": "%",
+      "note": "The outcome the problem hurts, with a baseline ({repeatShare}%) and a target from the CEO (around {goal}%)."
+    },
+    {
+      "id": "rebook_taps",
+      "name": "Rebook button taps",
+      "definition": "Number of times customers tap Book again.",
+      "unit": "taps",
+      "note": "Shows the feature is used, not that customers come back. A good secondary metric."
+    },
+    {
+      "id": "nps",
+      "name": "Net promoter score",
+      "definition": "How likely customers are to recommend Fixly, from -100 to 100.",
+      "unit": "points",
+      "note": "Slow and moved by many things, from prices to punctuality."
+    },
+    {
+      "id": "bookings",
+      "name": "Total bookings",
+      "definition": "Jobs booked per week, new and repeat customers together.",
+      "unit": "bookings",
+      "note": "Mixes in new customers and marketing, so it cannot show whether rebooking works."
+    }
+  ],
+  "primaryMetricId": "repeat",
+  "baseline": "repeatShare",
+  "targetMin": "goal - 2",
+  "targetMax": "goal + 2",
+  "horizon": "quarter",
+  "requirements": [
+    {
+      "id": "past_jobs",
+      "title": "Past jobs with their tradesperson",
+      "description": "List the customer's past jobs, each with the tradesperson who did it.",
+      "bucket": "v1",
+      "why": "Today finding a past job takes {searchTime} minutes; this is where rebooking starts."
+    },
+    {
+      "id": "book_again",
+      "title": "Book again",
+      "description": "Book a new job with the same tradesperson from a past job.",
+      "bucket": "v1",
+      "why": "The core of the feature."
+    },
+    {
+      "id": "next_slots",
+      "title": "The tradesperson's next free slots",
+      "description": "Show when the same tradesperson is next available before booking.",
+      "bucket": "v1",
+      "why": "{bookedUp}% of tradespeople are booked two weeks ahead; without slots, rebooking fails at the last step."
+    },
+    {
+      "id": "similar_suggestion",
+      "title": "Suggest someone similar",
+      "description": "Offer a tradesperson with similar skills when the usual one is not free.",
+      "bucket": "later",
+      "why": "Useful, but first learn how often the usual tradesperson is unavailable."
+    },
+    {
+      "id": "favourites",
+      "title": "Favourite tradespeople",
+      "description": "Save tradespeople to a favourites list.",
+      "bucket": "later",
+      "why": "Past jobs already give customers their list; favourites can wait."
+    },
+    {
+      "id": "phone_number",
+      "title": "Show the tradesperson's phone number",
+      "description": "Let customers call the tradesperson directly.",
+      "bucket": "out",
+      "why": "Insurance only covers jobs booked on Fixly. Say so explicitly as a non-goal."
+    },
+    {
+      "id": "home_plan",
+      "title": "Monthly home care plan",
+      "description": "A subscription with regular visits from the same tradesperson.",
+      "bucket": "out",
+      "why": "A different product with its own pricing question, not part of rebooking."
+    }
+  ],
+  "risks": [
+    {
+      "id": "off_platform",
+      "title": "Jobs leave the platform",
+      "description": "Regular pairs start arranging jobs directly.",
+      "relevance": 2,
+      "why": "Insurance does not cover those jobs, and Fixly loses the booking."
+    },
+    {
+      "id": "booked_up",
+      "title": "The usual tradesperson is never free",
+      "description": "Rebooking shows someone who cannot take the job for weeks.",
+      "relevance": 2,
+      "why": "With {bookedUp}% booked two weeks ahead, this will happen often."
+    },
+    {
+      "id": "supply_squeeze",
+      "title": "No room for new customers",
+      "description": "Regulars fill tradespeople's calendars.",
+      "relevance": 2,
+      "why": "Tradespeople already raised it, and new customers are how Fixly grows."
+    },
+    {
+      "id": "old_addresses",
+      "title": "Old addresses on past jobs",
+      "description": "A customer rebooks to an address they moved from.",
+      "relevance": 1,
+      "why": "Real but easy to handle with a confirmation step."
+    },
+    {
+      "id": "competitor_launch",
+      "title": "A rival launches favourites first",
+      "description": "Another app markets a similar feature.",
+      "relevance": 0,
+      "why": "One already has it; it does not change what we build."
+    },
+    {
+      "id": "pricing",
+      "title": "Customers expect a loyalty discount",
+      "description": "Regular customers ask for lower prices.",
+      "relevance": 0,
+      "why": "Nothing in the documents is about pricing."
+    }
+  ],
+  "ideal": {
+    "problem": "Customers want the same tradesperson again and Fixly makes it hard: {tickets} support tickets last quarter asked how, finding a past job takes {searchTime} minutes, and only {repeatShare}% of customers book a second job within 90 days.",
+    "metrics": "Primary metric: 90-day repeat rate, from {repeatShare}% to around {goal}% within the first quarter after launch. Rebook taps show adoption, not whether customers come back.",
+    "scope": "Version 1: past jobs with their tradesperson, book again, and the tradesperson's next free slots. Later: suggest someone similar and favourites. Non-goals: phone numbers (insurance only covers jobs on Fixly) and a monthly home care plan.",
+    "risks": "Jobs leaving the platform, the usual tradesperson being booked up, and regulars squeezing out new customers, all raised in the documents."
+  },
+  "principle": "A good one-pager ties the problem to evidence, measures the outcome rather than the output, and writes down what it will not do and why."
+}

@@ -24,6 +24,7 @@ import { metricDropRawCases } from "./metric-drop/cases";
 import { generateMetricDropOnDemand } from "./metric-drop/generate";
 import { metricDropModule } from "./metric-drop/module.server";
 import { prdRawCases } from "./prd-writer/cases";
+import { generatePrdOnDemand } from "./prd-writer/bank";
 import { prdWriterModule } from "./prd-writer/module.server";
 import { productCaseRawCases } from "./product-case/cases";
 import { generateProductCaseOnDemand } from "./product-case/generate";
@@ -74,6 +75,7 @@ const registeredModules: readonly RegisteredModule[] = [
   registerModule({
     module: prdWriterModule,
     loadRawCases: () => prdRawCases,
+    generate: generatePrdOnDemand,
   }),
   registerModule({
     module: userInterviewModule,
