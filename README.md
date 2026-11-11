@@ -36,7 +36,7 @@ Playable today:
 
 ## Look and feel
 
-An arcade retro skin, dark by default: Pixelify Sans for titles and short
+An arcade retro skin, dark by default: Jersey 10 for titles and short
 labels, Nunito for reading, solid pixel shadows and pressable buttons. Each
 module is a "world" with its own color and a pixel banner drawn from a seed.
 Kanbo, a sticky-note robot, greets you and leaves a tip in every brief. XP,

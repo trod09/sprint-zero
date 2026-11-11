@@ -126,7 +126,9 @@ export default async function StyleguidePage() {
 
       <Section id="type" title={copy.type}>
         <div className="space-y-3">
-          <p className="font-pixel text-4xl">Pixelify Sans · LEVEL 7</p>
+          <p className="font-pixel text-4xl">
+            Jersey 10 · LEVEL 7 · Sprint Zero 51
+          </p>
           <p className="font-pixel text-xl">
             Titles, buttons, XP numbers and short labels
           </p>

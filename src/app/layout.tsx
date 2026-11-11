@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Nunito, Pixelify_Sans } from "next/font/google";
+import { Geist_Mono, Jersey_10, Nunito } from "next/font/google";
 
 import { SiteHeader } from "@/components/site-header";
 import { DEFAULT_LOCALE, getMessages } from "@/i18n";
@@ -13,9 +13,13 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
-/** Titles, buttons, XP numbers and short labels only. */
-const pixelify = Pixelify_Sans({
-  variable: "--font-pixelify",
+/**
+ * Titles, buttons, XP numbers and short labels only. A pixel face with
+ * plain letterforms, so "S", "Z", "C" and "5" read as themselves.
+ */
+const jersey = Jersey_10({
+  variable: "--font-jersey",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -38,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang={DEFAULT_LOCALE}
-      className={`${nunito.variable} ${pixelify.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${nunito.variable} ${jersey.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

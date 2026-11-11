@@ -17,8 +17,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-nunito);
   --font-mono: var(--font-geist-mono);
-  --font-pixel: var(--font-pixelify);
-  --font-heading: var(--font-pixelify);
+  --font-pixel: var(--font-jersey);
+  --font-heading: var(--font-jersey);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -204,6 +204,21 @@
   color: var(--card-foreground);
   border: 2px solid var(--frame);
   border-radius: calc(var(--radius) * 1.5);
+}
+
+/*
+ * The pixel face has short capitals: match the cap height the layout was
+ * designed for, and never fake a bold it does not have. Reading text inside
+ * a pixel block keeps its own size.
+ */
+.font-pixel,
+.font-heading {
+  font-size-adjust: cap-height 0.63;
+  font-synthesis: none;
+}
+.font-sans,
+.font-mono {
+  font-size-adjust: none;
 }
 
 /* Lift on hover for clickable cards. */
