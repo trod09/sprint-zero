@@ -1,6 +1,10 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+/**
+ * The skills page as a character sheet: the player's totals and Kanbo's
+ * advice, a stat card per skill, the radar, what to practise next, the
+ * ratings over time and how the rating works.
+ */
 import Link from "next/link";
 import { useMemo } from "react";
 import {
@@ -19,34 +23,64 @@ import {
   YAxis,
 } from "recharts";
 
+import { EmptyState } from "@/components/arcade/empty-state";
+import { ModuleSprite, PixelIcon } from "@/components/arcade/icons";
+import { MascotBubble } from "@/components/arcade/mascot-bubble";
+import { Panel } from "@/components/arcade/panel";
+import type { IconName } from "@/components/arcade/sprites";
 import type { CaseSummary } from "@/components/case-library";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { SKILLS, type Skill } from "@/core/case-engine";
+import { CaseTile } from "@/components/world/case-tile";
+import { SKILLS, type ModuleMeta, type Skill } from "@/core/case-engine";
 import {
   computeSkillRatings,
   firstAttempts,
   ratingToLevel,
-  START_RATING,
   recommendCases,
+  START_RATING,
+  type Recommendation,
+  type SkillRating,
 } from "@/core/skills";
 import { getMessages } from "@/i18n";
 import { ratedAttemptsFrom } from "@/lib/recommend";
-import { useAttempts } from "@/lib/use-attempts";
+import { bestScores, useAttempts } from "@/lib/use-attempts";
+import { cn } from "@/lib/utils";
 import { moduleCatalog } from "@/modules/catalog";
 
+/** Theme tokens, so the charts follow light and dark mode. */
 const SKILL_COLORS: Record<Skill, string> = {
-  execution: "#6366f1",
-  analytics: "#0ea5e9",
-  product_sense: "#f59e0b",
-  communication: "#10b981",
-  strategy: "#ef4444",
+  execution: "var(--chart-1)",
+  analytics: "var(--chart-2)",
+  product_sense: "var(--chart-3)",
+  communication: "var(--chart-4)",
+  strategy: "var(--chart-5)",
 };
+
+const SKILL_ICONS: Record<Skill, IconName> = {
+  execution: "list",
+  analytics: "chart",
+  product_sense: "bulb",
+  communication: "chat",
+  strategy: "flag",
+};
+
+/** Level thresholds of each rank, highest first. */
+const RANKS = [
+  { min: 90, key: "master" },
+  { min: 70, key: "expert" },
+  { min: 50, key: "strong" },
+  { min: 30, key: "rising" },
+  { min: 0, key: "rookie" },
+] as const;
+
+const BLOCKS = 10;
+
+const rankFor = (level: number) => RANKS.find((rank) => level >= rank.min)!.key;
 
 const tooltipStyle = {
   background: "var(--popover)",
-  border: "1px solid var(--border)",
-  borderRadius: 8,
+  border: "2px solid var(--frame)",
+  borderRadius: 6,
   color: "var(--popover-foreground)",
   fontSize: 12,
 };
@@ -60,15 +94,19 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
     () => new Map(moduleCatalog.map((meta) => [meta.id, meta.skills])),
     [],
   );
-  const trained = useMemo(() => {
-    const playable = new Set(cases.map((c) => c.moduleId));
-    return new Set(
-      moduleCatalog
-        .filter((meta) => playable.has(meta.id))
-        .flatMap((meta) => meta.skills),
-    );
-  }, [cases]);
   const caseById = useMemo(() => new Map(cases.map((c) => [c.id, c])), [cases]);
+  /** Playable worlds that train each skill. */
+  const worldsFor = useMemo(() => {
+    const playable = new Set(cases.map((c) => c.moduleId));
+    return Object.fromEntries(
+      SKILLS.map((skill) => [
+        skill,
+        moduleCatalog.filter(
+          (meta) => playable.has(meta.id) && meta.skills.includes(skill),
+        ),
+      ]),
+    ) as unknown as Record<Skill, readonly ModuleMeta[]>;
+  }, [cases]);
 
   const view = useMemo(() => {
     if (!attempts) return null;
@@ -83,6 +121,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
         skills: skillsOf.get(c.moduleId) ?? [],
       })),
       new Set(attempts.map((a) => a.caseId)),
+      SKILLS.length,
     );
     const firsts = firstAttempts(rated);
     // One row per counted case with every skill's rating at that point.
@@ -101,7 +140,13 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
         return row;
       }),
     ];
-    return { ratings, recommendations, counted: firsts.length, trend };
+    return {
+      ratings,
+      recommendations,
+      counted: firsts.length,
+      trend,
+      best: bestScores(attempts),
+    };
   }, [attempts, caseById, cases, skillsOf]);
 
   if (!view) {
@@ -112,146 +157,241 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
     );
   }
 
+  const practiced = SKILLS.filter((s) => view.ratings[s].attempts > 0);
+  const overall =
+    practiced.length === 0
+      ? null
+      : Math.round(
+          practiced.reduce(
+            (total, skill) => total + ratingToLevel(view.ratings[skill].rating),
+            0,
+          ) / practiced.length,
+        );
+  const recommendationFor = new Map(
+    view.recommendations.map((rec) => [rec.skill, rec]),
+  );
+  const focus = view.recommendations[0];
+  const focusCase = focus && caseById.get(focus.caseId);
+
   const radarData = SKILLS.map((skill) => ({
     skill: messages.skills[skill],
     level: ratingToLevel(view.ratings[skill].rating),
   }));
-  const practicedSkills = SKILLS.filter((s) => view.ratings[s].attempts > 0);
+
+  const stats = [
+    {
+      icon: "level" as const,
+      label: copy.stats.overall,
+      value: overall === null ? "–" : String(overall),
+    },
+    {
+      icon: "check" as const,
+      label: copy.stats.skills,
+      value: `${practiced.length}/${SKILLS.length}`,
+    },
+    {
+      icon: "star" as const,
+      label: copy.stats.cases,
+      value: String(view.counted),
+    },
+  ];
 
   return (
-    <div className="space-y-6">
-      {view.counted === 0 && (
-        <div className="border-frame rounded-md border-2 border-dashed px-6 py-8 text-center">
-          <p className="text-muted-foreground">{copy.empty}</p>
-          <Button asChild className="mt-4">
-            <Link href="/library">{copy.emptyCta}</Link>
-          </Button>
+    <div className="space-y-8">
+      <div className="grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+        <div className="space-y-5">
+          <header className="flex items-start gap-4">
+            <span
+              aria-hidden="true"
+              className="border-frame bg-card shadow-pixel-sm mt-1 flex size-12 shrink-0 items-center justify-center rounded-md border-2"
+            >
+              <PixelIcon name="level" size={28} />
+            </span>
+            <div className="min-w-0">
+              <h1 className="font-pixel text-3xl leading-tight text-balance">
+                {copy.title}
+              </h1>
+              <p className="text-muted-foreground mt-1 max-w-2xl text-pretty">
+                {copy.subtitle}
+              </p>
+            </div>
+          </header>
+          <dl className="grid grid-cols-3 gap-3">
+            {stats.map((stat) => (
+              <div key={stat.label} className="pixel-card px-3 py-2.5">
+                <dt className="text-muted-foreground flex items-center gap-1.5 text-xs">
+                  <PixelIcon name={stat.icon} size={12} />
+                  {stat.label}
+                </dt>
+                <dd className="font-pixel mt-1 text-2xl tabular-nums">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
-      )}
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <section aria-labelledby="radar-title" className="pixel-card p-5">
-          <h2 id="radar-title" className="font-heading font-semibold">
-            {copy.radarTitle}
-          </h2>
-          <figure aria-label={copy.radarLabel} className="h-72 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart data={radarData} outerRadius="72%">
-                <PolarGrid stroke="var(--border)" />
-                <PolarAngleAxis
-                  dataKey="skill"
-                  tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
-                />
-                <PolarRadiusAxis
-                  domain={[0, 100]}
-                  tick={false}
-                  axisLine={false}
-                />
-                <Radar
-                  dataKey="level"
-                  name={copy.level}
-                  stroke="#6366f1"
-                  fill="#6366f1"
-                  fillOpacity={0.3}
-                  isAnimationActive={false}
-                />
-                <Tooltip contentStyle={tooltipStyle} />
-              </RadarChart>
-            </ResponsiveContainer>
-          </figure>
-        </section>
-
-        <section
-          aria-labelledby="skills-table-title"
-          className="pixel-card p-5"
-        >
-          <h2 id="skills-table-title" className="sr-only">
-            {copy.rating}
-          </h2>
-          <ul className="divide-y">
-            {SKILLS.map((skill) => {
-              const entry = view.ratings[skill];
-              return (
-                <li key={skill} className="flex items-center gap-3 py-3">
-                  <span
-                    aria-hidden="true"
-                    className="size-2.5 shrink-0 rounded-full"
-                    style={{ background: SKILL_COLORS[skill] }}
-                  />
-                  <div className="min-w-0 flex-1">
-                    <p className="font-medium">{messages.skills[skill]}</p>
-                    <p className="text-muted-foreground text-xs">
-                      {trained.has(skill)
-                        ? copy.attempts(entry.attempts)
-                        : copy.noModule}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-lg tabular-nums">
-                      {entry.attempts === 0 ? "—" : ratingToLevel(entry.rating)}
-                    </p>
-                    <p className="text-muted-foreground text-xs tabular-nums">
-                      {copy.rating} {entry.rating}
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+        <MascotBubble label={copy.kanbo.label} size={64}>
+          <div className="space-y-2">
+            <p className="text-sm">
+              {view.counted === 0
+                ? copy.kanbo.first
+                : focus
+                  ? copy.kanbo.focus(messages.skills[focus.skill])
+                  : copy.kanbo.done}
+            </p>
+            {focusCase && (
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="min-w-0 text-sm font-semibold">
+                  {focusCase.title}
+                  <span className="text-muted-foreground block text-xs font-normal">
+                    {focusCase.moduleName} ·{" "}
+                    {messages.difficulty[focusCase.difficulty]}
+                  </span>
+                </p>
+                <Button asChild size="sm">
+                  <Link href={`/case/${focusCase.id}`}>
+                    {copy.play}
+                    <PixelIcon name="play" size={12} />
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
+        </MascotBubble>
       </div>
 
-      <section aria-labelledby="next-title" className="pixel-card p-5">
-        <h2 id="next-title" className="font-heading font-semibold">
-          {copy.nextTitle}
-        </h2>
-        <p className="text-muted-foreground mt-0.5 text-sm">{copy.nextIntro}</p>
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
+        <section aria-labelledby="sheet-title" className="space-y-3">
+          <h2 id="sheet-title" className="font-pixel text-2xl">
+            {copy.sheetTitle}
+          </h2>
+          <ul className="space-y-3">
+            {SKILLS.map((skill) => (
+              <SkillCard
+                key={skill}
+                skill={skill}
+                entry={view.ratings[skill]}
+                worlds={worldsFor[skill]}
+                recommendation={recommendationFor.get(skill)}
+              />
+            ))}
+          </ul>
+        </section>
+
+        <div className="space-y-6 lg:sticky lg:top-20">
+          <Panel id="radar-title" icon="target" title={copy.radarTitle}>
+            <figure aria-label={copy.radarLabel} className="h-72 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart data={radarData} outerRadius="70%">
+                  <PolarGrid stroke="var(--frame)" strokeOpacity={0.5} />
+                  <PolarAngleAxis
+                    dataKey="skill"
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+                  />
+                  <PolarRadiusAxis
+                    domain={[0, 100]}
+                    tick={false}
+                    axisLine={false}
+                  />
+                  <Radar
+                    dataKey="level"
+                    name={copy.level}
+                    stroke="var(--primary)"
+                    strokeWidth={2}
+                    fill="var(--primary)"
+                    fillOpacity={0.25}
+                    dot={{ r: 3, fill: "var(--primary)" }}
+                    isAnimationActive={false}
+                  />
+                  <Tooltip contentStyle={tooltipStyle} />
+                </RadarChart>
+              </ResponsiveContainer>
+            </figure>
+            {view.counted === 0 && (
+              <p className="text-muted-foreground text-center text-xs">
+                {copy.radarEmpty}
+              </p>
+            )}
+          </Panel>
+
+          <Panel icon="doc" title={copy.howTitle}>
+            <ul className="space-y-2 text-sm">
+              {copy.how.map((rule) => (
+                <li key={rule} className="flex gap-2">
+                  <span aria-hidden="true" className="text-ink mt-0.5">
+                    <PixelIcon name="play" size={10} />
+                  </span>
+                  <span className="text-muted-foreground leading-relaxed">
+                    {rule}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <ol className="mt-3 flex flex-wrap gap-1.5">
+              {[...RANKS].reverse().map((rank) => (
+                <li
+                  key={rank.key}
+                  className="font-pixel border-frame bg-background/60 rounded-sm border-2 px-1.5 py-0.5 text-[0.625rem] tracking-wider uppercase"
+                >
+                  {copy.ranks[rank.key]} {rank.min}+
+                </li>
+              ))}
+            </ol>
+          </Panel>
+        </div>
+      </div>
+
+      <Panel
+        id="next-title"
+        icon="play"
+        title={copy.nextTitle}
+        subtitle={copy.nextIntro}
+      >
         {view.recommendations.length === 0 ? (
-          <p className="text-muted-foreground mt-4 text-sm">{copy.nextEmpty}</p>
+          <EmptyState size="sm" title={copy.nextEmptyTitle}>
+            {copy.nextEmpty}
+          </EmptyState>
         ) : (
-          <ul className="mt-4 grid gap-3 md:grid-cols-3">
-            {view.recommendations.map((rec) => {
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {view.recommendations.slice(0, 3).map((rec) => {
               const summary = caseById.get(rec.caseId);
               if (!summary) return null;
               const skillName = messages.skills[rec.skill];
               return (
-                <li
-                  key={rec.caseId}
-                  className="flex flex-col gap-2 rounded-lg border p-3"
-                >
-                  <div className="flex flex-wrap items-center gap-1.5 text-xs">
-                    <Badge variant="secondary">{skillName}</Badge>
-                    <Badge variant="outline">
-                      {messages.difficulty[summary.difficulty]}
-                    </Badge>
-                  </div>
-                  <p className="font-medium">{summary.title}</p>
-                  <p className="text-muted-foreground text-xs">
-                    {summary.moduleName} · {copy.reasons[rec.reason](skillName)}
+                <li key={rec.caseId} className="flex flex-col gap-2">
+                  <p className="flex items-center gap-1.5 text-xs">
+                    <span
+                      aria-hidden="true"
+                      style={{ color: SKILL_COLORS[rec.skill] }}
+                    >
+                      <PixelIcon name={SKILL_ICONS[rec.skill]} size={12} />
+                    </span>
+                    <span className="text-muted-foreground">
+                      {copy.reasons[rec.reason](skillName)}
+                    </span>
                   </p>
-                  <Button asChild size="sm" className="mt-auto self-start">
-                    <Link href={`/case/${summary.id}`}>
-                      {copy.play}
-                      <ArrowRight aria-hidden="true" />
-                    </Link>
-                  </Button>
+                  <div className="flex-1">
+                    <CaseTile
+                      summary={summary}
+                      score={view.best.get(summary.id)}
+                      showLevel
+                    />
+                  </div>
                 </li>
               );
             })}
           </ul>
         )}
-      </section>
+      </Panel>
 
-      <section aria-labelledby="trend-title" className="pixel-card p-5">
-        <h2 id="trend-title" className="font-heading font-semibold">
-          {copy.trendTitle}
-        </h2>
+      <Panel id="trend-title" icon="chart" title={copy.trendTitle}>
         {view.counted === 0 ? (
-          <p className="text-muted-foreground mt-2 text-sm">
+          <EmptyState size="sm" title={copy.trendEmptyTitle}>
             {copy.trendEmpty}
-          </p>
+          </EmptyState>
         ) : (
-          <figure aria-label={copy.trendLabel} className="mt-2 h-72 w-full">
+          <figure aria-label={copy.trendLabel} className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={view.trend}
@@ -284,7 +424,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
                     <span style={{ color: "var(--foreground)" }}>{value}</span>
                   )}
                 />
-                {practicedSkills.map((skill) => (
+                {practiced.map((skill) => (
                   <Line
                     key={skill}
                     type="linear"
@@ -292,7 +432,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
                     name={messages.skills[skill]}
                     stroke={SKILL_COLORS[skill]}
                     strokeWidth={2}
-                    dot={{ r: 2 }}
+                    dot={{ r: 3 }}
                     connectNulls
                     isAnimationActive={false}
                   />
@@ -301,12 +441,138 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
             </ResponsiveContainer>
           </figure>
         )}
-      </section>
-
-      <section className="text-muted-foreground text-sm">
-        <h2 className="text-foreground font-medium">{copy.howTitle}</h2>
-        <p className="mt-1 max-w-3xl leading-relaxed">{copy.how}</p>
-      </section>
+      </Panel>
     </div>
+  );
+}
+
+/** One skill as a stat card: level, rank, blocks, change and where to train. */
+function SkillCard({
+  skill,
+  entry,
+  worlds,
+  recommendation,
+}: {
+  skill: Skill;
+  entry: SkillRating;
+  worlds: readonly ModuleMeta[];
+  recommendation?: Recommendation;
+}) {
+  const messages = getMessages();
+  const copy = messages.skillsPage;
+  const practiced = entry.attempts > 0;
+  const level = ratingToLevel(entry.rating);
+  const filled = practiced ? Math.round((level / 100) * BLOCKS) : 0;
+  const history = entry.history;
+  const previous =
+    history.length > 1 ? history[history.length - 2].rating : START_RATING;
+  const delta = practiced ? entry.rating - previous : 0;
+  const color = SKILL_COLORS[skill];
+
+  return (
+    <li
+      className={cn(
+        "flex flex-col gap-4 rounded-md border-2 p-4 sm:flex-row sm:items-center",
+        practiced
+          ? "pixel-card"
+          : "border-border bg-background/60 border-dashed",
+      )}
+    >
+      <div className="flex min-w-0 flex-1 items-start gap-4">
+        <span
+          aria-hidden="true"
+          className="bg-background flex size-12 shrink-0 items-center justify-center rounded-md border-2"
+          style={{ borderColor: color, color }}
+        >
+          <PixelIcon name={SKILL_ICONS[skill]} size={24} />
+        </span>
+        <div className="min-w-0 flex-1 space-y-2">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h3 className="font-pixel text-base">
+              {messages.skills[skill]}
+              {practiced && (
+                <span className="text-muted-foreground ml-2 text-xs">
+                  {copy.ranks[rankFor(level)]}
+                </span>
+              )}
+            </h3>
+            <p className="font-pixel text-2xl leading-none tabular-nums">
+              {practiced ? level : "–"}
+              <span className="text-muted-foreground ml-1 text-xs">
+                {copy.levelShort}
+              </span>
+            </p>
+          </div>
+          <div
+            className="flex h-3 gap-0.5"
+            role="img"
+            aria-label={
+              practiced ? copy.levelOf(level) : copy.attempts(entry.attempts)
+            }
+          >
+            {Array.from({ length: BLOCKS }, (_, index) => (
+              <span
+                key={index}
+                className={cn(
+                  "flex-1 rounded-[1px]",
+                  index >= filled && "bg-muted",
+                )}
+                style={index < filled ? { background: color } : undefined}
+              />
+            ))}
+          </div>
+          <p className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+            <span>{copy.attempts(entry.attempts)}</span>
+            {practiced && (
+              <span className="tabular-nums">
+                {copy.rating} {entry.rating}
+              </span>
+            )}
+            {practiced && delta !== 0 && (
+              <span
+                className={cn(
+                  "font-pixel tabular-nums",
+                  delta > 0 ? "text-success" : "text-destructive",
+                )}
+              >
+                {copy.delta(delta)}
+              </span>
+            )}
+            {worlds.length > 0 ? (
+              <span className="flex items-center gap-1">
+                {copy.trainedBy}
+                {worlds.map((meta) => (
+                  <Link
+                    key={meta.id}
+                    href={`/modules/${meta.id}`}
+                    title={meta.name}
+                    className="focus-visible:ring-ring/50 rounded-[2px] bg-[#0a0e1f] p-0.5 focus-visible:ring-2 focus-visible:outline-none"
+                  >
+                    <ModuleSprite moduleId={meta.id} size={14} />
+                    <span className="sr-only">{meta.name}</span>
+                  </Link>
+                ))}
+              </span>
+            ) : (
+              <span>{copy.noModule}</span>
+            )}
+          </p>
+        </div>
+      </div>
+      {recommendation && (
+        <Button
+          asChild
+          size="sm"
+          variant={practiced ? "outline" : "default"}
+          className="ml-16 self-start sm:ml-0 sm:self-center"
+        >
+          <Link href={`/case/${recommendation.caseId}`}>
+            {copy.train}
+            <span className="sr-only"> {messages.skills[skill]}</span>
+            <PixelIcon name="play" size={12} />
+          </Link>
+        </Button>
+      )}
+    </li>
   );
 }

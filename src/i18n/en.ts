@@ -1761,36 +1761,70 @@ export const en = {
   skillsPage: {
     title: "Your skills",
     subtitle:
-      "An Elo-style rating per skill, built from your first attempt at each case. Harder cases move it more; replays do not count, because you already know the answer.",
+      "Your PM character sheet: an Elo-style rating per skill, built from your first attempt at each case.",
     loading: "Loading your skills…",
-    empty: "Finish a case to see your skill radar.",
-    emptyCta: "Browse cases",
+    stats: {
+      overall: "Overall level",
+      skills: "Skills trained",
+      cases: "Cases counted",
+    },
+    kanbo: {
+      label: "Kanbo's advice",
+      first:
+        "Every skill starts at the same level. Play a case and watch your sheet fill in. This one is a good start.",
+      focus: (skill: string) =>
+        `${skill} is where you can gain the most right now. Train it with this case.`,
+      done: "You have played every case that trains your skills. Generate fresh ones from any world.",
+    },
+    sheetTitle: "Character sheet",
     radarTitle: "Skill radar",
     radarLabel: "Level per skill, from 0 to 100",
+    radarEmpty: "Everyone starts at level 25. Your shape appears as you play.",
     level: "Level",
+    levelShort: "LV",
+    levelOf: (level: number) => `Level ${level} of 100`,
     rating: "Rating",
+    delta: (change: number) => `${change > 0 ? "+" : ""}${change} last case`,
     attempts: (count: number) =>
       count === 0
         ? "Not practiced yet"
         : `${count} case${count === 1 ? "" : "s"}`,
-    noModule: "No playable module trains this skill yet.",
+    trainedBy: "Trained in",
+    noModule: "No playable world trains this skill yet.",
+    train: "Train",
+    ranks: {
+      rookie: "Rookie",
+      rising: "Rising",
+      strong: "Strong",
+      expert: "Expert",
+      master: "Master",
+    },
     trendTitle: "Over time",
     trendLabel: "Rating per skill after each case",
+    trendEmptyTitle: "No history yet",
     trendEmpty: "Your ratings over time appear after your first case.",
     caseNumber: (index: number) => (index === 0 ? "Start" : `Case ${index}`),
     nextTitle: "Practice next",
     nextIntro:
       "Unplayed cases for your weakest skills, at a difficulty that stretches you.",
+    nextEmptyTitle: "Nothing left here",
     nextEmpty:
-      "You have played every case that trains these skills. New cases are on the way.",
+      "You have played every case that trains these skills. Generate fresh ones from any world.",
     reasons: {
       not_practiced: (skill: string) =>
         `You have not practiced ${skill.toLowerCase()} yet.`,
       weakest: (skill: string) => `${skill} is one of your weakest skills.`,
     },
-    play: "Play",
+    play: "Play it",
     howTitle: "How the rating works",
-    how: "Every skill starts at 1000. An APM case is rated 1000, PM 1200 and Senior 1400. Scoring above what your rating predicts against the case raises it, scoring below lowers it. A module counts fully for its first skill and half for the others. The level on the radar maps 800 to 0 and 1600 to 100.",
+    how: [
+      "Every skill starts at 1000, which is level 25.",
+      "Cases are rated by level: APM 1000, PM 1200 and Senior 1400.",
+      "Scoring above what your rating predicts raises it; scoring below lowers it.",
+      "Only your first attempt at a case counts, because a replay knows the answer.",
+      "A world counts fully for its first skill and half for the others.",
+      "Levels go from 0 (rating 800) to 100 (rating 1600). Ranks:",
+    ],
   },
   errors: {
     title: "Something went wrong",
