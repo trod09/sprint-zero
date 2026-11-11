@@ -1639,6 +1639,50 @@ export const en = {
       principle: "Principle to remember",
     },
   },
+  auth: {
+    signIn: "Sign in",
+    attract: {
+      eyebrow: "The PM practice arcade",
+      tagline:
+        "Plan sprints, chase metric drops, read experiments and write one-pagers. Every case scored by fixed rules, every answer explained.",
+      kanbo: "Your sprint starts here. Ready?",
+      pressStart: "Press start",
+      worlds: "Worlds to clear",
+      stats: (cases: number, worlds: number, skills: number) =>
+        `${cases} cases · ${worlds} worlds · ${skills} skills`,
+    },
+    card: {
+      eyebrow: "Insert coin",
+      modes: "Account",
+      signIn: "Sign in",
+      signUp: "Create account",
+      titleSignIn: "Welcome back, player",
+      titleSignUp: "Start your run",
+      subtitleSignIn: "Pick up your XP, stars and streak where you left them.",
+      subtitleSignUp:
+        "One account keeps your progress safe and on every device.",
+      google: "Continue with Google",
+      or: "or with your email",
+      email: "Email",
+      emailPlaceholder: "you@company.com",
+      magicLink: "Send me a magic link",
+      sending: "Sending…",
+      noPassword: "No password to remember: we email you a one-time link.",
+      guest: "Play as guest",
+      guestHint: "Your progress is saved in this browser.",
+      perksTitle: "With an account",
+      perks: [
+        "Your XP, stars, streak and badges on every device",
+        "The progress already saved in this browser comes with you",
+        "Your history and skill radar, safe if you clear the browser",
+      ],
+      invalidEmail: "That email does not look right. Check it and try again.",
+      notConfigured:
+        "Accounts open with the next update. Until then, everything you play is saved in this browser: carry on as a guest.",
+      failed: "Something went wrong. Try again in a moment.",
+      sent: (email: string) => `Check ${email}: your link is on its way.`,
+    },
+  },
   learn: {
     onboarding: {
       title: "How a case works",

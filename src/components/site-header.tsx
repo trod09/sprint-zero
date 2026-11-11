@@ -37,6 +37,12 @@ export function SiteHeader({ messages }: { messages: Messages }) {
           <HeaderPlayer />
           <SoundToggle />
           <ThemeToggle label={messages.nav.toggleTheme} />
+          <Link
+            href="/login"
+            className="font-pixel border-frame hover:bg-muted focus-visible:ring-ring/60 ml-1 hidden rounded-md border-2 px-2.5 py-1 text-sm whitespace-nowrap transition-colors focus-visible:ring-3 focus-visible:outline-none sm:inline-block"
+          >
+            {messages.auth.signIn}
+          </Link>
         </div>
       </div>
     </header>

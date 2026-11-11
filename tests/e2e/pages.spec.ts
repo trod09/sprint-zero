@@ -19,6 +19,7 @@ const PAGES = [
   "/history",
   "/skills",
   "/styleguide",
+  "/login",
   ...MODULES.map((id) => `/modules/${id}`),
   ...Object.values(CASES).map((id) => `/case/${id}`),
   "/case/gen-backlog-saas-pm-4242",
