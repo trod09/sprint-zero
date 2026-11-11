@@ -1698,23 +1698,45 @@ export const en = {
   },
   library: {
     title: "Case library",
-    subtitle: "Every playable case, with your best score so far.",
+    subtitle:
+      "Every case of every world. Search, filter by level and pick up where your stars are missing.",
     filters: "Filter cases",
-    module: "Module",
-    allModules: "All modules",
+    search: "Search cases",
+    searchPlaceholder: "Search by case, company or industry",
+    module: "Worlds",
+    allModules: "All worlds",
     industry: "Industry",
     allIndustries: "All industries",
-    difficulty: "Difficulty",
-    allDifficulties: "All levels",
+    difficulty: "Level",
+    allLevels: "All",
     status: "Status",
-    allStatuses: "Played or not",
+    allStatuses: "All",
     completed: "Played",
-    notCompleted: "Not played yet",
+    notCompleted: "New",
     clear: "Clear filters",
     count: (shown: number, total: number) =>
       shown === total ? `${total} cases` : `${shown} of ${total} cases`,
-    empty: "No case matches these filters.",
-    best: (score: number) => `Best ${score}`,
+    emptyTitle: "No case here",
+    empty: "No case matches these filters. Loosen one, or clear them all.",
+    worldSummary: (count: number, played: number) =>
+      `${count} case${count === 1 ? "" : "s"} · ${played} played`,
+    openWorld: "Open world",
+    stats: {
+      played: "Cases played",
+      stars: "Stars",
+      worlds: "Worlds explored",
+    },
+    suggestion: {
+      label: "Kanbo suggests",
+      first: "Not sure where to start? This one is a gentle first case.",
+      weakest: (skill: string) =>
+        `Your ${skill.toLowerCase()} could use some practice. Try this one.`,
+      notPracticed: (skill: string) =>
+        `You have not practised ${skill.toLowerCase()} yet. Try this one.`,
+      play: "Play it",
+      allDone:
+        "You have played every case. Generate fresh ones from any world.",
+    },
   },
   history: {
     title: "History",
