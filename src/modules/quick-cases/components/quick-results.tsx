@@ -8,6 +8,7 @@ import { formatClock } from "@/modules/product-case/draft";
 import type { QuickCase } from "../schema";
 import type { QuickReport } from "../scoring";
 import { Exhibits } from "./exhibits";
+import { Panel } from "@/components/arcade/panel";
 
 const RATING_STYLE = [
   "text-destructive",
@@ -28,11 +29,8 @@ export function QuickResults({
 
   return (
     <div className="space-y-6">
-      <section className="pixel-card p-4">
-        <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-          {copy.results.ideal}
-        </h2>
-        <p className="mt-2 leading-relaxed">{hidden.ideal}</p>
+      <Panel icon="bulb" title={copy.results.ideal}>
+        <p className="leading-relaxed">{hidden.ideal}</p>
         <p className="text-muted-foreground mt-3 text-xs">
           {report.timing?.timed
             ? copy.results.timed(
@@ -41,7 +39,7 @@ export function QuickResults({
               )
             : copy.results.untimed}
         </p>
-      </section>
+      </Panel>
 
       {caseData.steps.map((step, index) => {
         const truth = hidden.steps[index];
@@ -51,19 +49,13 @@ export function QuickResults({
           (a, b) => b.rating - a.rating,
         );
         return (
-          <section
+          <Panel
             key={step.id}
-            aria-labelledby={`result-${step.id}`}
-            className="pixel-card p-4"
+            icon="target"
+            id={`result-${step.id}`}
+            title={`${copy.steps.decision(index + 1, caseData.steps.length)} · ${step.title}`}
           >
-            <h2
-              id={`result-${step.id}`}
-              className="font-pixel text-ink text-xs tracking-wide uppercase"
-            >
-              {copy.steps.decision(index + 1, caseData.steps.length)} ·{" "}
-              {step.title}
-            </h2>
-            <p className="mt-1 font-medium">{step.question}</p>
+            <p className="font-medium">{step.question}</p>
             <ul className="mt-2 divide-y">
               {options.map((option) => (
                 <li key={option.id} className="py-2.5 text-sm">
@@ -91,25 +83,15 @@ export function QuickResults({
                 </li>
               ))}
             </ul>
-          </section>
+          </Panel>
         );
       })}
 
-      <details className="group pixel-card">
-        <summary className="hover:bg-muted/50 focus-visible:ring-ring/50 font-pixel cursor-pointer list-none rounded-md px-4 py-3 text-sm focus-visible:ring-3 focus-visible:outline-none">
-          {copy.brief.exhibits}
-        </summary>
-        <div className="border-t p-4 [&_h2]:sr-only">
-          <Exhibits exhibits={caseData.exhibits} />
-        </div>
-      </details>
+      <Exhibits exhibits={caseData.exhibits} />
 
-      <section className="pixel-card p-4">
-        <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-          {copy.results.principle}
-        </h2>
-        <p className="mt-2 leading-relaxed">{hidden.principle}</p>
-      </section>
+      <Panel icon="bulb" title={copy.results.principle}>
+        <p className="leading-relaxed">{hidden.principle}</p>
+      </Panel>
     </div>
   );
 }

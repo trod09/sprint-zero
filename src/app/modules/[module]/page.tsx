@@ -1,13 +1,17 @@
-import { ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { CaseLibrary } from "@/components/case-library";
+import { EmptyState } from "@/components/arcade/empty-state";
+import { moduleColor } from "@/components/arcade/icons";
+import { ModuleBanner } from "@/components/arcade/module-banner";
+import { Panel } from "@/components/arcade/panel";
 import { GenerateCaseCard } from "@/components/generate-case-card";
-import { ModuleIcon } from "@/components/module-icon";
 import { Badge } from "@/components/ui/badge";
+import { WorldLevels } from "@/components/world/world-levels";
+import { WorldStats } from "@/components/world/world-stats";
 import { getMessages } from "@/i18n";
 import { getModuleMeta, moduleCatalog } from "@/modules/catalog";
 import { listCaseSummaries } from "@/modules/case-summaries.server";
@@ -37,7 +41,7 @@ function ModuleSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="mx-auto w-full max-w-4xl animate-pulse space-y-6 px-4 pt-8 pb-20 sm:px-6"
+      className="mx-auto w-full max-w-6xl animate-pulse space-y-6 px-4 pt-6 pb-20 sm:px-6"
     >
       <div className="bg-muted h-4 w-28 rounded" />
       <div className="bg-muted h-16 rounded-md" />
@@ -58,9 +62,21 @@ async function ModuleContent({
   const messages = getMessages();
   // Public summaries only: ground truth never leaves the case repository here.
   const cases = await listCaseSummaries(meta.id);
+  const catalog = cases.map(({ id, moduleId, difficulty }) => ({
+    id,
+    moduleId,
+    difficulty,
+  }));
+  const worldNumber =
+    moduleCatalog
+      .filter((m) => m.status !== "coming_soon")
+      .findIndex((m) => m.id === meta.id) + 1;
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 pt-8 pb-20 sm:px-6">
+    <div
+      className="world-scope mx-auto w-full max-w-6xl space-y-6 px-4 pt-6 pb-20 sm:px-6"
+      style={{ ["--world" as string]: moduleColor(meta.id) }}
+    >
       <Link
         href="/#modules"
         className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 inline-flex items-center gap-1.5 rounded-md text-sm transition-colors focus-visible:ring-3 focus-visible:outline-none"
@@ -69,65 +85,56 @@ async function ModuleContent({
         {messages.module.backToModules}
       </Link>
 
-      <header className="mt-6 flex items-start gap-4">
-        <span className="border-brand bg-brand/10 text-brand flex size-11 shrink-0 items-center justify-center rounded-md border-2">
-          <ModuleIcon icon={meta.icon} className="size-5" />
-        </span>
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <h1 className="font-heading text-2xl font-semibold tracking-tight">
-              {meta.name}
-            </h1>
-            <Badge variant="secondary">{messages.status[meta.status]}</Badge>
-          </div>
-          <p className="text-muted-foreground mt-2 text-pretty">
-            {meta.description}
-          </p>
+      <ModuleBanner
+        moduleId={meta.id}
+        eyebrow={
+          worldNumber > 0
+            ? messages.module.world(worldNumber)
+            : messages.status[meta.status]
+        }
+        title={meta.name}
+        subtitle={meta.tagline}
+      >
+        <div className="flex flex-wrap items-center gap-2">
+          {meta.skills.map((skill) => (
+            <Badge key={skill}>{messages.skills[skill]}</Badge>
+          ))}
+          {meta.estimatedMinutes !== undefined && (
+            <Badge
+              variant="outline"
+              className="border-[#5f6db0] text-[#eef1ff]"
+            >
+              {messages.module.minutes(meta.estimatedMinutes)}
+            </Badge>
+          )}
         </div>
-      </header>
+      </ModuleBanner>
 
-      <dl className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-y py-3 text-sm">
-        <div className="flex items-center gap-2">
-          <dt className="text-muted-foreground">{messages.module.skills}</dt>
-          <dd className="flex flex-wrap gap-1.5">
-            {meta.skills.map((skill) => (
-              <Badge key={skill} variant="outline">
-                {messages.skills[skill]}
-              </Badge>
-            ))}
-          </dd>
-        </div>
-        {meta.estimatedMinutes !== undefined && (
-          <div className="text-muted-foreground flex items-center gap-1.5">
-            <dt className="sr-only">Duration</dt>
-            <Clock className="size-3.5" aria-hidden="true" />
-            <dd>{messages.module.minutes(meta.estimatedMinutes)}</dd>
-          </div>
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
+        <Panel icon="doc" title={messages.module.aboutTitle}>
+          <p className="leading-relaxed text-pretty">{meta.description}</p>
+        </Panel>
+        {cases.length > 0 && (
+          <WorldStats moduleId={meta.id} catalog={catalog} />
         )}
-      </dl>
+      </div>
 
       {moduleRegistry.get(meta.id)?.canGenerate && (
         <GenerateCaseCard moduleId={meta.id} />
       )}
 
-      <section aria-labelledby="cases-title" className="mt-10">
-        <h2 id="cases-title" className="font-heading text-lg font-semibold">
-          {messages.module.casesTitle}
+      <section aria-labelledby="cases-title" className="space-y-4">
+        <h2 id="cases-title" className="font-pixel text-2xl">
+          {messages.module.levels.title}
         </h2>
-
         {cases.length === 0 ? (
-          <div className="border-frame mt-4 rounded-md border-2 border-dashed px-6 py-12 text-center">
-            <p className="font-medium">{messages.module.emptyTitle}</p>
-            <p className="text-muted-foreground mx-auto mt-1 max-w-md text-sm">
-              {meta.status === "coming_soon"
-                ? messages.module.comingSoonBody
-                : messages.module.emptyBody}
-            </p>
-          </div>
+          <EmptyState title={messages.module.emptyTitle}>
+            {meta.status === "coming_soon"
+              ? messages.module.comingSoonBody
+              : messages.module.emptyBody}
+          </EmptyState>
         ) : (
-          <div className="mt-4">
-            <CaseLibrary cases={cases} showModuleFilter={false} />
-          </div>
+          <WorldLevels cases={cases} />
         )}
       </section>
     </div>

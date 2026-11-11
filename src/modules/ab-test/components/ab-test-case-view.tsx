@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import { formatInteger } from "@/lib/format";
 
@@ -40,18 +41,16 @@ export function AbTestCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
 
-        <div className="pixel-card p-4">
-          <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-            {copy.label}
-          </h2>
-          <p className="mt-2 leading-relaxed text-pretty">{publicCase.brief}</p>
-        </div>
+        <Panel icon="flag" title={copy.label}>
+          <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
+        </Panel>
 
-        <section aria-labelledby="design-title" className="pixel-card p-4">
-          <h2 id="design-title" className="font-heading font-semibold">
-            {copy.design}: {experiment.name}
-          </h2>
-          <dl className="mt-3 grid gap-4 md:grid-cols-2">
+        <Panel
+          icon="bulb"
+          id="design-title"
+          title={`${copy.design}: ${experiment.name}`}
+        >
+          <dl className="grid gap-4 md:grid-cols-2">
             <Field label={copy.change}>{experiment.change}</Field>
             <Field label={copy.hypothesis}>{experiment.hypothesis}</Field>
             <Field label={copy.primaryMetric}>
@@ -94,7 +93,7 @@ export function AbTestCaseView({
               </ul>
             </Field>
           </dl>
-        </section>
+        </Panel>
       </section>
       <Readout publicCase={publicCase} submit={submit} />
     </div>

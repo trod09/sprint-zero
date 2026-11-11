@@ -9,6 +9,7 @@ import {
   type RequestFeedback,
 } from "@/components/ai-feedback-panel";
 import { NextSteps } from "@/components/next-steps";
+import { moduleColor } from "@/components/arcade/icons";
 import { ResultScreen } from "@/components/arcade/result-screen";
 import type { CaseSummary } from "@/components/case-library";
 import { Button } from "@/components/ui/button";
@@ -172,7 +173,10 @@ export function AttemptResults({
   const meta = getModuleMeta(revealedCase.moduleId);
 
   return (
-    <div className="space-y-6">
+    <div
+      className="world-scope space-y-6"
+      style={{ ["--world" as string]: moduleColor(revealedCase.moduleId) }}
+    >
       {meta && (
         <Link
           href={`/modules/${meta.id}`}

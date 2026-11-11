@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import type { SubmitAttempt } from "@/lib/use-submit-attempt";
 
@@ -19,13 +20,8 @@ export function RoadmapCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)]">
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.label}
-            </h2>
-            <p className="mt-2 leading-relaxed text-pretty">
-              {publicCase.brief}
-            </p>
+          <Panel icon="flag" title={copy.label}>
+            <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
             <h3 className="font-pixel text-ink mt-5 text-xs tracking-wide uppercase">
               {copy.objectives}
             </h3>
@@ -47,12 +43,9 @@ export function RoadmapCaseView({
                 </li>
               ))}
             </ol>
-          </div>
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.teams}
-            </h2>
-            <ul className="mt-2 space-y-3 text-sm">
+          </Panel>
+          <Panel icon="people" title={copy.teams}>
+            <ul className="space-y-3 text-sm">
               {publicCase.teams.map((team) => (
                 <li key={team.id}>
                   <p className="font-semibold">{team.name}</p>
@@ -63,7 +56,7 @@ export function RoadmapCaseView({
             <p className="text-muted-foreground mt-3 border-t pt-3 text-xs">
               {copy.teamCapacity(SPRINTS)}
             </p>
-          </div>
+          </Panel>
         </div>
       </section>
       <RoadmapWorkspace publicCase={publicCase} submit={submit} />

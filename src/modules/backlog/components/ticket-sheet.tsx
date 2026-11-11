@@ -23,9 +23,7 @@ import {
   type TicketMark,
 } from "../schema";
 import { EffortPill, TicketTypeIcon } from "./ticket-meta";
-
-export const selectClassName =
-  "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-8 w-full min-w-0 rounded-lg border px-2 text-sm outline-none focus-visible:ring-3 disabled:opacity-50 dark:bg-input/30";
+import { NativeSelect } from "@/components/ui/native-select";
 
 interface TicketSheetProps {
   ticket: PublicTicket | null;
@@ -228,9 +226,8 @@ function TicketDetail({
               >
                 <Label htmlFor="duplicate-of">{copy.duplicate}</Label>
                 <div className="flex gap-2">
-                  <select
+                  <NativeSelect
                     id="duplicate-of"
-                    className={selectClassName}
                     value={duplicateOfId}
                     onChange={(event) => setDuplicateOfId(event.target.value)}
                   >
@@ -240,7 +237,7 @@ function TicketDetail({
                         {other.id} — {other.title}
                       </option>
                     ))}
-                  </select>
+                  </NativeSelect>
                   <Button
                     type="submit"
                     variant="outline"
@@ -259,9 +256,8 @@ function TicketDetail({
                 }}
               >
                 <Label htmlFor="discard-reason">{copy.discardReason}</Label>
-                <select
+                <NativeSelect
                   id="discard-reason"
-                  className={selectClassName}
                   value={reason}
                   onChange={(event) => setReason(event.target.value)}
                 >
@@ -271,7 +267,7 @@ function TicketDetail({
                       {messages.backlog.discardReasons[value]}
                     </option>
                   ))}
-                </select>
+                </NativeSelect>
                 <Label htmlFor="discard-note" className="pt-1">
                   {copy.discardNote}
                 </Label>

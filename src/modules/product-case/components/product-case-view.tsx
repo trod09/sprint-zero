@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import type { SubmitAttempt } from "@/lib/use-submit-attempt";
 
@@ -29,22 +30,16 @@ export function ProductCaseView({
           }
         />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <figure className="pixel-card p-4">
-            <figcaption className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.brief.question}
-            </figcaption>
+          <Panel icon="flag" title={copy.brief.question}>
             <blockquote className="font-heading mt-2 text-lg leading-snug text-pretty">
               {publicCase.prompt}
             </blockquote>
-          </figure>
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.brief.context}
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-pretty">
+          </Panel>
+          <Panel icon="doc" title={copy.brief.context}>
+            <p className="text-sm leading-relaxed text-pretty">
               {publicCase.brief}
             </p>
-          </div>
+          </Panel>
         </div>
       </section>
       {publicCase.kind === "estimation" ? (

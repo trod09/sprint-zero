@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 import type { PrdAnswer, PrdCase } from "../schema";
 import type { PrdReport } from "../scoring";
+import { Panel } from "@/components/arcade/panel";
 
 const OK = "text-success";
 const WRONG = "text-destructive";
@@ -240,21 +241,20 @@ function Section({
 }) {
   const copy = getMessages().prd.results;
   return (
-    <section
-      aria-labelledby={`${id}-title`}
-      className="pixel-card space-y-4 p-5"
+    <Panel
+      icon="chart"
+      id={`${id}-title`}
+      title={title}
+      bodyClassName="space-y-4"
     >
-      <h2 id={`${id}-title`} className="font-heading font-semibold">
-        {title}
-      </h2>
       <div className="border-primary/40 bg-primary/5 rounded-md border-l-2 px-3 py-2">
         <p className="text-xs font-medium tracking-wide uppercase">
           {copy.ideal}
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-pretty">{ideal}</p>
+        <p className="text-sm leading-relaxed text-pretty">{ideal}</p>
       </div>
       {children}
-    </section>
+    </Panel>
   );
 }
 

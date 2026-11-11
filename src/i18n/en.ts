@@ -61,11 +61,37 @@ export const en = {
     comingSoonBody:
       "This simulation is on the roadmap. It will open here when it is ready.",
     startCase: "Open case",
+    world: (n: number) => `World ${n}`,
+    aboutTitle: "About this world",
+    levels: {
+      title: "Levels",
+      zone: (n: number, level: string) => `Zone ${n} · ${level}`,
+      cleared: (cleared: number, total: number) =>
+        `${cleared}/${total} cleared`,
+      new: "New",
+      best: (score: number) => `Best ${score}/100`,
+      notPlayed: "Not played yet",
+      progressTitle: "Your progress",
+      casesCleared: "Cases cleared",
+      stars: "Stars",
+      startHint: "Play any level to start collecting stars.",
+      keepGoing: (left: number) =>
+        left === 0
+          ? "Every star collected. This world is cleared."
+          : `${left} star${left === 1 ? "" : "s"} left to collect in this world.`,
+    },
   },
   caseView: {
     backToModule: (moduleName: string) => `Back to ${moduleName}`,
   },
   backlog: {
+    mission: {
+      fill: "Fill the sprint",
+      capacity: "Stay within capacity",
+      commit: "Commit the sprint",
+      replan: "Replan after the event",
+      hint: "Add at least one ticket to the sprint.",
+    },
     backlogTitle: "Backlog",
     brief: {
       label: "Brief",
@@ -222,6 +248,7 @@ export const en = {
           : "Must first, then Should, then Could, while capacity lasts. Building replaces the current sprint.",
     },
     sprint: {
+      emptyTitle: "An empty sprint",
       title: "Sprint",
       dropHere: "Drag tickets here, or use the + button on a ticket.",
       capacity: (used: number, capacity: number) => `${used} / ${capacity} pts`,
@@ -442,11 +469,19 @@ export const en = {
     },
     log: {
       title: "Your investigation",
-      empty: "Every view you open is recorded here.",
+      emptyTitle: "No views yet",
+      empty: "Every view you open is recorded here, so you can go back to it.",
       count: (count: number) => `${count} view${count === 1 ? "" : "s"}`,
       restore: (index: number) => `Open view ${index} again`,
       by: (dimension: string) => `by ${dimension.toLowerCase()}`,
       where: "where",
+    },
+    mission: {
+      explore: "Explore 3 views",
+      segment: "Name the segment",
+      cause: "Name the cause",
+      action: "Pick the next step",
+      hint: "Name the segment, the cause and the next step to submit.",
     },
     diagnosis: {
       title: "Your diagnosis",
@@ -584,6 +619,12 @@ export const en = {
       treatmentShare: "In treatment",
       all: "All users",
     },
+    mission: {
+      views: "Open every view",
+      effect: "Judge the effect",
+      decision: "Make the call",
+      hint: "Judge the effect and pick a decision to submit.",
+    },
     decision: {
       title: "Your call",
       intro:
@@ -628,6 +669,12 @@ export const en = {
     },
   },
   triage: {
+    mission: {
+      themes: "Make 2 themes",
+      sort: "Sort the inbox",
+      critical: "Flag the critical one",
+      opportunities: "Write opportunities",
+    },
     sources: {
       app_review: "App review",
       support: "Support ticket",
@@ -656,7 +703,9 @@ export const en = {
       oldestFirst: "Oldest first",
       order: "Order",
       empty: "Nothing here. Change the filters to see more.",
+      emptyTitle: "No feedback matches",
       allSorted: "Every item is sorted. Review your clusters and submit.",
+      allSortedTitle: "Inbox zero",
       select: (id: string) => `Select ${id}`,
       selected: (count: number) => `${count} selected`,
       moveSelected: "Move to",
@@ -680,7 +729,8 @@ export const en = {
       newPlaceholder: "e.g. Checkout errors",
       add: "Add",
       full: (max: number) => `You can create up to ${max} clusters.`,
-      empty: "No clusters yet. Name your first theme above.",
+      empty: "Name your first theme above, then drag feedback into it.",
+      emptyTitle: "No themes yet",
       items: (count: number) => `${count} item${count === 1 ? "" : "s"}`,
       rename: (name: string) => `Rename ${name}`,
       moveUp: (name: string) => `Move ${name} up`,
@@ -740,6 +790,13 @@ export const en = {
     },
   },
   ux: {
+    mission: {
+      mark: "Switch to Mark mode",
+      first: "Report a problem",
+      three: "Find 3 problems",
+      notes: "Say what you saw",
+      hint: "Report at least one problem to submit.",
+    },
     issues: {
       contrast: {
         label: "Low contrast",
@@ -802,9 +859,10 @@ export const en = {
       cancel: "Cancel",
     },
     findings: {
+      emptyTitle: "No findings yet",
       title: "Your findings",
       empty:
-        "No findings yet. Switch to Mark mode and click a part of the screen.",
+        "Switch to Mark mode and click the part of the screen that has a problem.",
       remove: (region: string, type: string) => `Remove ${type} in ${region}`,
       max: (max: number) => `You can report up to ${max} findings.`,
     },
@@ -927,6 +985,14 @@ export const en = {
       edit: "Edit",
     },
     estimation: {
+      mission: {
+        facts: "Pick the facts",
+        calculate: "Build the chain",
+        estimate: "Give a number",
+        approach: "Explain the approach",
+      },
+      answerTitle: "Your answer",
+      calculatorEmptyTitle: "Nothing to multiply yet",
       facts: "Fact sheet",
       factsIntro:
         "Tick the facts your estimate needs. Not every fact belongs in it.",
@@ -951,6 +1017,7 @@ export const en = {
       sanityPlaceholder: "Compare your result with something you already know.",
     },
     submit: {
+      needsChoice: "Make at least one choice to submit.",
       button: "Submit answer",
       confirmTitle: "Submit this answer?",
       confirmBody:
@@ -1245,6 +1312,18 @@ export const en = {
         "Read the brief twice. The best answers come from details most people skip.",
       ],
     },
+    steps: {
+      done: "done",
+      stepOf: (step: number, total: number) => `Step ${step} of ${total}`,
+    },
+    mission: {
+      label: "Mission",
+      objectives: "Objectives",
+      progress: (done: number, total: number) =>
+        `${done} of ${total} objectives done`,
+      done: "done",
+      next: (label: string) => `Next: ${label}`,
+    },
     jumpBackIn: {
       title: "Jump back in",
       resume: "Resume",
@@ -1367,8 +1446,15 @@ export const en = {
       barLabel: (title: string, from: number, to: number, status: string) =>
         `${title}, sprint ${from} to ${to}. ${status}`,
     },
+    mission: {
+      keyResults: "Pick key results",
+      roadmap: "Ship something",
+      conflicts: "No conflicts",
+      rationale: "Explain the plan",
+    },
     review: {
       title: "Review your plan",
+      notes: "Your reasoning",
       keyResults: (count: number, total: number) =>
         `${count} of ${total} key results chosen`,
       shipping: (count: number) =>
@@ -1428,6 +1514,7 @@ export const en = {
       label: "The situation",
       exhibits: "Exhibits",
       source: (who: string) => `Source: ${who}`,
+      exhibitNumber: (n: number) => `Exhibit ${n}`,
     },
     steps: {
       decision: (n: number, total: number) => `Decision ${n} of ${total}`,
@@ -1437,6 +1524,7 @@ export const en = {
     },
     notes: {
       title: "In your own words",
+      objective: "Write it up",
       reasoning: "Your reasoning",
       reasoningPlaceholder:
         "The numbers you used and what tipped each decision.",
@@ -1473,10 +1561,16 @@ export const en = {
       rules: (max: number) =>
         `You can ask ${max} questions. Ask them one at a time, as you would on a call.`,
     },
+    mission: {
+      questions: (min: number) => `Ask ${min} questions`,
+      story: "Hear a real story",
+      wrap: "Wrap up",
+      findings: "Say what you learned",
+    },
     chat: {
       title: "The interview",
       empty: (name: string) =>
-        `${name} has joined the call. Ask your first question.`,
+        `${name} has joined the call and is waiting for your first question.`,
       you: "You",
       inputLabel: "Your question",
       placeholder: "Type a question and press Enter",

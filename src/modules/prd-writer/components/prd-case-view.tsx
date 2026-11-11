@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import type { SubmitAttempt } from "@/lib/use-submit-attempt";
 
@@ -19,16 +20,13 @@ export function PrdCaseView({
     <div className="space-y-8">
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
-        <div className="pixel-card p-4">
-          <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-            {copy.label}
-          </h2>
-          <p className="mt-2 leading-relaxed text-pretty">{publicCase.brief}</p>
+        <Panel icon="flag" title={copy.label}>
+          <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
           <p className="mt-3 text-sm">
             <span className="text-muted-foreground">{copy.feature}: </span>
             <span className="font-medium">{publicCase.feature}</span>
           </p>
-        </div>
+        </Panel>
       </section>
       <PrdWorkspace publicCase={publicCase} submit={submit} />
     </div>

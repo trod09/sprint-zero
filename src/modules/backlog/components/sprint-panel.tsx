@@ -12,6 +12,8 @@ import { Fragment } from "react";
 
 import { Button } from "@/components/ui/button";
 import { getMessages } from "@/i18n";
+import { EmptyState } from "@/components/arcade/empty-state";
+import { PanelTitleBar } from "@/components/arcade/panel";
 import { cn } from "@/lib/utils";
 
 import type { CapacitySplit } from "../planning";
@@ -134,8 +136,6 @@ export function SprintPanel({
   onMove,
   onRemove,
   onClear,
-  onCommit,
-  commitLabel,
   note,
 }: {
   /** Sprint tickets in order. */
@@ -146,8 +146,6 @@ export function SprintPanel({
   onMove: (id: string, toIndex: number) => void;
   onRemove: (id: string) => void;
   onClear: () => void;
-  onCommit: () => void;
-  commitLabel: string;
   /** Extra line under the capacity bar, e.g. changes since the commit. */
   note?: string;
 }) {
@@ -159,19 +157,21 @@ export function SprintPanel({
   return (
     <section
       aria-labelledby="sprint-title"
-      className="pixel-card flex flex-col lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)]"
+      className="pixel-card flex flex-col overflow-hidden lg:sticky lg:top-20 lg:max-h-[calc(100dvh-10rem)]"
     >
-      <div className="border-frame space-y-3 border-b-2 p-4">
-        <div className="flex items-center justify-between">
-          <h2 id="sprint-title" className="font-heading font-semibold">
-            {copy.title}
-          </h2>
-          {tickets.length > 0 && (
+      <PanelTitleBar
+        titleId="sprint-title"
+        icon="clock"
+        title={copy.title}
+        aside={
+          tickets.length > 0 && (
             <Button type="button" variant="ghost" size="xs" onClick={onClear}>
               {copy.clear}
             </Button>
-          )}
-        </div>
+          )
+        }
+      />
+      <div className="border-frame space-y-3 border-b-2 p-4">
         <CapacityBar
           used={split.plannedEffort}
           capacity={capacity}
@@ -188,14 +188,13 @@ export function SprintPanel({
         )}
       >
         {tickets.length === 0 ? (
-          <p
-            className={cn(
-              "text-muted-foreground flex h-full min-h-34 items-center justify-center rounded-lg border border-dashed px-4 text-center text-sm",
-              isOver && "border-brand text-foreground",
-            )}
+          <EmptyState
+            size="sm"
+            title={copy.emptyTitle}
+            className={cn("h-full min-h-34", isOver && "border-brand")}
           >
             {copy.dropHere}
-          </p>
+          </EmptyState>
         ) : (
           <SortableContext
             items={tickets.map((ticket) => sprintDragId(ticket.id))}
@@ -228,18 +227,6 @@ export function SprintPanel({
             </ol>
           </SortableContext>
         )}
-      </div>
-
-      <div className="border-frame border-t-2 p-3">
-        <Button
-          type="button"
-          size="lg"
-          className="w-full"
-          onClick={onCommit}
-          disabled={tickets.length === 0}
-        >
-          {commitLabel}
-        </Button>
       </div>
     </section>
   );

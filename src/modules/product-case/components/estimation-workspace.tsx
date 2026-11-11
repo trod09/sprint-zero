@@ -4,6 +4,9 @@ import { Plus, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { EmptyState } from "@/components/arcade/empty-state";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,6 +127,44 @@ function Workspace({
         multipliers.reduce((total, m) => total * m.value, 1);
   const estimate = parseAmount(draft.estimate);
 
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            {
+              id: "facts",
+              label: copy.estimation.mission.facts,
+              done: draft.factIds.length > 0,
+            },
+            {
+              id: "factors",
+              label: copy.estimation.mission.calculate,
+              done: product !== null,
+            },
+            {
+              id: "estimate",
+              label: copy.estimation.mission.estimate,
+              done: estimate !== null,
+            },
+            {
+              id: "approach",
+              label: copy.estimation.mission.approach,
+              done: draft.approach.trim() !== "",
+            },
+          ],
+          action: {
+            label: copy.submit.button,
+            disabled: draft.factIds.length === 0 && estimate === null,
+            hint: copy.submit.needsChoice,
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
   if (inlineResult) return <InlineResult result={inlineResult} />;
 
   const answer = (): EstimationAnswer => ({
@@ -148,27 +189,25 @@ function Workspace({
       />
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
-        <section
-          aria-labelledby="facts-title"
-          className="pixel-card min-w-0 space-y-3 p-5"
+        <Panel
+          id="facts-title"
+          icon="doc"
+          title={copy.estimation.facts}
+          subtitle={copy.estimation.factsIntro}
+          className="min-w-0"
+          aside={`${draft.factIds.length}/${publicCase.facts.length}`}
         >
-          <div>
-            <h2 id="facts-title" className="font-heading text-lg font-semibold">
-              {copy.estimation.facts}
-            </h2>
-            <p className="text-muted-foreground text-sm">
-              {copy.estimation.factsIntro}
-            </p>
-          </div>
-          <ul className="divide-y">
+          <ul className="space-y-2">
             {publicCase.facts.map((fact) => {
               const checked = draft.factIds.includes(fact.id);
               return (
                 <li key={fact.id}>
                   <label
                     className={cn(
-                      "flex cursor-pointer items-start gap-3 rounded-md px-2 py-2.5",
-                      checked && "bg-primary/5",
+                      "has-[:focus-visible]:ring-ring/50 flex cursor-pointer items-start gap-3 rounded-md border-2 px-3 py-2.5 transition-colors has-[:focus-visible]:ring-3",
+                      checked
+                        ? "border-primary bg-primary/10"
+                        : "border-border bg-background/60 hover:border-frame",
                     )}
                   >
                     <input
@@ -198,21 +237,16 @@ function Workspace({
               );
             })}
           </ul>
-        </section>
+        </Panel>
 
         <div className="space-y-4 lg:sticky lg:top-20">
-          <section
-            aria-labelledby="multipliers-title"
-            className="pixel-card space-y-3 p-4"
+          <Panel
+            id="multipliers-title"
+            icon="pencil"
+            title={copy.estimation.multipliers}
+            subtitle={copy.estimation.multipliersIntro}
+            bodyClassName="space-y-3"
           >
-            <div>
-              <h2 id="multipliers-title" className="font-heading font-semibold">
-                {copy.estimation.multipliers}
-              </h2>
-              <p className="text-muted-foreground text-xs">
-                {copy.estimation.multipliersIntro}
-              </p>
-            </div>
             {draft.multipliers.map((multiplier, index) => (
               <div key={index} className="flex items-end gap-2">
                 <div className="min-w-0 flex-1 space-y-1">
@@ -297,19 +331,21 @@ function Workspace({
                 {copy.estimation.addMultiplier}
               </Button>
             )}
-          </section>
+          </Panel>
 
-          <section
-            aria-labelledby="calculator-title"
-            className="pixel-card space-y-3 p-4"
+          <Panel
+            id="calculator-title"
+            icon="chart"
+            title={copy.estimation.calculator}
+            bodyClassName="space-y-3"
           >
-            <h2 id="calculator-title" className="font-heading font-semibold">
-              {copy.estimation.calculator}
-            </h2>
             {product === null ? (
-              <p className="text-muted-foreground text-xs">
+              <EmptyState
+                size="sm"
+                title={copy.estimation.calculatorEmptyTitle}
+              >
                 {copy.estimation.calculatorEmpty}
-              </p>
+              </EmptyState>
             ) : (
               <>
                 <p className="text-muted-foreground font-mono text-xs leading-relaxed">
@@ -322,7 +358,7 @@ function Workspace({
                   ].join(" × ")}
                 </p>
                 <p
-                  className="font-heading text-2xl font-semibold tabular-nums"
+                  className="font-pixel text-ink text-3xl tabular-nums"
                   aria-live="polite"
                 >
                   {formatAmount(product)}
@@ -337,9 +373,13 @@ function Workspace({
                 </Button>
               </>
             )}
-          </section>
+          </Panel>
 
-          <section className="pixel-card space-y-3 p-4">
+          <Panel
+            icon="target"
+            title={copy.estimation.answerTitle}
+            bodyClassName="space-y-3"
+          >
             <div className="space-y-1">
               <Label htmlFor="estimate">{copy.estimation.estimate}</Label>
               <Input
@@ -380,18 +420,7 @@ function Workspace({
                 }
               />
             </div>
-            <Button
-              type="button"
-              className="w-full"
-              disabled={draft.factIds.length === 0 && estimate === null}
-              onClick={() => {
-                clearError();
-                setConfirming(true);
-              }}
-            >
-              {copy.submit.button}
-            </Button>
-          </section>
+          </Panel>
         </div>
       </div>
 

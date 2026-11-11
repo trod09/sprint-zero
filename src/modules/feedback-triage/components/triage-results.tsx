@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 import type { FeedbackTriageCase, Severity } from "../schema";
 import type { TriageReport } from "../scoring";
+import { Panel } from "@/components/arcade/panel";
 
 const SEVERITY_TONE: Record<Severity, string> = {
   critical: "bg-destructive/10 text-destructive",
@@ -43,11 +44,8 @@ export function TriageResults({
         </section>
       )}
 
-      <section aria-labelledby="themes-ranking" className="pixel-card p-5">
-        <h2 id="themes-ranking" className="font-heading font-semibold">
-          {copy.results.ranking}
-        </h2>
-        <ol className="mt-4 space-y-5">
+      <Panel icon="list" id="themes-ranking" title={copy.results.ranking}>
+        <ol className="space-y-5">
           {report.themes.map((theme) => (
             <li key={theme.key} className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
@@ -109,20 +107,17 @@ export function TriageResults({
         <p className="text-muted-foreground mt-5 text-sm">
           {copy.results.noise(report.noise.setAside, report.noise.total)}
         </p>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="ranking-why" className="pixel-card p-5">
-        <h2 id="ranking-why" className="font-heading font-semibold">
-          {copy.results.explanation}
-        </h2>
-        <p className="mt-3 text-sm leading-relaxed">{report.explanation}</p>
+      <Panel icon="list" id="ranking-why" title={copy.results.explanation}>
+        <p className="text-sm leading-relaxed">{report.explanation}</p>
         <p className="text-muted-foreground mt-3 text-sm">
           <span className="text-foreground font-medium">
             {copy.results.principle}:
           </span>{" "}
           {report.principle}
         </p>
-      </section>
+      </Panel>
     </div>
   );
 }

@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { submitAttempt } from "@/app/actions/attempts";
+import { moduleColor } from "@/components/arcade/icons";
+import { MissionProvider } from "@/components/arcade/mission";
 import { RecordLastCase } from "@/components/arcade/record-last-case";
 import { CaseSession } from "@/components/case-session";
 import { getMessages } from "@/i18n";
@@ -65,10 +67,15 @@ async function CaseContent({
         <ArrowLeft className="size-4" aria-hidden="true" />
         {messages.caseView.backToModule(meta.name)}
       </Link>
-      <div className="mt-5">
-        <CaseSession caseId={publicCase.id}>
-          <CaseView publicCase={publicCase} submit={submitAttempt} />
-        </CaseSession>
+      <div
+        className="world-scope mt-5"
+        style={{ ["--world" as string]: moduleColor(publicCase.moduleId) }}
+      >
+        <MissionProvider moduleId={publicCase.moduleId}>
+          <CaseSession caseId={publicCase.id}>
+            <CaseView publicCase={publicCase} submit={submitAttempt} />
+          </CaseSession>
+        </MissionProvider>
       </div>
     </>
   );

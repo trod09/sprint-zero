@@ -1,9 +1,12 @@
 "use client";
 
-import { ArrowDown, ArrowUp, Check, X } from "lucide-react";
+import { ArrowDown, ArrowUp, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
+import { StepTrack } from "@/components/arcade/step-track";
 import { OptionCard } from "@/components/option-card";
 import { Badge } from "@/components/ui/badge";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
@@ -193,6 +196,27 @@ function Workspace({
   const anythingChosen = Object.values(complete).some(Boolean);
   const stepIndex = STEPS.indexOf(draft.step);
 
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: STEPS.filter((step) => step !== "review").map((step) => ({
+            id: step,
+            label: copy.steps[step],
+            done: complete[step],
+          })),
+          action: {
+            label: copy.submit.button,
+            disabled: !anythingChosen,
+            hint: copy.submit.needsChoice,
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
   if (inlineResult) return <InlineResult result={inlineResult} />;
 
   const moveInPlan = (index: number, offset: -1 | 1) => {
@@ -227,34 +251,21 @@ function Workspace({
           onStop={() => update({ timerStartedAt: null })}
         />
 
-        <nav aria-label={copy.steps.label}>
-          <ol className="flex flex-wrap gap-1.5">
-            {STEPS.map((step, index) => (
-              <li key={step}>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={draft.step === step ? "default" : "outline"}
-                  aria-current={draft.step === step ? "step" : undefined}
-                  onClick={() => update({ step })}
-                >
-                  <span className="text-xs opacity-70">{index + 1}</span>
-                  {copy.steps[step]}
-                  {complete[step] && (
-                    <>
-                      <Check aria-hidden="true" />
-                      <span className="sr-only">({copy.steps.done})</span>
-                    </>
-                  )}
-                </Button>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <StepTrack
+          label={copy.steps.label}
+          current={draft.step}
+          onSelect={(step) => update({ step })}
+          steps={STEPS.map((step) => ({
+            id: step,
+            label: copy.steps[step],
+            done: complete[step],
+          }))}
+        />
 
-        <section
-          aria-labelledby="step-title"
-          className="pixel-card space-y-4 p-5"
+        <Panel
+          icon="pencil"
+          title={`${messages.arcade.steps.stepOf(stepIndex + 1, STEPS.length)} · ${copy.steps[draft.step]}`}
+          bodyClassName="space-y-4 p-5"
         >
           {draft.step === "users" && (
             <>
@@ -608,20 +619,9 @@ function Workspace({
                   </div>
                 ))}
               </dl>
-              <Button
-                type="button"
-                className="w-full"
-                disabled={!anythingChosen}
-                onClick={() => {
-                  clearError();
-                  setConfirming(true);
-                }}
-              >
-                {copy.submit.button}
-              </Button>
             </>
           )}
-        </section>
+        </Panel>
 
         <div className="flex justify-between gap-2">
           <Button
@@ -663,9 +663,7 @@ function Workspace({
 function StepHeading({ title, intro }: { title: string; intro: string }) {
   return (
     <div>
-      <h2 id="step-title" className="font-heading text-lg font-semibold">
-        {title}
-      </h2>
+      <h3 className="font-heading text-lg font-semibold">{title}</h3>
       <p className="text-muted-foreground text-sm">{intro}</p>
     </div>
   );

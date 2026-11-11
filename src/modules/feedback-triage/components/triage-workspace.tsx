@@ -54,12 +54,11 @@ import {
   type Source,
 } from "../schema";
 import { ClusterCard, NoiseBin, targetOfZone } from "./cluster-card";
-import {
-  FeedbackCard,
-  ItemMeta,
-  itemIdOfDrag,
-  selectClassName,
-} from "./feedback-card";
+import { FeedbackCard, ItemMeta, itemIdOfDrag } from "./feedback-card";
+import { NativeSelect } from "@/components/ui/native-select";
+import { EmptyState } from "@/components/arcade/empty-state";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
 
 export type { SubmitAttempt };
 
@@ -244,6 +243,47 @@ function Workspace({
   // ---------------------------------------------------------------- submit
 
   const answer = boardToAnswer(board);
+  const filled = board.clusters.filter((c) => c.itemIds.length > 0);
+
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            {
+              id: "themes",
+              label: copy.mission.themes,
+              done: filled.length >= 2,
+            },
+            {
+              id: "sort",
+              label: copy.mission.sort,
+              done: unsortedCount === 0,
+            },
+            {
+              id: "critical",
+              label: copy.mission.critical,
+              done: filled.some((c) => c.id === board.criticalClusterId),
+            },
+            {
+              id: "opportunities",
+              label: copy.mission.opportunities,
+              done:
+                filled.length > 0 &&
+                filled.every((c) => c.opportunity.trim() !== ""),
+            },
+          ],
+          action: {
+            label: copy.submit.button,
+            disabled: !answer,
+            hint: copy.submit.needsCluster,
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
 
   if (inlineResult) {
     return (
@@ -276,11 +316,14 @@ function Workspace({
       }}
     >
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <section aria-labelledby="inbox-title" className="min-w-0 space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="inbox-title" className="font-heading font-semibold">
-              {copy.inbox.title}
-            </h2>
+        <Panel
+          flat
+          id="inbox-title"
+          icon="chat"
+          title={copy.inbox.title}
+          className="min-w-0"
+          bodyClassName="space-y-3"
+          aside={
             <SegmentedControl<Show>
               label={copy.inbox.show}
               value={show}
@@ -296,8 +339,8 @@ function Workspace({
                 },
               ]}
             />
-          </div>
-
+          }
+        >
           <div className="flex flex-wrap items-center gap-2">
             <Input
               type="search"
@@ -307,9 +350,9 @@ function Workspace({
               onChange={(event) => setQuery(event.target.value)}
               className="h-8 w-48"
             />
-            <select
+            <NativeSelect
+              wrapperClassName="w-auto"
               aria-label={copy.inbox.allSources}
-              className={selectClassName}
               value={source}
               onChange={(event) =>
                 setSource(event.target.value as Source | "all")
@@ -321,16 +364,16 @@ function Workspace({
                   {copy.sources[value]}
                 </option>
               ))}
-            </select>
-            <select
+            </NativeSelect>
+            <NativeSelect
+              wrapperClassName="w-auto"
               aria-label={copy.inbox.order}
-              className={selectClassName}
               value={order}
               onChange={(event) => setOrder(event.target.value as Order)}
             >
               <option value="newest">{copy.inbox.newestFirst}</option>
               <option value="oldest">{copy.inbox.oldestFirst}</option>
-            </select>
+            </NativeSelect>
           </div>
 
           {selected.length > 0 && (
@@ -345,9 +388,8 @@ function Workspace({
               <Label htmlFor="bulk-target" className="sr-only">
                 {copy.inbox.moveSelected}
               </Label>
-              <select
+              <NativeSelect
                 id="bulk-target"
-                className={selectClassName}
                 value={bulkTarget}
                 onChange={(event) => setBulkTarget(event.target.value)}
               >
@@ -358,7 +400,7 @@ function Workspace({
                   </option>
                 ))}
                 <option value={NOISE}>{copy.inbox.noiseOption}</option>
-              </select>
+              </NativeSelect>
               <Button
                 type="button"
                 size="sm"
@@ -378,13 +420,19 @@ function Workspace({
           )}
 
           {visible.length === 0 ? (
-            <p className="pixel-card text-muted-foreground p-6 text-center text-sm">
+            <EmptyState
+              title={
+                show === "unsorted" && unsortedCount === 0
+                  ? copy.inbox.allSortedTitle
+                  : copy.inbox.emptyTitle
+              }
+            >
               {show === "unsorted" && unsortedCount === 0
                 ? copy.inbox.allSorted
                 : copy.inbox.empty}
-            </p>
+            </EmptyState>
           ) : (
-            <ul className="pixel-frame divide-y overflow-hidden">
+            <ul className="border-border divide-y overflow-hidden rounded-md border-2">
               {visible.map((item) => (
                 <FeedbackCard
                   key={item.id}
@@ -404,22 +452,21 @@ function Workspace({
               ))}
             </ul>
           )}
-        </section>
+        </Panel>
 
         <aside
-          aria-labelledby="clusters-title"
+          aria-label={copy.clusters.title}
           tabIndex={0}
-          className="focus-visible:ring-ring/50 space-y-3 rounded-md focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto"
+          className="focus-visible:ring-ring/50 space-y-3 rounded-md focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto"
         >
-          <div className="pixel-card space-y-3 p-3">
-            <div>
-              <h2 id="clusters-title" className="font-heading font-semibold">
-                {copy.clusters.title}
-              </h2>
-              <p className="text-muted-foreground mt-0.5 text-xs">
-                {copy.clusters.intro}
-              </p>
-            </div>
+          <Panel
+            id="clusters-title"
+            icon="list"
+            title={copy.clusters.title}
+            subtitle={copy.clusters.intro}
+            aside={`${board.clusters.length}/${MAX_CLUSTERS}`}
+            bodyClassName="space-y-3 p-3"
+          >
             <form
               className="flex gap-2"
               onSubmit={(event) => {
@@ -464,9 +511,9 @@ function Workspace({
               </p>
             )}
             {board.clusters.length === 0 ? (
-              <p className="text-muted-foreground text-xs">
+              <EmptyState size="sm" title={copy.clusters.emptyTitle}>
                 {copy.clusters.empty}
-              </p>
+              </EmptyState>
             ) : (
               <ol className="space-y-2">
                 {board.clusters.map((cluster, index) => (
@@ -514,25 +561,9 @@ function Workspace({
               dragging={activeId !== null}
               onUnassign={(id) => move([id], UNSORTED)}
             />
-          </div>
+          </Panel>
 
           <div className="space-y-2">
-            <Button
-              type="button"
-              className="w-full"
-              disabled={!answer}
-              onClick={() => {
-                clearError();
-                setConfirming(true);
-              }}
-            >
-              {copy.submit.button}
-            </Button>
-            {!answer && (
-              <p className="text-muted-foreground text-center text-xs">
-                {copy.submit.needsCluster}
-              </p>
-            )}
             {(board.clusters.length > 0 || board.noiseItemIds.length > 0) && (
               <Button
                 type="button"

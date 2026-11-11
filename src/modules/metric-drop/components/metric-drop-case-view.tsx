@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 
 import { queryMetricDrop } from "../actions";
@@ -24,19 +25,11 @@ export function MetricDropCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.brief.label}
-            </h2>
-            <p className="mt-2 leading-relaxed text-pretty">
-              {publicCase.brief}
-            </p>
-          </div>
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.brief.timeline}
-            </h2>
-            <ol className="mt-2 space-y-2 text-sm">
+          <Panel icon="flag" title={copy.brief.label}>
+            <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
+          </Panel>
+          <Panel icon="clock" title={copy.brief.timeline}>
+            <ol className="space-y-2 text-sm">
               {timeline.map((annotation) => (
                 <li
                   key={`${annotation.day}-${annotation.label}`}
@@ -54,7 +47,7 @@ export function MetricDropCaseView({
                 </li>
               ))}
             </ol>
-          </div>
+          </Panel>
         </div>
       </section>
       <Investigation

@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 
 import type { PublicUxCritiqueCase } from "../schema";
@@ -19,22 +20,14 @@ export function UxCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.label}
-            </h2>
-            <p className="mt-2 leading-relaxed text-pretty">
-              {publicCase.brief}
-            </p>
-          </div>
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.goal}
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-pretty">
+          <Panel icon="flag" title={copy.label}>
+            <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
+          </Panel>
+          <Panel icon="target" title={copy.goal}>
+            <p className="text-sm leading-relaxed text-pretty">
               {publicCase.userGoal}
             </p>
-          </div>
+          </Panel>
         </div>
       </section>
       <CritiqueWorkspace publicCase={publicCase} submit={submit} />

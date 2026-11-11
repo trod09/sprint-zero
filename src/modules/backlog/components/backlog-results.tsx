@@ -11,6 +11,7 @@ import { addedTickets } from "../planning";
 import type { BacklogReport, TrapOutcome } from "../report";
 import type { BacklogCase, PublicTicket } from "../schema";
 import { EffortPill, TicketTypeIcon } from "./ticket-meta";
+import { Panel } from "@/components/arcade/panel";
 
 const OUTCOME_STYLES: Record<TrapOutcome, string> = {
   identified: "bg-success/10 text-success",
@@ -99,14 +100,11 @@ export function BacklogResults({
           </h2>
           <p className="mt-2 text-sm leading-relaxed">{report.keyInsight}</p>
         </div>
-        <div className="pixel-card p-5">
-          <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-            {copy.principle}
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed font-medium">
+        <Panel icon="bulb" title={copy.principle}>
+          <p className="text-sm leading-relaxed font-medium">
             {report.principle}
           </p>
-        </div>
+        </Panel>
       </section>
 
       <Section id="comparison-title" title={copy.sprintComparison}>

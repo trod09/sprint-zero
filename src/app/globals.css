@@ -186,6 +186,18 @@
   box-shadow: 4px 4px 0 0 var(--shadow-color);
 }
 
+/*
+ * Inside a case, `--world` is the module's color (set on the case page).
+ * `--world-ink` is the same hue dark enough for icons and stripes on light
+ * surfaces; in dark mode the bright color reads as is.
+ */
+@utility world-scope {
+  --world-ink: color-mix(in oklab, var(--world, var(--frame)) 62%, #0a0e1f);
+  :where(.dark) & {
+    --world-ink: var(--world, var(--frame));
+  }
+}
+
 /* The same frame without the shadow: dense data (tables, lists) stays flat. */
 @utility pixel-frame {
   background-color: var(--card);

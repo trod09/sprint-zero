@@ -10,6 +10,7 @@ import { DIFFICULTIES, type Difficulty } from "@/core/case-engine";
 import { getMessages } from "@/i18n";
 import { bestScores, useAttempts } from "@/lib/use-attempts";
 import { cn } from "@/lib/utils";
+import { NativeSelect } from "@/components/ui/native-select";
 
 /** What the library shows about a case. Built on the server from public data. */
 export interface CaseSummary {
@@ -23,9 +24,6 @@ export interface CaseSummary {
 }
 
 type Status = "all" | "completed" | "not_completed";
-
-const selectClassName =
-  "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-8 rounded-lg border px-2 text-sm outline-none focus-visible:ring-3 dark:bg-input/30";
 
 export function CaseLibrary({
   cases,
@@ -69,9 +67,9 @@ export function CaseLibrary({
         className="flex flex-wrap items-center gap-2"
       >
         {showModuleFilter && modules.length > 1 && (
-          <select
+          <NativeSelect
+            wrapperClassName="w-auto"
             aria-label={copy.module}
-            className={selectClassName}
             value={moduleId}
             onChange={(event) => setModuleId(event.target.value)}
           >
@@ -81,11 +79,11 @@ export function CaseLibrary({
                 {name}
               </option>
             ))}
-          </select>
+          </NativeSelect>
         )}
-        <select
+        <NativeSelect
+          wrapperClassName="w-auto"
           aria-label={copy.industry}
-          className={selectClassName}
           value={industry}
           onChange={(event) => setIndustry(event.target.value)}
         >
@@ -95,10 +93,10 @@ export function CaseLibrary({
               {value}
             </option>
           ))}
-        </select>
-        <select
+        </NativeSelect>
+        <NativeSelect
+          wrapperClassName="w-auto"
           aria-label={copy.difficulty}
-          className={selectClassName}
           value={difficulty}
           onChange={(event) =>
             setDifficulty(
@@ -112,17 +110,17 @@ export function CaseLibrary({
               {messages.difficulty[value]}
             </option>
           ))}
-        </select>
-        <select
+        </NativeSelect>
+        <NativeSelect
+          wrapperClassName="w-auto"
           aria-label={copy.status}
-          className={selectClassName}
           value={status}
           onChange={(event) => setStatus(event.target.value as Status)}
         >
           <option value="all">{copy.allStatuses}</option>
           <option value="completed">{copy.completed}</option>
           <option value="not_completed">{copy.notCompleted}</option>
-        </select>
+        </NativeSelect>
         {filtering && (
           <Button
             type="button"

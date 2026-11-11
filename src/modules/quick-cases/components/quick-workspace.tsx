@@ -3,10 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
 import { OptionCard } from "@/components/option-card";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
@@ -108,10 +109,42 @@ function Workspace({
   const update = (patch: Partial<Draft>) =>
     setDraft((current) => ({ ...current, ...patch }));
 
-  if (inlineResult) return <InlineResult result={inlineResult} />;
-
   const { steps } = publicCase;
   const chosen = (stepId: string) => draft.choices[stepId] ?? [];
+  const decided = (step: (typeof steps)[number]) =>
+    chosen(step.id).length >= step.pick;
+  const undecided = steps.filter((step) => !decided(step)).length;
+
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            ...steps.map((step) => ({
+              id: step.id,
+              label: step.title,
+              done: decided(step),
+            })),
+            {
+              id: "writing",
+              label: copy.notes.objective,
+              done: draft.writing.trim() !== "",
+            },
+          ],
+          action: {
+            label: copy.submit.button,
+            disabled: undecided > 0,
+            hint: copy.submit.incomplete(undecided),
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
+  if (inlineResult) return <InlineResult result={inlineResult} />;
+
   const choose = (stepId: string, optionId: string, pick: number) => {
     const current = chosen(stepId);
     const next =
@@ -122,10 +155,6 @@ function Workspace({
           : [...current, optionId];
     update({ choices: { ...draft.choices, [stepId]: next } });
   };
-  const undecided = steps.filter(
-    (step) => chosen(step.id).length < step.pick,
-  ).length;
-
   const answer = (): QuickAnswer => ({
     choices: draft.choices,
     reasoning: draft.reasoning.trim(),
@@ -135,13 +164,8 @@ function Workspace({
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
-      <div
-        role="region"
-        aria-labelledby="exhibits-title"
-        tabIndex={0}
-        className="focus-visible:ring-ring/50 rounded-md focus-visible:ring-3 focus-visible:outline-none lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-1"
-      >
-        <Exhibits exhibits={publicCase.exhibits} />
+      <div className="lg:sticky lg:top-20">
+        <Exhibits exhibits={publicCase.exhibits} scroll />
       </div>
 
       <div className="min-w-0 space-y-5">
@@ -156,43 +180,41 @@ function Workspace({
           const picks = chosen(step.id);
           const full = picks.length >= step.pick;
           return (
-            <fieldset key={step.id} className="pixel-card p-4">
-              <legend className="sr-only">{step.title}</legend>
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <p className="font-pixel text-ink text-xs tracking-wide uppercase">
-                    {copy.steps.decision(index + 1, steps.length)} ·{" "}
-                    {step.title}
-                  </p>
-                  <p className="mt-1 font-medium text-pretty">
-                    {step.question}
-                  </p>
-                </div>
+            <Panel
+              key={step.id}
+              icon="target"
+              title={`${copy.steps.decision(index + 1, steps.length)} · ${step.title}`}
+              aside={
                 <Badge variant={full ? "default" : "outline"}>
                   {step.pick === 1
                     ? copy.steps.pickOne
                     : copy.steps.picked(picks.length, step.pick)}
                 </Badge>
-              </div>
-              <div className="mt-3 space-y-2">
-                {step.options.map((option) => (
-                  <OptionCard
-                    key={option.id}
-                    type={step.pick === 1 ? "radio" : "checkbox"}
-                    name={`quick-${step.id}`}
-                    checked={picks.includes(option.id)}
-                    disabled={step.pick > 1 && full}
-                    onChange={() => choose(step.id, option.id, step.pick)}
-                    title={<span className="font-normal">{option.text}</span>}
-                  />
-                ))}
-              </div>
-            </fieldset>
+              }
+            >
+              <fieldset>
+                <legend className="text-base font-semibold text-pretty">
+                  {step.question}
+                </legend>
+                <div className="mt-3 space-y-2">
+                  {step.options.map((option) => (
+                    <OptionCard
+                      key={option.id}
+                      type={step.pick === 1 ? "radio" : "checkbox"}
+                      name={`quick-${step.id}`}
+                      checked={picks.includes(option.id)}
+                      disabled={step.pick > 1 && full}
+                      onChange={() => choose(step.id, option.id, step.pick)}
+                      title={<span className="font-normal">{option.text}</span>}
+                    />
+                  ))}
+                </div>
+              </fieldset>
+            </Panel>
           );
         })}
 
-        <section className="pixel-card space-y-4 p-4">
-          <h2 className="font-heading font-semibold">{copy.notes.title}</h2>
+        <Panel icon="pencil" title={copy.notes.title} bodyClassName="space-y-4">
           <div className="space-y-1.5">
             <Label htmlFor="quick-writing">{publicCase.writing.label}</Label>
             <Textarea
@@ -218,26 +240,7 @@ function Workspace({
           <p className="text-muted-foreground text-xs">
             {copy.notes.coachNote}
           </p>
-        </section>
-
-        <div className="flex flex-wrap items-center justify-end gap-3">
-          {undecided > 0 && (
-            <p className="text-muted-foreground text-sm">
-              {copy.submit.incomplete(undecided)}
-            </p>
-          )}
-          <Button
-            type="button"
-            size="lg"
-            disabled={undecided > 0}
-            onClick={() => {
-              clearError();
-              setConfirming(true);
-            }}
-          >
-            {copy.submit.button}
-          </Button>
-        </div>
+        </Panel>
       </div>
 
       <SubmitDialog

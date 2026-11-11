@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { z } from "zod";
 
 import { PixelAvatar } from "@/components/arcade/icons";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
 import { AVATARS } from "@/components/arcade/sprites";
 import { OptionCard } from "@/components/option-card";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
@@ -18,6 +20,7 @@ import { useSubmitAttempt, type SubmitAttempt } from "@/lib/use-submit-attempt";
 import { cn } from "@/lib/utils";
 
 import { askInterviewee } from "../actions";
+import { classifyQuestion } from "../analysis";
 import {
   MAX_QUESTION_LENGTH,
   MAX_QUESTIONS,
@@ -126,11 +129,54 @@ function Workspace({
   const update = (patch: Partial<Draft>) =>
     setDraft((current) => ({ ...current, ...patch }));
 
-  if (inlineResult) return <InlineResult result={inlineResult} />;
-
   const { persona, findings } = publicCase;
   const firstName = persona.name.split(" ")[0];
   const left = MAX_QUESTIONS - turnCount;
+  const wrapping = draft.step === "wrap";
+  const avatar = AVATARS[publicCase.seed % AVATARS.length].id;
+
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            {
+              id: "questions",
+              label: copy.mission.questions(MIN_QUESTIONS),
+              done: turnCount >= MIN_QUESTIONS,
+            },
+            {
+              id: "story",
+              label: copy.mission.story,
+              done: draft.turns.some(
+                (turn) => classifyQuestion(turn.question).pastBehavior,
+              ),
+            },
+            { id: "wrap", label: copy.mission.wrap, done: wrapping },
+            {
+              id: "findings",
+              label: copy.mission.findings,
+              done: draft.findingIds.length > 0,
+            },
+          ],
+          action: wrapping
+            ? {
+                label: copy.submit.button,
+                onClick: () => {
+                  clearError();
+                  setConfirming(true);
+                },
+              }
+            : {
+                label: copy.chat.wrapUp,
+                disabled: turnCount < MIN_QUESTIONS || isAsking,
+                hint: copy.chat.minimum(MIN_QUESTIONS),
+                onClick: () => update({ step: "wrap" }),
+              },
+        },
+  );
+
+  if (inlineResult) return <InlineResult result={inlineResult} />;
 
   const ask = () => {
     const question = input.trim();
@@ -169,22 +215,23 @@ function Workspace({
 
   return (
     <div className="space-y-5">
-      <section aria-labelledby="chat-title" className="pixel-card">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 px-4 py-3">
-          <h2 id="chat-title" className="font-heading font-semibold">
-            {copy.chat.title}
-          </h2>
-          <p
+      <Panel
+        id="chat-title"
+        icon="chat"
+        title={copy.chat.title}
+        bodyClassName="p-0"
+        aside={
+          <span
             className={cn(
-              "font-pixel text-xs",
+              "font-pixel",
               left <= 2 ? "text-warning" : "text-muted-foreground",
             )}
             aria-live="polite"
           >
             {copy.chat.left(left)}
-          </p>
-        </div>
-
+          </span>
+        }
+      >
         <div
           role="log"
           aria-label={copy.chat.title}
@@ -192,9 +239,18 @@ function Workspace({
           className="focus-visible:ring-ring/50 max-h-[28rem] min-h-40 space-y-3 overflow-y-auto p-4 focus-visible:ring-3 focus-visible:outline-none"
         >
           {turnCount === 0 && !pendingQuestion && (
-            <p className="text-muted-foreground text-sm">
-              {copy.chat.empty(persona.name)}
-            </p>
+            <div className="flex flex-col items-center gap-3 py-8 text-center">
+              <div className="border-frame bg-muted rounded-md border-2 p-2">
+                <PixelAvatar id={avatar} size={64} />
+              </div>
+              <div>
+                <p className="font-pixel">{persona.name}</p>
+                <p className="text-muted-foreground text-sm">{persona.role}</p>
+              </div>
+              <p className="text-muted-foreground max-w-sm text-sm">
+                {copy.chat.empty(firstName)}
+              </p>
+            </div>
           )}
           {draft.turns.map((turn, index) => (
             <div key={index} className="space-y-3">
@@ -205,10 +261,7 @@ function Workspace({
                 </p>
               </div>
               <div className="flex items-start gap-2">
-                <PixelAvatar
-                  id={AVATARS[publicCase.seed % AVATARS.length].id}
-                  size={32}
-                />
+                <PixelAvatar id={avatar} size={32} />
                 <p className={cn(bubble, "bg-card")}>
                   <span className="font-pixel text-ink block text-[0.6875rem]">
                     {firstName}
@@ -277,35 +330,24 @@ function Workspace({
               >
                 {copy.chat.restart}
               </Button>
-              <div className="flex items-center gap-3">
-                {turnCount < MIN_QUESTIONS && (
-                  <p className="text-muted-foreground text-xs">
-                    {copy.chat.minimum(MIN_QUESTIONS)}
-                  </p>
-                )}
-                <Button
-                  type="button"
-                  variant={left <= 0 ? "default" : "outline"}
-                  disabled={turnCount < MIN_QUESTIONS || isAsking}
-                  onClick={() => update({ step: "wrap" })}
-                >
-                  {copy.chat.wrapUp}
-                </Button>
-              </div>
+              {turnCount < MIN_QUESTIONS && (
+                <p className="text-muted-foreground text-xs">
+                  {copy.chat.minimum(MIN_QUESTIONS)}
+                </p>
+              )}
             </div>
           </form>
         )}
-      </section>
+      </Panel>
 
       {draft.step === "wrap" && (
         <>
-          <section className="pixel-card space-y-4 p-4">
-            <div>
-              <h2 className="font-heading font-semibold">{copy.wrap.title}</h2>
-              <p className="text-muted-foreground mt-1 max-w-prose text-sm">
-                {copy.wrap.intro}
-              </p>
-            </div>
+          <Panel
+            icon="bulb"
+            title={copy.wrap.title}
+            subtitle={copy.wrap.intro}
+            bodyClassName="space-y-4"
+          >
             <fieldset className="grid gap-2 md:grid-cols-2">
               <legend className="sr-only">{copy.wrap.title}</legend>
               {findings.map((finding) => (
@@ -339,27 +381,15 @@ function Workspace({
                 {copy.wrap.coachNote}
               </p>
             </div>
-          </section>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <Button
-              type="button"
-              variant="ghost"
-              disabled={left <= 0}
-              onClick={() => update({ step: "interview" })}
-            >
-              {copy.chat.back}
-            </Button>
-            <Button
-              type="button"
-              size="lg"
-              onClick={() => {
-                clearError();
-                setConfirming(true);
-              }}
-            >
-              {copy.submit.button}
-            </Button>
-          </div>
+          </Panel>
+          <Button
+            type="button"
+            variant="ghost"
+            disabled={left <= 0}
+            onClick={() => update({ step: "interview" })}
+          >
+            {copy.chat.back}
+          </Button>
         </>
       )}
 

@@ -1,4 +1,5 @@
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import type { SubmitAttempt } from "@/lib/use-submit-attempt";
 
@@ -20,25 +21,17 @@ export function InterviewCaseView({
       <section aria-labelledby="case-title" className="space-y-5">
         <CaseHeader publicCase={publicCase} />
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.label}
-            </h2>
-            <p className="mt-2 leading-relaxed text-pretty">
-              {publicCase.brief}
-            </p>
+          <Panel icon="flag" title={copy.label}>
+            <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
             <h3 className="font-pixel text-ink mt-4 text-xs tracking-wide uppercase">
               {copy.goal}
             </h3>
             <p className="mt-1 font-medium text-pretty">
               {publicCase.researchGoal}
             </p>
-          </div>
-          <div className="pixel-card p-4">
-            <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-              {copy.persona}
-            </h2>
-            <p className="mt-2 font-semibold">{persona.name}</p>
+          </Panel>
+          <Panel icon="people" title={copy.persona}>
+            <p className="font-semibold">{persona.name}</p>
             <p className="text-sm">{persona.role}</p>
             <p className="text-muted-foreground mt-2 text-sm">
               {persona.context}
@@ -46,7 +39,7 @@ export function InterviewCaseView({
             <p className="text-muted-foreground mt-3 border-t pt-3 text-xs">
               {copy.rules(MAX_QUESTIONS)}
             </p>
-          </div>
+          </Panel>
         </div>
       </section>
       <InterviewWorkspace publicCase={publicCase} submit={submit} />

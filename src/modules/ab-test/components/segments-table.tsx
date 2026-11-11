@@ -35,7 +35,7 @@ export function SegmentsTable({
   ];
 
   return (
-    <div className="pixel-frame p-4">
+    <div className="border-border bg-background/40 rounded-md border-2 p-4">
       <h3 className="font-medium">
         {copy.segmentsTitle(experiment.segmentDimension)}
       </h3>

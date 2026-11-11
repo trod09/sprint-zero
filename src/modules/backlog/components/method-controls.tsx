@@ -11,7 +11,7 @@ import {
   type MoscowBucket,
   type RiceInput,
 } from "../planning";
-import { selectClassName } from "./ticket-sheet";
+import { NativeSelect } from "@/components/ui/native-select";
 
 type RiceField = keyof RiceInput;
 
@@ -57,11 +57,12 @@ export function RiceControls({
   return (
     <div className="flex items-center gap-1.5">
       {fields.map(({ field, label, levels, size }) => (
-        <select
+        <NativeSelect
           key={field}
           aria-label={`${label}: ${ticketId}`}
           title={label}
-          className={cn(selectClassName, "h-7 w-[6.75rem] text-xs")}
+          size="sm"
+          wrapperClassName="w-[6.75rem]"
           value={input?.[field] ?? ""}
           onChange={(event) => {
             const raw = event.target.value;
@@ -81,7 +82,7 @@ export function RiceControls({
               {level}
             </option>
           ))}
-        </select>
+        </NativeSelect>
       ))}
       <span
         className="w-14 text-right font-mono text-xs tabular-nums"

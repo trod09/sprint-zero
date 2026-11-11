@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 import type { InterviewCase } from "../schema";
 import type { InterviewReport } from "../scoring";
+import { Panel } from "@/components/arcade/panel";
 
 const QUALITY_STYLE = {
   good: "border-success",
@@ -29,11 +30,8 @@ export function InterviewResults({
 
   return (
     <div className="space-y-6">
-      <section aria-labelledby="results-findings" className="pixel-card p-4">
-        <h2 id="results-findings" className="font-heading font-semibold">
-          {copy.findings}
-        </h2>
-        <ul className="mt-2 divide-y">
+      <Panel icon="flag" id="results-findings" title={copy.findings}>
+        <ul className="divide-y">
           {[...report.findings]
             .sort((a, b) => Number(b.supported) - Number(a.supported))
             .map((finding) => {
@@ -73,7 +71,7 @@ export function InterviewResults({
                   </div>
                   <p className="text-muted-foreground mt-1">{details?.why}</p>
                   {example && (
-                    <p className="mt-1">
+                    <p>
                       <span className="text-muted-foreground">
                         {copy.tryAsking}:{" "}
                       </span>
@@ -84,13 +82,10 @@ export function InterviewResults({
               );
             })}
         </ul>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="results-transcript" className="pixel-card p-4">
-        <h2 id="results-transcript" className="font-heading font-semibold">
-          {copy.transcript}
-        </h2>
-        <ol className="mt-3 space-y-4">
+      <Panel icon="chat" id="results-transcript" title={copy.transcript}>
+        <ol className="space-y-4">
           {report.turns.map((turn, index) => {
             const tags = [
               copy.tags[turn.form],
@@ -135,14 +130,11 @@ export function InterviewResults({
             );
           })}
         </ol>
-      </section>
+      </Panel>
 
-      <section className="pixel-card p-4">
-        <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-          {copy.principle}
-        </h2>
-        <p className="mt-2 leading-relaxed">{hidden.principle}</p>
-      </section>
+      <Panel icon="bulb" title={copy.principle}>
+        <p className="leading-relaxed">{hidden.principle}</p>
+      </Panel>
     </div>
   );
 }

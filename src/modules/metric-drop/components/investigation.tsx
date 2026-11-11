@@ -1,6 +1,6 @@
 "use client";
 
-import { History, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { z } from "zod";
@@ -17,6 +17,11 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { NativeSelect } from "@/components/ui/native-select";
+import { EmptyState } from "@/components/arcade/empty-state";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
+import { OptionCard } from "@/components/option-card";
 import { Textarea } from "@/components/ui/textarea";
 import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
@@ -54,9 +59,6 @@ import { TrendChart, type ChartSeries } from "./trend-chart";
 
 export type SubmitAttempt = (input: unknown) => Promise<SubmissionOutcome>;
 export type QueryDashboard = (input: unknown) => Promise<DashboardOutcome>;
-
-const selectClassName =
-  "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-8 w-full min-w-0 rounded-lg border px-2 text-sm outline-none focus-visible:ring-3 dark:bg-input/30";
 
 const MAX_LOGGED_VIEWS = 300;
 const MAX_CHART_SERIES = 6;
@@ -352,6 +354,44 @@ function Dashboard({
     });
   };
 
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            {
+              id: "explore",
+              label: copy.mission.explore,
+              done: explorations.length >= 3,
+            },
+            {
+              id: "segment",
+              label: copy.mission.segment,
+              done: Boolean(diagnosis.dimension && diagnosis.value),
+            },
+            {
+              id: "cause",
+              label: copy.mission.cause,
+              done: Boolean(diagnosis.category),
+            },
+            {
+              id: "action",
+              label: copy.mission.action,
+              done: Boolean(diagnosis.actionId),
+            },
+          ],
+          action: {
+            label: copy.diagnosis.submit,
+            disabled: !answer,
+            hint: copy.mission.hint,
+            onClick: () => {
+              setSubmitError(null);
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
   if (inlineResult) {
     return (
       <section className="pixel-card p-6">
@@ -372,11 +412,14 @@ function Dashboard({
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-      <section aria-labelledby="dashboard-title" className="min-w-0 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 id="dashboard-title" className="font-heading font-semibold">
-            {copy.dashboard.title}
-          </h2>
+      <Panel
+        flat
+        id="dashboard-title"
+        icon="chart"
+        title={copy.dashboard.title}
+        className="min-w-0"
+        bodyClassName="space-y-4"
+        aside={
           <SegmentedControl<Range>
             label={copy.dashboard.range}
             value={range}
@@ -386,15 +429,14 @@ function Dashboard({
               label: copy.dashboard.ranges[value],
             }))}
           />
-        </div>
-
-        <div className="border-frame bg-card space-y-3 rounded-md border-2 p-4">
+        }
+      >
+        <div className="bg-muted/40 border-border space-y-3 rounded-md border-2 p-3">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="space-y-1">
               <Label htmlFor="metric">{copy.dashboard.metric}</Label>
-              <select
+              <NativeSelect
                 id="metric"
-                className={selectClassName}
                 value={query.metric}
                 onChange={(event) => {
                   const metric = METRICS.find((m) => m === event.target.value);
@@ -406,13 +448,12 @@ function Dashboard({
                     {metricLabel(metric)}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-1">
               <Label htmlFor="breakdown">{copy.dashboard.breakdown}</Label>
-              <select
+              <NativeSelect
                 id="breakdown"
-                className={selectClassName}
                 value={query.breakdown ?? ""}
                 onChange={(event) => {
                   const breakdown = DIMENSIONS.find(
@@ -427,23 +468,20 @@ function Dashboard({
                     {dimensionLabel(dimension)}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
           </div>
 
           <fieldset>
-            <legend className="text-sm font-medium">
+            <legend className="font-pixel text-ink mb-2 text-xs tracking-wide uppercase">
               {copy.dashboard.filters}
             </legend>
             <div className="mt-1 grid gap-2 sm:grid-cols-3 lg:grid-cols-5">
               {DIMENSIONS.map((dimension) => (
-                <select
+                <NativeSelect
                   key={dimension}
                   aria-label={dimensionLabel(dimension)}
-                  className={cn(
-                    selectClassName,
-                    query.filters[dimension] && "border-brand",
-                  )}
+                  className={cn(query.filters[dimension] && "border-brand")}
                   value={query.filters[dimension] ?? ""}
                   onChange={(event) => {
                     const filters = { ...query.filters };
@@ -459,7 +497,7 @@ function Dashboard({
                       {valueLabel(value)}
                     </option>
                   ))}
-                </select>
+                </NativeSelect>
               ))}
             </div>
             {activeFilters.length > 0 && (
@@ -477,9 +515,11 @@ function Dashboard({
           </fieldset>
         </div>
 
-        <div className="border-frame bg-card rounded-md border-2 p-4">
+        <div>
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h3 className="font-medium">{metricLabel(query.metric)}</h3>
+            <h3 className="font-pixel text-base">
+              {metricLabel(query.metric)}
+            </h3>
             <p aria-live="polite" className="text-muted-foreground text-xs">
               {isLoading
                 ? copy.dashboard.loading
@@ -529,31 +569,21 @@ function Dashboard({
             </div>
           )}
         </div>
-      </section>
+      </Panel>
 
-      <aside className="space-y-4 lg:sticky lg:top-20">
-        <section
-          aria-labelledby="log-title"
-          className="border-frame bg-card rounded-md border-2 p-4"
+      <aside className="space-y-4">
+        <Panel
+          id="log-title"
+          icon="search"
+          title={copy.log.title}
+          aside={copy.log.count(explorations.length)}
         >
-          <div className="flex items-baseline justify-between">
-            <h2
-              id="log-title"
-              className="font-heading flex items-center gap-2 text-sm font-semibold"
-            >
-              <History className="size-4" aria-hidden="true" />
-              {copy.log.title}
-            </h2>
-            <span className="text-muted-foreground text-xs">
-              {copy.log.count(explorations.length)}
-            </span>
-          </div>
           {explorations.length === 0 ? (
-            <p className="text-muted-foreground mt-2 text-xs">
+            <EmptyState size="sm" title={copy.log.emptyTitle}>
               {copy.log.empty}
-            </p>
+            </EmptyState>
           ) : (
-            <ol className="mt-2 max-h-48 space-y-1 overflow-y-auto text-xs">
+            <ol className="max-h-48 space-y-1 overflow-y-auto text-xs">
               {explorations.map((exploration, index) => (
                 <li key={index} className="flex gap-2">
                   <span className="text-muted-foreground w-5 shrink-0 text-right tabular-nums">
@@ -582,27 +612,21 @@ function Dashboard({
               ))}
             </ol>
           )}
-        </section>
+        </Panel>
 
-        <section
-          aria-labelledby="diagnosis-title"
-          className="pixel-card space-y-3 p-4"
+        <Panel
+          id="diagnosis-title"
+          icon="target"
+          title={copy.diagnosis.title}
+          subtitle={copy.diagnosis.intro}
+          bodyClassName="space-y-3"
         >
-          <div>
-            <h2 id="diagnosis-title" className="font-heading font-semibold">
-              {copy.diagnosis.title}
-            </h2>
-            <p className="text-muted-foreground mt-0.5 text-xs">
-              {copy.diagnosis.intro}
-            </p>
-          </div>
           <div className="space-y-1">
             <Label htmlFor="diagnosis-dimension">
               {copy.diagnosis.dimension}
             </Label>
-            <select
+            <NativeSelect
               id="diagnosis-dimension"
-              className={selectClassName}
               value={diagnosis.dimension ?? ""}
               onChange={(event) => {
                 const dimension = DIMENSIONS.find(
@@ -617,13 +641,12 @@ function Dashboard({
                   {dimensionLabel(dimension)}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
           </div>
           <div className="space-y-1">
             <Label htmlFor="diagnosis-value">{copy.diagnosis.value}</Label>
-            <select
+            <NativeSelect
               id="diagnosis-value"
-              className={selectClassName}
               disabled={!diagnosis.dimension}
               value={diagnosis.value ?? ""}
               onChange={(event) =>
@@ -640,15 +663,14 @@ function Dashboard({
                     {valueLabel(value)}
                   </option>
                 ))}
-            </select>
+            </NativeSelect>
           </div>
           <div className="space-y-1">
             <Label htmlFor="diagnosis-category">
               {copy.diagnosis.category}
             </Label>
-            <select
+            <NativeSelect
               id="diagnosis-category"
-              className={selectClassName}
               value={diagnosis.category ?? ""}
               onChange={(event) => {
                 const category = ROOT_CAUSE_CATEGORIES.find(
@@ -666,26 +688,23 @@ function Dashboard({
                   {copy.categories[category]}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
           </div>
           <fieldset className="space-y-1.5">
-            <legend className="text-sm font-medium">
+            <legend className="font-pixel text-ink mb-2 text-xs tracking-wide uppercase">
               {copy.diagnosis.action}
             </legend>
             {publicCase.actionOptions.map((option) => (
-              <label key={option.id} className="flex items-start gap-2 text-sm">
-                <input
-                  type="radio"
-                  name="action"
-                  value={option.id}
-                  checked={diagnosis.actionId === option.id}
-                  onChange={() =>
-                    setDiagnosis({ ...diagnosis, actionId: option.id })
-                  }
-                  className="accent-brand mt-1"
-                />
-                <span>{option.label}</span>
-              </label>
+              <OptionCard
+                key={option.id}
+                type="radio"
+                name="action"
+                checked={diagnosis.actionId === option.id}
+                onChange={() =>
+                  setDiagnosis({ ...diagnosis, actionId: option.id })
+                }
+                title={<span className="font-normal">{option.label}</span>}
+              />
             ))}
           </fieldset>
           <div className="space-y-1">
@@ -706,18 +725,7 @@ function Dashboard({
               }
             />
           </div>
-          <Button
-            type="button"
-            className="w-full"
-            disabled={!answer}
-            onClick={() => {
-              setSubmitError(null);
-              setConfirming(true);
-            }}
-          >
-            {copy.diagnosis.submit}
-          </Button>
-        </section>
+        </Panel>
       </aside>
 
       <Dialog

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 import type { AbTestAnswer, AbTestCase, Issue } from "../schema";
 import type { AbTestReport, IssueStatus } from "../scoring";
+import { Panel } from "@/components/arcade/panel";
 
 function Section({
   id,
@@ -18,12 +19,9 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section aria-labelledby={id} className="pixel-card p-5">
-      <h2 id={id} className="font-heading font-semibold">
-        {title}
-      </h2>
-      <div className="mt-4">{children}</div>
-    </section>
+    <Panel icon="chart" id={id} title={title}>
+      <div>{children}</div>
+    </Panel>
   );
 }
 

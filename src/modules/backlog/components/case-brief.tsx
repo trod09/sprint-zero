@@ -1,6 +1,7 @@
 import { CalendarDays, Gauge, TriangleAlert, Users } from "lucide-react";
 
 import { CaseHeader } from "@/components/arcade/case-header";
+import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import { formatCompact, formatUsdCompact } from "@/lib/format";
 
@@ -43,11 +44,8 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
       <CaseHeader publicCase={publicCase} />
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-        <div className="pixel-card p-4">
-          <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-            {copy.label}
-          </h2>
-          <p className="mt-2 leading-relaxed text-pretty">{publicCase.brief}</p>
+        <Panel icon="flag" title={copy.label}>
+          <p className="leading-relaxed text-pretty">{publicCase.brief}</p>
           <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {facts.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-1.5">
@@ -67,13 +65,10 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
             />
             {copy.events(publicCase.eventCount)}
           </p>
-        </div>
+        </Panel>
 
-        <div className="pixel-card p-4">
-          <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-            {copy.baseline}
-          </h2>
-          <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 lg:grid-cols-2">
+        <Panel icon="chart" title={copy.baseline}>
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 lg:grid-cols-2">
             {baseline.map(({ label, value }) => (
               <div key={label}>
                 <dt className="text-muted-foreground text-xs">{label}</dt>
@@ -83,7 +78,7 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
               </div>
             ))}
           </dl>
-        </div>
+        </Panel>
       </div>
 
       <details className="group pixel-card">

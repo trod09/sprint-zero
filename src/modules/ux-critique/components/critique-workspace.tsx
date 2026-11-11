@@ -31,11 +31,12 @@ import {
   type PublicUxCritiqueCase,
 } from "../schema";
 import { ScreenView } from "./screen-view";
+import { NativeSelect } from "@/components/ui/native-select";
+import { EmptyState } from "@/components/arcade/empty-state";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
 
 export type { SubmitAttempt };
-
-const selectClassName =
-  "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-8 w-full min-w-0 rounded-lg border px-2 text-sm outline-none focus-visible:ring-3 dark:bg-input/30";
 
 const draftSchema = z.object({
   findings: z.array(findingSchema).max(MAX_FINDINGS),
@@ -152,6 +153,44 @@ function Workspace({
     setNote("");
   };
 
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            {
+              id: "mark",
+              label: copy.mission.mark,
+              done: mode === "mark" || findings.length > 0,
+            },
+            {
+              id: "first",
+              label: copy.mission.first,
+              done: findings.length > 0,
+            },
+            {
+              id: "three",
+              label: copy.mission.three,
+              done: findings.length >= 3,
+            },
+            {
+              id: "notes",
+              label: copy.mission.notes,
+              done: findings.length > 0 && findings.every((f) => f.note),
+            },
+          ],
+          action: {
+            label: copy.submit.button,
+            disabled: findings.length === 0,
+            hint: copy.mission.hint,
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
   if (inlineResult) {
     return (
       <section className="pixel-card p-6">
@@ -168,16 +207,14 @@ function Workspace({
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-      <section className="min-w-0 space-y-3" aria-labelledby="screen-title">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 id="screen-title" className="font-heading font-semibold">
-              {publicCase.screen.product.name}
-            </h2>
-            <p className="text-muted-foreground text-xs">
-              {mode === "use" ? copy.modes.useHint : copy.modes.markHint}
-            </p>
-          </div>
+      <Panel
+        flat
+        id="screen-title"
+        icon="search"
+        title={publicCase.screen.product.name}
+        subtitle={mode === "use" ? copy.modes.useHint : copy.modes.markHint}
+        className="min-w-0"
+        aside={
           <SegmentedControl<Mode>
             label={copy.modes.label}
             value={mode}
@@ -190,7 +227,8 @@ function Workspace({
               { value: "mark", label: copy.modes.mark },
             ]}
           />
-        </div>
+        }
+      >
         <ScreenView
           screen={publicCase.screen}
           context={{
@@ -200,30 +238,32 @@ function Workspace({
             markers,
           }}
         />
-      </section>
+      </Panel>
 
       <aside className="space-y-4 lg:sticky lg:top-20">
-        <section
-          aria-labelledby="finding-title"
-          className="pixel-card space-y-3 p-4"
+        <Panel
+          id="finding-title"
+          icon="pencil"
+          title={copy.finding.title}
+          bodyClassName="space-y-3"
         >
-          <h2 id="finding-title" className="font-heading font-semibold">
-            {copy.finding.title}
-          </h2>
           <div className="space-y-1">
             <p className="text-sm font-medium">{copy.finding.region}</p>
             <p
               aria-live="polite"
-              className={selected ? "text-sm" : "text-muted-foreground text-xs"}
+              className={
+                selected
+                  ? "border-primary bg-primary/10 rounded-md border-2 px-2 py-1 text-sm font-medium"
+                  : "border-border text-muted-foreground rounded-md border-2 border-dashed px-2 py-1 text-xs"
+              }
             >
               {selected ? labelOf.get(selected) : copy.finding.pickRegion}
             </p>
           </div>
           <div className="space-y-1">
             <Label htmlFor="finding-type">{copy.finding.type}</Label>
-            <select
+            <NativeSelect
               id="finding-type"
-              className={selectClassName}
               value={type}
               disabled={!selected}
               onChange={(event) => {
@@ -237,7 +277,7 @@ function Workspace({
                   {copy.issues[issue].label}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
             {type && (
               <p className="text-muted-foreground text-xs">
                 {copy.issues[type].hint}
@@ -284,19 +324,18 @@ function Workspace({
               {copy.findings.max(MAX_FINDINGS)}
             </p>
           )}
-        </section>
+        </Panel>
 
-        <section
-          aria-labelledby="findings-title"
-          className="pixel-card space-y-2 p-4"
+        <Panel
+          id="findings-title"
+          icon="flag"
+          title={copy.findings.title}
+          aside={`${findings.length}/${MAX_FINDINGS}`}
         >
-          <h2 id="findings-title" className="font-heading font-semibold">
-            {copy.findings.title}
-          </h2>
           {findings.length === 0 ? (
-            <p className="text-muted-foreground text-xs">
+            <EmptyState size="sm" title={copy.findings.emptyTitle}>
               {copy.findings.empty}
-            </p>
+            </EmptyState>
           ) : (
             <ol className="space-y-2">
               {findings.map((finding, index) => {
@@ -305,7 +344,7 @@ function Workspace({
                 return (
                   <li
                     key={`${finding.regionId}-${finding.type}-${index}`}
-                    className="flex items-start gap-2 text-sm"
+                    className="bg-background/60 border-border flex items-start gap-2 rounded-md border-2 p-2 text-sm"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="font-medium">{kind}</p>
@@ -330,19 +369,7 @@ function Workspace({
               })}
             </ol>
           )}
-          <Button
-            type="button"
-            className="mt-2 w-full"
-            variant="secondary"
-            disabled={findings.length === 0}
-            onClick={() => {
-              clearError();
-              setConfirming(true);
-            }}
-          >
-            {copy.submit.button}
-          </Button>
-        </section>
+        </Panel>
       </aside>
 
       <Dialog

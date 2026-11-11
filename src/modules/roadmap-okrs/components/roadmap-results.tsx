@@ -8,6 +8,7 @@ import { evaluatePlan } from "../planning";
 import type { RoadmapCase } from "../schema";
 import type { RoadmapReport } from "../scoring";
 import { Timeline } from "./timeline";
+import { Panel } from "@/components/arcade/panel";
 
 const RATING_STYLE = ["text-destructive", "text-warning", "text-success"];
 
@@ -38,10 +39,11 @@ export function RoadmapResults({
 
   return (
     <div className="space-y-6">
-      <section aria-labelledby="results-roadmaps" className="pixel-card p-4">
-        <h2 id="results-roadmaps" className="font-heading font-semibold">
-          {copy.results.yourRoadmap}
-        </h2>
+      <Panel
+        icon="clock"
+        id="results-roadmaps"
+        title={copy.results.yourRoadmap}
+      >
         <p className="text-muted-foreground mt-1 mb-3 text-sm">
           {copy.results.value(report.deliveredValue, report.optimalValue)}
         </p>
@@ -63,13 +65,10 @@ export function RoadmapResults({
           items={best.items}
           labelledBy="results-best"
         />
-      </section>
+      </Panel>
 
-      <section aria-labelledby="results-krs" className="pixel-card p-4">
-        <h2 id="results-krs" className="font-heading font-semibold">
-          {copy.results.keyResults}
-        </h2>
-        <div className="mt-3 space-y-5">
+      <Panel icon="flag" id="results-krs" title={copy.results.keyResults}>
+        <div className="space-y-5">
           {objectives.map((objective) => (
             <div key={objective.id}>
               <h3 className="font-pixel text-ink text-xs tracking-wide uppercase">
@@ -110,13 +109,14 @@ export function RoadmapResults({
             </div>
           ))}
         </div>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="results-initiatives" className="pixel-card p-4">
-        <h2 id="results-initiatives" className="font-heading font-semibold">
-          {copy.results.initiatives}
-        </h2>
-        <ul className="mt-2 divide-y">
+      <Panel
+        icon="list"
+        id="results-initiatives"
+        title={copy.results.initiatives}
+      >
+        <ul className="divide-y">
           {[...report.initiatives]
             .sort((a, b) => b.value - a.value)
             .map((item) => {
@@ -163,14 +163,11 @@ export function RoadmapResults({
               );
             })}
         </ul>
-      </section>
+      </Panel>
 
-      <section className="pixel-card p-4">
-        <h2 className="font-pixel text-ink text-xs tracking-wide uppercase">
-          {copy.results.principle}
-        </h2>
-        <p className="mt-2 leading-relaxed">{hidden.principle}</p>
-      </section>
+      <Panel icon="bulb" title={copy.results.principle}>
+        <p className="leading-relaxed">{hidden.principle}</p>
+      </Panel>
     </div>
   );
 }

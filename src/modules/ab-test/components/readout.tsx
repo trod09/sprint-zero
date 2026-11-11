@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
+import { OptionCard } from "@/components/option-card";
 import { Textarea } from "@/components/ui/textarea";
 import { getMessages } from "@/i18n";
 import { useIsClient } from "@/lib/use-is-client";
@@ -166,6 +169,39 @@ function ReadoutWorkspace({
         }
       : null;
 
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: [
+            {
+              id: "views",
+              label: copy.mission.views,
+              done: VIEWS.every((view) => draft.viewed.includes(view)),
+            },
+            {
+              id: "effect",
+              label: copy.mission.effect,
+              done: Boolean(draft.effect),
+            },
+            {
+              id: "decision",
+              label: copy.mission.decision,
+              done: Boolean(draft.decision),
+            },
+          ],
+          action: {
+            label: copy.decision.submit,
+            disabled: !answer,
+            hint: copy.mission.hint,
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
   if (inlineResult) {
     return (
       <section className="pixel-card p-6">
@@ -182,21 +218,34 @@ function ReadoutWorkspace({
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-      <section aria-labelledby="readout-title" className="min-w-0 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 id="readout-title" className="font-heading font-semibold">
-            {copy.readout.title}
-          </h2>
+      <Panel
+        id="readout-title"
+        icon="chart"
+        title={copy.readout.title}
+        className="min-w-0"
+        bodyClassName="space-y-4"
+        aside={
           <SegmentedControl
             label={copy.readout.tabs}
             value={draft.view}
             onValueChange={openView}
             options={VIEWS.map((view) => ({
               value: view,
-              label: copy.views[view],
+              label: (
+                <>
+                  {copy.views[view]}
+                  {!draft.viewed.includes(view) && (
+                    <span
+                      aria-hidden="true"
+                      className="bg-warning ml-1 inline-block size-1.5 rounded-full"
+                    />
+                  )}
+                </>
+              ),
             }))}
           />
-        </div>
+        }
+      >
         {draft.view === "scorecard" && (
           <Scorecard publicCase={publicCase} readout={readout} />
         )}
@@ -204,48 +253,35 @@ function ReadoutWorkspace({
         {draft.view === "segments" && (
           <SegmentsTable publicCase={publicCase} readout={readout} />
         )}
-      </section>
+      </Panel>
 
-      <aside className="lg:sticky lg:top-20">
-        <section
-          aria-labelledby="decision-title"
-          className="pixel-card space-y-4 p-4"
+      <aside>
+        <Panel
+          id="decision-title"
+          icon="target"
+          title={copy.decision.title}
+          subtitle={copy.decision.intro}
+          bodyClassName="space-y-5"
         >
-          <div>
-            <h2 id="decision-title" className="font-heading font-semibold">
-              {copy.decision.title}
-            </h2>
-            <p className="text-muted-foreground mt-0.5 text-xs">
-              {copy.decision.intro}
-            </p>
-          </div>
-
           <fieldset className="space-y-1.5">
-            <legend className="text-sm font-medium">
+            <legend className="font-pixel text-ink mb-2 text-xs tracking-wide uppercase">
               {copy.decision.issues}
             </legend>
             <p className="text-muted-foreground text-xs">
               {copy.decision.issuesHint}
             </p>
             {ISSUES.map((issue) => (
-              <label key={issue} className="flex items-start gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={draft.issues.includes(issue)}
-                  onChange={(event) => toggleIssue(issue, event.target.checked)}
-                  className="accent-brand mt-1"
-                  aria-describedby={`issue-hint-${issue}`}
-                />
-                <span>
-                  {copy.issues[issue].label}
-                  <span
-                    id={`issue-hint-${issue}`}
-                    className="text-muted-foreground block text-xs"
-                  >
-                    {copy.issues[issue].hint}
-                  </span>
-                </span>
-              </label>
+              <OptionCard
+                key={issue}
+                type="checkbox"
+                name="issues"
+                checked={draft.issues.includes(issue)}
+                onChange={() =>
+                  toggleIssue(issue, !draft.issues.includes(issue))
+                }
+                title={copy.issues[issue].label}
+                description={copy.issues[issue].hint}
+              />
             ))}
             {draft.issues.length === 0 && (
               <p className="text-muted-foreground text-xs italic">
@@ -255,45 +291,37 @@ function ReadoutWorkspace({
           </fieldset>
 
           <fieldset className="space-y-1.5">
-            <legend className="text-sm font-medium">
+            <legend className="font-pixel text-ink mb-2 text-xs tracking-wide uppercase">
               {copy.decision.effect}
             </legend>
             {EFFECT_READS.map((effect) => (
-              <label key={effect} className="flex items-start gap-2 text-sm">
-                <input
-                  type="radio"
-                  name="effect"
-                  checked={draft.effect === effect}
-                  onChange={() => setDraft((d) => ({ ...d, effect }))}
-                  className="accent-brand mt-1"
-                />
-                <span>{copy.effects[effect]}</span>
-              </label>
+              <OptionCard
+                key={effect}
+                type="radio"
+                name="effect"
+                checked={draft.effect === effect}
+                onChange={() => setDraft((d) => ({ ...d, effect }))}
+                title={
+                  <span className="font-normal">{copy.effects[effect]}</span>
+                }
+              />
             ))}
           </fieldset>
 
           <fieldset className="space-y-1.5">
-            <legend className="text-sm font-medium">
+            <legend className="font-pixel text-ink mb-2 text-xs tracking-wide uppercase">
               {copy.decision.decision}
             </legend>
             {DECISIONS.map((decision) => (
-              <label key={decision} className="flex items-start gap-2 text-sm">
-                <input
-                  type="radio"
-                  name="decision"
-                  checked={draft.decision === decision}
-                  onChange={() => setDraft((d) => ({ ...d, decision }))}
-                  className="accent-brand mt-1"
-                />
-                <span>
-                  <span className="font-medium">
-                    {copy.decisions[decision].label}
-                  </span>
-                  <span className="text-muted-foreground block text-xs">
-                    {copy.decisions[decision].hint}
-                  </span>
-                </span>
-              </label>
+              <OptionCard
+                key={decision}
+                type="radio"
+                name="decision"
+                checked={draft.decision === decision}
+                onChange={() => setDraft((d) => ({ ...d, decision }))}
+                title={copy.decisions[decision].label}
+                description={copy.decisions[decision].hint}
+              />
             ))}
           </fieldset>
 
@@ -312,19 +340,7 @@ function ReadoutWorkspace({
               }
             />
           </div>
-
-          <Button
-            type="button"
-            className="w-full"
-            disabled={!answer}
-            onClick={() => {
-              clearError();
-              setConfirming(true);
-            }}
-          >
-            {copy.decision.submit}
-          </Button>
-        </section>
+        </Panel>
       </aside>
 
       <Dialog

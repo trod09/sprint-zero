@@ -1,9 +1,11 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { z } from "zod";
 
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
+import { StepTrack } from "@/components/arcade/step-track";
 import { OptionCard } from "@/components/option-card";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Button } from "@/components/ui/button";
@@ -30,6 +32,7 @@ import {
   type PublicPrdCase,
 } from "../schema";
 import { DocumentsPanel } from "./documents-panel";
+import { NativeSelect } from "@/components/ui/native-select";
 
 const STEPS = [
   "problem",
@@ -186,6 +189,25 @@ function Workspace({
   };
   const stepIndex = STEPS.indexOf(draft.step);
 
+  useMission(
+    inlineResult
+      ? null
+      : {
+          objectives: STEPS.filter((step) => step !== "review").map((step) => ({
+            id: step,
+            label: copy.steps[step],
+            done: complete[step],
+          })),
+          action: {
+            label: copy.submit.button,
+            onClick: () => {
+              clearError();
+              setConfirming(true);
+            },
+          },
+        },
+  );
+
   if (inlineResult) return <InlineResult result={inlineResult} />;
 
   const answer = (): PrdAnswer => ({
@@ -212,34 +234,21 @@ function Workspace({
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
       <div className="min-w-0 space-y-5">
-        <nav aria-label={copy.steps.label}>
-          <ol className="flex flex-wrap gap-1.5">
-            {STEPS.map((step, index) => (
-              <li key={step}>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={draft.step === step ? "default" : "outline"}
-                  aria-current={draft.step === step ? "step" : undefined}
-                  onClick={() => update({ step })}
-                >
-                  <span className="text-xs opacity-70">{index + 1}</span>
-                  {copy.steps[step]}
-                  {complete[step] && (
-                    <>
-                      <Check aria-hidden="true" />
-                      <span className="sr-only">({copy.steps.done})</span>
-                    </>
-                  )}
-                </Button>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <StepTrack
+          label={copy.steps.label}
+          current={draft.step}
+          onSelect={(step) => update({ step })}
+          steps={STEPS.map((step) => ({
+            id: step,
+            label: copy.steps[step],
+            done: complete[step],
+          }))}
+        />
 
-        <section
-          aria-labelledby="section-title"
-          className="pixel-card space-y-4 p-5"
+        <Panel
+          icon="pencil"
+          title={`${getMessages().arcade.steps.stepOf(stepIndex + 1, STEPS.length)} · ${copy.steps[draft.step]}`}
+          bodyClassName="space-y-4 p-5"
         >
           {draft.step === "problem" && (
             <>
@@ -253,7 +262,7 @@ function Workspace({
                 rows={4}
               />
               <fieldset className="space-y-2">
-                <legend className="text-sm font-medium">
+                <legend className="font-pixel text-ink mb-1 text-xs tracking-wide uppercase">
                   {copy.problem.evidence}
                 </legend>
                 <p className="text-muted-foreground text-xs">
@@ -301,7 +310,7 @@ function Workspace({
                 onChange={(goals) => update({ goals })}
               />
               <fieldset className="space-y-2">
-                <legend className="text-sm font-medium">
+                <legend className="font-pixel text-ink mb-1 text-xs tracking-wide uppercase">
                   {copy.goals.metric}
                 </legend>
                 <div className="grid gap-2">
@@ -337,9 +346,10 @@ function Workspace({
                 />
                 <div className="space-y-1">
                   <Label htmlFor="horizon">{copy.goals.horizon}</Label>
-                  <select
+                  <NativeSelect
                     id="horizon"
-                    className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 h-8 w-full min-w-0 rounded-lg border px-2 text-sm outline-none focus-visible:ring-3"
+                    size="sm"
+                    wrapperClassName="w-full"
                     value={draft.horizon ?? ""}
                     onChange={(event) => {
                       const parsed = horizonSchema.safeParse(
@@ -354,7 +364,7 @@ function Workspace({
                         {copy.horizons[horizon]}
                       </option>
                     ))}
-                  </select>
+                  </NativeSelect>
                 </div>
               </div>
             </>
@@ -592,19 +602,9 @@ function Workspace({
                   <Written text={draft.openQuestions} />
                 </ReviewBlock>
               </article>
-              <Button
-                type="button"
-                className="w-full"
-                onClick={() => {
-                  clearError();
-                  setConfirming(true);
-                }}
-              >
-                {copy.submit.button}
-              </Button>
             </>
           )}
-        </section>
+        </Panel>
 
         <div className="flex justify-between gap-2">
           <Button
@@ -646,9 +646,7 @@ function Workspace({
 function SectionHeading({ title, intro }: { title: string; intro?: string }) {
   return (
     <div>
-      <h2 id="section-title" className="font-heading text-lg font-semibold">
-        {title}
-      </h2>
+      <h3 className="font-heading text-lg font-semibold">{title}</h3>
       {intro && <p className="text-muted-foreground text-sm">{intro}</p>}
     </div>
   );

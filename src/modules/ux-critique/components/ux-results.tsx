@@ -7,6 +7,7 @@ import type { UxCritiqueCase } from "../schema";
 import type { UxReport } from "../scoring";
 import { ScreenView } from "./screen-view";
 import type { MarkerTone } from "./screens/region";
+import { Panel } from "@/components/arcade/panel";
 
 const OUTCOME_TONE = {
   found: "border-success/40 bg-success/10 text-success",
@@ -37,11 +38,8 @@ export function UxResults({
 
   return (
     <div className="space-y-6">
-      <section aria-labelledby="planted-title" className="pixel-card p-5">
-        <h2 id="planted-title" className="font-heading font-semibold">
-          {copy.results.planted}
-        </h2>
-        <ol className="mt-4 space-y-5">
+      <Panel icon="chart" id="planted-title" title={copy.results.planted}>
+        <ol className="space-y-5">
           {report.issues.map((issue, index) => (
             <li key={issue.regionId} className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
@@ -78,12 +76,9 @@ export function UxResults({
             </li>
           ))}
         </ol>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="alarms-title" className="pixel-card p-5">
-        <h2 id="alarms-title" className="font-heading font-semibold">
-          {copy.results.falseAlarms}
-        </h2>
+      <Panel icon="flag" id="alarms-title" title={copy.results.falseAlarms}>
         {report.falseAlarms.length === 0 ? (
           <p className="text-muted-foreground mt-2 text-sm">
             {copy.results.noFalseAlarms}
@@ -93,7 +88,7 @@ export function UxResults({
             <p className="text-muted-foreground mt-1 text-sm">
               {copy.results.falseAlarmsIntro}
             </p>
-            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
+            <ul className="list-disc space-y-1 pl-5 text-sm">
               {report.falseAlarms.map((alarm) => (
                 <li key={`${alarm.regionId}-${alarm.type}`}>
                   {alarm.regionLabel}: {copy.issues[alarm.type].label}
@@ -102,7 +97,7 @@ export function UxResults({
             </ul>
           </>
         )}
-      </section>
+      </Panel>
 
       <section aria-labelledby="screen-review" className="space-y-3">
         <h2 id="screen-review" className="font-heading font-semibold">

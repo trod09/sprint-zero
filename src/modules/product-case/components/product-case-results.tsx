@@ -20,6 +20,7 @@ import type {
   ProductCaseReport,
   StructuredReport,
 } from "../scoring";
+import { Panel } from "@/components/arcade/panel";
 
 export function ProductCaseResults({
   caseData,
@@ -68,21 +69,20 @@ function StepSection({
 }) {
   const copy = getMessages().productCase.results;
   return (
-    <section
-      aria-labelledby={`${id}-title`}
-      className="pixel-card space-y-4 p-5"
+    <Panel
+      icon="chart"
+      id={`${id}-title`}
+      title={title}
+      bodyClassName="space-y-4"
     >
-      <h2 id={`${id}-title`} className="font-heading font-semibold">
-        {title}
-      </h2>
       <div className="border-primary/40 bg-primary/5 rounded-md border-l-2 px-3 py-2">
         <p className="text-xs font-medium tracking-wide uppercase">
           {copy.ideal}
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-pretty">{ideal}</p>
+        <p className="text-sm leading-relaxed text-pretty">{ideal}</p>
       </div>
       {children}
-    </section>
+    </Panel>
   );
 }
 
@@ -335,13 +335,12 @@ function EstimationResults({
   const factOf = new Map(caseData.facts.map((f) => [f.id, f]));
   return (
     <>
-      <section
-        aria-labelledby="estimate-title"
-        className="pixel-card space-y-4 p-5"
+      <Panel
+        icon="target"
+        id="estimate-title"
+        title={copy.title}
+        bodyClassName="space-y-4"
       >
-        <h2 id="estimate-title" className="font-heading font-semibold">
-          {copy.title}
-        </h2>
         <dl className="grid gap-4 sm:grid-cols-2">
           <div>
             <dt className="text-muted-foreground text-xs">{copy.yours}</dt>
@@ -377,19 +376,16 @@ function EstimationResults({
           <p className="text-xs font-medium tracking-wide uppercase">
             {getMessages().productCase.results.ideal}
           </p>
-          <p className="mt-1 text-sm leading-relaxed text-pretty">
-            {hidden.ideal}
-          </p>
+          <p className="text-sm leading-relaxed text-pretty">{hidden.ideal}</p>
         </div>
-      </section>
+      </Panel>
 
-      <section
-        aria-labelledby="facts-explained"
-        className="pixel-card space-y-3 p-5"
+      <Panel
+        icon="doc"
+        id="facts-explained"
+        title={copy.facts}
+        bodyClassName="space-y-3"
       >
-        <h2 id="facts-explained" className="font-heading font-semibold">
-          {copy.facts}
-        </h2>
         <ul className="divide-y">
           {[...report.facts]
             .sort((a, b) => Number(b.required) - Number(a.required))
@@ -435,7 +431,7 @@ function EstimationResults({
               .join(", ")}
           </p>
         )}
-      </section>
+      </Panel>
     </>
   );
 }

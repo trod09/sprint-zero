@@ -39,6 +39,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { NativeSelect } from "@/components/ui/native-select";
+import { useMission } from "@/components/arcade/mission";
+import { Panel } from "@/components/arcade/panel";
 import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
 import { getAttemptStore } from "@/core/storage";
@@ -78,7 +81,7 @@ import { SPRINT_ZONE_ID, SprintPanel, sprintDragId } from "./sprint-panel";
 import { SprintResult } from "./sprint-result";
 import { EffortPill, TicketTypeIcon } from "./ticket-meta";
 import { TicketRow } from "./ticket-row";
-import { selectClassName, TicketSheet } from "./ticket-sheet";
+import { TicketSheet } from "./ticket-sheet";
 
 export type SubmitAttempt = (input: unknown) => Promise<SubmissionOutcome>;
 export type RevealEvents = (input: unknown) => Promise<RevealEventsOutcome>;
@@ -415,6 +418,39 @@ function Planner({
     });
   };
 
+  useMission(
+    phase.name === "done"
+      ? null
+      : {
+          objectives: [
+            {
+              id: "fill",
+              label: copy.mission.fill,
+              done: state.sprint.length > 0,
+            },
+            {
+              id: "capacity",
+              label: copy.mission.capacity,
+              done: state.sprint.length > 0 && split.overCapacityBy === 0,
+            },
+            {
+              id: "commit",
+              label: copy.mission.commit,
+              done: committed !== undefined,
+            },
+            { id: "replan", label: copy.mission.replan, done: false },
+          ],
+          action: {
+            label: isReplanning
+              ? copy.sprint.confirmReplan
+              : copy.sprint.commit,
+            disabled: state.sprint.length === 0 || isSubmitting,
+            hint: copy.mission.hint,
+            onClick: () => setPhase({ name: "confirming" }),
+          },
+        },
+  );
+
   if (phase.name === "done") {
     return (
       <SprintResult
@@ -544,7 +580,7 @@ function Planner({
         {events && (
           <section
             aria-labelledby="event-banner-title"
-            className="border-warning bg-warning/10 shadow-pixel rounded-md border-2 p-4 lg:col-span-2"
+            className="border-warning bg-warning/10 shadow-pixel animate-pixel-pop rounded-md border-2 p-4 lg:col-span-2"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2
@@ -572,11 +608,15 @@ function Planner({
           </section>
         )}
 
-        <section aria-labelledby="backlog-title" className="min-w-0 space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="backlog-title" className="font-heading font-semibold">
-              {copy.backlogTitle}
-            </h2>
+        <Panel
+          flat
+          id="backlog-title"
+          icon="list"
+          title={copy.backlogTitle}
+          className="min-w-0"
+          bodyClassName="space-y-3"
+          subtitle={copy.methods.hints[state.method]}
+          aside={
             <SegmentedControl
               label={copy.methods.label}
               value={state.method}
@@ -588,11 +628,8 @@ function Planner({
                 label: copy.methods.names[method],
               }))}
             />
-          </div>
-          <p className="text-muted-foreground text-sm">
-            {copy.methods.hints[state.method]}
-          </p>
-
+          }
+        >
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative min-w-48 flex-1">
               <Search
@@ -610,9 +647,9 @@ function Planner({
                 }
               />
             </div>
-            <select
+            <NativeSelect
+              wrapperClassName="w-auto"
               aria-label={copy.filters.type}
-              className={cn(selectClassName, "w-auto")}
               value={filters.type}
               onChange={(event) => {
                 const type = TICKET_TYPES.find((t) => t === event.target.value);
@@ -625,10 +662,10 @@ function Planner({
                   {copy.types[type]}
                 </option>
               ))}
-            </select>
-            <select
+            </NativeSelect>
+            <NativeSelect
+              wrapperClassName="w-auto"
               aria-label={copy.filters.requester}
-              className={cn(selectClassName, "w-auto")}
               value={filters.requester}
               onChange={(event) =>
                 setFilters({ ...filters, requester: event.target.value })
@@ -640,7 +677,7 @@ function Planner({
                   {stakeholder.name} · {stakeholder.role}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
             {filtersActive && (
               <Button
                 type="button"
@@ -689,7 +726,10 @@ function Planner({
             {backlogBody}
           </BacklogDropZone>
 
-          <section aria-labelledby="set-aside-title" className="pt-2">
+          <section
+            aria-labelledby="set-aside-title"
+            className="border-border border-t-2 pt-3"
+          >
             <h3
               id="set-aside-title"
               className="font-pixel text-ink text-xs tracking-wide uppercase"
@@ -698,7 +738,7 @@ function Planner({
               <span className="ml-1.5 tabular-nums">{setAside.length}</span>
             </h3>
             {setAside.length === 0 ? (
-              <p className="text-muted-foreground mt-2 text-sm">
+              <p className="text-muted-foreground mt-1 text-xs">
                 {copy.setAside.empty}
               </p>
             ) : (
@@ -733,7 +773,7 @@ function Planner({
               </ul>
             )}
           </section>
-        </section>
+        </Panel>
 
         <SprintPanel
           tickets={sprintTickets}
@@ -745,10 +785,6 @@ function Planner({
           }
           onRemove={(id) => dispatch({ type: "remove_from_sprint", id })}
           onClear={() => dispatch({ type: "clear_sprint" })}
-          onCommit={() => setPhase({ name: "confirming" })}
-          commitLabel={
-            isReplanning ? copy.sprint.confirmReplan : copy.sprint.commit
-          }
           note={
             committed
               ? copy.events.changes(

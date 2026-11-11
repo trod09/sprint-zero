@@ -68,7 +68,7 @@ export function Scorecard({
     <div className="space-y-4">
       <div
         tabIndex={0}
-        className="pixel-frame focus-visible:ring-ring/50 overflow-x-auto p-4 focus-visible:ring-3 focus-visible:outline-none"
+        className="border-border bg-background/40 focus-visible:ring-ring/50 overflow-x-auto rounded-md border-2 p-4 focus-visible:ring-3 focus-visible:outline-none"
       >
         <table className="w-full text-sm">
           <caption className="text-muted-foreground mb-2 text-left text-xs">
@@ -121,7 +121,7 @@ export function Scorecard({
 
       <div
         tabIndex={0}
-        className="pixel-frame focus-visible:ring-ring/50 overflow-x-auto p-4 focus-visible:ring-3 focus-visible:outline-none"
+        className="border-border bg-background/40 focus-visible:ring-ring/50 overflow-x-auto rounded-md border-2 p-4 focus-visible:ring-3 focus-visible:outline-none"
       >
         <table className="w-full min-w-[40rem] text-sm">
           <thead>

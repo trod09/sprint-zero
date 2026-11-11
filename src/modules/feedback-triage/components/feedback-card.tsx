@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 import { NOISE, UNSORTED, type Target } from "../board";
 import type { Cluster, FeedbackItem, Source } from "../schema";
+import { NativeSelect } from "@/components/ui/native-select";
 
 export const itemDragId = (id: string) => `item:${id}`;
 export const itemIdOfDrag = (dragId: string) =>
@@ -18,9 +19,6 @@ const SOURCE_ICON: Record<Source, typeof Star> = {
   support: Headset,
   nps: MessageSquareText,
 };
-
-const selectClassName =
-  "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-7 max-w-40 min-w-0 rounded-md border px-1.5 text-xs outline-none focus-visible:ring-3 dark:bg-input/30";
 
 export function ItemMeta({ item }: { item: FeedbackItem }) {
   const copy = getMessages().triage;
@@ -108,9 +106,10 @@ export function FeedbackCard({
           </p>
         )}
       </div>
-      <select
+      <NativeSelect
+        size="sm"
+        wrapperClassName="max-w-40 shrink-0 self-start"
         aria-label={copy.moveItem(item.id)}
-        className={cn(selectClassName, "shrink-0 self-start")}
         value={target}
         onChange={(event) => onMove(event.target.value)}
       >
@@ -121,9 +120,7 @@ export function FeedbackCard({
           </option>
         ))}
         <option value={NOISE}>{copy.noiseOption}</option>
-      </select>
+      </NativeSelect>
     </li>
   );
 }
-
-export { selectClassName };
