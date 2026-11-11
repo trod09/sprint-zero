@@ -115,7 +115,7 @@ export type RootCauseCategory = z.infer<typeof rootCauseCategorySchema>;
 /** The answer to the case: one dimension and one value. */
 export const segmentAnswerSchema = z.object({
   dimension: dimensionSchema,
-  value: z.string().min(1),
+  value: z.string().min(1).max(40),
 });
 export type SegmentAnswer = z.infer<typeof segmentAnswerSchema>;
 

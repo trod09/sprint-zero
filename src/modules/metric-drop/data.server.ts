@@ -5,6 +5,7 @@
 import "server-only";
 
 import type { CaseRepository } from "@/core/case-engine/case-repository";
+import { createLruCache } from "@/lib/lru";
 
 import {
   buildDashboardView,
@@ -14,7 +15,11 @@ import {
 import { buildDataset, type Dataset } from "./dataset";
 import { METRIC_DROP_MODULE_ID, metricDropCaseSchema } from "./schema";
 
-const datasets = new Map<string, Dataset>();
+/**
+ * Bounded: generated case ids carry any seed the browser picks, so an
+ * unbounded cache could be filled until the server runs out of memory.
+ */
+const datasets = createLruCache<string, Dataset>(64);
 
 export async function queryDashboard(
   repository: CaseRepository,

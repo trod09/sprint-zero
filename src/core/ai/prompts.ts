@@ -23,7 +23,9 @@ export function dataBlock(tag: string, value: unknown): string {
   }
   const body =
     typeof value === "string" ? value : JSON.stringify(value, null, 2);
-  // A closing tag inside the data would end the block early.
-  const safeBody = body.replaceAll(`</${tag}>`, `<\\/${tag}>`);
+  // A closing tag inside the data would end the block early. Models read
+  // tags loosely, so catch any case and stray spaces too.
+  const closing = new RegExp(`<\\s*/\\s*${tag}\\s*>`, "gi");
+  const safeBody = body.replace(closing, `<\\/${tag}>`);
   return `<${tag}>\n${safeBody}\n</${tag}>`;
 }

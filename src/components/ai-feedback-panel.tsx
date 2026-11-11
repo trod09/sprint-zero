@@ -15,6 +15,7 @@ type Status =
   | { name: "idle" }
   | { name: "ready"; feedback: AIFeedback; model?: string }
   | { name: "not_configured" }
+  | { name: "rate_limited" }
   | { name: "failed" };
 
 function initialStatus(attempt: Attempt): Status {
@@ -55,7 +56,9 @@ export function AIFeedbackPanel({
         setStatus(
           outcome.error.code === "not_configured"
             ? { name: "not_configured" }
-            : { name: "failed" },
+            : outcome.error.code === "rate_limited"
+              ? { name: "rate_limited" }
+              : { name: "failed" },
         );
         return;
       }
@@ -87,11 +90,13 @@ export function AIFeedbackPanel({
           </h2>
           <p className="text-muted-foreground mt-1 text-sm">{copy.intro}</p>
         </div>
-        {(status.name === "idle" || status.name === "failed") && (
+        {(status.name === "idle" ||
+          status.name === "failed" ||
+          status.name === "rate_limited") && (
           <Button type="button" onClick={request} disabled={isPending}>
             {isPending
               ? copy.requesting
-              : status.name === "failed"
+              : status.name !== "idle"
                 ? copy.retry
                 : copy.request}
           </Button>
@@ -102,6 +107,11 @@ export function AIFeedbackPanel({
         {status.name === "not_configured" && (
           <p className="text-muted-foreground bg-muted/50 mt-4 rounded-lg px-3 py-2 text-sm">
             {copy.notConfigured}
+          </p>
+        )}
+        {status.name === "rate_limited" && !isPending && (
+          <p role="alert" className="text-destructive mt-4 text-sm">
+            {copy.rateLimited}
           </p>
         )}
         {status.name === "failed" && !isPending && (

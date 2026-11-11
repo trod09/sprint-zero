@@ -41,7 +41,10 @@ export const effortSchema = z.enum(EFFORTS);
 export type Effort = z.infer<typeof effortSchema>;
 export const EFFORT_POINTS: Record<Effort, number> = { S: 1, M: 2, L: 3 };
 
-const optionIdSchema = z.string().regex(/^[a-z][a-z0-9_]*$/);
+const optionIdSchema = z
+  .string()
+  .max(60)
+  .regex(/^[a-z][a-z0-9_]*$/);
 
 export const researchNoteSchema = z.object({
   id: optionIdSchema,

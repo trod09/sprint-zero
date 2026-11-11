@@ -1970,6 +1970,8 @@ export const en = {
         "AI feedback is not available on this server yet. Everything else on this page is computed by code.",
       failed:
         "The AI coach could not write feedback this time. Try again later.",
+      rateLimited:
+        "You have asked the AI coach a lot in a short time. Wait a while and try again.",
       retry: "Try again",
       model: (model: string) => `Written by ${model}`,
     },

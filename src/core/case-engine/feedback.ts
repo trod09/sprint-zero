@@ -23,6 +23,7 @@ export type FeedbackErrorCode =
   | "invalid_request"
   | "case_not_found"
   | "invalid_answer"
+  | "rate_limited"
   | "ai_failed";
 
 export type FeedbackOutcome =
@@ -40,11 +41,12 @@ const FAILURE_MESSAGES: Record<FeedbackErrorCode, string> = {
   invalid_request: "The request is malformed.",
   case_not_found: "This case does not exist.",
   invalid_answer: "The answer does not match what this case expects.",
+  rate_limited: "Too many feedback requests. Try again later.",
   ai_failed:
     "The AI coach could not write feedback this time. Try again later.",
 };
 
-const fail = (code: FeedbackErrorCode): FeedbackOutcome => ({
+export const feedbackFailure = (code: FeedbackErrorCode): FeedbackOutcome => ({
   ok: false,
   error: { code, message: FAILURE_MESSAGES[code] },
 });
@@ -70,16 +72,16 @@ export async function generateFeedback(
   deps: FeedbackDependencies,
   input: unknown,
 ): Promise<FeedbackOutcome> {
-  if (!deps.isConfigured()) return fail("not_configured");
+  if (!deps.isConfigured()) return feedbackFailure("not_configured");
 
   const submission = submissionSchema.safeParse(input);
-  if (!submission.success) return fail("invalid_request");
+  if (!submission.success) return feedbackFailure("invalid_request");
 
   const record = await deps.repository.getCaseRecord(submission.data.caseId);
-  if (!record) return fail("case_not_found");
+  if (!record) return feedbackFailure("case_not_found");
 
   const prepared = record.feedbackInput(submission.data.answer);
-  if (!prepared.ok) return fail("invalid_answer");
+  if (!prepared.ok) return feedbackFailure("invalid_answer");
 
   const { system, prompt } = buildFeedbackPrompt({
     rubric: prepared.rubric,
@@ -101,7 +103,7 @@ export async function generateFeedback(
     return { ok: true, feedback: data, model };
   } catch (error) {
     if (error instanceof AIError) {
-      return fail(
+      return feedbackFailure(
         error.code === "not_configured" ? "not_configured" : "ai_failed",
       );
     }

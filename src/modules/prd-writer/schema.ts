@@ -26,7 +26,10 @@ export const BUCKETS = ["v1", "later", "out"] as const;
 export const bucketSchema = z.enum(BUCKETS);
 export type Bucket = z.infer<typeof bucketSchema>;
 
-const optionIdSchema = z.string().regex(/^[a-z][a-z0-9_]*$/);
+const optionIdSchema = z
+  .string()
+  .max(60)
+  .regex(/^[a-z][a-z0-9_]*$/);
 
 const sharedShape = {
   moduleId: z.literal(PRD_WRITER_MODULE_ID),
@@ -184,7 +187,11 @@ export const prdAnswerSchema = z
       horizon: horizonSchema.nullable(),
     }),
     /** Bucket per requirement id; unassigned ones are left out. */
-    scope: z.record(z.string(), bucketSchema),
+    scope: z
+      .record(optionIdSchema, bucketSchema)
+      .refine((scope) => Object.keys(scope).length <= 10, {
+        message: "Too many requirements",
+      }),
     risks: z
       .array(
         z.object({

@@ -22,7 +22,7 @@ export const submissionSchema = z.object({
 export type Submission = z.infer<typeof submissionSchema>;
 
 export type SubmissionErrorCode =
-  "invalid_request" | "case_not_found" | "invalid_answer";
+  "invalid_request" | "case_not_found" | "invalid_answer" | "rate_limited";
 
 export type SubmissionOutcome =
   | {

@@ -120,7 +120,11 @@ export type PublicQuickCase = z.infer<typeof publicQuickCaseSchema>;
 
 export const quickAnswerSchema = z.object({
   /** Options chosen per step id, in the order picked. */
-  choices: z.record(idSchema, z.array(idSchema).max(6)),
+  choices: z
+    .record(idSchema, z.array(idSchema).max(6))
+    .refine((choices) => Object.keys(choices).length <= 4, {
+      message: "Too many steps",
+    }),
   /** Why: read by the AI coach, never scored. */
   reasoning: z.string().max(MAX_TEXT).default(""),
   writing: z.string().max(MAX_TEXT).default(""),
