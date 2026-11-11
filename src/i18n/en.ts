@@ -1683,6 +1683,74 @@ export const en = {
       sent: (email: string) => `Check ${email}: your link is on its way.`,
     },
   },
+  preview: {
+    title: "Product preview",
+    subtitle: "What customers would see, from your choices so far. Not scored.",
+    label: (company: string) => `Preview of the ${company} app`,
+    backlog: {
+      tabs: "Sprint view",
+      sprint: "Sprint",
+      release: "Release",
+      screen: "What's new in this update",
+      empty: "Add tickets to the sprint to see what users get.",
+      added: "New",
+      newBadge: "NEW",
+      fixed: "Fixed",
+      underTheHood: (count: number) =>
+        `Under the hood: ${count} improvement${count === 1 ? "" : "s"} users will not see, but will feel.`,
+      late: (count: number) =>
+        `${count} ticket${count === 1 ? "" : "s"} over capacity will not ship`,
+    },
+    prd: {
+      screen: "What's new",
+      new: "New",
+      writeProblem: "Your problem statement becomes the pitch here.",
+      inThisVersion: "In this version",
+      pickV1: "Put requirements in version 1 to see them here.",
+      comingSoon: "Coming soon",
+      tryIt: "Try it now",
+      notPlanned: (count: number) =>
+        `${count} idea${count === 1 ? "" : "s"} you ruled out stay off the screen.`,
+    },
+    quick: {
+      pricing: {
+        screen: "Your plan",
+        plan: (company: string) => `${company} plan`,
+        perMonth: "/ location / month",
+        next: (scale: string) =>
+          `Coming next: priced by ${scale.toLowerCase()}`,
+        announcement: "A change to your plan",
+        writeIt: "Your announcement appears here.",
+        cta: "Review my plan",
+      },
+      launch: {
+        store: "App Store",
+        get: "Get",
+        writeIt: "Your positioning appears here.",
+        madeFor: "Made for",
+        where: "Where people find it",
+        pick: "Decide above",
+      },
+      incident: {
+        push: "About your payment",
+        pickMessage: "Pick the message customers get.",
+        status: (company: string) =>
+          `status.${company.toLowerCase().replace(/[^a-z0-9]+/g, "")}.com`,
+        investigating: "Card payments: update",
+        writeIt: "Your status page update appears here.",
+        action: "What we did",
+      },
+      mail: {
+        app: "Mail",
+        newMessage: "New message",
+        to: "To:",
+        ceo: (company: string) => `CEO, ${company}`,
+        subject: "Subject:",
+        pick: "Make the call above.",
+        writeIt: "Your recommendation appears here.",
+      },
+    },
+  },
   learn: {
     onboarding: {
       title: "How a case works",

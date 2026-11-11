@@ -41,6 +41,7 @@ import { Input } from "@/components/ui/input";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { NativeSelect } from "@/components/ui/native-select";
 import { useMission } from "@/components/arcade/mission";
+import { PhoneFrame } from "@/components/phone/phone-frame";
 import { Panel } from "@/components/arcade/panel";
 import type { SubmissionOutcome } from "@/core/case-engine/submission";
 import type { ScoreResult } from "@/core/scoring";
@@ -81,6 +82,7 @@ import { SPRINT_ZONE_ID, SprintPanel, sprintDragId } from "./sprint-panel";
 import { SprintResult } from "./sprint-result";
 import { EffortPill, TicketTypeIcon } from "./ticket-meta";
 import { TicketRow } from "./ticket-row";
+import { ReleasePreview } from "./release-preview";
 import { TicketSheet } from "./ticket-sheet";
 
 export type SubmitAttempt = (input: unknown) => Promise<SubmissionOutcome>;
@@ -785,6 +787,17 @@ function Planner({
           }
           onRemove={(id) => dispatch({ type: "remove_from_sprint", id })}
           onClear={() => dispatch({ type: "clear_sprint" })}
+          preview={
+            <PhoneFrame
+              label={getMessages().preview.label(publicCase.company.name)}
+            >
+              <ReleasePreview
+                company={publicCase.company.name}
+                tickets={sprintTickets}
+                spilledIds={split.spilledIds}
+              />
+            </PhoneFrame>
+          }
           note={
             committed
               ? copy.events.changes(

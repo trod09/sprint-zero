@@ -8,11 +8,12 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ArrowDown, ArrowUp, GripVertical, X } from "lucide-react";
-import { Fragment } from "react";
+import { Fragment, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { getMessages } from "@/i18n";
 import { EmptyState } from "@/components/arcade/empty-state";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { PanelTitleBar } from "@/components/arcade/panel";
 import { cn } from "@/lib/utils";
 
@@ -137,6 +138,7 @@ export function SprintPanel({
   onRemove,
   onClear,
   note,
+  preview,
 }: {
   /** Sprint tickets in order. */
   tickets: readonly PublicTicket[];
@@ -148,8 +150,12 @@ export function SprintPanel({
   onClear: () => void;
   /** Extra line under the capacity bar, e.g. changes since the commit. */
   note?: string;
+  /** The release as users would see it, shown in the "Release" view. */
+  preview?: ReactNode;
 }) {
   const copy = getMessages().backlog.sprint;
+  const previewCopy = getMessages().preview.backlog;
+  const [view, setView] = useState<"sprint" | "release">("sprint");
   const { setNodeRef, isOver } = useDroppable({ id: SPRINT_ZONE_ID });
   const spilled = new Set(split.spilledIds);
   const firstSpilledIndex = tickets.findIndex((t) => spilled.has(t.id));
@@ -178,6 +184,18 @@ export function SprintPanel({
           spilledCount={split.spilledIds.length}
         />
         {note && <p className="text-muted-foreground text-xs">{note}</p>}
+        {preview && (
+          <SegmentedControl<"sprint" | "release">
+            label={previewCopy.tabs}
+            value={view}
+            onValueChange={setView}
+            className="w-full"
+            options={[
+              { value: "sprint", label: previewCopy.sprint },
+              { value: "release", label: previewCopy.release },
+            ]}
+          />
+        )}
       </div>
 
       <div
@@ -187,7 +205,9 @@ export function SprintPanel({
           isOver && "bg-brand/5",
         )}
       >
-        {tickets.length === 0 ? (
+        {view === "release" && preview ? (
+          preview
+        ) : tickets.length === 0 ? (
           <EmptyState
             size="sm"
             title={copy.emptyTitle}

@@ -7,6 +7,7 @@ import { useMission } from "@/components/arcade/mission";
 import { Panel } from "@/components/arcade/panel";
 import { StepTrack } from "@/components/arcade/step-track";
 import { OptionCard } from "@/components/option-card";
+import { ProductPreview } from "@/components/phone/product-preview";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,7 @@ import {
   type PublicPrdCase,
 } from "../schema";
 import { DocumentsPanel } from "./documents-panel";
+import { PrdPreview } from "./prd-preview";
 import { NativeSelect } from "@/components/ui/native-select";
 
 const STEPS = [
@@ -231,8 +233,18 @@ function Workspace({
   const evidenceText = new Map(publicCase.evidence.map((e) => [e.id, e.text]));
   const riskTitle = new Map(publicCase.risks.map((r) => [r.id, r.title]));
 
+  const preview = (
+    <ProductPreview company={publicCase.company.name}>
+      <PrdPreview
+        publicCase={publicCase}
+        problem={draft.problem}
+        scope={draft.scope}
+      />
+    </ProductPreview>
+  );
+
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_24rem] xl:grid-cols-[minmax(0,1fr)_22rem_19rem]">
       <div className="min-w-0 space-y-5">
         <StepTrack
           label={copy.steps.label}
@@ -627,9 +639,12 @@ function Workspace({
         </div>
       </div>
 
-      <aside className="lg:sticky lg:top-20">
+      <aside className="space-y-6 lg:sticky lg:top-20">
         <DocumentsPanel documents={publicCase.documents} />
+        <div className="xl:hidden">{preview}</div>
       </aside>
+
+      <div className="hidden xl:sticky xl:top-20 xl:block">{preview}</div>
 
       <SubmitDialog
         copy={copy.submit}

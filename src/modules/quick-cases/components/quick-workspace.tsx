@@ -6,6 +6,7 @@ import { z } from "zod";
 import { useMission } from "@/components/arcade/mission";
 import { Panel } from "@/components/arcade/panel";
 import { OptionCard } from "@/components/option-card";
+import { ProductPreview } from "@/components/phone/product-preview";
 import { InlineResult, SubmitDialog } from "@/components/submit-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,7 @@ import { timingFrom } from "@/modules/product-case/draft";
 
 import { MAX_TEXT, type PublicQuickCase, type QuickAnswer } from "../schema";
 import { Exhibits } from "./exhibits";
+import { QuickPreview } from "./quick-preview";
 
 const draftKey = (caseId: string) =>
   `sprint-zero:quick-cases-draft:v1:${caseId}`;
@@ -162,8 +164,18 @@ function Workspace({
     timing: timingFrom(draft.timerStartedAt),
   });
 
+  const preview = (
+    <ProductPreview company={publicCase.company.name}>
+      <QuickPreview
+        publicCase={publicCase}
+        choices={draft.choices}
+        writing={draft.writing}
+      />
+    </ProductPreview>
+  );
+
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] xl:grid-cols-[minmax(0,20rem)_minmax(0,1fr)_minmax(0,19rem)]">
       <div className="lg:sticky lg:top-20">
         <Exhibits exhibits={publicCase.exhibits} scroll />
       </div>
@@ -241,7 +253,10 @@ function Workspace({
             {copy.notes.coachNote}
           </p>
         </Panel>
+        <div className="xl:hidden">{preview}</div>
       </div>
+
+      <div className="hidden xl:sticky xl:top-20 xl:block">{preview}</div>
 
       <SubmitDialog
         copy={copy.submit}
