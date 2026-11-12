@@ -142,7 +142,7 @@ function TicketDetail({
             ))}
           </dl>
           {visible.impactHint && (
-            <figure className="border-brand/40 bg-muted/40 mt-3 rounded-r-lg border-l-2 px-3 py-2 text-sm">
+            <figure className="border-frame/60 bg-muted/40 mt-3 rounded-md border-2 px-3 py-2 text-sm">
               <figcaption className="text-muted-foreground text-xs">
                 {copy.claim}
               </figcaption>

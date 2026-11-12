@@ -88,8 +88,6 @@ export function HomeHero({ catalog }: { catalog: readonly CaseSummary[] }) {
         </p>
       </MascotBubble>
 
-      {attempts?.length === 0 && <HowItWorks />}
-
       <section
         aria-labelledby="jump-title"
         className="pixel-card overflow-hidden"
@@ -105,7 +103,11 @@ export function HomeHero({ catalog }: { catalog: readonly CaseSummary[] }) {
             id="jump-title"
             className="font-pixel absolute top-3 left-4 rounded-sm bg-[#0a0e1f]/70 px-2 py-0.5 text-sm tracking-wide text-[#eef1ff] uppercase"
           >
-            {copy.jumpBackIn.title}
+            {pick?.kind === "in_progress"
+              ? copy.jumpBackIn.title
+              : firstVisit
+                ? copy.jumpBackIn.titleFirst
+                : copy.jumpBackIn.titleNext}
           </h2>
           {pick && (
             <div className="absolute right-4 bottom-3 rounded-sm bg-[#0a0e1f]/70 p-1.5">
@@ -156,6 +158,8 @@ export function HomeHero({ catalog }: { catalog: readonly CaseSummary[] }) {
           )}
         </div>
       </section>
+
+      {attempts?.length === 0 && <HowItWorks />}
     </div>
   );
 }

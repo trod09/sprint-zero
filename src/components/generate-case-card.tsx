@@ -73,7 +73,7 @@ export function GenerateCaseCard({ moduleId }: { moduleId: string }) {
             ))}
           </NativeSelect>
         </div>
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" variant="outline" disabled={pending}>
           {pending ? copy.generating : copy.button}
         </Button>
       </form>

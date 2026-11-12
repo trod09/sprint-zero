@@ -93,7 +93,12 @@ export function AIFeedbackPanel({
         {(status.name === "idle" ||
           status.name === "failed" ||
           status.name === "rate_limited") && (
-          <Button type="button" onClick={request} disabled={isPending}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={request}
+            disabled={isPending}
+          >
             {isPending
               ? copy.requesting
               : status.name !== "idle"
@@ -137,7 +142,7 @@ export function AIFeedbackPanel({
                 items={status.feedback.improvements}
               />
             </div>
-            <p className="border-brand/40 bg-muted/40 rounded-r-lg border-l-2 px-3 py-2">
+            <p className="border-frame/60 bg-muted/40 rounded-md border-2 px-3 py-2">
               <span className="text-muted-foreground block text-xs">
                 {copy.principle}
               </span>

@@ -5,3 +5,8 @@ next-env.d.ts
 AGENTS.md
 MASTER_PROMPT.md
 src/modules/*/cases/*.json
+.claude
+.agents
+agent
+.impeccable
+skills-lock.json

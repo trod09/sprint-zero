@@ -158,11 +158,11 @@ export function ModuleBanner({
       {/* Keeps the text readable over bright terrain. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0a0e1f]/90 via-[#0a0e1f]/60 to-transparent"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0a0e1f]/95 via-[#0a0e1f]/75 to-[#0a0e1f]/10"
       />
       <div
         aria-hidden="true"
-        className="absolute top-1/2 right-4 -translate-y-1/2 sm:right-8"
+        className="absolute top-1/2 right-4 hidden -translate-y-1/2 sm:right-8 sm:block"
       >
         <div className="rounded-sm bg-[#0a0e1f]/60 p-2">
           <ModuleSprite moduleId={moduleId} size={size === "sm" ? 40 : 64} />
@@ -170,7 +170,7 @@ export function ModuleBanner({
       </div>
       <div
         className={cn(
-          "relative max-w-[min(36rem,calc(100%-6rem))] text-[#eef1ff] sm:max-w-[calc(100%-9rem)]",
+          "relative text-[#eef1ff] sm:max-w-[min(40rem,calc(100%-9rem))]",
           size === "sm" ? "px-4 py-4" : "px-5 py-6 sm:px-7",
         )}
       >
@@ -192,8 +192,11 @@ export function ModuleBanner({
           {title}
         </Heading>
         {subtitle && (
-          <p className="mt-2 text-sm leading-relaxed text-pretty text-[#c9cfee] [text-shadow:1px_1px_0_#000]">
-            {subtitle}
+          <p className="mt-2 text-sm leading-relaxed text-pretty text-[#dfe3fb]">
+            {/* A dark plate under each line: the terrain behind can be bright. */}
+            <span className="rounded-sm bg-[#0a0e1f]/80 box-decoration-clone px-1.5 py-0.5">
+              {subtitle}
+            </span>
           </p>
         )}
         {children && <div className="mt-3">{children}</div>}

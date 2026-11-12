@@ -1,6 +1,7 @@
 import { CalendarDays, Gauge, TriangleAlert, Users } from "lucide-react";
 
 import { CaseHeader } from "@/components/arcade/case-header";
+import { PixelIcon } from "@/components/arcade/icons";
 import { Panel } from "@/components/arcade/panel";
 import { getMessages } from "@/i18n";
 import { formatCompact, formatUsdCompact } from "@/lib/format";
@@ -83,9 +84,21 @@ export function CaseBrief({ publicCase }: { publicCase: PublicBacklogCase }) {
 
       <details className="group pixel-card">
         <summary className="hover:bg-muted/50 focus-visible:ring-ring/50 font-pixel flex cursor-pointer list-none items-center justify-between rounded-md px-4 py-3 text-sm focus-visible:ring-3 focus-visible:outline-none">
-          {copy.stakeholders}
-          <span className="text-muted-foreground text-xs">
-            {publicCase.stakeholders.length}
+          <span className="flex items-center gap-2">
+            <PixelIcon name="people" size={16} />
+            {copy.stakeholders}
+            <span className="text-muted-foreground tabular-nums">
+              {publicCase.stakeholders.length}
+            </span>
+          </span>
+          <span className="text-muted-foreground flex items-center gap-2 font-sans text-xs">
+            {copy.stakeholdersHint}
+            <span
+              aria-hidden="true"
+              className="inline-flex rotate-90 transition-transform group-open:-rotate-90"
+            >
+              <PixelIcon name="play" size={10} />
+            </span>
           </span>
         </summary>
         <ul className="grid gap-3 border-t p-4 sm:grid-cols-2 lg:grid-cols-3">

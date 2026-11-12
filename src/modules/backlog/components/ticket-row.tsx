@@ -128,7 +128,7 @@ export function TicketRow({
               {ticket.title}
             </span>
             {isNew && (
-              <span className="bg-warning/10 text-warning ml-2 rounded-md px-1.5 py-0.5 align-middle text-[0.7rem] font-medium">
+              <span className="bg-warning/10 text-warning ml-2 rounded-md px-1.5 py-0.5 align-middle text-xs font-medium">
                 {copy.ticket.newBadge}
               </span>
             )}

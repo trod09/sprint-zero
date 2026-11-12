@@ -35,7 +35,7 @@ export function Exhibits({
           key={exhibit.id}
           className="bg-background/60 border-border rounded-md border-2 p-3"
         >
-          <p className="font-pixel text-muted-foreground text-[0.625rem] tracking-widest uppercase">
+          <p className="font-pixel text-muted-foreground text-xs tracking-widest uppercase">
             {copy.exhibitNumber(index + 1)} · {exhibit.source}
           </p>
           <h3 className="mt-1 text-sm font-semibold">{exhibit.title}</h3>

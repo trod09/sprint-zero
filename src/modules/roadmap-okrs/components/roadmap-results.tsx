@@ -79,7 +79,14 @@ export function RoadmapResults({
                   .filter((k) => k.objectiveId === objective.id)
                   .sort((a, b) => b.rating - a.rating)
                   .map((keyResult) => (
-                    <li key={keyResult.id} className="py-2.5 text-sm">
+                    <li
+                      key={keyResult.id}
+                      className={cn(
+                        "py-2.5 text-sm",
+                        keyResult.picked &&
+                          "bg-primary/10 -mx-2 rounded-sm px-2",
+                      )}
+                    >
                       <div className="flex flex-wrap items-start justify-between gap-2">
                         <p className="min-w-0 flex-1 font-medium">
                           {keyResultText.get(keyResult.id)}
@@ -92,7 +99,7 @@ export function RoadmapResults({
                           )}
                           <span
                             className={cn(
-                              "font-pixel text-xs uppercase",
+                              "font-pixel rounded-sm border-2 border-current px-1.5 py-0.5 text-xs leading-none uppercase",
                               RATING_STYLE[keyResult.rating],
                             )}
                           >
@@ -132,7 +139,7 @@ export function RoadmapResults({
                       </Badge>
                       <span
                         className={cn(
-                          "font-pixel text-xs uppercase",
+                          "font-pixel rounded-sm border-2 border-current px-1.5 py-0.5 text-xs leading-none uppercase",
                           shipped
                             ? "text-success"
                             : item.status === "unscheduled"

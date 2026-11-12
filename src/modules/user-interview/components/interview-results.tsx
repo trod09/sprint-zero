@@ -57,7 +57,7 @@ export function InterviewResults({
                       )}
                       <span
                         className={cn(
-                          "font-pixel text-xs uppercase",
+                          "font-pixel rounded-sm border-2 border-current px-1.5 py-0.5 text-xs leading-none uppercase",
                           status === "found"
                             ? "text-success"
                             : status === "missed"
@@ -95,37 +95,39 @@ export function InterviewResults({
               turn.double && copy.tags.double,
             ].filter((tag): tag is string => Boolean(tag));
             return (
-              <li
-                key={index}
-                className={cn(
-                  "border-l-4 pl-3 text-sm",
-                  QUALITY_STYLE[turn.quality],
-                )}
-              >
-                <p className="font-medium">
-                  <span className="font-pixel text-ink mr-2 text-xs">
-                    {index + 1}
-                  </span>
-                  {turn.question}
-                </p>
-                <p className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                  {tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
-                    </Badge>
-                  ))}
-                  <span className="text-muted-foreground text-xs">
-                    → {copy.depth[turn.depth] ?? turn.depth}
-                    {turn.topicId &&
-                      ` (${topic.get(turn.topicId)?.label ?? turn.topicId})`}
-                  </span>
-                </p>
-                <p className="text-muted-foreground mt-1.5">“{turn.reply}”</p>
-                {turn.revealedFindingId && (
-                  <p className="text-success mt-1.5 font-medium">
-                    {copy.uncovered}: {findingText.get(turn.revealedFindingId)}
+              <li key={index} className="flex gap-3 text-sm">
+                {/* The number's frame carries the question's quality. */}
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "font-pixel flex size-7 shrink-0 items-center justify-center rounded-sm border-2 text-xs tabular-nums",
+                    QUALITY_STYLE[turn.quality],
+                  )}
+                >
+                  {index + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium">{turn.question}</p>
+                  <p className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                    {tags.map((tag) => (
+                      <Badge key={tag} variant="outline">
+                        {tag}
+                      </Badge>
+                    ))}
+                    <span className="text-muted-foreground text-xs">
+                      → {copy.depth[turn.depth] ?? turn.depth}
+                      {turn.topicId &&
+                        ` (${topic.get(turn.topicId)?.label ?? turn.topicId})`}
+                    </span>
                   </p>
-                )}
+                  <p className="text-muted-foreground mt-1.5">“{turn.reply}”</p>
+                  {turn.revealedFindingId && (
+                    <p className="text-success mt-1.5 font-medium">
+                      {copy.uncovered}:{" "}
+                      {findingText.get(turn.revealedFindingId)}
+                    </p>
+                  )}
+                </div>
               </li>
             );
           })}

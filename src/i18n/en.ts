@@ -22,11 +22,11 @@ export const en = {
     library: "Case library",
     history: "History",
     skills: "Skills",
+    main: "Main",
     toggleTheme: "Toggle light and dark theme",
     skipToContent: "Skip to content",
   },
   home: {
-    eyebrow: "The PM practice gym",
     title: "Practice product management by doing.",
     subtitle:
       "Simulations with a hidden ground truth: prioritize a messy backlog, hunt down a metric drop, call an A/B test, and see criterion by criterion why you got your score.",
@@ -68,7 +68,6 @@ export const en = {
       zone: (n: number, level: string) => `Zone ${n} · ${level}`,
       cleared: (cleared: number, total: number) =>
         `${cleared}/${total} cleared`,
-      new: "New",
       best: (score: number) => `Best ${score}/100`,
       notPlayed: "Not played yet",
       progressTitle: "Your progress",
@@ -109,6 +108,7 @@ export const en = {
       nps: "NPS",
       techDebt: "Tech debt index",
       stakeholders: "Stakeholders",
+      stakeholdersHint: "What each one wants",
       events: (count: number) =>
         count === 1
           ? "Something will happen mid-sprint. Leave yourself room to react."
@@ -1326,6 +1326,8 @@ export const en = {
     },
     jumpBackIn: {
       title: "Jump back in",
+      titleFirst: "Start here",
+      titleNext: "Up next",
       resume: "Resume",
       start: "Start",
       inProgress: "In progress",
@@ -1873,10 +1875,10 @@ export const en = {
   skillsPage: {
     title: "Your skills",
     subtitle:
-      "Your PM character sheet: an Elo-style rating per skill, built from your first attempt at each case.",
+      "Your PM character sheet: an Elo-style rating per skill, built from your first attempt at each case. Skill levels run from 0 to 100; your player level (LV) in the header comes from XP.",
     loading: "Loading your skills…",
     stats: {
-      overall: "Overall level",
+      overall: "Average skill level",
       skills: "Skills trained",
       cases: "Cases counted",
     },
@@ -1893,7 +1895,7 @@ export const en = {
     radarLabel: "Level per skill, from 0 to 100",
     radarEmpty: "Everyone starts at level 25. Your shape appears as you play.",
     level: "Level",
-    levelShort: "LV",
+    levelShort: "/100",
     levelOf: (level: number) => `Level ${level} of 100`,
     rating: "Rating",
     delta: (change: number) => `${change > 0 ? "+" : ""}${change} last case`,

@@ -94,7 +94,7 @@ export function NextSteps({
         {copy.title}
       </h2>
       <ul className="mt-4 grid gap-4 md:grid-cols-3">
-        {shown.map((item, index) => (
+        {shown.map((item) => (
           <li
             key={item.key}
             className="bg-muted/40 flex flex-col gap-2 rounded-md border-2 p-4"
@@ -104,12 +104,7 @@ export function NextSteps({
               <h3 className="font-pixel text-sm">{item.title}</h3>
             </div>
             <p className="text-muted-foreground flex-1 text-sm">{item.body}</p>
-            <Button
-              asChild
-              size="sm"
-              variant={index === 0 ? "default" : "outline"}
-              className="self-start"
-            >
+            <Button asChild size="sm" variant="outline" className="self-start">
               <Link href={item.href}>{item.cta}</Link>
             </Button>
           </li>

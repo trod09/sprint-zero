@@ -153,7 +153,7 @@ export function Timeline({
                     <>
                       <span className="truncate">{name}</span>
                       {item.status !== "ok" && (
-                        <span className="font-pixel ml-auto shrink-0 text-[0.625rem] uppercase">
+                        <span className="font-pixel ml-auto shrink-0 text-xs uppercase">
                           {copy.statusShort[item.status]}
                         </span>
                       )}

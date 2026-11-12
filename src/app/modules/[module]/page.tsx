@@ -97,7 +97,13 @@ async function ModuleContent({
       >
         <div className="flex flex-wrap items-center gap-2">
           {meta.skills.map((skill) => (
-            <Badge key={skill}>{messages.skills[skill]}</Badge>
+            <Badge
+              key={skill}
+              variant="secondary"
+              className="border-[#5f6db0] bg-[#1a2142] text-[#eef1ff]"
+            >
+              {messages.skills[skill]}
+            </Badge>
           ))}
           {meta.estimatedMinutes !== undefined && (
             <Badge
@@ -119,10 +125,6 @@ async function ModuleContent({
         )}
       </div>
 
-      {moduleRegistry.get(meta.id)?.canGenerate && (
-        <GenerateCaseCard moduleId={meta.id} />
-      )}
-
       <section aria-labelledby="cases-title" className="space-y-4">
         <h2 id="cases-title" className="font-pixel text-2xl">
           {messages.module.levels.title}
@@ -137,6 +139,10 @@ async function ModuleContent({
           <WorldLevels cases={cases} />
         )}
       </section>
+
+      {moduleRegistry.get(meta.id)?.canGenerate && (
+        <GenerateCaseCard moduleId={meta.id} />
+      )}
     </div>
   );
 }

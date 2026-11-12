@@ -182,7 +182,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
     {
       icon: "level" as const,
       label: copy.stats.overall,
-      value: overall === null ? "–" : String(overall),
+      value: overall === null ? "–" : `${overall}/100`,
     },
     {
       icon: "check" as const,
@@ -332,7 +332,7 @@ export function SkillsDashboard({ cases }: { cases: CaseSummary[] }) {
               {[...RANKS].reverse().map((rank) => (
                 <li
                   key={rank.key}
-                  className="font-pixel border-frame bg-background/60 rounded-sm border-2 px-1.5 py-0.5 text-[0.625rem] tracking-wider uppercase"
+                  className="font-pixel border-frame bg-background/60 rounded-sm border-2 px-1.5 py-0.5 text-xs tracking-wider uppercase"
                 >
                   {copy.ranks[rank.key]} {rank.min}+
                 </li>
@@ -473,9 +473,7 @@ function SkillCard({
     <li
       className={cn(
         "flex flex-col gap-4 rounded-md border-2 p-4 sm:flex-row sm:items-center",
-        practiced
-          ? "pixel-card"
-          : "border-border bg-background/60 border-dashed",
+        practiced ? "pixel-card" : "border-border bg-card",
       )}
     >
       <div className="flex min-w-0 flex-1 items-start gap-4">
@@ -498,7 +496,7 @@ function SkillCard({
             </h3>
             <p className="font-pixel text-2xl leading-none tabular-nums">
               {practiced ? level : "–"}
-              <span className="text-muted-foreground ml-1 text-xs">
+              <span className="text-muted-foreground ml-0.5 text-xs">
                 {copy.levelShort}
               </span>
             </p>
@@ -563,7 +561,7 @@ function SkillCard({
         <Button
           asChild
           size="sm"
-          variant={practiced ? "outline" : "default"}
+          variant="outline"
           className="ml-16 self-start sm:ml-0 sm:self-center"
         >
           <Link href={`/case/${recommendation.caseId}`}>

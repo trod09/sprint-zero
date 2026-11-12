@@ -292,6 +292,16 @@
   }
   html {
     @apply font-sans;
+    scrollbar-color: var(--frame) var(--background);
+  }
+  /* The parts the browser draws still belong to the game. */
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  input,
+  textarea {
+    caret-color: var(--ink);
   }
   :focus-visible {
     outline-color: var(--ring);

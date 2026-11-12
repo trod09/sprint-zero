@@ -44,9 +44,7 @@ export function DailyCaseCard({
   if (!view) {
     return (
       <section className="pixel-card min-h-28 p-5" aria-busy="true">
-        <p className="font-pixel text-ink text-xs tracking-widest uppercase">
-          {copy.title}
-        </p>
+        <p className="font-pixel text-lg">{copy.title}</p>
       </section>
     );
   }
@@ -56,33 +54,33 @@ export function DailyCaseCard({
   return (
     <section aria-labelledby="daily-title" className="pixel-card p-5">
       <div className="flex items-start gap-4">
-        <div className="rounded-sm bg-[#0a0e1f] p-2">
-          <ModuleSprite moduleId={daily.moduleId} size={40} />
+        <div className="shrink-0 rounded-sm bg-[#0a0e1f] p-2">
+          <ModuleSprite moduleId={daily.moduleId} size={32} />
         </div>
         <div className="min-w-0 flex-1 space-y-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2
-              id="daily-title"
-              className="font-pixel text-ink text-xs tracking-widest uppercase"
-            >
-              {copy.title} {copy.number(daily.number)}
-            </h2>
-            {streak > 0 && (
-              <Badge variant="secondary">
-                <PixelIcon name="streak" size={12} />
-                {copy.streak(streak)}
-              </Badge>
-            )}
-          </div>
-          <p className="font-pixel text-lg leading-tight">
-            {meta?.name ?? daily.moduleId}
+          <h2 id="daily-title" className="font-pixel text-lg leading-tight">
+            {copy.title}{" "}
+            <span className="text-muted-foreground tabular-nums">
+              {copy.number(daily.number)}
+            </span>
+          </h2>
+          <p className="text-sm">
+            <span className="font-medium">{meta?.name ?? daily.moduleId}</span>
+            <span className="text-muted-foreground">
+              {" "}
+              · {messages.generate.industries[daily.industry]} ·{" "}
+              {messages.difficulty[daily.difficulty]}
+            </span>
           </p>
-          <p className="text-muted-foreground text-sm">
-            {messages.generate.industries[daily.industry]} ·{" "}
-            {messages.difficulty[daily.difficulty]} · {copy.intro}
-          </p>
+          <p className="text-muted-foreground text-sm">{copy.intro}</p>
+          {streak > 0 && (
+            <Badge variant="secondary">
+              <PixelIcon name="streak" size={12} />
+              {copy.streak(streak)}
+            </Badge>
+          )}
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Button asChild variant={score === null ? "default" : "outline"}>
+            <Button asChild variant="outline">
               <Link href={`/case/${daily.caseId}`}>
                 {score === null ? copy.play : copy.replay}
                 <PixelIcon name="play" size={14} />

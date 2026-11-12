@@ -8,7 +8,7 @@ import { Slot } from "radix-ui";
  * that sinks it. Ghost and link stay flat for dense lists.
  */
 const buttonVariants = cva(
-  "group/button relative inline-flex shrink-0 items-center justify-center rounded-md border-2 border-frame font-pixel text-sm font-medium tracking-wide whitespace-nowrap shadow-[0_3px_0_0_var(--shadow-color)] transition-[transform,box-shadow,background-color] duration-100 outline-none select-none hover:-translate-y-px hover:shadow-[0_4px_0_0_var(--shadow-color)] focus-visible:ring-3 focus-visible:ring-ring/60 active:not-aria-[haspopup]:translate-y-[2px] active:not-aria-[haspopup]:shadow-[0_1px_0_0_var(--shadow-color)] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button relative inline-flex shrink-0 items-center justify-center rounded-md border-2 border-frame font-pixel text-sm font-medium tracking-wide whitespace-nowrap shadow-[0_3px_0_0_var(--shadow-color)] transition-[transform,box-shadow,background-color] duration-100 outline-none select-none hover:-translate-y-px hover:shadow-[0_4px_0_0_var(--shadow-color)] focus-visible:ring-3 focus-visible:ring-ring/60 active:not-aria-[haspopup]:translate-y-[2px] active:not-aria-[haspopup]:shadow-[0_1px_0_0_var(--shadow-color)] disabled:pointer-events-none disabled:border-dashed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {

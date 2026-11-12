@@ -263,7 +263,7 @@ function Workspace({
               <div className="flex items-start gap-2">
                 <PixelAvatar id={avatar} size={32} />
                 <p className={cn(bubble, "bg-card")}>
-                  <span className="font-pixel text-ink block text-[0.6875rem]">
+                  <span className="font-pixel text-ink block text-xs">
                     {firstName}
                   </span>
                   {turn.reply}

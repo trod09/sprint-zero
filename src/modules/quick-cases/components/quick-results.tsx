@@ -58,7 +58,14 @@ export function QuickResults({
             <p className="font-medium">{step.question}</p>
             <ul className="mt-2 divide-y">
               {options.map((option) => (
-                <li key={option.id} className="py-2.5 text-sm">
+                <li
+                  key={option.id}
+                  className={cn(
+                    "py-2.5 text-sm",
+                    // The learner's own picks stand out from the options they skipped.
+                    option.picked && "bg-primary/10 -mx-2 rounded-sm px-2",
+                  )}
+                >
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <p className="min-w-0 flex-1 font-medium">
                       {text.get(option.id)}
@@ -69,7 +76,7 @@ export function QuickResults({
                       )}
                       <span
                         className={cn(
-                          "font-pixel text-xs uppercase",
+                          "font-pixel rounded-sm border-2 border-current px-1.5 py-0.5 text-xs leading-none uppercase",
                           RATING_STYLE[option.rating],
                         )}
                       >

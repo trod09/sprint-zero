@@ -29,27 +29,27 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6">
-      <section className="pt-10 pb-4">
-        <p className="font-pixel text-ink text-xs tracking-widest uppercase">
-          {messages.home.eyebrow}
-        </p>
-        <h1 className="font-pixel mt-2 max-w-3xl text-3xl leading-tight text-balance sm:text-4xl">
+      <section className="pt-10 pb-6">
+        <h1 className="font-pixel max-w-3xl text-4xl leading-tight text-balance sm:text-5xl">
           {messages.home.title}
         </h1>
+        <p className="text-muted-foreground mt-3 max-w-2xl text-base leading-relaxed text-pretty">
+          {messages.home.subtitle}
+        </p>
       </section>
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <HomeHero catalog={summaries} />
         <div className="space-y-6">
-          <HomeHero catalog={summaries} />
+          <PlayerPanel catalog={catalog} />
           <DailyCaseCard moduleIds={generating} />
         </div>
-        <PlayerPanel catalog={catalog} className="lg:sticky lg:top-20" />
       </div>
 
       <section
         id="modules"
         aria-labelledby="worlds-title"
-        className="scroll-mt-20 pt-14"
+        className="scroll-mt-28 pt-14 md:scroll-mt-20"
       >
         <h2 id="worlds-title" className="font-pixel text-2xl">
           {copy.worlds.title}

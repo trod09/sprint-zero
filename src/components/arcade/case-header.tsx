@@ -7,6 +7,7 @@ import type { PublicBaseCase } from "@/core/case-engine";
 import { getMessages } from "@/i18n";
 import { getModuleMeta } from "@/modules/catalog";
 
+import { moduleColor } from "./icons";
 import { LastAttemptHint } from "./last-attempt-hint";
 import { MascotBubble } from "./mascot-bubble";
 import { ModuleBanner } from "./module-banner";
@@ -37,7 +38,6 @@ export function CaseHeader({
     <div className="space-y-4">
       <ModuleBanner
         moduleId={publicCase.moduleId}
-        eyebrow={meta?.name}
         title={publicCase.title}
         headingId="case-title"
         subtitle={
@@ -48,7 +48,21 @@ export function CaseHeader({
         }
       >
         <div className="flex flex-wrap gap-2">
-          <Badge>{messages.difficulty[publicCase.difficulty]}</Badge>
+          {meta && (
+            <Badge
+              variant="outline"
+              className="bg-[#0a0e1f]/80 text-[#eef1ff]"
+              style={{ borderColor: moduleColor(publicCase.moduleId) }}
+            >
+              {meta.name}
+            </Badge>
+          )}
+          <Badge
+            variant="secondary"
+            className="border-[#5f6db0] bg-[#1a2142] text-[#eef1ff]"
+          >
+            {messages.difficulty[publicCase.difficulty]}
+          </Badge>
           {tag && (
             <Badge
               variant="outline"

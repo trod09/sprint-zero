@@ -247,7 +247,7 @@ function Section({
       title={title}
       bodyClassName="space-y-4"
     >
-      <div className="border-primary/40 bg-primary/5 rounded-md border-l-2 px-3 py-2">
+      <div className="border-primary/50 bg-primary/5 rounded-md border-2 px-3 py-2">
         <p className="text-xs font-medium tracking-wide uppercase">
           {copy.ideal}
         </p>

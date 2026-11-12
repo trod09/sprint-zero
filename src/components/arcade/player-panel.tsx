@@ -109,7 +109,7 @@ export function PlayerPanel({
             key={stat.label}
             className="bg-muted border-frame rounded-sm border-2 px-1 py-2"
           >
-            <dt className="text-muted-foreground flex items-center justify-center gap-1 text-[11px]">
+            <dt className="text-muted-foreground flex items-center justify-center gap-1 text-xs">
               <PixelIcon
                 name={stat.icon}
                 size={14}
