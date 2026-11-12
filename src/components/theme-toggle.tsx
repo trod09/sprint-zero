@@ -6,7 +6,13 @@ import { PixelIcon } from "@/components/arcade/icons";
 import { Button } from "@/components/ui/button";
 import { applyTheme, resolveTheme, storeTheme } from "@/lib/theme";
 
-export function ThemeToggle({ label }: { label: string }) {
+export function ThemeToggle({
+  label,
+  className,
+}: {
+  label: string;
+  className?: string;
+}) {
   // The inline script in <head> sets the theme before paint. In development,
   // Strict Mode remounts and resets <html> attributes, so re-apply it here.
   useLayoutEffect(() => {
@@ -24,6 +30,7 @@ export function ThemeToggle({ label }: { label: string }) {
     <Button
       variant="ghost"
       size="icon"
+      className={className}
       onClick={toggle}
       aria-label={label}
       title={label}

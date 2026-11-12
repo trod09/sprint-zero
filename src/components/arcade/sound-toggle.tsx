@@ -7,7 +7,7 @@ import { playSfx, setSoundOn, useSoundOn } from "@/lib/sfx";
 import { PixelIcon } from "./icons";
 
 /** Sound effects are off until the player turns them on. */
-export function SoundToggle() {
+export function SoundToggle({ className }: { className?: string }) {
   const copy = getMessages().arcade.sound;
   const on = useSoundOn();
   const label = on ? copy.on : copy.off;
@@ -15,6 +15,7 @@ export function SoundToggle() {
     <Button
       variant="ghost"
       size="icon"
+      className={className}
       aria-pressed={on}
       aria-label={copy.on}
       title={label}

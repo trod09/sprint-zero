@@ -168,19 +168,27 @@ export function HeaderPlayer() {
   const [avatar] = useAvatar();
   if (!progress) return null;
   return (
-    <div className="hidden items-center gap-2 sm:flex" aria-live="off">
-      <PixelAvatar id={avatar} size={24} />
-      <span className="font-pixel text-ink text-xs">
-        {copy.level(progress.level.level)}
+    <div
+      className="border-frame bg-card hidden h-9 items-center gap-2 rounded-md border-2 pr-2.5 pl-0.5 sm:flex"
+      title={copy.xpProgress(progress.level.into, progress.level.needed)}
+      aria-live="off"
+    >
+      <span className="rounded-sm bg-[#0a0e1f] p-0.5">
+        <PixelAvatar id={avatar} size={24} />
       </span>
-      <XPBar
-        level={progress.level.level}
-        value={progress.level.into}
-        max={progress.level.needed}
-        size="sm"
-        showLabel={false}
-        className="w-20"
-      />
+      <div className="flex flex-col gap-1">
+        <span className="font-pixel text-ink text-xs leading-none">
+          {copy.level(progress.level.level)}
+        </span>
+        <XPBar
+          level={progress.level.level}
+          value={progress.level.into}
+          max={progress.level.needed}
+          size="sm"
+          showLabel={false}
+          className="w-16"
+        />
+      </div>
     </div>
   );
 }

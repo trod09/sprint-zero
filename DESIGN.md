@@ -317,8 +317,10 @@ Tactile like cabinet buttons: framed, sitting on a ledge, and sinking when press
 
 ### Navigation
 
-- **Style:** a sticky header with the mascot and app name in pixel type, then pixel-font links in Instrument Haze that turn Starlight on a Console Slate fill on hover. Sign-in is a framed link on the right from `sm` up.
-- **Mobile:** the link row scrolls sideways inside the header; the app name collapses to the mascot.
+- **Style:** a sticky 64px header on a 2px frame line: the mascot and app name in pixel type, then the four sections, each a pixel-font link with its page's pixel icon (flag, star, level, clock) in Instrument Haze.
+- **Current section:** the link turns Starlight, its icon takes the ink colour, and a 3px Start Button Gold bar rests on the header's bottom frame like a selected tab (`aria-current="page"`; in light the bar gets a 1px frame edge). Hover previews the bar in the frame colour.
+- **Right side:** the player chip (framed: avatar on a night plate, LV in ink, a mini XP bar; XP in its tooltip), the console (sound and theme as one framed pair of icon buttons with a divider) and Sign in as an outline button.
+- **Mobile:** two rows: brand and controls on top, the four sections spread across a second row with the same lit-tab treatment. The player chip appears from `sm`.
 
 ### Segmented Control
 

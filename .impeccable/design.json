@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-12T10:55:09+00:00",
+  "generatedAt": "2026-11-12T14:15:13+00:00",
   "title": "Design System: Sprint Zero",
   "extensions": {
     "colorMeta": {
@@ -687,9 +687,9 @@
       "name": "Site Navigation",
       "kind": "nav",
       "refersTo": "nav-link",
-      "description": "Pixel-font links in Instrument Haze that light up on a slate fill.",
-      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link\">Modules</a><a href=\"#\" class=\"ds-nav-link\">Case library</a><a href=\"#\" class=\"ds-nav-link\">Skills</a><a href=\"#\" class=\"ds-nav-link\">History</a></nav>",
-      "css": ".ds-nav { display:flex; gap:2px; padding:8px 12px; border-bottom:2px solid var(--frame, #5f6db0); background:var(--background, #0a0e1f); } .ds-nav-link { padding:4px 8px; border-radius:2px; text-decoration:none; color:var(--muted-foreground, #a3acd1); font-family: var(--font-jersey, 'Jersey 10'), monospace; font-size-adjust: cap-height 0.63; font-weight: 400; letter-spacing: 0.025em; font-size:14px; transition: color 150ms, background-color 150ms; } .ds-nav-link:hover { color:var(--foreground, #eef1ff); background:var(--muted, #1a2142); } .ds-nav-link:focus-visible { outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--ring, #ffd23f) 60%, transparent); }"
+      "description": "Pixel-font sections with their icons; the current one is lit with a gold bar resting on the header frame.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link\">Modules</a><a href=\"#\" class=\"ds-nav-link\" aria-current=\"page\">Case library</a><a href=\"#\" class=\"ds-nav-link\">Skills</a><a href=\"#\" class=\"ds-nav-link\">History</a></nav>",
+      "css": ".ds-nav { display:flex; height:64px; gap:4px; padding:0 12px; border-bottom:2px solid var(--frame, #5f6db0); background:var(--background, #0a0e1f); } .ds-nav-link { position:relative; display:flex; align-items:center; padding:0 12px; text-decoration:none; color:var(--muted-foreground, #a3acd1); font-family: var(--font-jersey, 'Jersey 10'), monospace; font-size-adjust: cap-height 0.63; font-size:14px; transition: color 150ms; } .ds-nav-link::after { content:''; position:absolute; left:4px; right:4px; bottom:-2px; height:3px; background:transparent; transition: background-color 150ms; } .ds-nav-link:hover { color:var(--foreground, #eef1ff); } .ds-nav-link:hover::after { background:var(--frame, #5f6db0); } .ds-nav-link[aria-current='page'] { color:var(--foreground, #eef1ff); } .ds-nav-link[aria-current='page']::after { background:var(--primary, #ffd23f); } .ds-nav-link:focus-visible { outline:none; box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--ring, #ffd23f) 60%, transparent); }"
     }
   ],
   "narrative": {
